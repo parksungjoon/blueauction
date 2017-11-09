@@ -23,6 +23,10 @@ public class Product {
 	public Product(int category_id, String seller, String usingtime, int price,  String deliverytype) {
 		this(0, category_id, seller, null, usingtime, null, price, deliverytype, null, null, null, null, 0, null);
 	}
+	
+	public Product(int category_id, String seller, String usingtime, int price,  String deliverytype, String auction_flag, String auctionstart, String auctionend, int basicprice, String auctionstate) {
+		this(0, category_id, seller, null, usingtime, null, price, deliverytype, null, auction_flag, auctionstart, auctionend, basicprice, auctionstate);
+	}
 
 	public Product(int product_id, int category_id, String seller, String salemotive, String usingtime,
 			String productinfo, int price, String deliverytype, String regdate, String auction_flag,
