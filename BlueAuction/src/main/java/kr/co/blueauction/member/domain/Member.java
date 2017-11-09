@@ -19,6 +19,12 @@ public class Member {
 	
 	public Member() {
 	}
+	
+	public Member(String passwd, String name, String zipcode, String baseaddress,
+			String detailaddress, String email, String accountNumber,
+			String bank) {
+		this(null, passwd, name, zipcode, baseaddress, detailaddress, email, null, null, accountNumber, bank, null);
+	}
 
 	public Member(String member_id, String passwd, String name, String zipcode, String baseaddress,
 			String detailaddress, String email, String sessionid, String sessionlimit, String accountNumber,

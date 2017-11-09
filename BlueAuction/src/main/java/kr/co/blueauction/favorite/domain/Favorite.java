@@ -9,6 +9,10 @@ public class Favorite {
 	
 	public Favorite() {
 	}
+	
+	public Favorite(String member_id, int product_id) {
+		this(0, member_id, product_id, null);
+	}
 
 	public Favorite(int favorite_id, String member_id, int product_id, String regdate) {
 		
