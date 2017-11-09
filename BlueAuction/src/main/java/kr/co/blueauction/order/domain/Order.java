@@ -25,6 +25,10 @@ public class Order {
 		this.price = price;
 		this.paystate = paystate;
 	}
+	
+	public Order(String member_id, int product_id, String dstate, String price) {
+		this(0,member_id,product_id,null,dstate,null,price,null);
+	}
 
 	public int getOrder_id() {
 		return order_id;
