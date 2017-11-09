@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
   <head>
@@ -34,8 +33,9 @@
       <jsp:include page="/WEB-INF/views/include/header.jsp" />
       <%-- page Header END --%>
       
-      <%-- 주요 메인 화면 넣어주세요~~ --%>
+      
       <div class="container ">
+      <%-- 여기 추가해주세요~~  --%>
       </div>
       
       <%-- Page Footer--%>

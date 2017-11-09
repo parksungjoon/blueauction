@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang=ko">
   <head>
@@ -57,7 +56,7 @@
             <div class="cell-lg-9">
             
               <div class="range range-70 text-left">
-              <%-- ¿©±â¿¡ ÀÚ±â ºÎºÐ ³Ö¾îÁÖ¼¼¿ä ~~ --%>
+              <%-- ì—¬ê¸°ì— ìžê¸° ë¶€ë¶„ ë„£ì–´ì£¼ì„¸ìš” --%>
               </div>
               
               	<a class="button-blog button button-default-outline" href="#">load more products</a>
