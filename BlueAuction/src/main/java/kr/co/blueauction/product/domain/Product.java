@@ -8,7 +8,7 @@ public class Product {
 	private String salemotive;
 	private String usingtime;
 	private String productinfo;
-	private String price;
+	private int price;
 	private String deliverytype;
 	private String regdate;
 	private String auction_flag;
@@ -19,11 +19,14 @@ public class Product {
 	
 	public Product() {
 	}
+	
+	public Product(int category_id, String seller, String usingtime, int price,  String deliverytype) {
+		this(0, category_id, seller, null, usingtime, null, price, deliverytype, null, null, null, null, 0, null);
+	}
 
 	public Product(int product_id, int category_id, String seller, String salemotive, String usingtime,
-			String productinfo, String price, String deliverytype, String regdate, String auction_flag,
+			String productinfo, int price, String deliverytype, String regdate, String auction_flag,
 			String auctionstart, String auctionend, int basicprice, String auctionstate) {
-		super();
 		this.product_id = product_id;
 		this.category_id = category_id;
 		this.seller = seller;
@@ -88,11 +91,11 @@ public class Product {
 		this.productinfo = productinfo;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
