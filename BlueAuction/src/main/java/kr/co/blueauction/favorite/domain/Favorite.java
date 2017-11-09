@@ -8,16 +8,20 @@ public class Favorite {
 	private String regdate;
 	
 	public Favorite() {
+	}
 	
+	public Favorite(String member_id, int product_id) {
+		this(0, member_id, product_id, null);
 	}
 
 	public Favorite(int favorite_id, String member_id, int product_id, String regdate) {
-		super();
+		
 		this.favorite_id = favorite_id;
 		this.member_id = member_id;
 		this.product_id = product_id;
 		this.regdate = regdate;
 	}
+
 
 	public int getFavorite_id() {
 		return favorite_id;

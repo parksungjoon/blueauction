@@ -7,12 +7,13 @@ public class Reply {
 	private String content;
 	private String regdate;
 	
-	public Reply() {
-		
+	public Reply() {}
+	
+	public Reply(String member_id, int product_id, String content) {
+		this(0, member_id, product_id, content, null);
 	}
 
 	public Reply(int reply_id, String member_id, int product_id, String content, String regdate) {
-		super();
 		this.reply_id = reply_id;
 		this.member_id = member_id;
 		this.product_id = product_id;
