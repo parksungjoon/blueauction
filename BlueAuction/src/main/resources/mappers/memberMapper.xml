@@ -12,5 +12,22 @@
 	<insert id="insertMember" parameterType="kr.co.blueauction.member.domain.Member">
 		insert into tbl_member(userid, userpw, username, email) values(#{userid}, #{userpw}, #{username}, #{email})
 	</insert>
+	
+	<select id="login" resultType="kr.co.blueauction.member.domain.Member">
+		select member_id, passwd, name
+		from member 
+		where member_id=#{member_id} and passwd=#{passwd}
+	</select>
+	
+	<select id="keepLogin">
+	update member set sessionId=#{sessionId}, sessionLimit=#{next} where member_id=#{member_id}
+	
+	</select>
+	
+	<select id="checkUserWithSessionKey" resultType="kr.co.blueauction.member.domain.Member">
+		select * from member where sessionId=#{sessionId} and sessionlimit > now()
+	
+	</select>
+	
 
 </mapper>
