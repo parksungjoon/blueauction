@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html class="wide wow-animation" lang=ko">
+<html class="wide wow-animation" lang="en">
   <head>
     <%-- Site Title--%>
     <title>Home</title>
@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <link rel="icon" href="resources/images/favicon.ico" type="image/x-icon">
+    
     <%-- Stylesheets --%>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald:200,400%7CLato:300,400,300italic,700%7CMontserrat:900">
     <link rel="stylesheet" href="resources/css/bootstrap.css">
@@ -20,6 +21,7 @@
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%> 
+		
   </head>
   
   <body>
@@ -80,9 +82,9 @@
     <%-- Global Mailform Output--%>
     <div class="snackbars" id="form-output-global"></div>
     
-    <%-- Javascript--%>
-    <script src="resources/js/core.min.js"/>
-    <script src="resources/js/script.js"/>
+  	<%-- Javascript--%>
+    <script src="resources/js/core.min.js"></script>
+    <script src="resources/js/script.js"></script>
     
   </body>
 </html>
