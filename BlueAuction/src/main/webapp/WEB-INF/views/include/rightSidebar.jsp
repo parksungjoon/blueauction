@@ -1,4 +1,4 @@
-<div class="cell-lg-3 shop-aside text-left">
+<div class="cell-lg-3 shop-aside text-left jjh-asideLocation">
 	<div class="shop-aside-item">
 		<h6>subjects</h6>
 		<ul class="list-marked list-marked-secondary">

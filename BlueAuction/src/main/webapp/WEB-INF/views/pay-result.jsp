@@ -147,11 +147,11 @@
             
             <%-- Page 상단 로고 시작--%>
             <div class="rd-navbar-inner">
-              <!-- RD Navbar Panel-->
+              <%-- RD Navbar Panel--%>
               <div class="rd-navbar-panel">
-                <!-- RD Navbar Toggle-->
+                <%-- RD Navbar Panel--%>
                 <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                <!-- RD Navbar Brand-->
+                <%-- RD Navbar Brand--%>
                 <div class="rd-navbar-brand"><a class="brand-name" href="index.html"><img class="logo-default" src="resources/images/logo-default-173x55.png" alt="" width="173" height="55"/><img class="logo-inverse" src="resources/images/logo-inverse-173x55.png" alt="" width="173" height="55"/></a></div>
               </div>
             </div>
@@ -199,7 +199,7 @@
         </div>
       </section>
     </div>
-      <%-- PANEL--%>
+    <%-- PANEL--%>
     <%-- END PANEL--%>
     <%-- Global Mailform Output--%>
     <div class="snackbars" id="form-output-global"></div>
