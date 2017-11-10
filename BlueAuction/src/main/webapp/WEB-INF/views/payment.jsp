@@ -74,29 +74,15 @@
                         <table class="table-custom">
                           <tbody>
                             <tr>
-                              <td>Product</td>
+                              <td><strong class="jjh-proInfo">Product</strong></td>
                               <td>따듯한 롱패딩<%--주문하고자 하는 상품 이름 --%></td>
                             </tr>
                             <tr>
-                              <td>Price</td>
+                              <td><strong class="jjh-proInfo">Price</strong></td>
                               <td>$58.00</td>
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                      <div class="form-wrap">
-                        <ul class="radio-group">
-                          <li>
-                            <label class="radio-inline">
-                              <input type="radio" name="radio-group" checked>택배로 배송
-                            </label>
-                          </li>
-                          <li>
-                            <label class="radio-inline">
-                              <input type="radio" name="radio-group">직접거래<%--직접거래 선택하면 주소창 삭제 --%>
-                            </label>
-                          </li>
-                        </ul>
                       </div>
                     </div>
                       <div class="range range-20">
