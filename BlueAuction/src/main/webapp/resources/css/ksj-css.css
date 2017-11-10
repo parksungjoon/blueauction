@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+div.detail dl.nv3{
+	width:80%;
+	/* border-bottom:1px solid #D0D0D0; */
+	display:table;
+}
+div.detail dl.nv3{
+	position:relative;
+}
+
+/* 현재가 */
+dl.nv3.present{
+	padding:4px 0 1px !important;
+}
+.nv3.present .present_price{
+	float:left;
+	font-family:Tahoma;
+	font-size:10px;
+	font-weight:bold;
+	color:#eb000a;
+}
+.nv3.present .present_price .present_num{
+	font-family:Tahoma;
+	font-size:20px;
+	font-weight:bold;
+	color:#eb000a
+}
+
+.nv3.present .auction_time{
+	font-family:Tahoma;
+	font-size:15px;
+	font-weight:bold;
+}
+
+div.detail dl.nv3 dd.redprice{
+	width:80%;
+	clear:both;
+}
+
+div.detail dl.nv3 dt.redprice{display:inline-block;width:100px;height:auto;margin:0;padding:8px 0 6px;overflow:hidden;}
+div.detail dl.nv3 dd.redprice{display:inline-block;width:271px;height:auto;margin:0;padding:8px 0 6px;overflow:hidden;}
+div.detail dl.nv3 dd.redprice div.preview.btn-cu{float:left;margin:3px 0 0 5px !important;}
+div.detail dl.nv3 dd.redprice div.flash{float:left;}
+div.detail dl.nv3 dd.redprice div.point{float:left;margin:4px 0 0 10px;padding-left:10px;background:url(//pics.auction.co.kr/itempage/titlev3_ulline.gif) no-repeat 0 40%;text-align: right;}
+div.detail dl.nv3 dd.redprice div.preview{float:left;margin:2px 0 0 5px;}
+div.detail dl.nv3 dd.redprice div.count{width:80%;clear:both;padding-top:3px;}
+
+	
