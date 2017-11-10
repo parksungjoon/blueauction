@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html class="wide wow-animation" lang="en">
+<html class="wide wow-animation" lang="ko">
   <head>
     <%-- Site Title--%>
     <title>Home</title>
@@ -27,9 +27,10 @@
     <%-- Page preloader 시작--%>
     <jsp:include page="/WEB-INF/views/include/pageloader.jsp"/>
     
-    <!-- Page-->
+    <%--Page 시작 --%>
     <div class="page">
-      <!-- Page Header-->
+    
+      <%-- Page Header 시작--%>
       <header class="section page-header bg-gray-darker breadcrumbs-custom-wrap">  
         <!-- RD Navbar-->
         <div class="rd-navbar-wrap rd-navbar-shop-header">
@@ -101,7 +102,7 @@
                   <li class="active"><a href="#">Pages</a>
                     <!-- RD Navbar Megamenu-->
                     <ul class="rd-navbar-megamenu rd-navbar-megamenu-banner">
-                      <li><img src="images/accordions-1-570x600.jpg" alt="" width="570" height="600"/>
+                      <li><img src="resources/images/accordions-1-570x600.jpg" alt="" width="570" height="600"/>
                       </li>
                       <li>
                         <ul class="rd-megamenu-list">
@@ -144,27 +145,31 @@
               </div>
             </div>
             
+            <%-- Page 상단 로고 시작--%>
             <div class="rd-navbar-inner">
               <!-- RD Navbar Panel-->
               <div class="rd-navbar-panel">
                 <!-- RD Navbar Toggle-->
                 <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand"><a class="brand-name" href="index.html"><img class="logo-default" src="images/logo-default-173x55.png" alt="" width="173" height="55"/><img class="logo-inverse" src="images/logo-inverse-173x55.png" alt="" width="173" height="55"/></a></div>
+                <div class="rd-navbar-brand"><a class="brand-name" href="index.html"><img class="logo-default" src="resources/images/logo-default-173x55.png" alt="" width="173" height="55"/><img class="logo-inverse" src="resources/images/logo-inverse-173x55.png" alt="" width="173" height="55"/></a></div>
               </div>
             </div>
+            <%-- Page 상단 로고 종료--%>
+            
           </nav>
         </div>
       </header>
+      <%-- Page Header 종료--%>
       
-      <!-- ë³¸ë¬¸ ìì -->
-      <section class="section fullwidth-page bg-image" style="background-image: url(images/bg-02.jpg);">
+      <%--본문 시작--%>
+      <section class="section fullwidth-page bg-image" style="background-image: url(resources/images/bg-02.jpg);">
         <div class="fullwidth-page-inner">
           <div class="section-md text-center">
             <div class="shell-wide">
               <!-- <p class="breadcrumbs-custom-subtitle">Payment has been completed.</p> -->
               <p class="heading-1 breadcrumbs-custom-title">Payment has been completed.</p>
-              <p>'Go Home' ë²í¼ì ëë¥´ë©´ ë©ì¸íë©´ì¼ë¡ ì´ëí©ëë¤.<!-- <br class="veil reveal-sm-inline">to give you the best experience on our new website. Stay ready, we`re launching soon. --></p>
+              <p>결제해주셔서 감사합니다.<!-- <br class="veil reveal-sm-inline">to give you the best experience on our new website. Stay ready, we`re launching soon. --></p>
               <div class="range range-xs-center">
                 <div class="cell-sm-8 cell-lg-6 cell-xl-4">
                   <!-- RD Mailform: Subscribe-->
@@ -172,30 +177,35 @@
                     <div class="rd-mailform-inline-inner">
                     </div>
                   </form> -->
-                  <button class="button form-button button-sm button-secondary" type="submit">Go Home</button>
+                  <a href="#"><button class="button form-button button-sm button-secondary" >Go Home</button></a>
+                  &nbsp;
+                  <span><a href="#"><button class="button form-button button-sm button-secondary" >Go Mypage</button></a></span>
                 </div>
               </div>
             </div>
           </div>
-          <!-- ë³¸ë¬¸ ì¢ë£ -->
+          <%--본문 종료--%>
           
-          <!-- Page Footer-->
+          <%-- Page Footer 시작--%>
           <div class="section-xs page-footer text-center">
             <div class="shell">
               <p class="right">&#169; <span class="copyright-year"></span> All Rights Reserved
-                &nbsp;<a href="#">Terms of Use</a>&nbsp;<span>and</span>&nbsp;<a href="privacy-policy.html">Privacy Policy</a>
+                &nbsp;Terms of Use&nbsp;<span>and</span>&nbsp;Privacy Policy
               </p>
             </div>
           </div>
+          <%-- Page Footer 종료--%>
+          
         </div>
       </section>
     </div>
-    <!-- PANEL-->
-    <!-- END PANEL-->
-    <!-- Global Mailform Output-->
+      <%-- PANEL--%>
+    <%-- END PANEL--%>
+    <%-- Global Mailform Output--%>
     <div class="snackbars" id="form-output-global"></div>
-    <!-- Javascript-->
-    <script src="js/core.min.js"></script>
-    <script src="js/script.js"></script>
+    
+    <%-- Javascript--%>
+    <script src="resources/js/core.min.js"></script>
+    <script src="resources/js/script.js"></script>
   </body>
 </html>
