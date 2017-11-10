@@ -50,7 +50,6 @@
       <section class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
         <div class="shell">
           <p class="heading-1 breadcrumbs-custom-title">Used Stuff Sale</p>
-          <!-- <h2> ◆ 중고 상품 등록 ◆ </h2> -->
           <br>
           <br>
           <br>
