@@ -1,10 +1,15 @@
 package kr.co.blueauction.member.dao;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.blueauction.login.LoginDTO;
 import kr.co.blueauction.member.domain.Member;
 
 @Repository
@@ -26,5 +31,28 @@ public class MybatisMemberDaoImpl implements MemberDao {
 		sqlSession.insert(namespace+".insertMember",member);
 
 	}
+	
+	@Override
+	public Member login(LoginDTO dto) throws Exception{
+		return sqlSession.selectOne(namespace + ".login", dto);
+	}
+	 @Override
+	  public void keepLogin(String member_id, String sessionId, Date next) {
+
+	    Map<String, Object> paramMap = new HashMap<String, Object>();
+	    paramMap.put("member_id", member_id);
+	    paramMap.put("sessionId", sessionId);
+	    paramMap.put("next", next);
+	    
+	    sqlSession.update(namespace+".keepLogin", paramMap);
+	    
+	  }
+
+	  @Override
+	  public Member checkUserWithSessionKey(String value) {
+
+	    return sqlSession.selectOne(namespace +".checkUserWithSessionKey", value);
+	  }	
+	
 
 }
