@@ -15,67 +15,22 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="/resources/css/jjh-style.css">
 		<!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--> 
   </head>
+  
  <body>
-    <!-- Page preloader-->
-    <div class="page-loader">
-      <div class="page-loader-body">
-        <div class="preloader-wrapper big active"> 
-          <div class="spinner-layer spinner-blue">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"> </div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
-          </div>
-          <div class="spinner-layer spinner-red">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"> </div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
-          </div>
-          <div class="spinner-layer spinner-yellow"> 
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"> </div>
-            </div>
-          </div>
-          <div class="spinner-layer spinner-green"> 
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+   <%-- Page preloader 시작--%>
+    <jsp:include page="/WEB-INF/views/include/pageloader.jsp"/>
+    
     <!-- Page-->
     <div class="page">
-      <!-- Page Header-->
-      <header class="section page-header">
+    
+      <%-- Page Header 시작--%>
+       <header class="section page-header bg-gray-darker breadcrumbs-custom-wrap">  
         <!-- RD Navbar-->
         <div class="rd-navbar-wrap rd-navbar-shop-header">
           <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" data-stick-up="true" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true">
@@ -188,39 +143,25 @@
                 </ul>
               </div>
             </div>
+            
+            <%-- Page 상단 로고 시작--%>
             <div class="rd-navbar-inner">
-              <!-- RD Navbar Panel-->
+              <%-- RD Navbar Panel--%>
               <div class="rd-navbar-panel">
-                <!-- RD Navbar Toggle-->
+                <%-- RD Navbar Panel--%>
                 <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                <!-- RD Navbar Brand-->
+                <%-- RD Navbar Brand--%>
                 <div class="rd-navbar-brand"><a class="brand-name" href="WEB-INF/views/templates/index.html"><img class="logo-default" src="/resources/images/logo-default-173x55.png" alt="" width="173" height="55"/><img class="/resources/logo-inverse" src="/resources/images/logo-inverse-173x55.png" alt="" width="173" height="55"/></a></div>
               </div>
-              <div class="rd-navbar-aside-center">
-                <!-- RD Navbar Search-->
-                <div class="rd-navbar-search"><a class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search" href="#"><span></span></a>
-                  <form class="rd-search" action="search-results.html" data-search-live="rd-search-results-live" method="GET">
-                    <div class="rd-mailform-inline rd-mailform-sm rd-mailform-inline-modern">
-                      <div class="rd-mailform-inline-inner">
-                        <div class="form-wrap form-wrap-icon mdi-magnify">
-                          <label class="form-label form-label" for="rd-navbar-search-form-input">Search...</label>
-                          <input class="rd-navbar-search-form-input form-input" id="rd-navbar-search-form-input" type="text" name="s" autocomplete="off">
-                          <div class="rd-search-results-live"></div>
-                        </div>
-                        <button class="rd-search-form-submit rd-search-form-submit-icon mdi mdi-magnify"></button>
-                        <button class="rd-search-form-submit button form-button button-sm button-secondary">search</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="rd-navbar-aside-right">
-                <div class="rd-navbar-shop"><a class="rd-navbar-shop-icon mdi mdi-cart" href="WEB-INF/views/templates/shopping-cart.html"><span>2</span></a></div>
-              </div>
             </div>
+            <%-- Page 상단 로고 종료--%>
+            
           </nav>
         </div>
       </header>
+      <%-- Page Header 종료--%>
+      
+      <%--본문 시작--%>
       <section class="section fullwidth-page bg-image bg-image-4">
         <div class="fullwidth-page-inner">
           <div class="section-md text-center">
@@ -238,10 +179,14 @@
                       <input class="form-input" id="forms-login-password" type="password" name="passwd" data-constraints="@Required">
                       <label class="form-label" for="forms-login-password">Password</label>
                     </div>
-                    <div class="form-check">
-                    <label>
+                    <br>
+                    <div class="form-check" >
+                      <label class="checkbox-inline jjh-autoLoginCheck">
+                         <input type="checkbox" name="useCookie" >Remember me
+                     </label>
+                    <!-- <label>
                      <input type="checkbox" name="useCookie">Remember me
-                    </label>
+                    </label> -->
                     </div>
                     <div class="form-button">
                       <button class="button button-block button-secondary" type="submit">Sign In</button>
@@ -253,23 +198,28 @@
               <div class="group-xs group-middle"><a class="icon icon-md-smaller icon-circle icon-filled mdi mdi-facebook" href="#"></a><a class="icon icon-md-smaller icon-circle icon-filled mdi mdi-twitter" href="#"></a><a class="icon icon-md-smaller icon-circle icon-filled mdi mdi-google" href="#"></a></div>
             </div>
           </div>
-          <!-- Page Footer-->
+          <%--본문 종료--%>
+          
+          <%-- Page Footer 시작--%>
           <div class="section-xs page-footer text-center">
             <div class="shell">
               <p class="right">&#169; <span class="copyright-year"></span> All Rights Reserved
-                &nbsp;<a href="#">Terms of Use</a>&nbsp;<span>and</span>&nbsp;<a href="WEB-INF/views/templates/privacy-policy.html">Privacy Policy</a>
+                &nbsp;Terms of Use&nbsp;<span>and</span>&nbsp;Privacy Policy
               </p>
             </div>
           </div>
+          <%-- Page Footer 종료--%>
+          
         </div>
       </section>
     </div>
-    <!-- PANEL-->
-    <!-- END PANEL-->
-    <!-- Global Mailform Output-->
+     <%-- PANEL--%>
+    <%-- END PANEL--%>
+    <%-- Global Mailform Output--%>
     <div class="snackbars" id="form-output-global"></div>
-    <!-- Javascript-->
-    <script src="/resources/js/core.min.js"></script>
-    <script src="/resources/js/script.js"></script>
+    
+    <%-- Javascript--%>
+    <script src="resources/js/core.min.js"></script>
+    <script src="resources/js/script.js"></script>
   </body>
 </html>
