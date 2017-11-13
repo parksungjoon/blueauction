@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
 
@@ -37,24 +38,20 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	      Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 	      
 	      if(loginCookie != null) { 
-	        
 	        Member member = service.checkLoginBefore(loginCookie.getValue());
-	        System.out.println(loginCookie.getValue());
-	        
+	        System.out.println("loginCookie.getValue()"+loginCookie.getValue());
 	        logger.info("MEMBER: " + member);
-	        
 	        if(member != null){
 	        	System.out.println("member가 null 이 아님!");
 	          session.setAttribute("login", member);
-	          response.sendRedirect("/");
 	          return true;
 	        }
-	        
 	      }
-
 	      response.sendRedirect("/login");
 	      return false;
+	      
 	    }
+	    
 	    return true;
 	  }  
 	  
@@ -76,7 +73,15 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	      logger.info("dest: " + (uri + query));
 	      req.getSession().setAttribute("dest", uri + query);
 	    }
+	    
 	  }
+	 /* @Override
+	  public void postHandle(
+				HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
+				throws Exception {
+		  System.out.println("authinterceptor posthandle 실행");
+		  response.sendRedirect("/payment");
+		}*/
 
 	//  @Override
 	//  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

@@ -1,10 +1,8 @@
 package kr.co.blueauction.member.domain;
 
-import java.util.Date;
-
 public class Member {
 	
-	private String member_id;
+	private String memberId;
 	private String passwd;
 	private String name;
 	private String zipcode;
@@ -20,17 +18,15 @@ public class Member {
 	public Member() {
 	}
 	
-	public Member(String passwd, String name, String zipcode, String baseaddress,
-			String detailaddress, String email, String accountNumber,
-			String bank) {
-		this(null, passwd, name, zipcode, baseaddress, detailaddress, email, null, null, accountNumber, bank, null);
+	public Member(String memberId, String passwd, String name, String zipcode, String baseaddress, String detailaddress,
+			String email, String accountNumber, String bank) {
+		this(memberId, passwd, name, zipcode, baseaddress, detailaddress, email, "", "", accountNumber, bank, "");
 	}
 
-	public Member(String member_id, String passwd, String name, String zipcode, String baseaddress,
+	public Member(String memberId, String passwd, String name, String zipcode, String baseaddress,
 			String detailaddress, String email, String sessionid, String sessionlimit, String accountNumber,
 			String bank, String regdate) {
-		super();
-		this.member_id = member_id;
+		this.memberId = memberId;
 		this.passwd = passwd;
 		this.name = name;
 		this.zipcode = zipcode;
@@ -44,12 +40,12 @@ public class Member {
 		this.regdate = regdate;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getPasswd() {
@@ -142,7 +138,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [member_id=" + member_id + ", passwd=" + passwd + ", name=" + name + ", zipcode=" + zipcode
+		return "Member [memberId=" + memberId + ", passwd=" + passwd + ", name=" + name + ", zipcode=" + zipcode
 				+ ", baseaddress=" + baseaddress + ", detailaddress=" + detailaddress + ", email=" + email
 				+ ", sessionid=" + sessionid + ", sessionlimit=" + sessionlimit + ", accountNumber=" + accountNumber
 				+ ", bank=" + bank + ", regdate=" + regdate + "]";

@@ -2,66 +2,58 @@ package kr.co.blueauction.favorite.domain;
 
 public class Favorite {
 
-	private int favorite_id;
-	private String member_id;
-	private int product_id;
+	private int favoriteId;
+	private String memberId;
+	private int productId;
 	private String regdate;
 	
 	public Favorite() {
+		this(0, "", 0, "");	
 	}
 	
-	public Favorite(String member_id, int product_id) {
-		this(0, member_id, product_id, null);
+	
+	public Favorite(String memberId, int productId, String regdate) {
+		this(0, memberId, productId, regdate);
 	}
 
-	public Favorite(int favorite_id, String member_id, int product_id, String regdate) {
-		
-		this.favorite_id = favorite_id;
-		this.member_id = member_id;
-		this.product_id = product_id;
+	public Favorite(int favoriteId, String memberId, int productId, String regdate) {
+		this.favoriteId = favoriteId;
+		this.memberId = memberId;
+		this.productId = productId;
 		this.regdate = regdate;
 	}
-
-
-	public int getFavorite_id() {
-		return favorite_id;
+	
+	public int getFavoriteId() {
+		return favoriteId;
 	}
-
-	public void setFavorite_id(int favorite_id) {
-		this.favorite_id = favorite_id;
+	public void setFavoriteId(int favoriteId) {
+		this.favoriteId = favoriteId;
 	}
-
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
-
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
-
-	public int getProduct_id() {
-		return product_id;
+	public int getProductId() {
+		return productId;
 	}
-
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
-
 	public String getRegdate() {
 		return regdate;
 	}
-
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Favorite [favorite_id=" + favorite_id + ", member_id=" + member_id + ", product_id=" + product_id
+		return "Favorite [favoriteId=" + favoriteId + ", memberId=" + memberId + ", productId=" + productId
 				+ ", regdate=" + regdate + "]";
 	}
-	
-	
 	
 	
 }

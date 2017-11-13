@@ -2,8 +2,8 @@ package kr.co.blueauction.product.domain;
 
 public class Product {
 
-	private int product_id;
-	private int category_id;
+	private int productId;
+	private int categoryId;
 	private String seller;
 	private String salemotive;
 	private String usingtime;
@@ -11,28 +11,33 @@ public class Product {
 	private int price;
 	private String deliverytype;
 	private String regdate;
-	private String auction_flag;
+	private String auctionFlag;
 	private String auctionstart;
 	private String auctionend;
 	private int basicprice;
 	private String auctionstate;
 	
 	public Product() {
-	}
-	
-	public Product(int category_id, String seller, String usingtime, int price,  String deliverytype) {
-		this(0, category_id, seller, null, usingtime, null, price, deliverytype, null, null, null, null, 0, null);
-	}
-	
-	public Product(int category_id, String seller, String usingtime, int price,  String deliverytype, String auction_flag, String auctionstart, String auctionend, int basicprice, String auctionstate) {
-		this(0, category_id, seller, null, usingtime, null, price, deliverytype, null, auction_flag, auctionstart, auctionend, basicprice, auctionstate);
+		this(0, 0, "", "", "", "", 0, "", "", "", "", "", 0, "");
 	}
 
-	public Product(int product_id, int category_id, String seller, String salemotive, String usingtime,
-			String productinfo, int price, String deliverytype, String regdate, String auction_flag,
-			String auctionstart, String auctionend, int basicprice, String auctionstate) {
-		this.product_id = product_id;
-		this.category_id = category_id;
+	public Product(int categoryId, String seller, String salemotive, String usingtime, String productinfo, int price,
+			String deliverytype, String auctionFlag) {
+		this(0, categoryId, seller, salemotive, usingtime, productinfo, price, deliverytype, "", auctionFlag, "", "", 0, "");
+	}
+	
+	public Product(int categoryId, String seller, String salemotive, String usingtime, String productinfo,
+			String deliverytype, String auctionFlag, String auctionstart, String auctionend, int basicprice,
+			String auctionstate) {
+		this(0, categoryId, seller, salemotive, usingtime, productinfo, 0, deliverytype, "", auctionFlag, auctionstart, auctionend, basicprice, auctionstate);
+	}
+
+
+	public Product(int productId, int categoryId, String seller, String salemotive, String usingtime,
+			String productinfo, int price, String deliverytype, String regdate, String auctionFlag, String auctionstart,
+			String auctionend, int basicprice, String auctionstate) {
+		this.productId = productId;
+		this.categoryId = categoryId;
 		this.seller = seller;
 		this.salemotive = salemotive;
 		this.usingtime = usingtime;
@@ -40,27 +45,27 @@ public class Product {
 		this.price = price;
 		this.deliverytype = deliverytype;
 		this.regdate = regdate;
-		this.auction_flag = auction_flag;
+		this.auctionFlag = auctionFlag;
 		this.auctionstart = auctionstart;
 		this.auctionend = auctionend;
 		this.basicprice = basicprice;
 		this.auctionstate = auctionstate;
 	}
 
-	public int getProduct_id() {
-		return product_id;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
-	public int getCategory_id() {
-		return category_id;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getSeller() {
@@ -119,12 +124,12 @@ public class Product {
 		this.regdate = regdate;
 	}
 
-	public String getAuction_flag() {
-		return auction_flag;
+	public String getAuctionFlag() {
+		return auctionFlag;
 	}
 
-	public void setAuction_flag(String auction_flag) {
-		this.auction_flag = auction_flag;
+	public void setAuctionFlag(String auctionFlag) {
+		this.auctionFlag = auctionFlag;
 	}
 
 	public String getAuctionstart() {
@@ -161,14 +166,12 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [product_id=" + product_id + ", category_id=" + category_id + ", seller=" + seller
-				+ ", salemotive=" + salemotive + ", usingtime=" + usingtime + ", productinfo=" + productinfo
-				+ ", price=" + price + ", deliverytype=" + deliverytype + ", regdate=" + regdate + ", auction_flag="
-				+ auction_flag + ", auctionstart=" + auctionstart + ", auctionend=" + auctionend + ", basicprice="
-				+ basicprice + ", auctionstate=" + auctionstate + "]";
+		return "Product [productId=" + productId + ", categoryId=" + categoryId + ", seller=" + seller + ", salemotive="
+				+ salemotive + ", usingtime=" + usingtime + ", productinfo=" + productinfo + ", price=" + price
+				+ ", deliverytype=" + deliverytype + ", regdate=" + regdate + ", auctionFlag=" + auctionFlag
+				+ ", auctionstart=" + auctionstart + ", auctionend=" + auctionend + ", basicprice=" + basicprice
+				+ ", auctionstate=" + auctionstate + "]";
 	}
-	
-	
 	
 	
 }
