@@ -100,7 +100,6 @@
 								</li>
 							</ul></li>
 						<li><a href="contacts.html">Contacts</a></li>
-           <li><h1>akjsdhaskjdhaskjdhaskjdhkj</h1></li>
             <c:if test="${not empty login}">
               <li><a href="mypage.html">${login.memberId} 님이 로그인 하셨습니다</a></li>
             </c:if>
