@@ -4,87 +4,166 @@ public class Orders {
 	private int orderId; 
 	private String memberId;
 	private int productId;
+	private String phone;
 	private String orderdate;
 	private String dstate;
-	private String dest;
-	private String price;
+	private String zipcode;
+	private String baseaddress;
+	private String detailaddress;
+	private int price;
 	private String paystate;
 	
 	
 	public Orders() {
-		this(0, "", 0, "", "", "", "", "");
-	}
-	
-	public Orders(String memberId, int productId, String dstate, String dest, String price, String paystate) {
-		this(0, memberId, productId, "", dstate, dest, price, paystate);
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Orders(int orderId, String memberId, int productId, String orderdate, String dstate, String dest,
-			String price, String paystate) {
+
+	public Orders(String memberId, int productId, String phone, String zipcode, String baseaddress,
+			String detailaddress, int price) {
+		super();
+		this.memberId = memberId;
+		this.productId = productId;
+		this.phone = phone;
+		this.zipcode = zipcode;
+		this.baseaddress = baseaddress;
+		this.detailaddress = detailaddress;
+		this.price = price;
+	}
+
+
+	public Orders(int orderId, String memberId, int productId, String phone, String orderdate, String dstate,
+			String zipcode, String baseaddress, String detailaddress, int price, String paystate) {
+		super();
 		this.orderId = orderId;
 		this.memberId = memberId;
 		this.productId = productId;
+		this.phone = phone;
 		this.orderdate = orderdate;
 		this.dstate = dstate;
-		this.dest = dest;
+		this.zipcode = zipcode;
+		this.baseaddress = baseaddress;
+		this.detailaddress = detailaddress;
 		this.price = price;
 		this.paystate = paystate;
 	}
-	
-	
+
+
 	public int getOrderId() {
 		return orderId;
 	}
+
+
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
+
+
 	public String getMemberId() {
 		return memberId;
 	}
+
+
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+
+
 	public int getProductId() {
 		return productId;
 	}
+
+
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
 	public String getOrderdate() {
 		return orderdate;
 	}
+
+
 	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
 	}
+
+
 	public String getDstate() {
 		return dstate;
 	}
+
+
 	public void setDstate(String dstate) {
 		this.dstate = dstate;
 	}
-	public String getDest() {
-		return dest;
+
+
+	public String getZipcode() {
+		return zipcode;
 	}
-	public void setDest(String dest) {
-		this.dest = dest;
+
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
-	public String getPrice() {
+
+
+	public String getBaseaddress() {
+		return baseaddress;
+	}
+
+
+	public void setBaseaddress(String baseaddress) {
+		this.baseaddress = baseaddress;
+	}
+
+
+	public String getDetailaddress() {
+		return detailaddress;
+	}
+
+
+	public void setDetailaddress(String detailaddress) {
+		this.detailaddress = detailaddress;
+	}
+
+
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(String price) {
+
+
+	public void setPrice(int price) {
 		this.price = price;
 	}
+
+
 	public String getPaystate() {
 		return paystate;
 	}
+
+
 	public void setPaystate(String paystate) {
 		this.paystate = paystate;
 	}
 
 	@Override
 	public String toString() {
-		return "Orders [orderId=" + orderId + ", memberId=" + memberId + ", productId=" + productId + ", orderdate="
-				+ orderdate + ", dstate=" + dstate + ", dest=" + dest + ", price=" + price + ", paystate=" + paystate
+		return "Orders [orderId=" + orderId + ", memberId=" + memberId + ", productId=" + productId + ", phone=" + phone
+				+ ", orderdate=" + orderdate + ", dstate=" + dstate + ", zipcode=" + zipcode + ", baseaddress="
+				+ baseaddress + ", detailaddress=" + detailaddress + ", price=" + price + ", paystate=" + paystate
 				+ "]";
 	}
 	
