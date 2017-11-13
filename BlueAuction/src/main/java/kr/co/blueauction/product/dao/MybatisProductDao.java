@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
 
 @Repository
@@ -47,4 +48,9 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.update(namespace + ".update", product);
 	}*/
 	
+	/** {요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 */
+	@Override
+	public List<Product> listByCri(SearchCriteria cri) throws Exception {
+		return sqlSession.selectList(namespace + ".listByCri", cri);
+	}
 }

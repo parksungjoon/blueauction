@@ -50,8 +50,8 @@ public class PageMaker {
 	/** 검색 */
 	public String makeSearch(int page) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
-																			.queryParam("perPageNum", cri.getPerPageNum()).queryParam("searchType", ((SearchCriteria) cri).getSearchType())
-																			.queryParam("keyword",  encoding(((SearchCriteria) cri).getKeyword())).build();
+																			.queryParam("perPageNum", cri.getPerPageNum()).queryParam("searchType", cri.getSearchType())
+																			.queryParam("keyword",  encoding(cri.getKeyword())).queryParam("category", cri.getCategory()).queryParam("smallCategory", cri.getSmallCategory()).build();
 		
 		return uriComponents.toUriString();
 	}
