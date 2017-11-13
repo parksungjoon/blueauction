@@ -7,17 +7,19 @@ public class SearchCriteria{
 	private String searchType; // 검색 종류
 	private String keyword; // 검색 값
 	private int category; // 카테고리 종류
+	private int smallCategory; // 소분류
 	
 	public SearchCriteria() {
-		this(1, 8, null, null, 1);
+		this(1, 8, null, null, 1, 0);
 	}
 	
-	public SearchCriteria(int page, int perPageNum, String searchType, String keyword, int category) {
+	public SearchCriteria(int page, int perPageNum, String searchType, String keyword, int category, int smallCategory) {
 		this.page = page;
 		this.perPageNum = perPageNum;
 		this.searchType = searchType;
 		this.keyword = keyword;
 		this.category = category;
+		this.smallCategory = smallCategory;
 	}
 
 	public int getPage() {
@@ -69,11 +71,19 @@ public class SearchCriteria{
 	public void setCategory(int category) {
 		this.category = category;
 	}
+	
+	public int getSmallCategory() {
+		return smallCategory;
+	}
+
+	public void setSmallCategory(int smallCategory) {
+		this.smallCategory = smallCategory;
+	}
 
 	@Override
 	public String toString() {
 		return "SearchCriteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType
-				+ ", keyword=" + keyword + ", category=" + category + "]";
+				+ ", keyword=" + keyword + ", category=" + category + ", smallCategory=" + smallCategory + "]";
 	}
 
 }
