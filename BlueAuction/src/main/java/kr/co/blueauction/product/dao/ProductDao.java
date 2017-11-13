@@ -7,7 +7,7 @@ import kr.co.blueauction.product.domain.Product;
 public interface ProductDao {
 	
 	/** 상품 등록 */
-	public void create(Product product)throws Exception;
+	public void create(Product product) throws Exception;
 	
 	/** 전체 상품 리스트 조회 */
 	public List<Product> listAll(String flag)throws Exception;

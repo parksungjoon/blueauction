@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<mapper namespace="kr.co.blueauction.product.dao.ProductDao">
+	
+	<!-- 상품 등록 -->
+	<insert id="create" parameterType="Product">
+		INSERT INTO product 
+		            (category_id, 
+		             seller, 
+		             salemotive, 
+		             usingtime, 
+		             productinfo, 
+		             price, 
+		             deliverytype
+		             <if test="auctionFlag != null">
+		             ,
+		             	auction_flag, 
+			             auctionstart, 
+			             auctionend, 
+			             basicprice, 
+			             auctionstate
+			           </if>
+		             ) 
+		VALUES     (
+					#{categoryId}, 
+		            #{seller}, 
+		            #{salemotive}, 
+		            #{usingtime}, 
+		            #{productinfo}, 
+		            #{price}, 
+		            #{deliverytype}
+		            <if test="auctionFlag != null">
+		            ,
+		             	#{auctionFlag}, 
+			            #{auctionstart}, 
+			             #{auctionend}, 
+			             #{basicprice}, 
+			             #{auctionstate}
+			             </if>
+		             )
+			</insert>
+	
+	<!-- 상품 전체 조회 -->
+	<select id="listAll" parameterType="string" resultType="Product">
+		SELECT product_id, 
+		       category_id, 
+		       seller, 
+		       salemotive, 
+		       usingtime, 
+		       productinfo, 
+		       price, 
+		       deliverytype, 
+		       regdate, 
+		       auction_flag,
+		       auctionstart, 
+		       auctionend, 
+		       basicprice, 
+		       auctionstate 
+		FROM   product 
+		WHERE  auction_flag = #{value}; 
+	</select>
+	
+	<!-- 상품 아이디에 따른 상품 조회 -->
+	<select id="read" parameterType="int" resultType="Product">
+		SELECT product_id, 
+		       category_id, 
+		       seller, 
+		       salemotive, 
+		       usingtime, 
+		       productinfo, 
+		       price, 
+		       deliverytype, 
+		       regdate,
+		       auction_flag, 
+		       auctionstart, 
+		       auctionend, 
+		       basicprice, 
+		       auctionstate 
+		FROM   product 
+		WHERE  product_id = #{value}; 
+	</select>
+	
+	<!-- 상품 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM product 
+		WHERE  product_id = #{value}; 
+	</delete>
+	
+	 <!-- 상품 수정 -->
+	<!-- <update id="update" parameterType="Product">
+		UPDATE product 
+		SET  salemotive = #{salemotive}, 
+		       productinfo = #{productinfo}, 
+		       price = #{price}, 
+		       deliverytype = #{deliverytype}, 
+		       regdate = now(), 
+		       auction_flag = ?, 
+		       auctionstart = ?, 
+		       auctionend = ?, 
+		       basicprice = ?, 
+		       auctionstate = ? 
+		WHERE  product_id = #{productId}; 
+	</update> -->
+
+	
+</mapper>

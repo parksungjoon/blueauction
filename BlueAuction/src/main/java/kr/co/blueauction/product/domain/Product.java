@@ -18,12 +18,12 @@ public class Product {
 	private String auctionstate;
 	
 	public Product() {
-		this(0, 0, "", "", "", "", 0, "", "", "", "", "", 0, "");
+		this(0, 0, "", "", "", "", 0, "", "", null, "", "", 0, "");
 	}
 
 	public Product(int categoryId, String seller, String salemotive, String usingtime, String productinfo, int price,
-			String deliverytype, String auctionFlag) {
-		this(0, categoryId, seller, salemotive, usingtime, productinfo, price, deliverytype, "", auctionFlag, "", "", 0, "");
+			String deliverytype) {
+		this(0, categoryId, seller, salemotive, usingtime, productinfo, price, deliverytype, "", "", "", "", 0, "");
 	}
 	
 	public Product(int categoryId, String seller, String salemotive, String usingtime, String productinfo,

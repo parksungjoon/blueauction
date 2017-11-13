@@ -20,7 +20,7 @@ public class MybatisProductDao implements ProductDao {
 	/** 상품 등록 */
 	@Override
 	public void create(Product product) throws Exception {
-		sqlSession.insert(namespace + ".create");
+		sqlSession.insert(namespace + ".create", product);
 	}
 	
 	/** 전체 상품 리스트 조회 */
