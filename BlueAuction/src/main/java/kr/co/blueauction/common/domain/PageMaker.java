@@ -51,7 +51,7 @@ public class PageMaker {
 	public String makeSearch(int page) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
 																			.queryParam("perPageNum", cri.getPerPageNum()).queryParam("keyword",  encoding(cri.getKeyword()))
-																			.queryParam("category", cri.getCategory()).queryParam("smallCategory", cri.getSmallCategory()).build();
+																			.queryParam("category", cri.getCategory()).queryParam("smallCategory", cri.getSmallid()).build();
 		
 		return uriComponents.toUriString();
 	}
