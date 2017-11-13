@@ -1,5 +1,12 @@
+<%@ page contentType = "text/html;charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Page Header-->
+
+
+
 <header class="section page-header">
+
+
 	<!-- RD Navbar-->
 	<div class="rd-navbar-wrap rd-navbar-shop-header">
 		<nav class="rd-navbar" data-layout="rd-navbar-fixed"
@@ -93,6 +100,10 @@
 								</li>
 							</ul></li>
 						<li><a href="contacts.html">Contacts</a></li>
+           <li><h1>akjsdhaskjdhaskjdhaskjdhkj</h1></li>
+            <c:if test="${not empty login}">
+              <li><a href="mypage.html">${login.memberId} 님이 로그인 하셨습니다</a></li>
+            </c:if>
 					</ul>
 				</div>
 			</div>

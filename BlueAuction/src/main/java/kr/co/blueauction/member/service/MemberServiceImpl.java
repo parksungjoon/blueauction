@@ -22,9 +22,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void keepLogin(String member_id, String sessionId, Date next) throws Exception {
+	public void keepLogin(String memberId, String sessionid, Date next) throws Exception {
 
-		dao.keepLogin(member_id, sessionId, next);
+		dao.keepLogin(memberId, sessionid, next);
 
 	}
 
@@ -32,5 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	public Member checkLoginBefore(String value) {
 
 		return dao.checkUserWithSessionKey(value);
+	}
+	@Override
+	public void insertMember(Member member) {
+		 dao.insertMember(member);
 	}
 }

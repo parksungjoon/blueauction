@@ -37,11 +37,11 @@ public class MybatisMemberDao implements MemberDao {
       return sqlSession.selectOne(namespace + ".login", dto);
    }
     @Override
-     public void keepLogin(String member_id, String sessionId, Date next) {
+     public void keepLogin(String memberId, String sessionid, Date next) {
 
        Map<String, Object> paramMap = new HashMap<String, Object>();
-       paramMap.put("member_id", member_id);
-       paramMap.put("sessionId", sessionId);
+       paramMap.put("memberId", memberId);
+       paramMap.put("sessionid", sessionid);
        paramMap.put("next", next);
        
        sqlSession.update(namespace+".keepLogin", paramMap);

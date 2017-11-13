@@ -9,8 +9,10 @@ public interface MemberService {
 
 	public Member login(LoginDTO tdo) throws Exception;
 
-	public void keepLogin(String member_id, String sessionId, Date next) throws Exception;
+	public void keepLogin(String memberId, String sessionid, Date next) throws Exception;
 
 	public Member checkLoginBefore(String value);
+	
+	public void insertMember(Member member);
 
 }
