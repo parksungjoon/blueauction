@@ -21,29 +21,27 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		ModelAndView modelAndView) throws Exception {
 		System.out.println("loginterceptor posthandle 실행");
 		HttpSession session = request.getSession();
-		// System.out.println("session : " + session);
 
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object member = modelMap.get("member");
 
-		if (member != null) {
-
+		if (member != null) { //로그인할 맴버가있으면
 			logger.info("new login success");
-			session.setAttribute(LOGIN, member);
-
-			if (request.getParameter("useCookie") != null) {
-
+			session.setAttribute(LOGIN, member); 
+			if (request.getParameter("useCookie") != null) { 		//자동로그인표시 유무
 				logger.info("remember me................");
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				loginCookie.setPath("/");
-				loginCookie.setMaxAge(60 * 60 * 24 * 7);
-				response.addCookie(loginCookie);
+				loginCookie.setMaxAge(60 * 60 * 24 * 7); //쿠키 일주일저장
+				response.addCookie(loginCookie);	//쿠키 response에 담음
 			}
-			// response.sendRedirect("/");
 			Object dest = session.getAttribute("dest");
-
-			response.sendRedirect(dest != null ? (String) dest : "/");
-			// response.sendRedirect("/");
+			
+			System.out.println("dest"+dest);
+			response.sendRedirect(dest != null ? (String) dest : "/");  
+		}else
+		{
+			System.out.println("member == null");
 		}
 	}
 

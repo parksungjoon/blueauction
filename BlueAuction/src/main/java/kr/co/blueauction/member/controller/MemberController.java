@@ -39,20 +39,14 @@ public class MemberController {
 		System.out.println("membercontroller loginpost 실행");
 		System.out.println(dto.toString());
 		Member vo = service.login(dto);
-
 		if (vo == null) {
 			return;
 		}
-
 		model.addAttribute("member", vo);
-
 		if (dto.isUseCookie()) {
-
 			int amount = 60 * 60 * 24 * 7;
-
 			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
-
-			service.keepLogin(vo.getMember_id(), session.getId(), sessionLimit);
+			service.keepLogin(vo.getMemberId(), session.getId(), sessionLimit);
 		}
 	}
 
@@ -74,7 +68,7 @@ public class MemberController {
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
-				service.keepLogin(vo.getMember_id(), session.getId(), new Date());
+				service.keepLogin(vo.getMemberId(), session.getId(), new Date());
 			}
 		}
 	}
@@ -93,4 +87,35 @@ public class MemberController {
 		System.out.println("membercontroller mypageGET 실행");
 	}
 
+	@RequestMapping(value ="/main", method = RequestMethod.GET)
+	public String mainGET(@ModelAttribute("member") Member member) {
+		System.out.println("membercontroller mainGET 실행");
+		return "/examplePage/main";
+	}
+	@RequestMapping(value ="/payment", method = RequestMethod.GET)
+	public String paymentGET(@ModelAttribute("member") Member member,HttpSession session) {
+		System.out.println("membercontroller paymentGET 실행");
+		Object obj = session.getAttribute("login");
+		System.out.println("obj"+obj);
+		
+//		System.out.println(member);
+		return "/payment";
+	}
+	@RequestMapping(value ="/payment", method = RequestMethod.POST)
+	public String paymentGET2(@ModelAttribute("member") Member member,HttpSession session) {
+		System.out.println("membercontroller paymentGET 실행");
+		
+		
+		
+		
+
+		return "/payment";
+	}
+	@RequestMapping(value ="/member/register", method = RequestMethod.GET)
+	public void memberRegist(@ModelAttribute("member") Member member,HttpSession session) {
+		System.out.println("membercontroller memberRegist 실행");
+	}
+	
+	
+	
 }
