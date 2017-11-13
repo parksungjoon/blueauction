@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/mdi.css">
     <link rel="stylesheet" href="resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="resources/css/jjh-style.css">
 		<%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
@@ -50,26 +51,23 @@
 
       <%-- product catalog--%>
       <section class="section section-lg bg-gray-lighter text-center">
-        <div class="shell shell-wide">
+        <div class="shell shell-wide" >
           <h3>product catalog</h3>
           <div class="divider divider-default"></div>
           <div class="range range-sm range-shop">
           
-            <div class="cell-lg-9">
+            <div class="cell-lg-10 ">
             
               <div class="range range-70 text-left">
               <%-- 여기에 자기 부분 넣어주세요 --%>
-                <section class="section section-lg bg-gray-lighter text-center">
-                  <div class="shell shell-wide">
-                    <h3>Current Auctions</h3>
-                    <div class="divider divider-default"></div>
-                    <div class="range range-30 range-xs-center" style="z-index:1;">
+                <div class="range range-30 range-xs-center" style="z-index:1;">
+                <%--리스트 한 단위 시작 --%>
                       <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
                         <div class="product product-counter product-auction">
                           <div class="product-counter-inner">
-                            <div class="countdown" data-time="2017/10/10 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
+                            <div class="countdown jjh-counter" data-time="2017/11/12 17:30:00" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
                           </div>
-                          <div class="product-image"><a href="product-page.html"><img src="images/landing-auction-1-331x245.jpg" alt="" width="331" height="245"/></a></div>
+                          <div class="product-image "><a href="product-page.html"><img src="resources/images/flower.jpg" alt="" width="331" height="245"/></a></div>
                           <div class="product-title">
                             <h5><a href="product-page.html">Typhoon 4K Quadcopter with Carrying Case — Black</a></h5>
                           </div>
@@ -78,20 +76,25 @@
                               <p>Start Price</p>
                               <h6>$125.00</h6>
                             </div>
-                            <div class="product-price">
+                            <!-- <div class="product-price">
                               <p>Current Price</p>
-                              <h6>$387.00</h6>
-                            </div>
+                              <h6>$320.00</h6>
+                            </div> -->
+                            <!-- <button class="jjh-favoriteButton"><img alt="favorite-register" src="resources/images/empty-heart.png"></button> -->
+                            
                           </div>
-                          <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
+                          <div class="product-button"><a class="jjh-listButton button-secondary" href="shopping-cart.html">Detail</a></div>
+                          <button class="jjh-favoriteButton"><img alt="favorite-register" src="resources/images/full-heart.png"></button>
                         </div>
                       </div>
+                      <%--리스트 한 단위 종료 --%>
+                      
                       <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
                         <div class="product product-counter product-auction">
                           <div class="product-counter-inner">
-                            <div class="countdown" data-time="2017/10/9 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
+                            <div class="countdown jjh-counter" data-time="2017/11/14 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
                           </div>
-                          <div class="product-image"><a href="product-page.html"><img src="images/landing-auction-2-323x245.jpg" alt="" width="323" height="245"/></a></div>
+                          <div class="product-image "><a href="product-page.html"><img src="resources/images/landing-auction-2-323x245.jpg" alt="" width="323" height="245"/></a></div>
                           <div class="product-title">
                             <h5><a href="product-page.html">Fyxation Eastside Crimson Roja – Bicicleta Urbana 1</a></h5>
                           </div>
@@ -100,10 +103,6 @@
                               <p>Start Price</p>
                               <h6>$190.00</h6>
                             </div>
-                            <div class="product-price">
-                              <p>Current Price</p>
-                              <h6>$320.00</h6>
-                            </div>
                           </div>
                           <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
                         </div>
@@ -113,7 +112,7 @@
                           <div class="product-counter-inner">
                             <div class="countdown" data-time="2017/10/10 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
                           </div>
-                          <div class="product-image"><a href="product-page.html"><img src="images/landing-auction-3-329x245.jpg" alt="" width="329" height="245"/></a></div>
+                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-3-329x245.jpg" alt="" width="329" height="245"/></a></div>
                           <div class="product-title">
                             <h5><a href="product-page.html">Brass Reclining Deer</a></h5>
                           </div>
@@ -122,10 +121,6 @@
                               <p>Start Price</p>
                               <h6>$125.00</h6>
                             </div>
-                            <div class="product-price">
-                              <p>Current Price</p>
-                              <h6>$387.00</h6>
-                            </div>
                           </div>
                           <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
                         </div>
@@ -135,7 +130,7 @@
                           <div class="product-counter-inner">
                             <div class="countdown" data-time="2017/10/9 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
                           </div>
-                          <div class="product-image"><a href="product-page.html"><img src="images/landing-auction-4-318x245.jpg" alt="" width="318" height="245"/></a></div>
+                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-4-318x245.jpg" alt="" width="318" height="245"/></a></div>
                           <div class="product-title">
                             <h5><a href="product-page.html">Zane Grey - Vanishing American (First Edition)</a></h5>
                           </div>
@@ -144,10 +139,6 @@
                               <p>Start Price</p>
                               <h6>$190.00</h6>
                             </div>
-                            <div class="product-price">
-                              <p>Current Price</p>
-                              <h6>$320.00</h6>
-                            </div>
                           </div>
                           <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
                         </div>
@@ -157,7 +148,7 @@
                           <div class="product-counter-inner">
                             <div class="countdown" data-time="2017/10/10 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
                           </div>
-                          <div class="product-image"><a href="product-page.html"><img src="images/landing-auction-5-331x245.jpg" alt="" width="331" height="245"/></a></div>
+                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-5-331x245.jpg" alt="" width="331" height="245"/></a></div>
                           <div class="product-title">
                             <h5><a href="product-page.html">Lenovo K5 Note 4G <br class="veil reveal-md-inline">Phablet</a></h5>
                           </div>
@@ -166,10 +157,6 @@
                               <p>Start Price</p>
                               <h6>$125.00</h6>
                             </div>
-                            <div class="product-price">
-                              <p>Current Price</p>
-                              <h6>$387.00</h6>
-                            </div>
                           </div>
                           <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
                         </div>
@@ -179,7 +166,7 @@
                           <div class="product-counter-inner">
                             <div class="countdown" data-time="2017/10/9 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
                           </div>
-                          <div class="product-image"><a href="product-page.html"><img src="images/landing-auction-6-323x245.jpg" alt="" width="323" height="245"/></a></div>
+                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-6-323x245.jpg" alt="" width="323" height="245"/></a></div>
                           <div class="product-title">
                             <h5><a href="product-page.html">Classic Accessories Roanoke Inflatable Pontoon Boat</a></h5>
                           </div>
@@ -187,10 +174,6 @@
                             <div class="product-price">
                               <p>Start Price</p>
                               <h6>$190.00</h6>
-                            </div>
-                            <div class="product-price">
-                              <p>Current Price</p>
-                              <h6>$320.00</h6>
                             </div>
                           </div>
                           <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
@@ -201,7 +184,7 @@
                           <div class="product-counter-inner">
                             <div class="countdown" data-time="2017/10/10 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
                           </div>
-                          <div class="product-image"><a href="product-page.html"><img src="images/landing-auction-7-329x245.jpg" alt="" width="329" height="245"/></a></div>
+                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-7-329x245.jpg" alt="" width="329" height="245"/></a></div>
                           <div class="product-title">
                             <h5><a href="product-page.html">Executive Victorian Desk With Rosa La Vanta Marble</a></h5>
                           </div>
@@ -209,10 +192,6 @@
                             <div class="product-price">
                               <p>Start Price</p>
                               <h6>$125.00</h6>
-                            </div>
-                            <div class="product-price">
-                              <p>Current Price</p>
-                              <h6>$387.00</h6>
                             </div>
                           </div>
                           <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
@@ -223,7 +202,7 @@
                           <div class="product-counter-inner">
                             <div class="countdown" data-time="2017/10/9 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
                           </div>
-                          <div class="product-image"><a href="product-page.html"><img src="images/landing-auction-8-318x245.jpg" alt="" width="318" height="245"/></a></div>
+                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-8-318x245.jpg" alt="" width="318" height="245"/></a></div>
                           <div class="product-title">
                             <h5><a href="product-page.html">Biomega- PEK – Bicicleta Carga</a></h5>
                           </div>
@@ -232,28 +211,22 @@
                               <p>Start Price</p>
                               <h6>$190.00</h6>
                             </div>
-                            <div class="product-price">
-                              <p>Current Price</p>
-                              <h6>$320.00</h6>
-                            </div>
                           </div>
                           <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
                         </div>
                       </div>
-                    </div><a class="button button-secondary" href="shop-3-columns-layout.html">view all auctions </a>
-                  </div>
-                </section>
+                    <!-- </div><a class="button button-secondary" href="shop-3-columns-layout.html">view all auctions </a> -->
               </div>
               
-              	<a class="button-blog button button-default-outline" href="#">load more products</a>
+              	<span><a class="button-blog button button-default-outline" href="#">load more products</a></span>
+                <div class="jjh-newButton"><button class="button button-secondary " type="button">New Auction</button></div>
               <br>
             </div>
-            
+          </div>
+          
             <%-- Shop Sidebar START --%>
             <jsp:include page="/WEB-INF/views/include/rightSidebar.jsp"></jsp:include>
             <%-- Shop Sidebar END --%>
-            
-          </div>
         </div>
       </section>
 

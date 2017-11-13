@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="resources/images/favicon.ico" type="image/x-icon">
     <%-- Stylesheets --%>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald:200,400%7CLato:300,400,300italic,700%7CMontserrat:900">
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/resources/css/style.css">
-    <link rel="stylesheet" href="/resources/css/mdi.css">
-    <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
-    <link rel="stylesheet" href="/resources/css/jjh-style.css">
+    <link rel="stylesheet" href="resources/css/bootstrap.css">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/mdi.css">
+    <link rel="stylesheet" href="resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="resources/css/jjh-style.css">
 	
 		<%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
@@ -103,7 +103,7 @@
                   <li class="active"><a href="#">Pages</a>
                     <%-- RD Navbar Megamenu--%>
                     <ul class="rd-navbar-megamenu rd-navbar-megamenu-banner">
-                      <li><img src="/resources/images/accordions-1-570x600.jpg" alt="" width="570" height="600"/>
+                      <li><img src="resources/images/accordions-1-570x600.jpg" alt="" width="570" height="600"/>
                       </li>
                       <li>
                         <ul class="rd-megamenu-list">
@@ -153,7 +153,7 @@
                 <%-- RD Navbar Toggle--%>
                 <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                 <%-- RD Navbar Brand--%>
-                <div class="rd-navbar-brand"><a class="brand-name" href="index.html"><img class="logo-default" src="/resources/images/logo-default-173x55.png" alt="" width="173" height="55"/><img class="logo-inverse" src="/resources/images/logo-inverse-173x55.png" alt="" width="173" height="55"/></a></div>
+                <div class="rd-navbar-brand"><a class="brand-name" href="index.html"><img class="logo-default" src="resources/images/logo-default-173x55.png" alt="" width="173" height="55"/><img class="logo-inverse" src="resources/images/logo-inverse-173x55.png" alt="" width="173" height="55"/></a></div>
               </div>
             </div>
             <%-- Page 상단 로고 종료--%>
@@ -176,7 +176,7 @@
                   <div class="cell-sm-6">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="forms-3-name">ID</label>
-                      <input class="form-input" id="forms-3-name" type="text" name="member_id" data-constraints="@Required" placeholder="ID">
+                      <input class="form-input" id="forms-3-name" type="text" name="id" data-constraints="@Required" placeholder="ID">
                     </div>
                   </div>
                   <div class="cell-sm-3">
@@ -188,7 +188,7 @@
                  <div class="cell-sm-6">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="forms-3-name">Password</label>
-                      <input class="form-input" id="forms-3-name" type="text" name="passwd" data-constraints="@Required" placeholder="Password">
+                      <input class="form-input" id="forms-3-name" type="text" name="password" data-constraints="@Required" placeholder="Password">
                     </div>
                   </div>
                   <div class="cell-sm-6">
@@ -209,7 +209,7 @@
                   <div class="cell-sm-6">	
                   	<label class="form-label-outside">Address</label>
                  	<div class="form-wrap form-wrap-inline">
-                    	<input class="form-input" id="sample6_postcode" type="text" name="zipcode" placeholder="우편번호">
+                    	<input class="form-input" id="sample6_postcode" type="text" name="street-address" placeholder="우편번호">
                  	</div>
                 </div>
            		<div class="cell-sm-3">
@@ -219,7 +219,7 @@
             	</div>
               	<div class="cell-xs-12">
                 	<div class="form-wrap form-wrap-inline">
-                    	<input class="form-input" id="sample6_address" type="text" name="baseaddress" placeholder="기본주소">
+                    	<input class="form-input" id="sample6_address" type="text" name="basic_address" placeholder="기본주소">
                     </div>
                		<div class="form-wrap form-wrap-inline">
                     	<input class="form-input" id="sample6_address2" type="text" name="detail_address" placeholder="상세주소">
@@ -283,7 +283,53 @@
     <div class="snackbars" id="form-output-global"></div>
     
     <%-- Javascript--%>
-    <script src="/resources/js/core.min.js"></script>
-    <script src="/resources/js/script.js"></script>
+    <script src="resources/js/core.min.js"></script>
+    <script src="resources/js/script.js"></script>
+    
+    <%--다음API 주소 적용 --%>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <script type="text/javascript" >
+        function sample6_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+    
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var fullAddr = ''; // 최종 주소 변수
+                    var extraAddr = ''; // 조합형 주소 변수
+    
+                    // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        fullAddr = data.roadAddress;
+    
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        fullAddr = data.jibunAddress;
+                    }
+    
+                    // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                    if(data.userSelectedType === 'R'){
+                        //법정동명이 있을 경우 추가한다.
+                        if(data.bname !== ''){
+                            extraAddr += data.bname;
+                        }
+                        // 건물명이 있을 경우 추가한다.
+                        if(data.buildingName !== ''){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                        fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                    }
+    
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
+                    document.getElementById('sample6_address').value = fullAddr;
+    
+                    // 커서를 상세주소 필드로 이동한다.
+                    document.getElementById('sample6_address2').focus();
+                }
+            }).open();
+        }
+    </script>
   </body>
 </html>

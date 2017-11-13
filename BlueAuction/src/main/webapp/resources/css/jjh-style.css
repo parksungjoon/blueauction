@@ -12,10 +12,81 @@
 	margin-top: 30px;
 }
 
-.jjh-proInfo{
+.jjh-proInfo {
 	color: rgb(70, 70, 70);
 }
 
-.jjh-autoLoginCheck{
+/* 로그인 페이지 뷰 */
+.jjh-autoLoginCheck {
 	margin-left: 10px;
+}
+
+/* preparing-auction 뷰 */
+.jjh-listButton {
+	position: relative;
+	display: inline-block;
+	max-width: 100%;
+	padding: 9px 30px;
+	min-width: 100px;
+	font-family: "Oswald", Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	border: 2px solid;
+	border-radius: 35px;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	transition: .25s all ease;
+	white-space: pre-wrap;
+}
+
+.product-counter-inner .jjh-counter {
+	font-weight: 400;
+	color: #fff;
+}
+
+@media (min-width: 1200px) {
+	.product-counter-inner .jjh-counter {
+		font-size: 20px;
+	}
+}
+
+.jjh-favoriteButton {
+	width:25%;
+	height:25%;
+	border: none;
+	background: none;
+}
+
+.jjh-newButton{
+	margin-left: 500px;
+}
+
+/* ongoing-auction 뷰*/
+.jjh-top {
+	font-size:60px;
+	text-align: center;
+	vertical-align: middle;
+	height:96px;
+	background: rgb(243, 246, 253);
+}
+
+.jjh-topCounter {
+	font-size: 65px;
+}
+
+.jjh-fixed {
+	 position: fixed;
+     top: 200px;
+}
+        
+.jjh-price {
+    align-items: center;
+    justify-content: space-around;
+}
+
+.jjh-currentPrice {
+	color: red;
 }

@@ -4,4 +4,9 @@
 
 <!-- MyBatis XML 설정 파일(MyBatis설정의 중앙 허브 역할) -->
 <configuration>
+
+	<settings>
+   		<setting name="mapUnderscoreToCamelCase" value="true"/>
+   	</settings>
+   
 </configuration>
