@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.co.blueauction.mapper.RelplyMapper">
+
+	<!-- 댓글 등록 -->
+	<insert id="create">
+		INSERT INTO reply 
+          			(member_id, 
+             		product_id, 
+             		content, 
+             		groupno, 
+             		levelno, 
+             		orderno) 
+		VALUES      (#{memberId}, 
+        		    #{productId}, 
+             		#{content}, 
+             		#{groupNo}, 
+             		#{levelNo}, 
+             		#{orderNo} )
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="update">
+		UPDATE reply 
+		SET    content = #{content}, 
+       		   regdate = Now() 
+		WHERE  reply_id = #{replyId}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="delete">
+		UPDATE reply 
+		SET    delete_flag = 'T' 
+		WHERE  reply_id = #{replyId}
+	</update>
+	
+	<!-- 댓글 목록 출력 및 페이징 처리 -->
+	<select id="listPage" resultType="Reply">
+		SELECT * 
+		FROM   (SELECT * 
+        		FROM   (SELECT * 
+                		FROM   reply 
+                		ORDER  BY orderno ASC) reply 
+        		ORDER  BY groupno DESC) reply 
+		LIMIT  #{page}, 10
+	</select>
+	
+	<!-- 전체 댓글 수 계산 -->
+	<select id="count" resultType="int">
+		SELECT Count(reply_id) 
+		FROM   reply 
+		WHERE  product_id = #{productId}
+	</select>
+	
+</mapper>
