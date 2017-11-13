@@ -12,8 +12,8 @@ public class Favorite {
 	}
 	
 	
-	public Favorite(String memberId, int productId, String regdate) {
-		this(0, memberId, productId, regdate);
+	public Favorite(String memberId, int productId) {
+		this(0, memberId, productId, "");
 	}
 
 	public Favorite(int favoriteId, String memberId, int productId, String regdate) {
