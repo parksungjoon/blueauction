@@ -4,6 +4,7 @@ public class Product {
 
 	private int productId;
 	private int categoryId;
+	private int smallid;
 	private String seller;
 	private String salemotive;
 	private String usingtime;
@@ -18,26 +19,27 @@ public class Product {
 	private String auctionstate;
 	
 	public Product() {
-		this(0, 0, "", "", "", "", 0, "", "", null, "", "", 0, "");
+		this(0, 0, 0, "", "", "", "", 0, "", "", null, "", "", 0, "");
 	}
 
-	public Product(int categoryId, String seller, String salemotive, String usingtime, String productinfo, int price,
+	public Product(int categoryId, int smallid, String seller, String salemotive, String usingtime, String productinfo, int price,
 			String deliverytype) {
-		this(0, categoryId, seller, salemotive, usingtime, productinfo, price, deliverytype, "", "", "", "", 0, "");
+		this(0, categoryId, smallid, seller, salemotive, usingtime, productinfo, price, deliverytype, "", "", "", "", 0, "");
 	}
 	
-	public Product(int categoryId, String seller, String salemotive, String usingtime, String productinfo,
+	public Product(int categoryId, int smallid, String seller, String salemotive, String usingtime, String productinfo,
 			String deliverytype, String auctionFlag, String auctionstart, String auctionend, int basicprice,
 			String auctionstate) {
-		this(0, categoryId, seller, salemotive, usingtime, productinfo, 0, deliverytype, "", auctionFlag, auctionstart, auctionend, basicprice, auctionstate);
+		this(0, categoryId, smallid, seller, salemotive, usingtime, productinfo, 0, deliverytype, "", auctionFlag, auctionstart, auctionend, basicprice, auctionstate);
 	}
 
 
-	public Product(int productId, int categoryId, String seller, String salemotive, String usingtime,
+	public Product(int productId, int categoryId, int smallid, String seller, String salemotive, String usingtime,
 			String productinfo, int price, String deliverytype, String regdate, String auctionFlag, String auctionstart,
 			String auctionend, int basicprice, String auctionstate) {
 		this.productId = productId;
 		this.categoryId = categoryId;
+		this.smallid = smallid;
 		this.seller = seller;
 		this.salemotive = salemotive;
 		this.usingtime = usingtime;
@@ -66,6 +68,14 @@ public class Product {
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	public int getSmallid() {
+		return smallid;
+	}
+
+	public void setSmallid(int smallid) {
+		this.smallid = smallid;
 	}
 
 	public String getSeller() {
@@ -166,12 +176,10 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", categoryId=" + categoryId + ", seller=" + seller + ", salemotive="
-				+ salemotive + ", usingtime=" + usingtime + ", productinfo=" + productinfo + ", price=" + price
-				+ ", deliverytype=" + deliverytype + ", regdate=" + regdate + ", auctionFlag=" + auctionFlag
-				+ ", auctionstart=" + auctionstart + ", auctionend=" + auctionend + ", basicprice=" + basicprice
-				+ ", auctionstate=" + auctionstate + "]";
+		return "Product [productId=" + productId + ", categoryId=" + categoryId + ", smallid=" + smallid + ", seller="
+				+ seller + ", salemotive=" + salemotive + ", usingtime=" + usingtime + ", productinfo=" + productinfo
+				+ ", price=" + price + ", deliverytype=" + deliverytype + ", regdate=" + regdate + ", auctionFlag="
+				+ auctionFlag + ", auctionstart=" + auctionstart + ", auctionend=" + auctionend + ", basicprice="
+				+ basicprice + ", auctionstate=" + auctionstate + "]";
 	}
-	
-	
 }

@@ -9,18 +9,19 @@ public class Reply {
 	private int groupNo;
 	private int levelNo;
 	private int orderNo;
+	private String deleteFlag;
 	
 	
 	public Reply() {
-		this(0, "", 0, "", "", 0, 0, 0);
+		this(0, "", 0, "", "", 0, 0, 0, null);
 	}
 
 	public Reply(String memberId, int productId, String content) {
-		this(0, memberId, productId, content, "", 0, 0, 0);
+		this(0, memberId, productId, content, "", 0, 0, 0, null);
 	}
 
 	public Reply(int replyId, String memberId, int productId, String content, String regdate, int groupNo, int levelNo,
-			int orderNo) {
+			int orderNo, String deleteFlag) {
 		super();
 		this.replyId = replyId;
 		this.memberId = memberId;
@@ -30,6 +31,7 @@ public class Reply {
 		this.groupNo = groupNo;
 		this.levelNo = levelNo;
 		this.orderNo = orderNo;
+		this.deleteFlag = deleteFlag;
 	}
 
 	public int getReplyId() {
@@ -95,12 +97,20 @@ public class Reply {
 	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
 	}
+	
+	public String getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(String deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
 
 	@Override
 	public String toString() {
 		return "Reply [replyId=" + replyId + ", memberId=" + memberId + ", productId=" + productId + ", content="
 				+ content + ", regdate=" + regdate + ", groupNo=" + groupNo + ", levelNo=" + levelNo + ", orderNo="
-				+ orderNo + "]";
+				+ orderNo + ", deleteFlag=" + deleteFlag + "]";
 	}
 
 }

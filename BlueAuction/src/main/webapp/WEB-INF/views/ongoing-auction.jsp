@@ -78,7 +78,7 @@
             
               <div class="range range-70 text-left">
               <%-- 여기에 자기 부분 넣어주세요 --%>
-                <div class="range range-30 range-xs-center" style="z-index:1;">
+                <div class="range range-30" style="z-index:1;">
                 <%--리스트 한 단위 시작 --%>
                       <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
                         <div class="product product-counter product-auction">
@@ -105,132 +105,7 @@
                       </div>
                       <%--리스트 한 단위 종료 --%>
                       
-                      <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
-                        <div class="product product-counter product-auction">
-                          <div class="product-counter-inner">
-                            <div class="countdown jjh-counter" data-time="2017/11/10 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
-                          </div>
-                          <div class="product-image "><a href="product-page.html"><img src="resources/images/landing-auction-2-323x245.jpg" alt="" width="323" height="245"/></a></div>
-                          <div class="product-title">
-                            <h5><a href="product-page.html">Fyxation Eastside Crimson Roja – Bicicleta Urbana 1</a></h5>
-                          </div>
-                          <div class="product-price-wrap">
-                            <div class="product-price">
-                              <p>Start Price</p>
-                              <h6>$190.00</h6>
-                            </div>
-                          </div>
-                          <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
-                        <div class="product product-counter product-auction">
-                          <div class="product-counter-inner">
-                            <div class="countdown" data-time="2017/10/10 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
-                          </div>
-                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-3-329x245.jpg" alt="" width="329" height="245"/></a></div>
-                          <div class="product-title">
-                            <h5><a href="product-page.html">Brass Reclining Deer</a></h5>
-                          </div>
-                          <div class="product-price-wrap">
-                            <div class="product-price">
-                              <p>Start Price</p>
-                              <h6>$125.00</h6>
-                            </div>
-                          </div>
-                          <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
-                        <div class="product product-counter product-auction">
-                          <div class="product-counter-inner">
-                            <div class="countdown" data-time="2017/10/9 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
-                          </div>
-                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-4-318x245.jpg" alt="" width="318" height="245"/></a></div>
-                          <div class="product-title">
-                            <h5><a href="product-page.html">Zane Grey - Vanishing American (First Edition)</a></h5>
-                          </div>
-                          <div class="product-price-wrap">
-                            <div class="product-price">
-                              <p>Start Price</p>
-                              <h6>$190.00</h6>
-                            </div>
-                          </div>
-                          <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
-                        <div class="product product-counter product-auction">
-                          <div class="product-counter-inner">
-                            <div class="countdown" data-time="2017/10/10 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
-                          </div>
-                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-5-331x245.jpg" alt="" width="331" height="245"/></a></div>
-                          <div class="product-title">
-                            <h5><a href="product-page.html">Lenovo K5 Note 4G <br class="veil reveal-md-inline">Phablet</a></h5>
-                          </div>
-                          <div class="product-price-wrap">
-                            <div class="product-price">
-                              <p>Start Price</p>
-                              <h6>$125.00</h6>
-                            </div>
-                          </div>
-                          <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
-                        <div class="product product-counter product-auction">
-                          <div class="product-counter-inner">
-                            <div class="countdown" data-time="2017/10/9 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
-                          </div>
-                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-6-323x245.jpg" alt="" width="323" height="245"/></a></div>
-                          <div class="product-title">
-                            <h5><a href="product-page.html">Classic Accessories Roanoke Inflatable Pontoon Boat</a></h5>
-                          </div>
-                          <div class="product-price-wrap">
-                            <div class="product-price">
-                              <p>Start Price</p>
-                              <h6>$190.00</h6>
-                            </div>
-                          </div>
-                          <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
-                        <div class="product product-counter product-auction">
-                          <div class="product-counter-inner">
-                            <div class="countdown" data-time="2017/10/10 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
-                          </div>
-                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-7-329x245.jpg" alt="" width="329" height="245"/></a></div>
-                          <div class="product-title">
-                            <h5><a href="product-page.html">Executive Victorian Desk With Rosa La Vanta Marble</a></h5>
-                          </div>
-                          <div class="product-price-wrap">
-                            <div class="product-price">
-                              <p>Start Price</p>
-                              <h6>$125.00</h6>
-                            </div>
-                          </div>
-                          <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
-                        </div>
-                      </div>
-                      <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
-                        <div class="product product-counter product-auction">
-                          <div class="product-counter-inner">
-                            <div class="countdown" data-time="2017/10/9 14:34:56" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
-                          </div>
-                          <div class="product-image"><a href="product-page.html"><img src="resources/images/landing-auction-8-318x245.jpg" alt="" width="318" height="245"/></a></div>
-                          <div class="product-title">
-                            <h5><a href="product-page.html">Biomega- PEK – Bicicleta Carga</a></h5>
-                          </div>
-                          <div class="product-price-wrap">
-                            <div class="product-price">
-                              <p>Start Price</p>
-                              <h6>$190.00</h6>
-                            </div>
-                          </div>
-                          <div class="product-button"><a class="button button-secondary" href="shopping-cart.html">submit a bid</a></div>
-                        </div>
-                      </div>
+                      
                     <!-- </div><a class="button button-secondary" href="shop-3-columns-layout.html">view all auctions </a> -->
               </div>
               
