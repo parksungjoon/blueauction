@@ -13,7 +13,9 @@ public interface MemberDao {
 	
 	public Member login(LoginDTO dto)throws Exception;
 	
-	public void keepLogin(String uid, String sessionId, Date next);
+	public void keepLogin(String uid, String sessionid, Date next);
 	
 	 public Member checkUserWithSessionKey(String value);	
+	 
+	
 }

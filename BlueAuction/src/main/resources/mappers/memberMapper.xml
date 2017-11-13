@@ -10,22 +10,22 @@
 	</select>
 	
 	<insert id="insertMember" parameterType="kr.co.blueauction.member.domain.Member">
-		insert into tbl_member(userid, userpw, username, email) values(#{userid}, #{userpw}, #{username}, #{email})
+		insert into member(memberId, passwd, name, zipcode, baseaddress, detailaddress, email, accountNumber, bank, phoneNumber) values(#{memberId}, #{passwd}, #{name}, #{zipcode}, #{baseaddress}, #{detailaddress}, #{email}, #{accountNumber}, #{bank}, #{phoneNumber})
 	</insert>
 	
 	<select id="login" resultType="kr.co.blueauction.member.domain.Member">
-		select member_id, passwd, name
+		select memberId, passwd, name
 		from member 
-		where member_id=#{member_id} and passwd=#{passwd}
+		where memberId=#{memberId} and passwd=#{passwd}
 	</select>
 	
 	<select id="keepLogin">
-	update member set sessionId=#{sessionId}, sessionLimit=#{next} where member_id=#{member_id}
+	update member set sessionid=#{sessionid}, sessionLimit=#{next} where memberId=#{memberId}
 	
 	</select>
 	
 	<select id="checkUserWithSessionKey" resultType="kr.co.blueauction.member.domain.Member">
-		select * from member where sessionId=#{sessionId} and sessionlimit > now()
+		select * from member where sessionid=#{sessionid} and sessionlimit > now()
 	
 	</select>
 	

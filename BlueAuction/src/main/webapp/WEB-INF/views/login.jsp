@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page contentType = "text/html;charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
 <head>
@@ -29,136 +30,7 @@
     <!-- Page-->
     <div class="page">
     
-      <%-- Page Header 시작--%>
-       <header class="section page-header bg-gray-darker breadcrumbs-custom-wrap">  
-        <!-- RD Navbar-->
-        <div class="rd-navbar-wrap rd-navbar-shop-header">
-          <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" data-stick-up="true" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true">
-            <div class="rd-navbar-top-panel">
-              <div class="rd-navbar-nav-wrap">
-                <!-- RD Navbar Nav-->
-                <ul class="rd-navbar-nav">
-                  <li><a href="../WEB-INF/views/examplePage/main">Home</a>
-                  </li>
-                  <li><a href="WEB-INF/views/templates/about-us.html">About Us</a>
-                  </li>
-                  <li><a href="#">Services</a>
-                    <!-- RD Navbar Dropdown-->
-                    <ul class="rd-navbar-dropdown">
-                      <li><a href="WEB-INF/views/templates/services.html">Services</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/single-service.html">Single Service</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Gallery</a>
-                    <!-- RD Navbar Dropdown-->
-                    <ul class="rd-navbar-dropdown">
-                      <li><a href="WEB-INF/views/templates/grid-album-gallery.html">Grid Album Gallery</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/fullwidth-gallery-inside-title.html">Fullwidth Gallery Inside Title</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/grid-gallery-outside-title.html">Grid Gallery Outside Title</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/masonry-gallery-outside-title.html">Masonry Gallery Outside Title</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Blog</a>
-                    <!-- RD Navbar Dropdown-->
-                    <ul class="rd-navbar-dropdown">
-                      <li><a href="WEB-INF/views/templates/classic-blog.html">Classic Blog</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/grid-blog.html">Grid Blog</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/masonry-blog.html">Masonry Blog</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/modern-blog.html">Modern Blog</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/audio-post.html">Audio Post</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/image-post.html">Image Post</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/single-post.html">Single Post</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/video-post.html">Video Post</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Shop</a>
-                    <!-- RD Navbar Dropdown-->
-                    <ul class="rd-navbar-dropdown">
-                      <li><a href="WEB-INF/views/templates/checkout.html">Checkout</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/product-page.html">Product Page</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/shop-3-columns-layout.html">Shop 3 Columns Layout</a>
-                      </li>
-                      <li><a href="WEB-INF/views/templates/shopping-cart.html">Shopping Cart</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="active"><a href="#">Pages</a>
-                    <!-- RD Navbar Megamenu-->
-                    <ul class="rd-navbar-megamenu rd-navbar-megamenu-banner">
-                      <li><img src="resources/images/accordions-1-570x600.jpg" alt="" width="570" height="600"/>
-                      </li>
-                      <li>
-                        <ul class="rd-megamenu-list">
-                          <li><a href="WEB-INF/views/templates/404-page.html">404 Page</a></li>
-                          <li><a href="WEB-INF/views/templates/503-page.html">503 Page</a></li>
-                          <li><a href="WEB-INF/views/templates/careers.html">Careers</a></li>
-                          <li><a href="WEB-INF/views/templates/single-job.html">Single Job</a></li>
-                          <li><a href="WEB-INF/views/templates/coming-soon.html">Coming Soon</a></li>
-                          <li><a href="WEB-INF/views/templates/pricing.html">Pricing</a></li>
-                          <li><a href="WEB-INF/views/templates/tooltips.html">Tooltips</a></li>
-                        </ul>
-                      </li>
-                      <li>
-                        <ul class="rd-megamenu-list">
-                          <li><a href="WEB-INF/views/templates/our-history.html">Our History</a></li>
-                          <li><a href="WEB-INF/views/templates/login-page.html">Login Page</a></li>
-                          <li><a href="WEB-INF/views/templates/registration-page.html">Registration Page</a></li>
-                          <li><a href="WEB-INF/views/templates/search-results.html">Search Results</a></li>
-                          <li><a href="WEB-INF/views/templates/under-construction.html">Under Construction</a></li>
-                          <li><a href="WEB-INF/views/templates/privacy-policy.html">Privacy policy</a></li>
-                        </ul>
-                      </li>
-                      <li>
-                        <ul class="rd-megamenu-list">
-                          <li><a href="WEB-INF/views/templates/accordions.html">Accordions</a></li>
-                          <li><a href="WEB-INF/views/templates/countdown.html">Countdown</a></li>
-                          <li><a href="WEB-INF/views/templates/forms.html">Forms</a></li>
-                          <li><a href="WEB-INF/views/templates/grid-system.html">Grid System</a></li>
-                          <li><a href="WEB-INF/views/templates/tables.html">Tables</a></li>
-                          <li><a href="WEB-INF/views/templates/tabs.html">Tabs</a></li>
-                          <li><a href="WEB-INF/views/templates/typography.html">Typography</a></li>
-                          <li><a href="WEB-INF/views/templates/radials.html">Radials</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a href="WEB-INF/views/templates/contacts.html">Contacts</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-            <%-- Page 상단 로고 시작--%>
-            <div class="rd-navbar-inner">
-              <%-- RD Navbar Panel--%>
-              <div class="rd-navbar-panel">
-                <%-- RD Navbar Panel--%>
-                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                <%-- RD Navbar Brand--%>
-                <div class="rd-navbar-brand"><a class="brand-name" href="WEB-INF/views/templates/index.html"><img class="logo-default" src="/resources/images/logo-default-173x55.png" alt="" width="173" height="55"/><img class="/resources/logo-inverse" src="/resources/images/logo-inverse-173x55.png" alt="" width="173" height="55"/></a></div>
-              </div>
-            </div>
-            <%-- Page 상단 로고 종료--%>
-            
-          </nav>
-        </div>
-      </header>
+     <%@include file="include/header.jsp" %>
       <%-- Page Header 종료--%>
       
       <%--본문 시작--%>
@@ -172,8 +44,8 @@
                   <!-- RD Mailform-->
                   <form action="/loginPost" class="rd-mailform" method="post">
                     <div class="form-wrap form-wrap-validation">
-                      <input class="form-input" id="forms-login-name" type="text" name="member_id" data-constraints="@Required">
-                      <label class="form-label" for="forms-login-name">E-mail or nickname</label>
+                      <input class="form-input" id="forms-login-name" type="text" name="memberId" data-constraints="@Required">
+                      <label class="form-label" for="forms-login-name">Id</label>
                     </div>
                     <div class="form-wrap form-wrap-validation">
                       <input class="form-input" id="forms-login-password" type="password" name="passwd" data-constraints="@Required">

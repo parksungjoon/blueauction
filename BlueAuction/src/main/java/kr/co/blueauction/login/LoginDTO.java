@@ -2,32 +2,30 @@ package kr.co.blueauction.login;
 
 public class LoginDTO {
 
-	private String member_id;
+	private String memberId;
 	private String passwd;
 	private boolean useCookie;
-	
-	
+	public LoginDTO(String memberId, String passwd, boolean useCookie) {
+		super();
+		this.memberId = memberId;
+		this.passwd = passwd;
+		this.useCookie = useCookie;
+	}
 	public LoginDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LoginDTO(String member_id, String passwd, boolean useCookie) {
-		super();
-		this.member_id = member_id;
-		this.passwd = passwd;
-		this.useCookie = useCookie;
+	/**
+	 * @return the memberId
+	 */
+	public String getMemberId() {
+		return memberId;
 	}
 	/**
-	 * @return the member_id
+	 * @param memberId the memberId to set
 	 */
-	public String getMember_id() {
-		return member_id;
-	}
-	/**
-	 * @param member_id the member_id to set
-	 */
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	/**
 	 * @return the passwd
@@ -58,7 +56,9 @@ public class LoginDTO {
 	 */
 	@Override
 	public String toString() {
-		return "LoginDTO [member_id=" + member_id + ", passwd=" + passwd + ", useCookie=" + useCookie + "]";
+		return "LoginDTO [memberId=" + memberId + ", passwd=" + passwd + ", useCookie=" + useCookie + "]";
 	}
+	
+	
 	
 }
