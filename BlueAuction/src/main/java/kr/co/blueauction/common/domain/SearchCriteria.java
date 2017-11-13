@@ -4,19 +4,17 @@ public class SearchCriteria{
 	
 	private int page; // 요청한 페이지
 	private int perPageNum; // 한페이지 당 출력 게시글 수
-	private String searchType; // 검색 종류
 	private String keyword; // 검색 값
 	private int category; // 카테고리 종류
 	private int smallCategory; // 소분류
 	
 	public SearchCriteria() {
-		this(1, 8, null, null, 1, 0);
+		this(1, 8, null, 1, 0);
 	}
 	
-	public SearchCriteria(int page, int perPageNum, String searchType, String keyword, int category, int smallCategory) {
+	public SearchCriteria(int page, int perPageNum, String keyword, int category, int smallCategory) {
 		this.page = page;
 		this.perPageNum = perPageNum;
-		this.searchType = searchType;
 		this.keyword = keyword;
 		this.category = category;
 		this.smallCategory = smallCategory;
@@ -47,13 +45,9 @@ public class SearchCriteria{
 		
 		this.perPageNum = perPageNum;
 	}
-
-	public String getSearchType() {
-		return searchType;
-	}
-
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
+	
+	public int getPageStart() {
+		return (this.page - 1) * perPageNum;
 	}
 
 	public String getKeyword() {
@@ -82,8 +76,8 @@ public class SearchCriteria{
 
 	@Override
 	public String toString() {
-		return "SearchCriteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType
-				+ ", keyword=" + keyword + ", category=" + category + ", smallCategory=" + smallCategory + "]";
+		return "SearchCriteria [page=" + page + ", perPageNum=" + perPageNum + ", keyword=" + keyword + ", category="
+				+ category + ", smallCategory=" + smallCategory + "]";
 	}
 
 }
