@@ -42,9 +42,9 @@ public class MybatisProductDao implements ProductDao {
 	}
 	
 	/** 상품 수정 */
-	@Override
+	/*@Override
 	public void update(Product product) throws Exception {
 		sqlSession.update(namespace + ".update", product);
-	}
+	}*/
 	
 }

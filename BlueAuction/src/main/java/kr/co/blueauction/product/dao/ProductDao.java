@@ -19,5 +19,5 @@ public interface ProductDao {
 	public void delete(int productId)throws Exception;
 	
 	/** 상품 수정 */
-	public void update(Product product)throws Exception;
+	/*public void update(Product product)throws Exception;*/
 }
