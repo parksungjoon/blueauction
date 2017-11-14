@@ -16,5 +16,7 @@ public interface MemberService {
 	public void insertMember(Member member);
 	
 	public Member idCheck(String string); 
+	
+	public Member emailCheck(String string);
 
 }

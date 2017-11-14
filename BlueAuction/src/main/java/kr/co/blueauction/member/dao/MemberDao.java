@@ -19,4 +19,5 @@ public interface MemberDao {
 	
 	 public Member idCheck(String string); 
 	
+	 public Member emailCheck(String string);
 }
