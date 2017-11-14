@@ -1,5 +1,8 @@
 package kr.co.blueauction.member.controller;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -12,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -97,6 +101,30 @@ public class MemberController {
 		service.insertMember(member);
 		
 	}	
-		
+	@RequestMapping(value = "/memberCheck")
+	 public void checkId(HttpServletRequest req, HttpServletResponse res, ModelMap model) throws Exception {
+	  PrintWriter out = res.getWriter();
+	  try {
+
+	   // 넘어온 ID를 받는다.
+	   String paramId = (req.getParameter("memberId") == null) ? "" : String.valueOf(req.getParameter("memberId"));
+
+	   Member chkmemer = new Member();
+	   
+	   chkmemer = service.idCheck(paramId.trim());
+
+	
+	  
+	   out.print(chkmemer);
+	   
+	  // out.print(chkPoint);
+	   out.flush();
+	   out.close();
+	  } catch (Exception e) {
+	   e.printStackTrace();
+	   out.print("1");
+	  }
+	 }
+	
 	
 }

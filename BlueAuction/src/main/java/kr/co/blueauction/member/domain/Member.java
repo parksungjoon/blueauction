@@ -15,6 +15,7 @@ public class Member {
 	private String bank;
 	private String phoneNumber;
 	private String regdate;
+	
 	public Member(String memberId, String passwd, String name, String zipcode, String baseaddress, String detailaddress,
 			String email, String sessionid, String sessionlimit, String accountNumber, String bank, String phoneNumber,
 			String regdate) {
@@ -32,8 +33,17 @@ public class Member {
 		this.phoneNumber = phoneNumber;
 		this.regdate = regdate;
 	}
+	
+	public Member(String memberId, String passwd, String name, String zipcode, String baseaddress, String detailaddress,
+			String email, String accountNumber, String bank, String phoneNumber, String regdate) {
+		this(memberId, passwd, name, zipcode, baseaddress, detailaddress, email, "", "", accountNumber, bank, phoneNumber, regdate);
+	}
+
+
+
 	public Member() {
 	}
+	
 	/**
 	 * @return the memberId
 	 */

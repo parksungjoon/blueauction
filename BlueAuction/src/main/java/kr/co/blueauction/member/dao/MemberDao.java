@@ -16,6 +16,7 @@ public interface MemberDao {
 	public void keepLogin(String uid, String sessionid, Date next);
 	
 	 public Member checkUserWithSessionKey(String value);	
-	 
+	
+	 public Member idCheck(String string); 
 	
 }
