@@ -172,4 +172,15 @@
 			</if>
 		</if> 
 	</select>	
+	
+	<!-- auctionstate 상태 변경 -->
+	<update id="updateAuctionsatate">
+	<![CDATA[
+	UPDATE product
+	set auctionstate = case 
+	when auctionstart <= now() and auctionend > now()  then 'DOING'
+	when auctionend <= now() then 'AFTER'
+	else 'BEFORE' end
+	]]> 
+	</update>
 </mapper>
