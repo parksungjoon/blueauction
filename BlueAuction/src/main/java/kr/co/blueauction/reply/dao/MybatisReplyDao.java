@@ -34,8 +34,8 @@ public class MybatisReplyDao implements ReplyDao{
 	
 //	댓글 삭제
 	@Override
-	public void delete(Reply reply) throws Exception {
-		sqlSession.update(NAMESPACE + ".delete", reply);
+	public void delete(int replyId) throws Exception {
+		sqlSession.update(NAMESPACE + ".delete", replyId);
 	}
 	
 //	댓글 목록 출력 및 페이징 처리
@@ -48,5 +48,17 @@ public class MybatisReplyDao implements ReplyDao{
 	@Override
 	public int count(int productId) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".count", productId);
+	}
+	
+//	댓글 정보 조회
+	@Override
+	public Reply read(int replyId) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".read", replyId);
+	}
+	
+//	orderno 증가
+	@Override
+	public void liftOrderNo(Reply reply) throws Exception {
+		sqlSession.update(NAMESPACE + ".liftOrderNo", reply);
 	}
 }

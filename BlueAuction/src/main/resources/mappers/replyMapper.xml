@@ -22,6 +22,21 @@
              		#{orderNo} )
 	</insert>
 	
+	<!-- 댓글 정보 조회 -->
+	<select id="read" resultType="Reply">
+		SELECT * 
+		FROM   reply 
+		WHERE  reply_id = #{replyId} 
+	</select>
+	
+	<!-- orderno 증가 -->
+	<update id="liftOrderNo">
+		UPDATE reply 
+		SET    orderno = orderno + 1 
+		WHERE  groupno = #{groupNo} 
+       		   AND orderno > #{orderNo} 
+	</update>
+	
 	<!-- 댓글 수정 -->
 	<update id="update">
 		UPDATE reply 

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.dao.ProductDao;
 import kr.co.blueauction.product.domain.Product;
 
@@ -32,6 +33,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void delete(int productId) throws Exception {
 		productDao.delete(productId);
+	}
+	
+	@Override
+	public List<Product> listByCri(SearchCriteria cri, int type) throws Exception {
+		return productDao.listByCri(cri, type);
+	}
+	
+	@Override
+	public int listBySearchCount(SearchCriteria cri, int type) throws Exception {
+		return productDao.listBySearchCount(cri, type);
+	}
+
+	@Override
+	public void updateAuctionsatate() throws Exception {
+		productDao.updateAuctionsatate();
 	}
 	
 }
