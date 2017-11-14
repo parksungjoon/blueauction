@@ -51,7 +51,7 @@ public class ReplyController {
 		
 		try {
 			replyService.update(reply);
-			entity = new ResponseEntity<>("success", HttpStatus.OK);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
