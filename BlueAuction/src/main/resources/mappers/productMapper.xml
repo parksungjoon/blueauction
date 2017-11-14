@@ -14,7 +14,8 @@
 		             usingtime, 
 		             productinfo, 
 		             price, 
-		             deliverytype
+		             deliverytype,
+		             name
 		             <if test="auctionFlag != null">
 		             ,
 		             	auction_flag, 
@@ -32,7 +33,8 @@
 		            #{usingtime}, 
 		            #{productinfo}, 
 		            #{price}, 
-		            #{deliverytype}
+		            #{deliverytype},
+		            #{name}
 		            <if test="auctionFlag != null">
 		            ,
 		             	#{auctionFlag}, 
@@ -54,7 +56,8 @@
 		       usingtime, 
 		       productinfo, 
 		       price, 
-		       deliverytype, 
+		       deliverytype,
+		       name, 
 		       regdate, 
 		       auction_flag,
 		       auctionstart, 
@@ -75,7 +78,8 @@
 		       usingtime, 
 		       productinfo, 
 		       price, 
-		       deliverytype, 
+		       deliverytype,
+		       name, 
 		       regdate,
 		       auction_flag, 
 		       auctionstart, 
@@ -108,28 +112,64 @@
 		WHERE  product_id = #{productId}; 
 	</update> -->
 
-	<!-- 경매 상품 상태 변경 update -->
-	<update id="updateAuctionsatate">
-	UPDATE product
-	set auctionstate = case 
-	when auctionstart <= now() and auctionend > now()  then 'DOING'
-	when auctionend <= now() then 'AFTER'
-	else 'BEFORE' end
-	
-	<!-- 
-	<selectKey resultType="string" keyProperty="sysdate">
-		select now() from dual;
-	</selectKey>
-	
-	UPDATE product
-		<if test="Product.auctionstart >= sysdate ">
-			<if test="Product.auctionend > sysdate">
-				set auctionstate = 'DOING'
+<!--{요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 -->
+	<select id="listByCri" parameterType="map" resultType="Product">
+		SELECT product_id, 
+		       category_id, 
+		       smallid, 
+		       seller, 
+		       salemotive, 
+		       usingtime, 
+		       productinfo, 
+		       price, 
+		       deliverytype,
+		       name, 
+		       regdate, 
+		       auctionstart, 
+		       auctionend, 
+		       basicprice, 
+		       auctionstate 
+		FROM   product 
+		WHERE  category_id = #{cri.category}
+		<if test="cri.smallid != 0">
+			and smallid = #{cri.smallid}
+		</if>
+		<if test="cri.keyword != null">
+			and name like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="type != 0">
+			<if test="type = 1">
+				and auctionstate = 'BEFORE'
 			</if>
+			<if test="type = 2">
+				and auctionstate = 'DOING'
+			</if>
+			<if test="type = 3">
+				and auctionstate = 'AFTER'
+			</if>
+		</if> 
+		ORDER  BY product_id DESC, regdate DESC 
+		LIMIT  #{cri.pageStart}, #{cri.perPageNum}; 
+	</select>
+	
+	<!-- 검색 조건에 따른 전체 상품 리스트 수 -->
+	<select id="listBySearchCount" parameterType="map" resultType="int">
+		SELECT Count(product_id) 
+		FROM   product 
+		WHERE  category_id = #{cri.category}
+		<if test="smallid != 0">
+		and smallid = #{cri.smallid}
 		</if>
-		<if test="Product.auctionend >= sysdate">
-			set auctionstate = 'After'
-		</if>
-	where product_id = #{productId};  -->
-	</update>
+		<if test="type != 0">
+			<if test="type = 1">
+				and auctionstate = 'BEFORE'
+			</if>
+			<if test="type = 2">
+				and auctionstate = 'DOING'
+			</if>
+			<if test="type = 3">
+				and auctionstate = 'AFTER'
+			</if>
+		</if> 
+	</select>	
 </mapper>
