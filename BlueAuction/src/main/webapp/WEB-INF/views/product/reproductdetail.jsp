@@ -17,52 +17,13 @@
     <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/mdi.css">
     <link rel="stylesheet" href="resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="resources/css/cms-pdetail.css">
      
 		<%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%> 
-    
-    <style type="text/css">
-      .reply {
-        margin-left: 30px;
-      }
-      .qna {
-        padding-top: 0px;
-        padding-bottom: 60px;
-        margin-top: -20px;
-      }
-      .qna-write, .reply-section {
-        padding-bottom: 0px;
-      }
-      .comment-title {
-        color: black; 
-      }
-      .comment-body {
-        margin-left: -20px;
-      }
-      .reply-container {
-        padding: 10px 0px 10px 0px ;
-        border-top: 1px solid gray;
-      }
-      .reply-flag {
-        background: rgb(247, 247, 247);
-      }
-      .back {
-        margin-top: 0px;
-      }
-      .btn-function {
-        margin-top: 80px;
-        margin-bottom: -50px;
-        float: right;
-      }
-      .btn-function button {
-        min-width: 100px;
-        background: rgb(125, 190, 255);
-        border-color: rgb(125, 190, 255);
-      }
-    </style>
   </head>
   
   <body>
@@ -158,7 +119,7 @@
               <div class="section-md qna">
                 <p class="h3-alternate">상품 관련 문의</p>
                 <div class="comment-group">
-                  <!-- Comment-->
+                  <!-- 댓글 -->
                   <div class="reply-container">
                   <article class="comment">
                     <div class="comment-body">
@@ -173,7 +134,7 @@
                     </div>
                   </article>
                   </div>
-                    <!-- Comment-->
+                    <!-- 댓글 -->
                     <div class="reply-container reply-flag">
                     <article class="comment reply">
                     <img src="resources/images/img/reply.png" alt="" width="20" height="20"/>
@@ -189,7 +150,7 @@
                       </div>
                     </article>
                     </div>
-                  <!-- Comment-->
+                  <!-- 댓글 -->
                   <div class="reply-container" style="border-bottom: 1px solid gray">  
                   <article class="comment">
                     <div class="comment-body">
@@ -206,9 +167,9 @@
                   </div>
                 </div>
               </div>
+              <!-- 댓글 작성란 -->
               <div class="section-lg qna-write">
                 <p class="h3-alternate">문의 작성</p>
-                <!-- RD Mailform-->
                 <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
                   <div class="range range-20">
                     <div class="cell-xs-12">
@@ -228,6 +189,7 @@
                       </div>
                 </form>
               </div>
+              <!-- 댓글 작성란 끝 -->
             </div>
           </div>
         </div>

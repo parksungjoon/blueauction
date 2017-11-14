@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+  .reply {
+        margin-left: 30px;
+      }
+      .qna {
+        padding-top: 0px;
+        padding-bottom: 60px;
+        margin-top: -20px;
+      }
+      .qna-write, .reply-section {
+        padding-bottom: 0px;
+      }
+      .comment-title {
+        color: black; 
+      }
+      .comment-body {
+        margin-left: -20px;
+      }
+      .reply-container {
+        padding: 10px 0px 10px 0px ;
+        border-top: 1px solid gray;
+      }
+      .reply-flag {
+        background: rgb(247, 247, 247);
+      }
+      .back {
+        margin-top: 0px;
+      }
+      .btn-function {
+        margin-top: 80px;
+        margin-bottom: -50px;
+        float: right;
+      }
+      .btn-function button {
+        min-width: 100px;
+        background: rgb(125, 190, 255);
+        border-color: rgb(125, 190, 255);
+      }

@@ -17,15 +17,16 @@ import kr.co.blueauction.member.dao.MemberDao;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.reply.dao.ReplyDao;
 import kr.co.blueauction.reply.domain.Reply;
+import kr.co.blueauction.reply.service.ReplyService;
 
 @RunWith(SpringJUnit4ClassRunner.class)	//스프링 빈 컨테이너를 생성하는 어노테이션
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})//설정파일의 위치
-public class ReplyDaoTest {
+public class ReplyServiceTest {
 	
-	Logger logger = LoggerFactory.getLogger(ReplyDaoTest.class);
+	Logger logger = LoggerFactory.getLogger(ReplyServiceTest.class);
 	
 	@Inject
-	private ReplyDao replyDao;
+	private ReplyService replyService;
 	
 	@After
 	public void after() {
@@ -34,9 +35,9 @@ public class ReplyDaoTest {
 	
 //	@Test
 	public void createTest() {
-		Reply reply = new Reply("홍길동", 1, "댓글 등록 테스트");
+		Reply reply = new Reply("user00", 1, "서비스 댓글 등록 테스트");
 		try {
-			replyDao.create(reply);
+			replyService.create(reply);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -44,10 +45,10 @@ public class ReplyDaoTest {
 	
 //	@Test
 	public void updateTest() {
-		Reply reply = new Reply("홍길동", 1, "댓글 수정 테스트");
-		reply.setReplyId(39);
+		Reply reply = new Reply("user00", 1, "서비스 댓글 수정 테스트");
+		reply.setReplyId(37);
 		try {
-			replyDao.update(reply);
+			replyService.update(reply);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,7 +57,7 @@ public class ReplyDaoTest {
 //	@Test
 	public void deleteTest() {
 		try {
-			replyDao.delete(37);
+			replyService.delete(38);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,11 +66,11 @@ public class ReplyDaoTest {
 //	@Test
 	public void listPageTeset() {
 		SearchCriteria searchCriteria = new SearchCriteria();
-		searchCriteria.setPage(20);
+		searchCriteria.setPage(30);
 		try {
-			List<Reply> list = replyDao.listPage(searchCriteria);
+			List<Reply> list = replyService.listPage(searchCriteria);
 			for (Reply reply : list) {
-				logger.info(reply.toString());
+				logger.info("리스트 출력  :  " + reply.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,7 +80,7 @@ public class ReplyDaoTest {
 //	@Test
 	public void testCount() {
 		try {
-			logger.info(Integer.toString(replyDao.count(1)));
+			logger.info(Integer.toString(replyService.count(1)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,7 +89,7 @@ public class ReplyDaoTest {
 //	@Test
 	public void testRead() {
 		try {
-			logger.info(replyDao.read(38).toString());
+			logger.info(replyService.read(38).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,8 +98,8 @@ public class ReplyDaoTest {
 //	@Test
 	public void testLiftOrderNo() {
 		try {
-			Reply reply = replyDao.read(34);
-			replyDao.liftOrderNo(reply);
+			Reply reply = replyService.read(34);
+			replyService.liftOrderNo(reply);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
