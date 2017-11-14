@@ -47,7 +47,7 @@ function idCheck()
 	var memberId=$('#memberId').val();
 	
 	if($('#memberId').val()==""){
-		aleft("ID를 입력하세요");
+		alert("ID를 입력하세요");
 		return;
 	}
 	$.ajax({
@@ -69,7 +69,35 @@ function idCheck()
 			alert(e);
 		}
 	});
-}
+};
+function emailCheck(){
+	var email=$('#email').val();
+	console.log('emailCheck() 실행');
+	if($('#email').val()==""){
+		alert("email 입력하세요");
+		return;
+	}
+	$.ajax({
+		type : 'POST',
+		data:"email="+email,
+		dataType :"text",
+		url : '/memberEmailCheck',
+		success: function(rData,textStatus, xhr){
+			var chkRst=rData;
+			alert(chkRst);
+			if(chkRst=="null"){
+				alert("사용 가능합니다");
+			//	$("#emailChk").val('Y');
+			}else if(chkRst!=null){
+				alert("중복 되어 있습니다");
+				//$("#emailChk").val('N');
+			}
+		},
+		error:function(xhr, status, e){
+			alert(e);
+		}
+	});
+};
 </script>
 <body>
   <%-- Page preloader 시작--%>
@@ -219,9 +247,9 @@ function idCheck()
           <form class="rd-mailform text-left"
             data-form-output="form-output-global"
             data-form-type="contact" method="post"
-            action="/member/register"
-            id="check" onsubmit="return check()">
+            action="/member/register">
             <div class="range range-20">
+
               <div class="cell-sm-6">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">ID</label>
@@ -230,10 +258,6 @@ function idCheck()
                     data-constraints="@Required" placeholder="ID">
                 </div>
               </div>
-              
-
-
-              
               <div class="cell-sm-3">
                 <div class="form-wrap-validation">
                   <input type="button" name="memberIdCheck"
@@ -242,6 +266,8 @@ function idCheck()
                     <input type="hidden" id="idChk" value='N' />
                 </div>
               </div>
+              
+              
               <div class="cell-sm-5">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Password</label>
@@ -301,12 +327,21 @@ function idCheck()
                 </div>
               </div>
 
-              <div class="cell-sm-12">
+
+              <div class="cell-sm-6">
                 <div class="form-wrap form-wrap-validation">
-                  <label class="form-label-outside" for="forms-3-name">E-Mail</label>
-                  <input class="form-input" id="forms-3-name"
-                    type="text" name="email"
-                    data-constraints="@Required" placeholder="E-Mail">
+                  <label class="form-label-outside" for="forms-3-name">ID</label>
+                  <input class="form-input" id="email"
+                    type="text" name="memberId"
+                    data-constraints="@Required" placeholder="EMAIL">
+                </div>
+              </div>
+              <div class="cell-sm-3">
+                <div class="form-wrap-validation">
+                  <input type="button" name="memberIdCheck"
+                    class="button button-secondary jjh-postCodeSearchBtn"
+                    onclick="emailCheck()">check ID</input>
+                    <input type="hidden" id="idChk" value='N' />
                 </div>
               </div>
 

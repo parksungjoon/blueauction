@@ -33,5 +33,11 @@
 		select * from member where member_id=#{memberId}
 	</select>
 	
+	<select id="emailCheck" resultType="kr.co.blueauction.member.domain.Member">
+		select * from member where email=#{email}
+	</select>
+	
+
+	
 
 </mapper>

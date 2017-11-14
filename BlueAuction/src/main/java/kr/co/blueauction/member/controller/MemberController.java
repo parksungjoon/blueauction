@@ -35,6 +35,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
+		
 	}
 
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
@@ -44,6 +45,7 @@ public class MemberController {
 			return;
 		}
 		model.addAttribute("member", vo);
+		
 		if (dto.isUseCookie()) {
 			System.out.println( "dto.isusecookie()");
 			int amount = 60 * 60 * 24 * 7;
@@ -73,6 +75,9 @@ public class MemberController {
 				service.keepLogin(vo.getMemberId(), session.getId(), new Date());
 			}
 		}
+		logger.info("로그아웃되었습니다");
+		
+		
 	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
@@ -105,19 +110,10 @@ public class MemberController {
 	 public void checkId(HttpServletRequest req, HttpServletResponse res, ModelMap model) throws Exception {
 	  PrintWriter out = res.getWriter();
 	  try {
-
-	   // 넘어온 ID를 받는다.
 	   String paramId = (req.getParameter("memberId") == null) ? "" : String.valueOf(req.getParameter("memberId"));
-
 	   Member chkmemer = new Member();
-	   
 	   chkmemer = service.idCheck(paramId.trim());
-
-	
-	  
 	   out.print(chkmemer);
-	   
-	  // out.print(chkPoint);
 	   out.flush();
 	   out.close();
 	  } catch (Exception e) {
@@ -125,6 +121,22 @@ public class MemberController {
 	   out.print("1");
 	  }
 	 }
+	@RequestMapping(value="/memberEmailCheck")
+	public void checkEmail(HttpServletRequest req, HttpServletResponse res, ModelMap model) throws Exception {
+		System.out.println("checkEmail 실행");
+		  PrintWriter out = res.getWriter();
+		  try {
+		   String paramemail = (req.getParameter("email") == null) ? "" : String.valueOf(req.getParameter("email"));
+		   Member chkmemer = new Member();
+		   chkmemer = service.emailCheck(paramemail.trim());
+		   out.print(chkmemer);
+		   out.flush();
+		   out.close();
+		  } catch (Exception e) {
+		   e.printStackTrace();
+		   out.print("1");
+		  }
+		 }
 	
 	
 }

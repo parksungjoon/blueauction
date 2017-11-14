@@ -1,7 +1,9 @@
 <%@ page contentType = "text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Page Header-->
+<script type="text/javascript">
 
+</script>
 
 
 <header class="section page-header">
@@ -100,9 +102,22 @@
 								</li>
 							</ul></li>
 						<li><a href="contacts.html">Contacts</a></li>
-            <c:if test="${not empty login}">
-              <li><a href="mypage.html">${login.memberId} 님이 로그인 하셨습니다</a></li>
-            </c:if>
+            
+             
+              <c:if test="${not empty login}">
+               <li><form action="/logout" class="rd-mailform" method="get"> 
+              <a> ${login.memberId} 님이 로그인 하셨습니다</a>
+                <button type="submit" value="로그아웃">로그아웃</button></form></li>
+              </c:if>
+              
+              <c:if test="${empty login}">
+              <li><a href="/login">로그인</a></li>
+            
+              </c:if>
+              
+              
+              
+             
 					</ul>
 				</div>
 			</div>
