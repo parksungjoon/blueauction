@@ -27,4 +27,7 @@ public interface ProductService {
 	
 	/** 검색 조건에 따른 전체 상품 리스트 수 */
 	public int listBySearchCount(SearchCriteria cri, int type) throws Exception;
+	
+	/** 스케줄러 - 경매상태 변경 */
+	public void updateAuctionsatate() throws Exception;
 }

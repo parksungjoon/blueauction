@@ -108,19 +108,22 @@
                               </div>
                           </div>
                         </div>
-                         <div class="cell-sm-4">
+                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Auction Date</label>
                             <!-- <input class="form-input" id="forms-3-city" type="date" name="usingtime" data-constraints=""> -->
                             <input class="form-input data" id="form-element-date" data-time-picker="date" name="date" >
                           </div>
                         </div>
-                        <div class="cell-sm-12">
+                        <div class="cell-sm-3">
                           <div class="form-wrap form-wrap-validation row">
                             <label class="form-label-outside" for="forms-3-city">Photos</label>
                             <button class="button button-secondary reg" type="submit">Select File</button>
                             <input class="form-input file" id="forms-3-city" type="file" name="photo" required="required">
                           </div>
+                        </div>
+                        <div class="cell-sm-9	">
+                          <ul class="mailbox-attachments clearfix uploadedList"></ul>
                         </div>
                         <div class="cell-sm-12">
                           <div class="form-wrap form-wrap-validation">
@@ -128,10 +131,8 @@
                             <textarea class="form-input" rows="6" cols="100%" name="productinfo" data-constraints="@Required"style="resize: none;"></textarea>
                           </div>
                         </div>
-                        <div class="cell-xs-12">
-                          <ul class="mailbox-attachments clearfix uploadedList"></ul>
-                        </div>
-                        <div class="cell-md-12 offset-custom-1">
+                        
+                        <div class="cell-sm-12 offset-custom-1">
                           <div class="form-button text-sm-right">
                             <button class="button button-secondary" type="submit">Register</button>
                           </div>
