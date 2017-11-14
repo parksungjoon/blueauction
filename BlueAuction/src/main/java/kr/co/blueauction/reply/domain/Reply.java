@@ -11,13 +11,12 @@ public class Reply {
 	private int orderNo;
 	private String deleteFlag;
 	
-	
 	public Reply() {
-		this(0, "", 0, "", "", 0, 0, 0, null);
+		this(0, "", 0, "", "", 0, 0, 0, "N");
 	}
 
 	public Reply(String memberId, int productId, String content) {
-		this(0, memberId, productId, content, "", 0, 0, 0, null);
+		this(0, memberId, productId, content, "", 0, 0, 0, "N");
 	}
 
 	public Reply(int replyId, String memberId, int productId, String content, String regdate, int groupNo, int levelNo,
