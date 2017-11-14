@@ -76,7 +76,7 @@ public class ReplyController {
 	}
 	
 //	댓글 출력 및 페이징
-	@RequestMapping(value="/{productId}/{page}")
+	@RequestMapping(value="/{productId}/{page}", method=RequestMethod.GET )
 	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("productId") int productId, @PathVariable("page") int page) {
 		
 		ResponseEntity<Map<String, Object>> entity = null;
@@ -87,7 +87,7 @@ public class ReplyController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		
-		Map<String, Object> pagingMap = new HashMap<>();
+		Map<String, Object> pagingMap = new HashMap<String, Object>();
 		
 		try {
 			
