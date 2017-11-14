@@ -1,6 +1,8 @@
 package kr.co.blueauction.product.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -50,7 +52,21 @@ public class MybatisProductDao implements ProductDao {
 	
 	/** {요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 */
 	@Override
-	public List<Product> listByCri(SearchCriteria cri) throws Exception {
-		return sqlSession.selectList(namespace + ".listByCri", cri);
+	public List<Product> listByCri(SearchCriteria cri, int type) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("cri", cri);
+		paramMap.put("type", type);
+		
+		return sqlSession.selectList(namespace + ".listByCri", paramMap);
+	}
+	
+	/** 검색 조건에 따른 전체 상품 리스트 수 */
+	@Override
+	public int listBySearchCount(SearchCriteria cri, int type) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("cri", cri);
+		paramMap.put("type", type);
+		
+		return sqlSession.selectOne(namespace + ".listBySearchCount", paramMap);
 	}
 }
