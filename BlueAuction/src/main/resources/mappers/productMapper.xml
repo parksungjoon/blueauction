@@ -135,17 +135,17 @@
 			and smallid = #{cri.smallid}
 		</if>
 		<if test="cri.keyword != null">
-			and name like CONCAT('%', #{keyword}, '%')
+			AND name LIKE CONCAT('%', #{cri.keyword}, '%')
 		</if>
 		<if test="type != 0">
-			<if test="type = 1">
-				and auctionstate = 'BEFORE'
+			<if test="type == 1">
+				AND auctionstate = 'BEFORE'
 			</if>
-			<if test="type = 2">
-				and auctionstate = 'DOING'
+			<if test="type == 2">
+				AND auctionstate = 'DOING'
 			</if>
-			<if test="type = 3">
-				and auctionstate = 'AFTER'
+			<if test="type == 3">
+				AND auctionstate = 'AFTER'
 			</if>
 		</if> 
 		ORDER  BY product_id DESC, regdate DESC 
@@ -154,33 +154,33 @@
 	
 	<!-- 검색 조건에 따른 전체 상품 리스트 수 -->
 	<select id="listBySearchCount" parameterType="map" resultType="int">
-		SELECT Count(product_id) 
+		SELECT Count(product_id) count
 		FROM   product 
 		WHERE  category_id = #{cri.category}
-		<if test="smallid != 0">
+		<if test="cri.smallid != 0">
 		and smallid = #{cri.smallid}
 		</if>
 		<if test="type != 0">
-			<if test="type = 1">
-				and auctionstate = 'BEFORE'
+			<if test="type == 1">
+				AND auctionstate = 'BEFORE'
 			</if>
-			<if test="type = 2">
-				and auctionstate = 'DOING'
+			<if test="type == 2">
+				AND auctionstate = 'DOING'
 			</if>
-			<if test="type = 3">
-				and auctionstate = 'AFTER'
+			<if test="type == 3">
+				AND auctionstate = 'AFTER'
 			</if>
 		</if> 
 	</select>	
 	
 	<!-- auctionstate 상태 변경 -->
-	<update id="updateAuctionsatate">
-	<![CDATA[
-	UPDATE product
-	set auctionstate = case 
-	when auctionstart <= now() and auctionend > now()  then 'DOING'
-	when auctionend <= now() then 'AFTER'
-	else 'BEFORE' end
-	]]> 
-	</update>
+	   <update id="updateAuctionsatate">
+	   <![CDATA[
+	   UPDATE product
+	   set auctionstate = case 
+	   when auctionstart <= now() and auctionend > now()  then 'DOING'
+	   when auctionend <= now() then 'AFTER'
+	   else 'BEFORE' end
+	   ]]> 
+	   </update>
 </mapper>
