@@ -14,5 +14,7 @@ public interface MemberService {
 	public Member checkLoginBefore(String value);
 	
 	public void insertMember(Member member);
+	
+	public Member idCheck(String string); 
 
 }

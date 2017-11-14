@@ -53,6 +53,11 @@ public class MybatisMemberDao implements MemberDao {
 
        return sqlSession.selectOne(namespace +".checkUserWithSessionKey", value);
      }   
+     
+     @Override
+     public Member idCheck(String string) {
+    	 return sqlSession.selectOne(namespace+".idCheck", string);
+     }
    
 
 }
