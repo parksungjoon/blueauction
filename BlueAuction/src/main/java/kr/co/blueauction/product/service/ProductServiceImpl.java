@@ -44,5 +44,10 @@ public class ProductServiceImpl implements ProductService {
 	public int listBySearchCount(SearchCriteria cri, int type) throws Exception {
 		return productDao.listBySearchCount(cri, type);
 	}
+
+	@Override
+	public void updateAuctionsatate() throws Exception {
+		productDao.updateAuctionsatate();
+	}
 	
 }
