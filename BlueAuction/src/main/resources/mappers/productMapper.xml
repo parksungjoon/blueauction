@@ -108,5 +108,28 @@
 		WHERE  product_id = #{productId}; 
 	</update> -->
 
+	<!-- 경매 상품 상태 변경 update -->
+	<update id="updateAuctionsatate">
+	UPDATE product
+	set auctionstate = case 
+	when auctionstart <= now() and auctionend > now()  then 'DOING'
+	when auctionend <= now() then 'AFTER'
+	else 'BEFORE' end
 	
+	<!-- 
+	<selectKey resultType="string" keyProperty="sysdate">
+		select now() from dual;
+	</selectKey>
+	
+	UPDATE product
+		<if test="Product.auctionstart >= sysdate ">
+			<if test="Product.auctionend > sysdate">
+				set auctionstate = 'DOING'
+			</if>
+		</if>
+		<if test="Product.auctionend >= sysdate">
+			set auctionstate = 'After'
+		</if>
+	where product_id = #{productId};  -->
+	</update>
 </mapper>

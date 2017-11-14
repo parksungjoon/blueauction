@@ -53,4 +53,9 @@ public class MybatisProductDao implements ProductDao {
 	public List<Product> listByCri(SearchCriteria cri) throws Exception {
 		return sqlSession.selectList(namespace + ".listByCri", cri);
 	}
+
+	@Override
+	public void updateAuctionsatate() throws Exception {
+		sqlSession.update(namespace+".updateAuctionsatate");
+	}
 }
