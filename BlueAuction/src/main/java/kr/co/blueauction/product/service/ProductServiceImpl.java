@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.co.blueauction.common.domain.SearchCriteria;
+import kr.co.blueauction.photo.dao.PhotoDao;
+import kr.co.blueauction.photo.domain.Photo;
 import kr.co.blueauction.product.dao.ProductDao;
 import kr.co.blueauction.product.domain.Product;
 
@@ -14,6 +16,7 @@ import kr.co.blueauction.product.domain.Product;
 public class ProductServiceImpl implements ProductService {
 	
 	@Inject ProductDao productDao;
+	@Inject PhotoDao photoDao;
 	
 	@Override
 	public void create(Product product) throws Exception {
@@ -27,7 +30,21 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Product read(int productId) throws Exception {
-		return productDao.read(productId);
+		Product product = productDao.read(productId);
+		
+		List<Photo> photoList = photoDao.readByProductId(productId);
+		String[] photoArr = null;
+		if(photoList.size() > 0) {
+			photoArr = new String[photoList.size()];
+			
+			for (int i = 0; i < photoArr.length; i++) {
+				photoArr[i] = photoList.get(i).getPhotoname();
+			}
+		}
+		
+		product.setPhoto(photoArr);
+		
+		return product;
 	}
 	
 	@Override
