@@ -26,6 +26,12 @@
 		where product_id = #{value}
 	</select>
 	
+	<update id="update" parameterType="Bid">
+		UPDATE bid
+		SET winning = 'Y'
+		where bid_no = #{bidNo}
+	</update>
+	
 	<delete id="delete" parameterType="int">
 		delete from BID
 		where bid_id = {value}

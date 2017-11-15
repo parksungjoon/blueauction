@@ -5,17 +5,14 @@
  */
 package kr.co.blueauction.bid.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import kr.co.blueauction.common.domain.SearchCriteria;
-import kr.co.blueauction.reply.domain.Reply;
+import kr.co.blueauction.bid.domain.Bid;
 
 @Repository
 public class MybatisBidDao implements BidDao{
@@ -24,4 +21,29 @@ public class MybatisBidDao implements BidDao{
 	private SqlSession sqlSession;
 	
 	private static final String NAMESPACE = "kr.co.blueauction.mapper.bidMapper";
+
+	@Override
+	public void create(Bid bid) throws Exception {
+		sqlSession.insert(NAMESPACE+".create", bid);
+	}
+
+	@Override
+	public void update(Bid bid) throws Exception {
+		sqlSession.update(NAMESPACE+".update", bid);
+	}
+
+	@Override
+	public void delete(int bidId) throws Exception {
+		sqlSession.delete(NAMESPACE+".delete", bidId);
+	}
+
+	@Override
+	public List<Bid> readByProductId(int productId) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".readByProductId", productId);
+	}
+
+	@Override
+	public List<Bid> readByMemberId(String memberId) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".readByMemberId", memberId);
+	}
 }
