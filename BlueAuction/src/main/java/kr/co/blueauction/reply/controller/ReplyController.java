@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,8 @@ import kr.co.blueauction.reply.service.ReplyService;
 @RestController
 @RequestMapping("/reply")
 public class ReplyController {
+	
+	Logger logger = LoggerFactory.getLogger(ReplyController.class);
 	
 	@Inject
 	ReplyService replyService;
@@ -82,10 +86,12 @@ public class ReplyController {
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		SearchCriteria cri = new SearchCriteria();
+		logger.info("파라미터 page  :  " + page);
 		cri.setPage(page);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
+		logger.info("cri page  :  " + cri.getPage());
 		
 		Map<String, Object> pagingMap = new HashMap<String, Object>();
 		

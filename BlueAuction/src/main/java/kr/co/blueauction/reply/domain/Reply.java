@@ -111,5 +111,4 @@ public class Reply {
 				+ content + ", regdate=" + regdate + ", groupNo=" + groupNo + ", levelNo=" + levelNo + ", orderNo="
 				+ orderNo + ", deleteFlag=" + deleteFlag + "]";
 	}
-
-}
+}	
