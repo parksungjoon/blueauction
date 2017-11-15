@@ -37,3 +37,15 @@
         background: rgb(125, 190, 255);
         border-color: rgb(125, 190, 255);
       }
+      .comment-time {
+      	margin-left: 10px;
+      }
+      .replyicon {
+     	 position: relative;
+      	float: left;
+     	 margin-right: -10px;
+      }
+      .rcontainer-type2 {
+      	background-color: #f9f9f9; 
+      }
+      

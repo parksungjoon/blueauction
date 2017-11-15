@@ -3,10 +3,14 @@ package kr.co.blueauction.common.domain;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class PageMaker {
+	
+	Logger logger = LoggerFactory.getLogger(PageMaker.class);
 	
 	private int totalCount;
 	private int startPage;
@@ -14,7 +18,7 @@ public class PageMaker {
 	private boolean prev;
 	private boolean next;
 	
-	private int displayPageNum = 5; // 화면에 보여지는 페이지의 수
+	private int displayPageNum = 10; // 화면에 보여지는 페이지의 수
 	
 	private SearchCriteria cri;
 	
@@ -29,17 +33,23 @@ public class PageMaker {
 	}
 	
 	private void calcData() {
-		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
+		
+		if (cri.getPage() == 0) {
+			endPage = (int) (Math.ceil((cri.getPage()+1) / (double) displayPageNum) * displayPageNum);
+		} else {
+			endPage = (int) (Math.ceil((cri.getPage()/10) / (double) displayPageNum) * displayPageNum);
+		}
 		
 		startPage = (endPage - displayPageNum) + 1;
-		int tempEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
+		int tempEndPage = (int) (Math.ceil(totalCount / 10)+1);
 		
 		if(endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
 		
 		prev = (startPage == 1) ? false : true;
-		next = ((endPage * cri.getPerPageNum()) >= totalCount) ? false : true;
+		next = ((endPage * 10) >= totalCount) ? false : true;
+		
 	}
 	
 	public String makeQuery(int page) {

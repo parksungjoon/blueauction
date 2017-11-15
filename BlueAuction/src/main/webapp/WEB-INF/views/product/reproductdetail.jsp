@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
@@ -18,16 +21,139 @@
     <link rel="stylesheet" href="resources/css/mdi.css">
     <link rel="stylesheet" href="resources/css/fl-bigmug-line.css">
     <link rel="stylesheet" href="resources/css/cms-pdetail.css">
-     
+    
+    <script src="/resources/js/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    
 		<%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%> 
+    
+    <script id="template" type="text/x-handlebars-template">
+	<div class="reply-container">
+  		<article class="comment">
+				<div class="comment-body">
+ 				<div class="comment-header">
+					<input class="productid" type="hidden" value="{{productId}}">
+  					<input class="replyid" type="hidden" value="{{replyId}}">				
+ 					<p class="comment-title">{{ memberId }}</p>
+    				<time class="comment-time" datetime="2017">{{ regdate }}</time>
+    				<div class="comment-footer">
+    				<a class="comment-link-reply" href="#">Reply</a>
+    				</div>
+    			</div>
+    			<div class="comment-text">
+    				<p>{{content}}</p>
+    			</div>
+    		</div>
+ 		</article>
+		</div>
+    </script>
+    
+    <script id="template2" type="text/x-handlebars-template">
+  <div class="reply-container rcontainer-type2">
+      <article class="comment">
+		<img class="replyicon" alt="reply" src="resources/images/img/reply.png" width="20" height="20" style="left: {{levelNo}}px">
+        <div class="comment-body" style="margin-left: {{levelNo}}px">
+        <div class="comment-header">
+          <input class="productid" type="hidden" value="{{productId}}">
+            <input class="replyid" type="hidden" value="{{replyId}}">       
+          <p class="comment-title">{{ memberId }}</p>
+            <time class="comment-time" datetime="2017">{{ regdate }}</time>
+            <div class="comment-footer">
+            <a class="comment-link-reply" href="#">Reply</a>
+            </div>
+          </div>
+          <div class="comment-text">
+            <p>{{content}}</p>
+          </div>
+        </div>
+    </article>
+    </div>
+    </script>
+    
+    
+    <script type="text/javascript">
+    
+    var productId = 1 /* ${product.productId} */;
+    var page = 0;
+    
+    $(document).ready(function() {
+    	
+    	listPage(productId, page);
+    	
+    	$('.pagination').on("click", "a", function() {
+			event.preventDefault();
+			page = $(this).attr("href");
+			listPage(productId, page);
+		})
+	});
+    
+    	function listPage(productId, page) {
+    		
+    		var url = "/reply/1/" + (page*10)
+    		
+    		alert(url);
+    		
+    		$.getJSON(url , function(data) {
+    			
+    			var list = data.list;
+    			
+    			$('#reply-list *').remove();
+    			
+        		for ( var i in list) {
+        			var source;
+        			var template;
+    				if (list[i].levelNo == 0) {
+    					source = $("#template").html();
+    					template = Handlebars.compile(source);
+    					$("#reply-list").append(template(list[i]));
+    				} else {
+    					source = $("#template2").html();
+    					template = Handlebars.compile(source);
+    					list[i].levelNo *= 30; 
+    					$("#reply-list").append(template(list[i]));
+    				}
+        		};
+        		
+        		$(".reply-container").last().css("border-bottom", "1px solid gray");
+        		
+        		printPageNum(data.pageMaker)
+        		
+    		});
+    		
+		};
+		
+		function printPageNum(pageMaker) {
+			
+			var pages = "";
+			
+			if (pageMaker.prev) {
+				pages += "<li><a href='" + (pageMaker.startPage - 1) + "'>≪</a></li>";
+			}
+			
+			for (var i = pageMaker.startPage; i <= pageMaker.endPage; i++) {
+				var numClass = pageMaker.cri.page == i ? 'class=active' : '';
+				pages += "<li " + numClass +  "><a href='" + (i-1) + "'>" + i + "</a></li>";
+			}
+			
+			if (pageMaker.next) {
+				pages += "<li><a href='" + (pageMaker.end + 1) + "'>≪</a></li>";
+			}
+			
+			$('#pagination').html(pages);
+		}
+		
+		
+
+    </script>
+    
   </head>
   
   <body>
-    <%-- Page preloader--%>
+  <%-- Page preloader--%>
     <jsp:include page="/WEB-INF/views/include/pageloader.jsp"/>
     
     <%-- Page--%>
@@ -118,54 +244,12 @@
             <div class="cell-md-10 cell-lg-8 cell-xl-6 sections-collapsable">
               <div class="section-md qna">
                 <p class="h3-alternate">상품 관련 문의</p>
-                <div class="comment-group">
-                  <!-- 댓글 -->
-                  <div class="reply-container">
-                  <article class="comment">
-                    <div class="comment-body">
-                      <div class="comment-header">
-                        <p class="comment-title">김봉환</p>
-                        <time class="comment-time" datetime="2017">2 days ago</time>
-                        <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
-                      </div>
-                      <div class="comment-text">
-                        <p>이거 별로에요.</p>
-                      </div>
-                    </div>
-                  </article>
-                  </div>
-                    <!-- 댓글 -->
-                    <div class="reply-container reply-flag">
-                    <article class="comment reply">
-                    <img src="resources/images/img/reply.png" alt="" width="20" height="20"/>
-                      <div class="comment-body">
-                        <div class="comment-header">
-                          <p class="comment-title">수리님</p>
-                          <time class="comment-time" datetime="2017">2 days ago</time>
-                          <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
-                        </div>
-                        <div class="comment-text">
-                          <p>그쪽도 별로에요.</p>
-                        </div>
-                      </div>
-                    </article>
-                    </div>
-                  <!-- 댓글 -->
-                  <div class="reply-container" style="border-bottom: 1px solid gray">  
-                  <article class="comment">
-                    <div class="comment-body">
-                      <div class="comment-header">
-                        <p class="comment-title">김수진</p>
-                        <time class="comment-time" datetime="2017">2 days ago</time>
-                        <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
-                      </div>
-                      <div class="comment-text">
-                        <p>여기 이상해요.</p>
-                      </div>
-                    </div>
-                  </article>
-                  </div>
+                <div id="reply-list" class="comment-group">
+                  
                 </div>
+        <div class='text-center'>
+          <ul id="pagination" class="pagination pagination-sm no-margin "></ul>
+        </div>
               </div>
               <!-- 댓글 작성란 -->
               <div class="section-lg qna-write">
@@ -195,7 +279,7 @@
         </div>
       </section>
         <!-- 댓글 끝 -->
-        
+      
       </section>
       <!-- Product Page END-->
       

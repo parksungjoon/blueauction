@@ -55,12 +55,10 @@
 	<!-- 댓글 목록 출력 및 페이징 처리 -->
 	<select id="listPage" resultType="Reply">
 		SELECT * 
-		FROM   (SELECT * 
-        		FROM   (SELECT * 
-                		FROM   reply 
-                		ORDER  BY orderno ASC) reply 
-        		ORDER  BY groupno DESC) reply 
-		LIMIT  #{page}, 10
+		FROM   reply 
+		ORDER  BY groupno DESC, 
+        		  orderno ASC 
+		LIMIT  #{page}, 10 
 	</select>
 	
 	<!-- 전체 댓글 수 계산 -->
