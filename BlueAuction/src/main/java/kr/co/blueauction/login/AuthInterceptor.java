@@ -40,6 +40,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	      if(loginCookie != null) { 
 	        Member member = service.checkLoginBefore(loginCookie.getValue());
 	        System.out.println("loginCookie.getValue()"+loginCookie.getValue());
+	       
 	        logger.info("MEMBER: " + member);
 	        if(member != null){
 	        	System.out.println("member가 null 이 아님!");

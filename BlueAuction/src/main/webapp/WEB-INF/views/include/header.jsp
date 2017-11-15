@@ -63,7 +63,7 @@
 							</ul></li>
 						<li><a href="#">Pages</a> <!-- RD Navbar Megamenu-->
 							<ul class="rd-navbar-megamenu rd-navbar-megamenu-banner">
-								<li><img src="resources/images/accordions-1-570x600.jpg"
+								<li><img src="/resources/images/accordions-1-570x600.jpg"
 									alt="" width="570" height="600" /></li>
 								<li>
 									<ul class="rd-megamenu-list">

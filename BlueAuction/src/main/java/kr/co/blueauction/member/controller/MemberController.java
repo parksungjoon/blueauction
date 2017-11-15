@@ -4,8 +4,11 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -32,7 +37,8 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Inject
 	private MemberService service;
-
+	@Inject
+	private JavaMailSender mailSender;
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
 		
@@ -138,5 +144,48 @@ public class MemberController {
 		  }
 		 }
 	
+	@RequestMapping(value="/emailAuthenCheck", method=RequestMethod.POST)
+	public void checkEmailAuthenCheck(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+		
+		session.removeAttribute("uid");
+		String frommail="rlaqhdghks444@gmail.com";
+		String title="BLUE Aution 메일 인증 입니다";
+		String content="보내지나!!!!!!!!!";
+		   String paramemail = (req.getParameter("email") == null) ? "" : String.valueOf(req.getParameter("email"));
+		 
+		   UUID uuid=UUID.randomUUID();
+		   String uid=String.valueOf(uuid);
+		   
+		   session.setAttribute("uid", uid);
+		  
+		   MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
+			messageHelper.setFrom(frommail);
+			messageHelper.setTo(paramemail);
+			messageHelper.setSubject(title);
+			messageHelper.setText(uid);
+			
+			
+			mailSender.send(message);
+
+			System.out.println("session.getAttribute(\"uid\")"+session.getAttribute("uid"));
+	}
+	
+	@RequestMapping(value="/uidCheck", method=RequestMethod.POST)
+	public void uidCheck(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+		PrintWriter out=res.getWriter();
+		String paramuid=(req.getParameter("uid")==null) ?"" : String.valueOf(req.getParameter("uid"));
+		
+		if(String.valueOf(session.getAttribute("uid")).equals(paramuid)) {
+			out.print("1");
+			
+		}else {
+			out.print("2");
+		}
+		out.flush();
+		out.close();
+		
+		
+	}
 	
 }

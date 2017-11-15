@@ -19,6 +19,8 @@ public class Product {
 	private String auctionstate;
 	private String name;
 	
+	private String[] photo;
+	
 	public Product() {
 		this(0, 0, 0, "", "",  "", "", "", 0, "", "", null, "", "", 0, "");
 	}
@@ -33,7 +35,6 @@ public class Product {
 			String auctionstate) {
 		this(0, categoryId, smallid, name, seller, salemotive, usingtime, productinfo, 0, deliverytype, "", auctionFlag, auctionstart, auctionend, basicprice, auctionstate);
 	}
-
 
 	public Product(int productId, int categoryId, int smallid, String name, String seller, String salemotive, String usingtime,
 			String productinfo, int price, String deliverytype, String regdate, String auctionFlag, String auctionstart,
@@ -182,6 +183,14 @@ public class Product {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String[] photo) {
+		this.photo = photo;
 	}
 
 	@Override

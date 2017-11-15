@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.co.blueauction.mapper.bidMapper">
+	
+	<insert id="insert" parameterType="Bid">
+		INSERT INTO BID (product_id, 
+						 member_id, 
+						 bidprice) 
+				VALUES  (#{productId}, 
+						 #{memberId}, 
+						 #{bidprice})
+	</insert>
+	
+	<select id="readByMemberId" parameterType="string" resultType="bid">
+		Select *
+		From bid
+		WHERE member_id = #{value}
+	</select>
+	
+	<select id="readByProductId" parameterType="int" resultType="bid">
+		select *
+		from bid
+		where product_id = #{value}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from BID
+		where bid_id = {value}
+	</delete>
+</mapper>
