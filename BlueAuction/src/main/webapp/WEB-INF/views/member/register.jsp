@@ -29,75 +29,103 @@
 		<![endif]--%>
 </head>
 <script>
-function passwordCheck()
-{
- var passwd = document.getElementById("passwd").value;
-  var passwdCheck = document.getElementById("passwdCheck").value;
+	function passwordCheck() {
+		var passwd = document.getElementById("passwd").value;
+		var passwdCheck = document.getElementById("passwdCheck").value;
 
-  if ( passwdCheck == "") {  
-	  document.getElementById("passwordCheckText").innerHTML = "";
-  } else if ( passwd != passwdCheck ) {
-    document.getElementById("passwordCheckText").innerHTML = "<b><font color=#DF3F32 size=4pt> 비밀번호가 맞지 않습니다. </font></b>"
-  } else {
-    document.getElementById("passwordCheckText").innerHTML = "<b><font color=#4F84C4 size=4pt> 비밀번호가 올바르게 입력 되었습니다. </font></b>"  
-  } 
-};
-function idCheck()
-{
-	var memberId=$('#memberId').val();
-	
-	if($('#memberId').val()==""){
-		alert("ID를 입력하세요");
-		return;
-	}
-	$.ajax({
-		type : 'POST',
-		data:"memberId="+memberId,
-		dataType :"text",
-		url : '/memberCheck',
-		success: function(rData,textStatus, xhr){
-			var chkRst=rData;
-			if(chkRst=="null"){
-				alert("사용 가능합니다");
-				$("#idChk").val('Y');
-			}else if(chkRst!=null){
-				alert("중복 되어 있습니다");
-				$("#idChk").val('N');
-			}
-		},
-		error:function(xhr, status,e){
-			alert(e);
+		if (passwdCheck == "") {
+			document.getElementById("passwordCheckText").innerHTML = "";
+		} else if (passwd != passwdCheck) {
+			document.getElementById("passwordCheckText").innerHTML = "<b><font color=#DF3F32 size=4pt> 비밀번호가 맞지 않습니다. </font></b>"
+		} else {
+			document.getElementById("passwordCheckText").innerHTML = "<b><font color=#4F84C4 size=4pt> 비밀번호가 올바르게 입력 되었습니다. </font></b>"
 		}
-	});
-};
-function emailCheck(){
-	var email=$('#email').val();
-	console.log('emailCheck() 실행');
-	if($('#email').val()==""){
-		alert("email 입력하세요");
-		return;
-	}
-	$.ajax({
-		type : 'POST',
-		data:"email="+email,
-		dataType :"text",
-		url : '/memberEmailCheck',
-		success: function(rData,textStatus, xhr){
-			var chkRst=rData;
-			alert(chkRst);
-			if(chkRst=="null"){
-				alert("사용 가능합니다");
-			//	$("#emailChk").val('Y');
-			}else if(chkRst!=null){
-				alert("중복 되어 있습니다");
-				//$("#emailChk").val('N');
-			}
-		},
-		error:function(xhr, status, e){
-			alert(e);
+	};
+	function idCheck() {
+		var memberId = $('#memberId').val();
+
+		if ($('#memberId').val() == "") {
+			alert("ID를 입력하세요");
+			return;
 		}
-	});
-};
+		$.ajax({
+			type : 'POST',
+			data : "memberId=" + memberId,
+			dataType : "text",
+			url : '/memberCheck',
+			success : function(rData, textStatus, xhr) {
+				var chkRst = rData;
+				if (chkRst == "null") {
+					alert("사용 가능합니다");
+					$("#idChk").val('Y');
+				} else if (chkRst != null) {
+					alert("중복 되어 있습니다");
+					$("#idChk").val('N');
+				}
+			},
+			error : function(xhr, status, e) {
+				alert(e);
+			}
+		});
+	};
+	function emailCheck() {
+		var email = $('#email').val();
+		console.log('emailCheck() 실행');
+		if ($('#email').val() == "") {
+			alert("email 입력하세요");
+			return;
+		}
+		$.ajax({
+			type : 'POST',
+			data : "email=" + email,
+			dataType : "text",
+			url : '/memberEmailCheck',
+			success : function(rData, textStatus, xhr) {
+				var chkRst = rData;
+				if (chkRst == "null") {
+					alert("사용 가능합니다");
+					$("#emailChk").val('Y');
+				} else if (chkRst != null) {
+					alert("중복 되어 있습니다");
+					$("#emailChk").val('N');
+				}
+			},
+			error : function(xhr, status, e) {
+				alert(e);
+			}
+		});
+	};
+	function emailAuthenCheck() {
+		var email = $('#email').val();
+		alert("메일을 확인해주세요");
+		$.ajax({
+			type : 'POST',
+			data : "email=" + email,
+			dataType : "text",
+			url : '/emailAuthenCheck',
+			success : function() {
+			}
+		}
+		)
+	}
+	function uidCheck(){
+		
+		var uid = $('#uid').val();
+		$.ajax({
+			type: 'POST',
+			data : "uid=" +uid,
+			dataType : "text",
+			url : '/uidCheck',
+			success:function(data){
+				if(data =="1"){
+					alert("일치합니다");
+				}
+				else{
+					alert("일치하지 않습니다");
+					}
+				}
+			})
+	}
 </script>
 <body>
   <%-- Page preloader 시작--%>
@@ -253,44 +281,45 @@ function emailCheck(){
               <div class="cell-sm-6">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">ID</label>
-                  <input class="form-input" id="memberId"
-                    type="text" name="memberId"
-                    data-constraints="@Required" placeholder="ID">
+                  <input class="form-input" id="memberId" type="text"
+                    name="memberId" data-constraints="@Required"
+                    placeholder="ID">
                 </div>
               </div>
               <div class="cell-sm-3">
                 <div class="form-wrap-validation">
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="idCheck()">check ID</input>
-                    <input type="hidden" id="idChk" value='N' />
+                    onclick="idCheck()" value="check ID"></input> <input
+                    type="hidden" id="idChk" value='N' />
                 </div>
               </div>
-              
-              
+
+
               <div class="cell-sm-5">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Password</label>
-                  <input class="form-input" id="passwd"
-                    type="password" name="passwd" value=""
-                    data-constraints="@Required" placeholder="Password">
+                  <input class="form-input" id="passwd" type="password"
+                    name="passwd" value="" data-constraints="@Required"
+                    placeholder="Password">
                 </div>
               </div>
               <div class="cell-sm-5">
                 <div class="form-wrap form-wrap-validation">
-                  <label class="form-label-outside" for="forms-3-name">Password Check</label>
-                   <input class="form-input" id="passwdCheck"
+                  <label class="form-label-outside" for="forms-3-name">Password
+                    Check</label> <input class="form-input" id="passwdCheck"
                     type="password" name="passwdCheck" value=""
-                    data-constraints="@Required" onkeyup="passwordCheck()"
+                    data-constraints="@Required"
+                    onkeyup="passwordCheck()"
                     placeholder="Password Check">
                 </div>
               </div>
               <div class="cell-sm-5">
                 <div class="form-wrap form-wrap-validation">
-                 <span id="passwordCheckText" width=40></span>
+                  <span id="passwordCheckText" width=40></span>
                 </div>
               </div>
-              
+
               <div class="cell-sm-12">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside"
@@ -330,20 +359,31 @@ function emailCheck(){
 
               <div class="cell-sm-6">
                 <div class="form-wrap form-wrap-validation">
-                  <label class="form-label-outside" for="forms-3-name">ID</label>
-                  <input class="form-input" id="email"
-                    type="text" name="memberId"
-                    data-constraints="@Required" placeholder="EMAIL">
+                  <label class="form-label-outside" for="forms-3-name">Email</label>
+                  <input class="form-input" id="email" type="text"
+                    name="email" data-constraints="@Required"
+                    placeholder="EMAIL">
                 </div>
               </div>
               <div class="cell-sm-3">
                 <div class="form-wrap-validation">
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="emailCheck()">check ID</input>
-                    <input type="hidden" id="idChk" value='N' />
+                    onclick="emailCheck()" value="check Email"></input>
+                  <input type="hidden" id="emailChk" value='N' />
                 </div>
               </div>
+              <div class="cell-sm-1">
+                <div class="form-wrap-validation">
+                  <button type="button" name="memberIdCheck"
+                    class="button button-secondary jjh-postCodeSearchBtn"
+                    onclick="emailAuthenCheck()"
+                    value="email authentification"
+                    data-target="#layerpop" data-toggle="modal"></button>
+                  <input type="hidden" id="emailAuthenChk" value='N' />
+                </div>
+              </div>
+
 
               <div class="cell-sm-10">
                 <div class="form-wrap form-wrap-validation">
@@ -393,7 +433,39 @@ function emailCheck(){
         </div>
       </div>
     </div>
-    </section>
+    <!--모달창 start  -->
+    <div class="modal fade" id="layerpop">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- header -->
+          <div class="modal-header">
+            <!-- 닫기(x) 버튼 -->
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <!-- header title -->
+            <h4 class="modal-title">uid를 입력해주세요</h4>
+          </div>
+          <!-- body -->
+          <div class="modal-body">
+            <input class="cell-sm-8 form-input" id="uid" type="text"
+              name="accountNumber" data-constraints="@Required"
+              placeholder="uid" >Body
+          </div>
+           <div class="modal-body">
+            <button class="cell-sm-8 form-input" id="uid" type="text"
+              name="accountNumber" data-constraints="@Required"
+              placeholder="uid" onclick="uidCheck()" >제출</button>
+          </div>
+          <!-- Footer -->
+          <div class="modal-footer">
+            Footer
+            <button type="button" class="btn btn-default"
+              data-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--모달창 end  --> </section>
     <%-- Formatting forms END --%>
 
     <%-- Page Footer--%>
