@@ -91,9 +91,10 @@ public class MemberController {
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypageGET(@ModelAttribute("member") Member member, HttpSession session, Model model) {
 		Object obj=session.getAttribute("login");
-		
-		
 		member=(Member)obj;
+		
+		
+		
 		model.addAttribute("member", member);
 		
 		logger.info("session.getAttribute(\"login\")"+obj.toString());
