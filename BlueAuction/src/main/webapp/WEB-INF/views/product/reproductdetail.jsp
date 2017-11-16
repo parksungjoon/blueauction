@@ -37,11 +37,12 @@
 				<div class="comment-body">
  				<div class="comment-header">
 					<input class="productid" type="hidden" value="{{productId}}">
-  					<input class="replyid" type="hidden" value="{{replyId}}">				
  					<p class="comment-title">{{ memberId }}</p>
     				<time class="comment-time" datetime="2017">{{ regdate }}</time>
     				<div class="comment-footer">
-    				<a class="comment-link-reply" href="#">Reply</a>
+    					<button type="button" class="btn btn-info btn-sm btn-reply" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Reply</button>
+            			<button type="button" name="{{content}}" class="btn btn-success btn-sm btn-reply-modify" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Modify</button>
+           				<button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Delete</button>
     				</div>
     			</div>
     			<div class="comment-text">
@@ -59,11 +60,12 @@
         <div class="comment-body" style="margin-left: {{levelNo}}px">
         <div class="comment-header">
           <input class="productid" type="hidden" value="{{productId}}">
-            <input class="replyid" type="hidden" value="{{replyId}}">       
           <p class="comment-title">{{ memberId }}</p>
             <time class="comment-time" datetime="2017">{{ regdate }}</time>
             <div class="comment-footer">
-            <a class="comment-link-reply" href="#">Reply</a>
+           		<button type="button" class="btn btn-info btn-sm btn-reply" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Reply</button>
+            	<button type="button" name="{{content}}" class="btn btn-success btn-sm btn-reply-modify" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Modify</button>
+           		<button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Delete</button>
             </div>
           </div>
           <div class="comment-text">
@@ -74,7 +76,6 @@
     </div>
     </script>
     
-    
     <script type="text/javascript">
     
     var productId = 1 /* ${product.productId} */;
@@ -83,19 +84,68 @@
     $(document).ready(function() {
     	
     	listPage(productId, page);
+    	movePage();
     	
-    	$('.pagination').on("click", "a", function() {
-			event.preventDefault();
-			page = $(this).attr("href");
-			listPage(productId, page);
-		})
+    	$("#btn-send").click(function() {
+			addReply();
+		});
+    	
+    	$(".btn-close").click(function() {
+			$(".tarea-reply").val("");
+		});
+    	
+    	$(".btn-register").click(function() {
+    		
+    		var type = $(".modal-title").text();
+    		
+    		switch (type) {
+			case "댓글 작성":
+				alert("댓글 작성 실행");
+				var parentId = $(this).attr("value");
+	    		addReply(parentId);	
+				break;
+				
+			case "댓글 수정":
+				alert("댓글 수정 실행");
+				var replyId = $(this).attr("value");
+	    		modifyReply(replyId);	
+				break;
+
+			default:
+				alert("댓글 삭제 실행");
+				break;
+			}
+    		
+    		$(".btn-close").trigger("click");
+    	});
+    	
+    	$(document).on("click", ".btn-reply", function() {
+    		$(".modal-title").text("댓글 작성");
+    		$(".btn-register").text("Register");
+    		var parentId = $(this).attr("value");
+    		$(".btn-register").attr("value", parentId);
+    	});
+    	
+    	$(document).on("click", ".btn-reply-modify", function() {
+    		$(".modal-title").text("댓글 수정");
+    		$(".btn-register").text("Modify");
+    		$(".tarea-reply").val($(this).attr("name"));
+    		var replyId = $(this).attr("value");
+    		$(".btn-register").attr("value", replyId);
+    	});
+    	
+    	$(document).on("click", ".btn-reply-delete", function() {
+    		Event.
+    		$(".modal-title").text("댓글 삭제");
+    		$(".btn-register").text("Delete");
+    		var parentId = $(this).attr("value");
+    		$(".btn-register").attr("value", parentId);
+    	});
 	});
     
     	function listPage(productId, page) {
     		
-    		var url = "/reply/1/" + (page*10)
-    		
-    		alert(url);
+    		var url = "/reply/" + productId + "/" + (page*10)
     		
     		$.getJSON(url , function(data) {
     			
@@ -119,6 +169,7 @@
         		};
         		
         		$(".reply-container").last().css("border-bottom", "1px solid gray");
+        		$("#productId").attr("value", productId);
         		
         		printPageNum(data.pageMaker)
         		
@@ -146,8 +197,80 @@
 			$('#pagination').html(pages);
 		}
 		
+		function movePage() {
+			$('.pagination').on("click", "a", function() {
+				event.preventDefault();
+				page = $(this).attr("href");
+				listPage(productId, page);
+			})
+		}
 		
-
+		function addReply(parentId) {
+			var memberId = $("#memberId").attr("value");
+			var productId = $("#productId").attr("value");
+			var content;
+			if (parentId == undefined || parentId == null) {
+				content = $("#form-comment-message").val();
+			} else {
+				content = $(".tarea-reply").val();
+			}
+			
+			$.ajax({
+				type: "post",
+				url: "/reply",
+				dataType: 'text',
+				contentType: "application/json;charset=UTF-8",
+				data: JSON.stringify({memberId:memberId, productId:productId, content:content, replyId:parentId}),
+				success: function(data) {
+					page = 0;
+					listPage(productId, page);
+					$("#form-comment-message").val("");
+				}
+			});
+		}
+		
+		/* 댓글 수정 */
+		function modifyReply(replyId) {
+			
+			var url = "/reply/" + replyId
+			var content = $(".tarea-reply").val();
+			
+			$.ajax({
+				type: "put",
+				url: url,
+				headers: { 
+		              "Content-Type": "application/json;charset=UTF-8",
+		              "X-HTTP-Method-Override": "PUT" },
+				dataType: 'text',
+				data: JSON.stringify({replyId:replyId, content:content}),
+				success: function(data) {
+					page = 0;
+					listPage(productId, page);
+				}
+			});
+		}
+		
+		/* 댓글 삭제 */
+		function deleteReply(replyId) {
+			
+			var url = "/reply/" + replyId
+			var content = $(".tarea-reply").val();
+			
+			$.ajax({
+				type: "put",
+				url: url,
+				headers: { 
+		              "Content-Type": "application/json;charset=UTF-8",
+		              "X-HTTP-Method-Override": "PUT" },
+				dataType: 'text',
+				data: JSON.stringify({replyId:replyId, content:content}),
+				success: function(data) {
+					page = 0;
+					listPage(productId, page);
+				}
+			});
+		}
+		
     </script>
     
   </head>
@@ -206,17 +329,14 @@
               <div class="divider divider-default"></div>
               <div class="detail">
                <dl class="nv3 nfirst present">
-               		<dt class="redprice">현재가</dt>
+               		<dt class="redprice">판매가</dt>
 					<dd class="redprice">
 						<div class="present_price" id="Price"><span class="present_num">152,000</span> 원  </div>
-						<div class="point"><span class="sf fc6">  시작가   <span class="num_thm">1,000</span> 원 </span></div>
 					</dd>
-					<dt class="redprice">입찰수</dt ><dd class="redprice">141회</dd>
-					<dt class="redprice">남은시간</dt ><dd class="redprice"><span class="auction_time">00:24:12</span>
                     <dt class="redprice">배송방식</dt ><dd class="redprice"><span class="">택배</span>
                     </dd> 
 				</dl> 
-                <a class="button button-xs button-secondary" href="#">입찰하기</a>
+                <a class="button button-xs button-secondary" href="#">구매하기</a>
               </div>
             </div>
           </div>
@@ -254,22 +374,24 @@
               <!-- 댓글 작성란 -->
               <div class="section-lg qna-write">
                 <p class="h3-alternate">문의 작성</p>
-                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/reply">
                   <div class="range range-20">
                     <div class="cell-xs-12">
                       <div class="form-wrap form-wrap-validation">
-                        <textarea class="form-input" id="form-comment-message" name="message" data-constraints="@Required"></textarea>
+                        <input id="memberId" type="hidden" name="memberId" value="홍길동${login.memberId}">
+                        <input id="productId" type="hidden" name="productId">
+                        <textarea class="form-input" id="form-comment-message" name="content" data-constraints="@Required"></textarea>
                       </div>
                     </div>
                     <div class="cell-xs-12 offset-custom-1">
                       <div class="form-button">
-                        <button class="button button-secondary" type="submit">send comment</button>
+                        <button id="btn-send" class="button button-secondary" type="button">send comment</button>
                       </div>
                     </div>
                   </div>
                       <div class="form-button btn-function">
-                        <button class="button button-secondary" type="submit">Modify</button>
-                        <button class="button button-secondary back" type="submit">Go Back</button>
+                        <button class="button button-secondary" type="button">Modify</button>
+                        <button class="button button-secondary back" type="button">Go Back</button>
                       </div>
                 </form>
               </div>
@@ -292,6 +414,28 @@
     <%-- END PANEL--%>
     <%-- Global Mailform Output--%>
     <div class="snackbars" id="form-output-global"></div>
+    
+    <!-- 댓글 모달 -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- 모달 내용-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+          </div>
+          <div class="modal-body"> 
+            <textarea class="tarea-reply" rows="3" cols="inherit"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-register" data-dismiss="modal"></button>
+            <button type="button" class="btn btn-default btn-close" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    <!-- 댓글 모달 끝 -->
     
     <%-- Javascript--%>
     <script src="resources/js/core.min.js"></script>

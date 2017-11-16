@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,13 +32,39 @@ public class ReplyController {
 	ReplyService replyService;
 	
 //	댓글 등록
+	@Transactional
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public ResponseEntity<String> create(@RequestBody Reply reply){
+		
 		ResponseEntity<String> entity = null;
 		
 		try {
-			replyService.create(reply);
-			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+			
+			if (reply.getReplyId() == 0) { // 신규글
+				
+				replyService.create(reply);
+				entity = new ResponseEntity<String>("success", HttpStatus.OK);
+				
+			} else { // 댓글
+				
+				Reply parentReply = replyService.read(reply.getReplyId());
+				reply.setGroupNo(parentReply.getGroupNo());
+				reply.setLevelNo(parentReply.getLevelNo()+1);
+				reply.setOrderNo(parentReply.getOrderNo()+1);
+				
+				if (parentReply.getLevelNo() == 0) { // 첫 댓글
+					
+					replyService.create(reply);
+					
+				} else { // 댓글의 댓글
+					
+					replyService.liftOrderNo(parentReply);
+					replyService.create(reply);
+					
+				}
+				
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -86,12 +113,10 @@ public class ReplyController {
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		SearchCriteria cri = new SearchCriteria();
-		logger.info("파라미터 page  :  " + page);
 		cri.setPage(page);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		logger.info("cri page  :  " + cri.getPage());
 		
 		Map<String, Object> pagingMap = new HashMap<String, Object>();
 		

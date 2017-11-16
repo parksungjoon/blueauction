@@ -24,12 +24,12 @@
 				<div class="rd-navbar-nav-wrap">
 					<!-- RD Navbar Nav-->
 					<ul class="rd-navbar-nav">
-						<li class="active"><a href="WEB-INF/views/templates/index.html">Home</a></li>
+						<li class="active"><a href="/WEB-INF/views/templates/index.html">Home</a></li>
 						<li><a href="/WEB-INF/views/templates/about-us.html">About Us</a></li>
 						<li><a href="#">Services</a> <!-- RD Navbar Dropdown-->
 							<ul class="rd-navbar-dropdown">
-								<li><a href="WEB-INF/views/templates/services.html">Services</a></li>
-								<li><a href=" WEB-INF/views/templates/single-service.html">Single Service</a></li>
+								<li><a href="/WEB-INF/views/templates/services.html">Services</a></li>
+								<li><a href="/WEB-INF/views/templates/single-service.html">Single Service</a></li>
 							</ul></li>
 						<li><a href="#">Gallery</a> <!-- RD Navbar Dropdown-->
 							<ul class="rd-navbar-dropdown">
@@ -160,7 +160,7 @@
 									<button
 										class="rd-search-form-submit rd-search-form-submit-icon mdi mdi-magnify"></button>
 									<button
-										class="rd-search-form-submit button form-button button-sm button-secondary">search</button>
+										class="rd-search-form-submit button form-button button-sm button-secondary" >search</button>
 								</div>
 							</div>
 						</form>
