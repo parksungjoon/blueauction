@@ -11,11 +11,13 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,6 +30,8 @@ import kr.co.blueauction.product.service.ProductService;
 @Controller
 @RequestMapping("/product")
 public class ProductDetailController {
+	
+	Logger logger = Logger.getLogger(ProductDetailController.class);
 	
 	@Inject
 	private ProductService productService;
@@ -60,17 +64,32 @@ public class ProductDetailController {
 		List<Bid> bidList = bidSevice.readByProductId(productId);
 		map.put("bidList", bidList);
 		
-		//사진 불러오기
-		/*List<String> fileList = boardService.getAttach(bno);
-		String[] files = new String[fileList.size()];
-		
-		for(int i = 0; i<fileList.size(); i++) {
-			files[i] = fileList.get(i);
-		}
-		board.setFiles(files);*/
-		
 		entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 		
 		return entity;
+	}
+	
+	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.GET)
+	public String modifyPageGET(@PathVariable("productId") int productId, Model model) throws Exception {
+		Product product = productService.read(productId);
+		model.addAttribute("product", product);
+			
+		return "/product/productModify";
+	}
+	
+	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.POST)
+	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
+		
+		logger.info("아직 완료 안됨");
+		
+		return "/";
+	}
+	
+	@RequestMapping(value="/remove/{productId}", method= RequestMethod.GET)
+	public String remove(@PathVariable("productId") int productId, Model model) throws Exception {
+		productService.delete(productId);
+		
+		// 경로만 설정해주기.
+		return "/";
 	}
 }
