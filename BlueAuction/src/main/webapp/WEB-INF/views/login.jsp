@@ -1,4 +1,4 @@
-<%@ page contentType = "text/html;charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
@@ -44,19 +44,19 @@
                   <!-- RD Mailform-->
                   <form action="/loginPost" class="rd-mailform" method="post">
                     <div class="form-wrap form-wrap-validation">
-                      <input class="form-input" id="forms-login-name" type="text" name="memberId" data-constraints="@Required">
-                      <label class="form-label" for="forms-login-name">Id</label>
+                      <input class="form-input"  type="text" name="memberId" placeholder="id">
+                      <label class="form-label" for="forms-login-name" value="ID"></label>
                     </div>
                     <div class="form-wrap form-wrap-validation">
-                      <input class="form-input" id="forms-login-password" type="password" name="passwd" data-constraints="@Required">
-                      <label class="form-label" for="forms-login-password">Password</label>
+                      <input class="form-input" type="password" name="passwd" placeholder="password">
+                      <label class="form-label" for="forms-login-password" ></label>
                     </div>
                     <br>
                     <div class="form-check" >
                       <label class="checkbox-inline jjh-autoLoginCheck">
                          <input type="checkbox" name="useCookie" >Remember me
                      </label>
-                    <!-- <label>
+                      <!-- <label>
                      <input type="checkbox" name="useCookie">Remember me
                     </label> -->
                     </div>

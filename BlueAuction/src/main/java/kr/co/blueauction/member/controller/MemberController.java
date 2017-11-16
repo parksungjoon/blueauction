@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
 
 @Controller
-// @RequestMapping("/main")
+//@RequestMapping("/main")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Inject
@@ -41,11 +42,12 @@ public class MemberController {
 	private JavaMailSender mailSender;
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
-		
+		logger.info("/login 실행");
 	}
 
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
+		logger.info("/loginPost 실행" );
 		Member vo = service.login(dto);
 		if (vo == null) {
 			return;
@@ -61,7 +63,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 		System.out.println("membercontroller logout 실행");
 
 		Object obj = session.getAttribute("login");
@@ -82,16 +84,27 @@ public class MemberController {
 			}
 		}
 		logger.info("로그아웃되었습니다");
-		
+		return "redirect:/";	
 		
 	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public void mypageGET(@ModelAttribute("member") Member member) {
-		System.out.println("membercontroller mypageGET 실행");
+	public String mypageGET(@ModelAttribute("member") Member member, HttpSession session, Model model) {
+		Object obj=session.getAttribute("login");
+		member=(Member)obj;
+		
+		
+		
+		model.addAttribute("member", member);
+		
+		logger.info("session.getAttribute(\"login\")"+obj.toString());
+		logger.info("member"+member.toString());
+		
+
+		return "/member/mypage";
 	}
 
-	@RequestMapping(value ="/main", method = RequestMethod.GET)
+	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String mainGET(@ModelAttribute("member") Member member) {
 		return "/examplePage/main";
 	}

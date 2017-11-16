@@ -37,18 +37,18 @@ public class PageMaker {
 		if (cri.getPage() == 0) {
 			endPage = (int) (Math.ceil((cri.getPage()+1) / (double) displayPageNum) * displayPageNum);
 		} else {
-			endPage = (int) (Math.ceil((cri.getPage()/10) / (double) displayPageNum) * displayPageNum);
+			endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
 		}
 		
 		startPage = (endPage - displayPageNum) + 1;
-		int tempEndPage = (int) (Math.ceil(totalCount / 10)+1);
+		int tempEndPage = (int) (Math.ceil(totalCount / cri.getPerPageNum())+1);
 		
 		if(endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
 		
 		prev = (startPage == 1) ? false : true;
-		next = ((endPage * 10) >= totalCount) ? false : true;
+		next = ((endPage * cri.getPerPageNum()) >= totalCount) ? false : true;
 		
 	}
 	
@@ -61,7 +61,7 @@ public class PageMaker {
 	public String makeSearch(int page) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
 																			.queryParam("perPageNum", cri.getPerPageNum()).queryParam("keyword",  encoding(cri.getKeyword()))
-																			.queryParam("category", cri.getCategory()).queryParam("smallCategory", cri.getSmallid()).build();
+																			.queryParam("category", cri.getCategory()).queryParam("smallid", cri.getSmallid()).build();
 		
 		return uriComponents.toUriString();
 	}

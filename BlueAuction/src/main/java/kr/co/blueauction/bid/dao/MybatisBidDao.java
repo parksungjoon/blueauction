@@ -24,7 +24,7 @@ public class MybatisBidDao implements BidDao{
 
 	@Override
 	public void create(Bid bid) throws Exception {
-		sqlSession.insert(NAMESPACE+".create", bid);
+		sqlSession.insert(NAMESPACE+".inset", bid);
 	}
 
 	@Override

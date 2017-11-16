@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.co.blueauction.mapper.photoMapper">
+	
+	<insert id="insert" parameterType="Photo">
+		INSERT INTO Photo (product_id, 
+						   photoname) 
+			 	VALUES  (#{productId}, 
+						 #{photoname})
+	</insert>
+	
+	<select id="readByProductId" parameterType="int" resultType="Photo">
+		select *
+		from photo
+		where product_id = #{value}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from photo
+		where photo_id = {value}
+	</delete>
+</mapper>
