@@ -24,6 +24,24 @@
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%> 
+   <script src="/resources/js/jquery-1.12.4.min.js"></script>
+   <script type="text/javascript">
+   	$(document).ready(function(){
+   		$(".jjh-cri").click(function(event){
+   			event.preventDefault();
+   			var cri = $(this).attr("href");
+   			alert(cri);
+   			$.ajax({
+   				type : "post",
+   				date : cri,
+   				url :  "/product/auction/" + type,
+   				success : function(data){
+   					alert("success");
+   				}
+   			});
+   		});
+   	});
+   </script>
   </head>
   
   <body>
@@ -77,13 +95,22 @@
                     <c:forEach items="${list}" var="product">
                         <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
                           <div class="product product-counter product-auction">
-                            <div class="product-counter-inner">
+                          <c:choose>
+                            <c:when test="${type == 1 }"><div class="product-counter-inner"></c:when>
+                            <c:when test="${type == 2 }"><div class="product-counter-inner"></c:when>
+                            <c:when test="${type == 3 }"><div class="product-counter-inner jjh-inner"></c:when>
+                           </c:choose>
                               <c:choose>
                                 <c:when test="${type == 1 }"><div class="jjh-counter" >${product.auctionstart }</div></c:when>
-                                <c:when test="${type == 2 }"><div class="countdown jjh-counter" data-time="2017/11/12 17:30:00" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div></c:when>
+                                <c:when test="${type == 2 }"><div class="countdown jjh-counter" data-time="${product.auctionend }" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div></c:when>
+                                <c:when test="${type == 3 }"><div class="jjh-counter" >${product.auctionend } 종료</div></c:when>
                               </c:choose>
                             </div>
-                            <div class="product-image "><a href="product-page.html"><img src="/resources/pro-img/bicycle.jpg" alt="" width="331" height="245"/></a></div>
+                            <c:choose>
+                              <c:when test="${type == 1 }"><div class="product-image "><a href="product-page.html"><img src="/resources/pro-img/bicycle.jpg" alt="" width="331" height="245"/></a></div></c:when>
+                              <c:when test="${type == 2 }"><div class="product-image "><a href="product-page.html"><img src="/resources/pro-img/bicycle.jpg" alt="" width="331" height="245"/></a></div></c:when>
+                              <c:when test="${type == 3 }"><div class="jjh-finished product-image"><a href="product-page.html"><img src="/resources/pro-img/bicycle.jpg" alt="" width="331" height="245"/></a></div></c:when>
+                            </c:choose>
                             <div class="product-title">
                               <h5>${product.name }</h5>
                             </div>
@@ -110,9 +137,18 @@
                                   </div>
                                 </div>
                               </c:when>
+                              <c:when test="${type == 3 }">
+                                <div class="jjh-price">
+                            <br>
+                            <div class="jjh-currentPrice">
+                              <p class=""><strong>Successful bid</strong></p>
+                              <h6>$320.00</h6>
+                            </div>
+                          </div>
+                              </c:when>
                             </c:choose>
                             
-                            <div class="product-button"><a class="jjh-listButton button-secondary" href="shopping-cart.html">Detail</a></div>
+                            <div class="product-button"><a class="jjh-listButton button-secondary" href="/product/auction/readpage/${product.productId }">Detail</a></div>
                             <c:if test="${type == 1 }">
                               <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
                             </c:if>
@@ -127,17 +163,18 @@
                   <ul class="pagination">
       
                     <c:if test="${pageMaker.prev}">
-                      <li><a href="auction/${type }${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+                      <li><a href="${type }${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
                     </c:if>
-      
+                    
+                    
                     <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
                       <li <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-                        <a href="auction/${type }${pageMaker.makeSearch(idx)}">${idx}</a>
+                        <a class="jjh-cri" href="${type }${pageMaker.makeSearch(idx)}" name="${idx }">${idx}</a>
                       </li>
                     </c:forEach>
       
                     <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-                      <li><a href="auction/${type }${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+                      <li><a href="${type }${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
                     </c:if>
       
                   </ul>
@@ -150,7 +187,7 @@
           </div>
           
             <%-- Shop Sidebar START --%>
-            <jsp:include page="/WEB-INF/views/include/rightSidebar.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/views/include/productRightSidebar.jsp"></jsp:include>
             <%-- Shop Sidebar END --%>
         </div>
         </div>

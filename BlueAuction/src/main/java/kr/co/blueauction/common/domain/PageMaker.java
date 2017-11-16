@@ -37,7 +37,7 @@ public class PageMaker {
 		if (cri.getPage() == 0) {
 			endPage = (int) (Math.ceil((cri.getPage()+1) / (double) displayPageNum) * displayPageNum);
 		} else {
-			endPage = (int) (Math.ceil((cri.getPage()/cri.getPerPageNum()) / (double) displayPageNum) * displayPageNum);
+			endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
 		}
 		
 		startPage = (endPage - displayPageNum) + 1;
