@@ -144,26 +144,21 @@
 					<div class="rd-navbar-search">
 						<a class="rd-navbar-search-toggle"
 							data-rd-navbar-toggle=".rd-navbar-search" href="#"><span></span></a>
-						<form class="rd-search" action="search-results.html"
-							data-search-live="rd-search-results-live" method="GET">
-							<div
-								class="rd-mailform-inline rd-mailform-sm rd-mailform-inline-modern">
+<!-- 						<form class="rd-search" action="#" data-search-live="rd-search-results-live" method="POST"> -->
+							<div class="rd-mailform-inline rd-mailform-sm rd-mailform-inline-modern search-box">
 								<div class="rd-mailform-inline-inner">
 									<div class="form-wrap form-wrap-icon mdi-magnify">
 										<label class="form-label form-label"
 											for="rd-navbar-search-form-input">Search...</label> <input
 											class="rd-navbar-search-form-input form-input"
-											id="rd-navbar-search-form-input" type="text" name="s"
-											autocomplete="off">
+											id="rd-navbar-search-form-input" type="text" >
 										<div class="rd-search-results-live"></div>
 									</div>
-									<button
-										class="rd-search-form-submit rd-search-form-submit-icon mdi mdi-magnify"></button>
-									<button
-										class="rd-search-form-submit button form-button button-sm button-secondary" >search</button>
+									<button class="rd-search-form-submit rd-search-form-submit-icon mdi mdi-magnify"></button>
+									<button class="rd-search-form-submit button form-button button-sm button-secondary" >search</button>
 								</div>
 							</div>
-						</form>
+					<!-- 	</form> -->
 					</div>
 				</div>
 				<div class="rd-navbar-aside-right">

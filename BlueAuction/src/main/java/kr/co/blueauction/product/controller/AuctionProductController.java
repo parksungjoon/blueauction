@@ -106,7 +106,7 @@ public class AuctionProductController {
 	
 	@RequestMapping(value = "/auction/{type}/{smallid}", method = RequestMethod.GET)
 	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model)throws Exception{
-		logger.info("경매 리스트  처음 출력 Get");
+		logger.info("경매 리스트  Get");
 		logger.info( " type : " + type + "*****");
 		logger.info("smallid : " + smallid);
 		
@@ -140,13 +140,13 @@ public class AuctionProductController {
 	
 //	경매 리스트 조회
 	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page){
+	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword){
 		
-		logger.info("경매 리스트 출력 시작");
+		logger.info("경매 리스트 Post");
 		logger.info("type : " + type + "$$$$$");
 		logger.info("page : " + page + "#####");
 		logger.info("smallid : " + smallid);
-		/*logger.info("keyword : " + keyword);*/
+		logger.info("keyword : " + keyword);
 		
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -155,10 +155,10 @@ public class AuctionProductController {
 		cri.setCategory(2);
 		cri.setPage(page);
 		
-/*		if(keyword != null) {
+		if(keyword != null) {
 			cri.setKeyword(keyword);
 		}
-		*/
+		
 		if(smallid != 0) {
 			cri.setSmallid(smallid);
 		}
@@ -173,7 +173,7 @@ public class AuctionProductController {
 			
 			map.put("type", type);
 			map.put("smallid", smallid);
-		/*	map.put("keyword", keyword);*/
+			map.put("keyword", keyword);
 			map.put("list", list);
 			
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
