@@ -72,10 +72,6 @@
                             <h5><a href="product-page.html">Typhoon 4K Quadcopter — Black</a></h5>
                           </div>
                           <div class="jjh-price">
-           <!--                  <div class="product-price">
-                              <p>Start Price</p>
-                              <h6>$125.00</h6>
-                            </div> -->
                             <br>
                             <div class="jjh-currentPrice">
                               <p class=""><strong>Successful bid</strong></p>

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
   <head>
@@ -60,21 +62,23 @@
             
               <div class="range range-70 text-left">
               <%-- 여기에 자기 부분 넣어주세요 --%>
+              
+              <c:forEach items="${list}" var="product">
                 <div class="range range-30" style="z-index:1;">
                 <%--리스트 한 단위 시작 --%>
                       <div class="cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3">
                         <div class="product product-counter product-auction">
                           <div class="product-counter-inner">
-                            <div class="countdown jjh-counter" data-time="2017/11/12 17:30:00" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
+                            <div class="jjh-counter" >${product.auctionstart }</div>
                           </div>
-                          <div class="product-image "><a href="product-page.html"><img src="resources/images/flower.jpg" alt="" width="331" height="245"/></a></div>
+                          <div class="product-image "><a href="product-page.html"><img src="" alt="" width="331" height="245"/></a></div>
                           <div class="product-title">
-                            <h5><a href="product-page.html">Typhoon 4K Quadcopter with Carrying Case — Black</a></h5>
+                            <h5>${product.name }</h5>
                           </div>
                           <div class="product-price-wrap">
                             <div class="product-price">
                               <p>Start Price</p>
-                              <h6>$125.00</h6>
+                              <h6>${basicprice }\</h6>
                             </div>
                             <!-- <div class="product-price">
                               <p>Current Price</p>
@@ -90,8 +94,33 @@
                       <%--리스트 한 단위 종료 --%>
                     <!-- </div><a class="button button-secondary" href="shop-3-columns-layout.html">view all auctions </a> -->
               </div>
+              </c:forEach>
               
-              	<span><a class="button-blog button button-default-outline" href="#">load more products</a></span>
+                <div class="text-center">
+                  <ul class="pagination">
+      
+                    <c:if test="${pageMaker.prev}">
+                      <li><a
+                        href="list${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+                    </c:if>
+      
+                    <c:forEach begin="${pageMaker.startPage }"
+                      end="${pageMaker.endPage }" var="idx">
+                      <li
+                        <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+                        <a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
+                      </li>
+                    </c:forEach>
+      
+                    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+                      <li><a
+                        href="list${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+                    </c:if>
+      
+                  </ul>
+                </div>
+              
+              	<!-- <span><a class="button-blog button button-default-outline" href="#">load more products</a></span> -->
                 <div class="jjh-newButton"><button class="button button-secondary " type="button">New Auction</button></div>
               <br>
             </div>
@@ -101,7 +130,9 @@
             <jsp:include page="/WEB-INF/views/include/rightSidebar.jsp"></jsp:include>
             <%-- Shop Sidebar END --%>
         </div>
+        </div>
       </section>
+  
 
       <%-- Page Footer--%>
       <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
