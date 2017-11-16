@@ -41,11 +41,12 @@ public class MemberController {
 	private JavaMailSender mailSender;
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
-		
+		logger.info("/login 실행");
 	}
 
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
+		logger.info("/loginPost 실행" );
 		Member vo = service.login(dto);
 		if (vo == null) {
 			return;
@@ -61,7 +62,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 		System.out.println("membercontroller logout 실행");
 
 		Object obj = session.getAttribute("login");
@@ -82,7 +83,7 @@ public class MemberController {
 			}
 		}
 		logger.info("로그아웃되었습니다");
-		
+		return "redirect:/";	
 		
 	}
 
@@ -91,7 +92,7 @@ public class MemberController {
 		System.out.println("membercontroller mypageGET 실행");
 	}
 
-	@RequestMapping(value ="/main", method = RequestMethod.GET)
+	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String mainGET(@ModelAttribute("member") Member member) {
 		return "/examplePage/main";
 	}
