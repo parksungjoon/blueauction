@@ -160,7 +160,7 @@
 									<button
 										class="rd-search-form-submit rd-search-form-submit-icon mdi mdi-magnify"></button>
 									<button
-										class="rd-search-form-submit button form-button button-sm button-secondary">search</button>
+										class="rd-search-form-submit button form-button button-sm button-secondary" >search</button>
 								</div>
 							</div>
 						</form>
