@@ -23,34 +23,39 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	  private MemberService service;
 	  
 	  @Override
-	  public boolean preHandle(HttpServletRequest request,
-	      HttpServletResponse response, Object handler) throws Exception {
-		  System.out.println("authInterceptor prehandle 실행");
-	    HttpSession session = request.getSession();   
-	    System.out.println(session.toString()+"세션 ㅡㅡ");
+	  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		  logger.info("AuthInterceptor preHandle 실행");
 
-	    if(session.getAttribute("login") == null){
+		  HttpSession session = request.getSession();   
 	    
-	      logger.info("current user is not logined");
+		  logger.info("Location Before : " + session.getAttribute("login"));
+		  
+		  if(session.getAttribute("login") == null) {
+	    
+			  logger.info("current user is not logined");
 	      
-	      saveDest(request);
+			  saveDest(request);
 	      
-	      Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		      Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		      
+		      if(loginCookie != null) { 
+		        Member member = service.checkLoginBefore(loginCookie.getValue());
+		        System.out.println("loginCookie.getValue()"+loginCookie.getValue());
+		       
+		        logger.info("MEMBER: " + member);
+		        if(member != null){
+		        	System.out.println("member가 null 이 아님!");
+		          session.setAttribute("login", member);
+		          return true;
+		        }
+		      }
+			  response.sendRedirect("/login");
 	      
-	      if(loginCookie != null) { 
-	        Member member = service.checkLoginBefore(loginCookie.getValue());
-	        System.out.println("loginCookie.getValue()"+loginCookie.getValue());
-	       
-	        logger.info("MEMBER: " + member);
-	        if(member != null){
-	        	System.out.println("member가 null 이 아님!");
-	          session.setAttribute("login", member);
-	          return true;
-	        }
-	      }
-	      response.sendRedirect("/login");
-	      return false;
-	      
+			  return false;
+	    }
+		  
+	    if(session.getAttribute("login") != null) {
+	    	logger.info("SESSION : " + session.getAttribute("login").toString());
 	    }
 	    
 	    return true;
@@ -58,10 +63,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	  
 
 	  private void saveDest(HttpServletRequest req) {
-
-		  System.out.println("authinterceptor savedest 실행");
+		logger.info("AuthInterceptor  saveDest실행");
+		  
 	    String uri = req.getRequestURI();
-
 	    String query = req.getQueryString();
 
 	    if (query == null || query.equals("null")) {

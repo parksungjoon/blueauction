@@ -24,6 +24,7 @@
 		select *
 		from bid
 		where product_id = #{value}
+		order by bidprice desc
 	</select>
 	
 	<update id="update" parameterType="Bid">

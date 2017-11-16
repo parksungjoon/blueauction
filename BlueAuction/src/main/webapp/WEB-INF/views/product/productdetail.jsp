@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
   <head>
@@ -25,25 +26,6 @@
 		<![endif]--%> 
 		
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript">
-	
-	$(function(){
-		init();
-	});
-	
-	function init(){
-		$.ajax({
-			url : "/product/auction/readpage/1",
-			type: "post",
-			success : function(data){
-				var map = data;
-				console.log(map.product);
-			}
-		});
-		
-	}
-	
-	</script>
   </head>
   
   <body>
@@ -82,12 +64,20 @@
                 <div class="unit unit-sm-horizontal unit-sm-middle unit-spacing-md-midle unit--inverse unit-sm">
                   <div class="unit-body">
                     <ul class="product-thumbnails">
-                      <li class="active" data-large-image="/resources/images/shop-01-420x550.png"><img src="/resources/images/shop-01-54x71.png" alt="" width="54" height="71"></li>
-                      <li data-large-image="/resources/images/shop-02-420x550.png"><img src="/resources/images/shop-02-54x71.png" alt="" width="54" height="71"></li>
-                    </ul>
+                    	<c:forEach var="photo" items="${product.photo}" varStatus="status" >
+                    		<c:choose>
+	                    		<c:when test="${status.count==1}">
+	                    		<li class="active" data-large-image="/resources/images/photo/${photo}"><img src="/resources/images/photo/${photo}" alt="" width="54" height="71"></li>
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    			<li data-large-image="/resources/images/photo/${photo}"><img src="/resources/images/photo/${photo}" alt="" width="54" height="71"></li>
+	                    		</c:otherwise>
+                    		</c:choose>
+                    	</c:forEach>
+                      </ul>
                   </div>
                   <div class="unit-right product-single-image">
-                    <div class="product-single-image-element"><img class="product-image-area animateImageIn" src="/resources/images/shop-01-420x550.png" alt=""></div>
+                    <div class="product-single-image-element"><img class="product-image-area animateImageIn" src="/resources/images/photo/${product.photo[0]}" alt="" width="300"></div>
                   </div>
                 </div>
               </div>
@@ -95,20 +85,39 @@
             <!-- 상품 이미지 END -->
             
             <div class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
-              <div class="heading-5">소분류</div>
-              <h3>상품이름</h3>
+              <div class="heading-5" id="smallName">
+				<c:choose>
+					<c:when test="${product.smallid == 1 }"> 의류 </c:when>
+					<c:when test="${product.smallid == 2}"> 잡화 </c:when>
+					<c:when test="${product.smallid == 3}"> 티켓 </c:when>
+					<c:when test="${product.smallid == 4}"> 가전제품 </c:when>
+				</c:choose>
+			  </div>
+              <h3 id="productName">${product.name}</h3>
               <div class="divider divider-default"></div>
               <div class="detail">
                <dl class="nv3 nfirst present">
                		<dt class="redprice">현재가</dt>
 					<dd class="redprice">
-						<div class="present_price" id="Price"><span class="present_num">152,000</span> 원  </div>
-						<div class="point"><span class="sf fc6">  시작가   <span class="num_thm">1000</span> 원 </span></div>
+						<div class="present_price" id="Price"><span class="present_num" id="presentNum">${bidList.get(0).bidprice}</span> 원  </div>
+						<div class="point"><span class="sf fc6">  시작가   <span class="num_thm" id="basicPrice">${product.basicprice}</span> 원 </span></div>
 					</dd>
-					<dt class="redprice">입찰수</dt ><dd class="redprice">141회</dd>
-					<dt class="redprice">남은시간</dt ><dd class="redprice"><span class="auction_time">00:24:12</span></dd>
+					<dt class="redprice">입찰수</dt ><dd class="redprice" id="bidCount">${bidList.size()}</dd>
+					
+					<dt class="redprice">남은시간</dt ><dd class="redprice">
+						<!-- <span class="auction_time">00:24:12</span> -->
+						 <div id="bidStartDate" class="countdown jjh-counter" data-time="${product.auctionend}" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
+						</dd>
 				</dl> 
-                <a class="button button-xs button-secondary" href="#">입찰하기</a>
+				
+				<c:if test='${(product.auctionstate).equals("DOING")}'>
+				  <a class="button button-xs button-secondary" href="#">입찰하기</a>
+				</c:if>
+				
+				<c:if test='${(product.auctionstate).equals("AFTER")}'>
+					<button class="button button-xs btn" disabled="disabled">종료</button>
+				</c:if>
+				
               </div>
             </div>
           </div>
@@ -129,45 +138,29 @@
                       <th>입찰 가격</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>suj****</td>
-                      <td>2017-11-10 10:47:44</td>
-                      <td>50,000원</td>
+                  <tbody id="bidListTr">
+                  <c:forEach var="bid" items="${bidList}" varStatus="status">
+                  	<tr>
+                      <td>${status.count}</td>
+                      <td>${bid.memberId}****</td>
+                      <td>${bid.biddate}</td>
+                      <td>${bid.bidprice}원</td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>suj****</td>
-                      <td>2017-11-10 10:47:44</td>
-                      <td>50,000원</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>suj****</td>
-                      <td>2017-11-10 10:47:44</td>
-                      <td>50,000원</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>suj****</td>
-                      <td>2017-11-10 10:47:44</td>
-                      <td>50,000원</td>
-                    </tr>
+                  </c:forEach>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
-        <!-- Hover Row Table (입찰 리스트) END -->
+        <!-- Hover Row Table (입찰 리스트) END --> 
         
         <div class="shell">
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-8">
             <p class="h3-alternate">상세 정보</p>
-		            <p class="text-spacing-sm">
-		            	상세정보오오
+		            <p class="text-spacing-sm" id="productInfo">
+		            	${product.productinfo}
 		            </p>
             </div>
           </div>
