@@ -146,6 +146,7 @@ public class AuctionProductController {
 		logger.info("type : " + type + "$$$$$");
 		logger.info("page : " + page + "#####");
 		logger.info("smallid : " + smallid);
+		/*logger.info("keyword : " + keyword);*/
 		
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -154,6 +155,10 @@ public class AuctionProductController {
 		cri.setCategory(2);
 		cri.setPage(page);
 		
+/*		if(keyword != null) {
+			cri.setKeyword(keyword);
+		}
+		*/
 		if(smallid != 0) {
 			cri.setSmallid(smallid);
 		}
@@ -168,7 +173,9 @@ public class AuctionProductController {
 			
 			map.put("type", type);
 			map.put("smallid", smallid);
+		/*	map.put("keyword", keyword);*/
 			map.put("list", list);
+			
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
