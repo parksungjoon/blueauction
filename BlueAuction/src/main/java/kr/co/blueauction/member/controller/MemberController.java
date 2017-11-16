@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
 
 @Controller
-// @RequestMapping("/main")
+//@RequestMapping("/main")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Inject
@@ -88,8 +89,19 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public void mypageGET(@ModelAttribute("member") Member member) {
-		System.out.println("membercontroller mypageGET 실행");
+	public String mypageGET(@ModelAttribute("member") Member member, HttpSession session, Model model) {
+		Object obj=session.getAttribute("login");
+		member=(Member)obj;
+		
+		
+		
+		model.addAttribute("member", member);
+		
+		logger.info("session.getAttribute(\"login\")"+obj.toString());
+		logger.info("member"+member.toString());
+		
+
+		return "/member/mypage";
 	}
 
 	@RequestMapping(value ="/", method = RequestMethod.GET)

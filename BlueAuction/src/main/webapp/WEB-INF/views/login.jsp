@@ -44,12 +44,12 @@
                   <!-- RD Mailform-->
                   <form action="/loginPost" class="rd-mailform" method="post">
                     <div class="form-wrap form-wrap-validation">
-                      <input class="form-input"  type="text" name="memberId">
+                      <input class="form-input"  type="text" name="memberId" placeholder="id">
                       <label class="form-label" for="forms-login-name" value="ID"></label>
                     </div>
                     <div class="form-wrap form-wrap-validation">
-                      <input class="form-input" type="password" name="passwd">
-                      <label class="form-label" for="forms-login-password">Password</label>
+                      <input class="form-input" type="password" name="passwd" placeholder="password">
+                      <label class="form-label" for="forms-login-password" ></label>
                     </div>
                     <br>
                     <div class="form-check" >

@@ -24,12 +24,12 @@
 				<div class="rd-navbar-nav-wrap">
 					<!-- RD Navbar Nav-->
 					<ul class="rd-navbar-nav">
-						<li class="active"><a href="WEB-INF/views/templates/index.html">Home</a></li>
+						<li class="active"><a href="/WEB-INF/views/templates/index.html">Home</a></li>
 						<li><a href="/WEB-INF/views/templates/about-us.html">About Us</a></li>
 						<li><a href="#">Services</a> <!-- RD Navbar Dropdown-->
 							<ul class="rd-navbar-dropdown">
-								<li><a href="WEB-INF/views/templates/services.html">Services</a></li>
-								<li><a href=" WEB-INF/views/templates/single-service.html">Single Service</a></li>
+								<li><a href="/WEB-INF/views/templates/services.html">Services</a></li>
+								<li><a href="/WEB-INF/views/templates/single-service.html">Single Service</a></li>
 							</ul></li>
 						<li><a href="#">Gallery</a> <!-- RD Navbar Dropdown-->
 							<ul class="rd-navbar-dropdown">
@@ -133,9 +133,9 @@
 					<div class="rd-navbar-brand">
 						<a class="brand-name" href="index.html"> <img
 							class="logo-default"
-							src="resources/images/logo-default-173x55.png" alt="" width="173"
+							src="/resources/images/logo-default-173x55.png" alt="" width="173"
 							height="55" /> <img class="logo-inverse"
-							src="resources/images/logo-inverse-173x55.png" alt="" width="173"
+							src="/resources/images/logo-inverse-173x55.png" alt="" width="173"
 							height="55" /></a>
 					</div>
 				</div>
