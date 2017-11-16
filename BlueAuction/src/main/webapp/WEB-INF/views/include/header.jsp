@@ -106,7 +106,7 @@
              
               <c:if test="${not empty login}">
                <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
-              <a> ${login.memberId} 님이 로그인 하셨습니다</a>
+              <a href="/mypage"> ${login.memberId} 님이 로그인 하셨습니다</a>
                 <li><a href="/logout">로그아웃</a></li>
               </c:if>
               
@@ -133,9 +133,9 @@
 					<div class="rd-navbar-brand">
 						<a class="brand-name" href="index.html"> <img
 							class="logo-default"
-							src="resources/images/logo-default-173x55.png" alt="" width="173"
+							src="/resources/images/logo-default-173x55.png" alt="" width="173"
 							height="55" /> <img class="logo-inverse"
-							src="resources/images/logo-inverse-173x55.png" alt="" width="173"
+							src="/resources/images/logo-inverse-173x55.png" alt="" width="173"
 							height="55" /></a>
 					</div>
 				</div>
