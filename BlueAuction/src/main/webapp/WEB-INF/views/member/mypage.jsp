@@ -70,44 +70,44 @@
 									<div class="range range-20">
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
-												<label class="form-label-outside" for="forms-3-name">First
-													name</label> <input class="form-input" id="forms-3-name"
+												<label class="form-label-outside" for="forms-3-name">name
+													</label> <input class="form-input" id="forms-3-name" value=${member.name}
 													type="text" name="name" data-constraints="@Required">
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
-												<label class="form-label-outside" for="forms-3-last-name">Last
-													name</label> <input class="form-input" id="forms-3-last-name"
+												<label class="form-label-outside" for="forms-3-last-name">email
+													</label> <input class="form-input" id="forms-3-last-name" value=${member.email}
 													type="text" name="last-name" data-constraints="@Required">
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="forms-3-company">zipcode</label>
-												<input class="form-input" id="forms-3-company" type="text"
+												<input class="form-input" id="forms-3-company" type="text" value=${member.zipcode}
 													name="company">
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="forms-3-city">baseaddress</label>
-												<input class="form-input" id="forms-3-city" type="text"
+												<input class="form-input" id="forms-3-city" type="text" value=${member.baseaddress}
 													name="city">
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="form-1-email">detailadress</label>
-												<input class="form-input" id="form-1-email" type="email"
+												<input class="form-input" id="form-1-email" type="email" value=${member.detailaddress}
 													name="email" data-constraints="@Email @Required">
 											</div>
 										</div>
 
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
-												<label class="form-label-outside" for="form-1-phone">email</label>
-												<input class="form-input" id="form-1-phone" type="text"
+												<label class="form-label-outside" for="form-1-phone">accountNumber</label>
+												<input class="form-input" id="form-1-phone" type="text" value=${member.accountNumber}
 													name="phone" data-constraints="@Numeric @Required">
 											</div>
 										</div>
@@ -115,16 +115,16 @@
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside"
-													for="forms-3-street-address">accountnumber</label> <input
-													class="form-input" id="forms-3-street-address" type="text"
+													for="forms-3-street-address">bank</label> <input
+													class="form-input" id="forms-3-street-address" type="text" value=${member.bank}
 													name="street-address">
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside"
-													for="forms-3-street-address">bank</label> <input
-													class="form-input" id="forms-3-street-address" type="text"
+													for="forms-3-street-address">phoneNumber</label> <input
+													class="form-input" id="forms-3-street-address" type="text" value=${member.phoneNumber}
 													name="street-address">
 											</div>
 										</div>
