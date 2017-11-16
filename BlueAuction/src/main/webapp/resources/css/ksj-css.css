@@ -46,4 +46,15 @@ div.detail dl.nv3 dd.redprice div.point{float:left;margin:4px 0 0 10px;padding-l
 div.detail dl.nv3 dd.redprice div.preview{float:left;margin:2px 0 0 5px;}
 div.detail dl.nv3 dd.redprice div.count{width:80%;clear:both;padding-top:3px;}
 
+.ksj-marginLeft{
+	margin-left: 230px;
+}
+
+.ksj-imgSize{
+	width: 400px;
+}
+
+.ksj-divImg{
+	width: 500px; height: 600px;
+}
 	
