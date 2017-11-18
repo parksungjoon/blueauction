@@ -18,19 +18,15 @@ public class Bid {
 	private String biddate;
 	private String winning;
 	
-	public Bid() {
-		super();
-	}
+	public Bid() {}
 	
 	public Bid(int productId, String memberId, int bidprice) {
-		super();
 		this.productId = productId;
 		this.memberId = memberId;
 		this.bidprice = bidprice;
 	}
 
 	public Bid(int bidId, int productId, String memberId, int bidprice, String biddate, String winning) {
-		super();
 		this.bidId = bidId;
 		this.productId = productId;
 		this.memberId = memberId;
