@@ -14,7 +14,7 @@
 	</insert>
 	
 	<select id="login" resultType="kr.co.blueauction.member.domain.Member">
-		select member_id, passwd, name
+		select member_id, passwd, name, zipcode, baseaddress, detailaddress, email, accountNumber, bank, phoneNumber
 		from member 
 		where member_id=#{memberId} and passwd=#{passwd}
 	</select>
