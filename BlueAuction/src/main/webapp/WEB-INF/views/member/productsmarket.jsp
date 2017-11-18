@@ -29,10 +29,6 @@
 
 <script src="/resources/js/jquery-1.12.4.min.js"></script>
 
-<!-- <script type="text/javascript">
-	var list = ${products.get(0)};
-	console.log(list);
-</script> -->
 </head>
 
 <body>
@@ -62,14 +58,15 @@
     <!-- Breadcrumbs END -->
 
 
-    <section class="section section-lg bg-white"> <c:forEach
-      var="product" items="${products}" varStatus="status">
+    <section class="section section-lg bg-white"> 
+    <c:if test="${not empty products}">
+    <c:forEach var="product" items="${products}" varStatus="status">
       <div class="shell shell-bigger product-single">
         <div
           class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
 
           <img class="product-image-area animateImageIn"
-            src="/resources/images/photo/${product.photo[0]}" alt=""
+            src="/resources/images/${product.photo[0]}" alt=""
             width="300">
 
           <div
@@ -79,15 +76,16 @@
             <div class="divider divider-default"></div>
             <div class="detail">
               <dl class="nv3 nfirst present">
-                <dt class="redprice">현재가</dt>
+                
                 <dd class="redprice">
+                <dt class="redprice">판매가</dt>
                   <div class="present_price" id="Price">
                     <span class="present_num" id="presentNum">${product.price}</span>
                     원
                   </div>
                   <div class="shell">
                     <div class="range range-xs-center">
-                      <div class="cell-sm-10 cell-lg-8">
+                      <div class="cell-sm-11 cell-lg-8">
                         <p class="h3-alternate">상세 정보</p>
                         <p class="text-spacing-sm" id="productInfo">
                           ${product.productinfo}</p>
@@ -108,6 +106,10 @@
 
 
     </c:forEach> </section>
+    </c:if>
+    <c:if test="${empty products}">
+    <h5> 판매 상품이 없습니다</h5>
+    </c:if>
     <!-- Product Page END-->
 
     <!-- Product Page END-->
