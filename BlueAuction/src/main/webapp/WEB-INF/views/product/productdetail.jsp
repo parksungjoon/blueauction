@@ -12,6 +12,7 @@
     <meta charset="utf-8">
     <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
     <%-- Stylesheets --%>
+    <link rel="stylesheet" href="/resources/css/jjh-style.css">
     <link rel="stylesheet" href="/resources/css/ksj-css.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald:200,400%7CLato:300,400,300italic,700%7CMontserrat:900">
     <link rel="stylesheet" href="/resources/css/bootstrap.css">
@@ -26,6 +27,26 @@
 		<![endif]--%> 
 		
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+	 $(document).ready(function(){
+		 var formObj = $("form[role='form']");
+		 console.log(formObj);
+		 
+	      $("#modifyBtn").on("click", function(){
+	    	  formObj.attr("action", "/product/modifypage/"+${product.productId});
+	    	  formObj.attr("method", "get");
+	    	  formObj.submit();
+	   	 });
+	      
+	      $("#removeBtn").on("click", function(){
+	    	  formObj.attr("action", "/product/remove/"+${product.productId});
+	    	  formObj.attr("method", "get");
+	    	  formObj.submit();
+	      });
+	      
+	  });
+	
+	</script>
   </head>
   
   <body>
@@ -55,7 +76,7 @@
       
       <!-- Product Page START-->
       <section class="section section-lg bg-white">
-        <div class="shell shell-bigger product-single">
+        <div class="shell shell-bigger product-single ksj-marginLeft">
           <div class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
           
           	<!-- 상품 이미지 START -->
@@ -65,19 +86,43 @@
                   <div class="unit-body">
                     <ul class="product-thumbnails">
                     	<c:forEach var="photo" items="${product.photo}" varStatus="status" >
-                    		<c:choose>
-	                    		<c:when test="${status.count==1}">
-	                    		<li class="active" data-large-image="/resources/images/photo/${photo}"><img src="/resources/images/photo/${photo}" alt="" width="54" height="71"></li>
-	                    		</c:when>
-	                    		<c:otherwise>
-	                    			<li data-large-image="/resources/images/photo/${photo}"><img src="/resources/images/photo/${photo}" alt="" width="54" height="71"></li>
-	                    		</c:otherwise>
-                    		</c:choose>
+                    	<c:choose>
+                    		<c:when test='${(product.auctionstate).equals("AFTER")}'>
+                    			<c:choose>
+		                    		<c:when test="${status.count==1}">
+		                    			<li class="active" data-large-image="/resources/images/img/${photo}"><img class="jjh-finished" src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    		</c:when>
+		                    		<c:otherwise>
+		                    			<li  data-large-image="/resources/images/img/${photo}"><img class="jjh-finished" src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    		</c:otherwise>
+                    			</c:choose>
+                    		</c:when>
+                    		
+                    		<c:otherwise>
+                    			<c:choose>
+		                    		<c:when test="${status.count==1}">
+		                    			<li class="active" data-large-image="/resources/images/img/${photo}"><img src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    		</c:when>
+		                    		<c:otherwise>
+		                    			<li data-large-image="/resources/images/img/${photo}"><img src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    		</c:otherwise>
+                    			</c:choose>
+                    		</c:otherwise>
+                    	</c:choose>
+                    		
                     	</c:forEach>
                       </ul>
                   </div>
-                  <div class="unit-right product-single-image">
-                    <div class="product-single-image-element"><img class="product-image-area animateImageIn" src="/resources/images/photo/${product.photo[0]}" alt="" width="300"></div>
+                  
+                  <div class="unit-right product-single-image" style="">
+                  	<c:choose>
+	                  	<c:when test='${(product.auctionstate).equals("AFTER")}'>
+				        	<div class="product-single-image-element ksj-divImg" ><img class="product-image-area animateImageIn ksj-imgSize jjh-finished"  src="/resources/images/img/${product.photo[0]}" alt=""></div>
+				    	</c:when>
+				     	<c:otherwise>
+				        	<div class="product-single-image-element ksj-divImg" ><img class="product-image-area animateImageIn ksj-imgSize"  src="/resources/images/img/${product.photo[0]}" alt=""></div>
+				      	</c:otherwise>
+               		</c:choose>
                   </div>
                 </div>
               </div>
@@ -99,15 +144,45 @@
                <dl class="nv3 nfirst present">
                		<dt class="redprice">현재가</dt>
 					<dd class="redprice">
-						<div class="present_price" id="Price"><span class="present_num" id="presentNum">${bidList.get(0).bidprice}</span> 원  </div>
+						<div class="present_price" id="Price"><span class="present_num" id="presentNum">
+						<c:choose>
+							<c:when test="${bidList == null}">
+							${product.basicprice}
+							</c:when>
+							<c:otherwise>
+							${bidList.get(0).bidprice}
+							</c:otherwise>
+						</c:choose>
+						</span> 원  </div>
 						<div class="point"><span class="sf fc6">  시작가   <span class="num_thm" id="basicPrice">${product.basicprice}</span> 원 </span></div>
 					</dd>
-					<dt class="redprice">입찰수</dt ><dd class="redprice" id="bidCount">${bidList.size()}</dd>
-					
-					<dt class="redprice">남은시간</dt ><dd class="redprice">
-						<!-- <span class="auction_time">00:24:12</span> -->
-						 <div id="bidStartDate" class="countdown jjh-counter" data-time="${product.auctionend}" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
-						</dd>
+					<dt class="redprice">입찰수</dt ><dd class="redprice" id="bidCount">
+					<c:choose>
+							<c:when test="${bidList == null}">
+							0
+							</c:when>
+							<c:otherwise>
+							${bidList.size()}
+							</c:otherwise>
+						</c:choose>
+						회
+					</dd>
+					<c:choose>
+						<c:when test='${(product.auctionstate).equals("BEFORE")}'>
+							<dt class="redprice">시작시간</dt >
+							<dd class="redprice">
+								<!-- <span class="auction_time">00:24:12</span> -->
+								<div id="bidStartDate" class="jjh-counter">${product.auctionstart}</div>
+							</dd>	
+						</c:when>
+						<c:otherwise>
+							<dt class="redprice">남은시간</dt >
+							<dd class="redprice">
+							<!-- <span class="auction_time">00:24:12</span> -->
+								<div id="bidendDate" class="countdown jjh-counter" data-time="${product.auctionend}" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
+							</dd>
+						</c:otherwise>
+					</c:choose>
 				</dl> 
 				
 				<c:if test='${(product.auctionstate).equals("DOING")}'>
@@ -166,10 +241,25 @@
           </div>
         </div>
         
+        <form role="form" action="modifyPage" method="post">
+			<%-- <input type='hidden' name='page' value="${cri.page}"> 
+			<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+			<input type='hidden' name='searchType' value="${cri.searchType}">
+			<input type='hidden' name='keyword' value="${cri.keyword}"> --%>
+		</form>
+        
+        <div class="shell">
+          <div class="range range-xs-right">
+            <div class="cell-sm-10 cell-lg-4">
+	            <button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
+				<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+            </div>
+          </div>
+        </div>
+        
       </section>
       <!-- Product Page END-->
       
-     
       <%-- Page Footer--%>
       <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
      

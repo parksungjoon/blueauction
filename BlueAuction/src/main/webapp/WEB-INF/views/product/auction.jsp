@@ -30,23 +30,44 @@
    	var page = 1;
  	var type = ${type};
  	var smallid = ${smallid};
+ 	var keyword = null;
  	
     $(document).ready(function(){
-		
+    	/* 경매 진행 중 리스트 페이지에서만 검색 가능 */
     	$(".form-button").click(function(event){
-    		var keyword = $("#rd-navbar-search-form-input").val();
-    		alert(keyword);
+    		if(type == 2){
+    			page = 1;
+    			keyword = $("#rd-navbar-search-form-input").val();
+        		alert(keyword);
+        		$.ajax({
+    				type : "post",
+    				data : {page:page, keyword:keyword},
+    				dataType : "json",
+    				url:"/product/auction/" + type + "/" + smallid,
+    				success : function(data){
+    					alert("검색 성공!");
+    					var list = data.list;
+    					for ( var index in list) {
+    						console.log(list[index].name);
+    					}
+    					searchPrint(list);
+    					$("#rd-navbar-search-form-input").val("keyword");
+    				}
+        		});
+    		}else{
+    			alert("여기서는 안됨!!! 경매중으로 ㄱㄱ");
+    		}
     	});
     	
    		$(".jjh-pageLoader").click(function(event) {
    		 	event.preventDefault();
   			
   			page = page + 1;
-  			alert(page);
+  			alert("page : " + page + ", type : " + type + ", smallid : " + smallid + ", keyword : " + keyword);
   			
   	  		$.ajax({
   	  			type: "post",
-  	  			data : {page:page},
+  	  			data : {page:page, keyword:keyword},
   	  			dataType : "json ",
   	  			url: "/product/auction/" + type + "/" + smallid,
   	  			success : function(data){
@@ -57,6 +78,9 @@
 					}
     	  			
     	  			console.log(data.type);
+    	  			for ( var index in list) {
+						console.log(list[index].auctionend);
+					}
     	  			switch(data.type){
   					case 1 : preparePrint(list); break;
   					case 2 : doingPrint(list); break;
@@ -100,10 +124,11 @@
   	 	var html = "";
 
   		   for ( var i in list) {
+  			   console.log(list[i].auctionend);
   			html +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
   	  		html +="      <div class='product product-counter product-auction'>";
   	  		html +="         <div class='product-counter-inner'>";
-  	  		html +="          <div class='countdown jjh-counter' data-time=" + list[i].auctionend + " data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
+  	  		html +="          <div class='countdown jjh-counter is-countdown' data-time=\"" + list[i].auctionend + "\" data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'>" + list[i].auctionend + "</div>";
   	  		html +="        </div>";
   	  		html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
   	  		html +="        <div class='product-title'>";
@@ -125,7 +150,8 @@
   	  		html +="    </div>";
 		}   
      $(".auction-list").append(html);
-  	}
+     
+  	} 
   	
   	 function finishedPrint(list){
   	 	var html = "";
@@ -153,6 +179,41 @@
 		}   
   	     $(".auction-list").append(html);
    	}
+  	 
+  	 function searchPrint(list){
+  		var st = "";
+
+		   for ( var i in list) {
+			   st +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
+			   st +="      <div class='product product-counter product-auction'>";
+			   st +="         <div class='product-counter-inner'>";
+			   st +="          <div class='countdown jjh-counter' data-time=" + list[i].auctionend + " data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
+			   st +="        </div>";
+			   st +="        <div class='product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+			   st +="        <div class='product-title'>";
+			   st +="          <h5>" + list[i].name +"</h5>";
+			   st +="        </div>";
+			   st +="        <div class='jjh-price'>";
+			   st +="          <div class='product-price'>";
+			   st +="            <p>Start Price</p>";
+			   st +="            <h6>" + list[i].basicprice + "원</h6>";
+			   st +="          </div>";
+			   st +="          <br>";
+			   st +="           <div class='jjh-currentPrice'>";
+			   st +="             <p class=''><strong>Current Price</strong></p>";
+			   st +="             <h6>$320.00</h6>";
+			   st +="           </div>";
+			   st +="        </div>";
+			   st +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
+			   st +="      </div>";
+			   st +="    </div>";
+		}   
+ 	 $(".auction-list").html(st);
+  	 }
+  	/*  function countdown(){
+  		 var now = new Date();
+  		 current
+  	 } */
   </script>
   </head>
   
@@ -187,7 +248,7 @@
         <c:if test="${type == 2 }">
           <%--참여 경매 잔여 시간 표시 헤더 --%>
            <div class="jjh-top">
-              <div class="countdown jjh-topCounter" data-time="2017/11/17 08:30:00" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
+              <div class="countdown jjh-topCounter" data-time="2017/11/17 08:30:00" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
            </div>
         </c:if>
       
