@@ -185,11 +185,11 @@
 	   </update>
 	   
 	
-	<!-- 로그인된 회원의 중고판매 물품 리스트를 조회 -->
-	<select id="productSellList" parameterType="String" resultType="Product">
+	<!-- 로그인된 회원의 중고 or옥션 판매 물품 리스트를 조회 -->
+	<select id="productSellList" parameterType="map" resultType="Product">
 		SELECT *
 		FROM   product 
-		WHERE  auction_flag = "N" and seller=#{memberId}
+		WHERE  auction_flag = #{auctionFlag} and seller=#{memberId}
 	</select>
 	   
 	   

@@ -31,6 +31,8 @@ public interface ProductService {
 	/** 스케줄러 - 경매상태 변경 */
 	public void updateAuctionsatate() throws Exception;
 	
-	/** 로그인된 회원의 중고판매 물품 리스트를 조회 */
-	public List<Product> productSellList(String memberId) throws Exception;
+	/** 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 */
+	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception;
+	
+	
 }

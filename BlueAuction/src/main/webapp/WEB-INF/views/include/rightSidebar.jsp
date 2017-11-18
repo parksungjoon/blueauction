@@ -16,7 +16,7 @@
 			<li><a href="#">입찰리스트</a></li>
 			<li><a href="#">낙찰리스트</a></li>
 			<li><a href="#">구매리스트</a></li>
-		</ul>
+		</ul> 
 	</div>
 
 </div>

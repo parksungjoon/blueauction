@@ -230,15 +230,34 @@ public class MemberController {
 		Member member1=(Member)member;
 		//세션에 저장되어 있는 멤버에서 memberId를 가저옴
 		String memberId=member1.getMemberId();
-		
+		String auctionFlag="N";
 		//상품을 받아옴
-			List<Product> products = productService.productSellList(memberId);
+			List<Product> products = productService.productSellList(memberId, auctionFlag);
 			for (Product product2 : products) {
 				System.out.println("product2.getPhoto().toString() : "+product2.getPhoto().toString());
 			}
 			model.addAttribute("products", products);
 			logger.info(products.toString());
 		return "member/productsmarket";
+	}
+	
+	@RequestMapping(value="/member/mypage/auctionmarket", method=RequestMethod.GET)
+	public String auctionmarket(@ModelAttribute("product") Product product, HttpSession session, Model model) throws Exception {
+		//login 세션을 가저옴
+		Object member=session.getAttribute("login");
+		logger.info("/member/mypage/goodsmarket에서 "+member.toString());
+		Member member1=(Member)member;
+		//세션에 저장되어 있는 멤버에서 memberId를 가저옴
+		String memberId=member1.getMemberId();
+		String auctionFlag="Y";
+		//상품을 받아옴
+			List<Product> products = productService.productSellList(memberId, auctionFlag);
+			for (Product product2 : products) {
+				System.out.println("product2.getPhoto().toString() : "+product2.getPhoto().toString());
+			}
+			model.addAttribute("products", products);
+			logger.info(products.toString());
+		return "member/auctionmarket";
 	}
 	
 }
