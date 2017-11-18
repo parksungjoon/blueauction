@@ -1,5 +1,7 @@
 package kr.co.blueauction.favorite.controller;
 
-public class FavoriteController {
+import org.springframework.stereotype.Controller;
 
+public class FavoriteController {
+	
 }

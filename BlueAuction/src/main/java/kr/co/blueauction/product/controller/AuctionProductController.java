@@ -1,11 +1,15 @@
 
 package kr.co.blueauction.product.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
+import kr.co.blueauction.favorite.domain.Favorite;
+import kr.co.blueauction.favorite.service.FavoriteService;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 
@@ -26,7 +32,7 @@ import kr.co.blueauction.product.service.ProductService;
  *
  */
 @Controller
-@RequestMapping("/product/*")
+@RequestMapping("/product")
 public class AuctionProductController {
 
 	private static final Logger logger = Logger.getLogger(AuctionProductController.class);
@@ -34,19 +40,25 @@ public class AuctionProductController {
 	@Inject
 	ProductService productService;
 	
-	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.GET)
-	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
-		logger.info("경매 리스트 시자자자자자자작");
+	@Inject
+	FavoriteService favoriteService;
+	
+//	경매 리스트 조회 get
+	@RequestMapping(value = "/auction/{type}/{smallid}", method = RequestMethod.GET)
+	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model)throws Exception{
+		String memberId = "surinim"; // 로그인 
 		
-		logger.info("경매 리스트 시작!!");
-		cri.setCategory(2);
-		logger.info(cri.toString());
-		logger.info("type : " + type);
+		logger.info("경매 리스트  Get");
+		logger.info( " type : " + type + "*****");
 		logger.info("smallid : " + smallid);
+		
+		SearchCriteria cri = new SearchCriteria();
+		cri.setCategory(2); // 카테고리 경매로 set
 		
 		if(smallid != 0) {
 			cri.setSmallid(smallid);
 		}
+		logger.info(cri.toString());
 		
 		List<Product> list = productService.listByCri(cri, type);
 		for (Product product : list) {
@@ -54,59 +66,38 @@ public class AuctionProductController {
 		}
 		
 		logger.info("-----------");
-		int count = productService.listBySearchCount(cri, type);
+		int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
 		logger.info("count : " + count);
 		model.addAttribute("list", list);
 		model.addAttribute("type", type);
+		model.addAttribute("smallid", smallid);
 		
-		PageMaker  pageMaker = new PageMaker();
+		/*PageMaker  pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(count);
-		logger.info(pageMaker.toString());
-		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("pageMaker", pageMaker);*/
 		
-		return "product/auction";
-	}
-//	경매 리스트 조회
-	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
-	public String  listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int smallid, @RequestParam("cri") SearchCriteria cri, Model model) throws Exception{
-		logger.info("경매 리스트 시작!!");
-		cri.setCategory(2);
-		logger.info(cri.toString());
-		logger.info("type : " + type);
-		logger.info("smallid : " + smallid);
-		
-		if(smallid != 0) {
-			cri.setSmallid(smallid);
+		List<Favorite> favoriteList =  favoriteService.readByMemberId(memberId);
+		for (Favorite favorite : favoriteList) {
+			logger.info(favorite);
 		}
 		
-		List<Product> list = productService.listByCri(cri, type);
-		for (Product product : list) {
-			logger.info(product.toString());
-		}
-		
-		logger.info("-----------");
-		int count = productService.listBySearchCount(cri, type);
-		logger.info("count : " + count);
-		model.addAttribute("list", list);
-		model.addAttribute("type", type);
-		
-		PageMaker  pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(count);
-		logger.info(pageMaker.toString());
-		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("favorite", favoriteList);
 		
 		return "product/auction";
 	}
 	
-//	경매 리스트 조회
-	/*@RequestMapping(value="/auction/{type}", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("page") int page){
+//	경매 리스트 조회 post
+	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword){
 		
-		logger.info("경매 리스트 출력 시작");
+		String memberId = "surinim"; // 로그인 
+		
+		logger.info("경매 리스트 Post");
 		logger.info("type : " + type + "$$$$$");
 		logger.info("page : " + page + "#####");
+		logger.info("smallid : " + smallid);
+		logger.info("keyword : " + keyword);
 		
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -115,7 +106,15 @@ public class AuctionProductController {
 		cri.setCategory(2);
 		cri.setPage(page);
 		
+		if(keyword != null) {
+			cri.setKeyword(keyword);
+		}
+		
+		if(smallid != 0) {
+			cri.setSmallid(smallid);
+		}
 		logger.info(cri.toString());
+		
 		try {
 			List<Product> list = productService.listByCri(cri, type);
 			
@@ -123,8 +122,17 @@ public class AuctionProductController {
 				logger.info(product.toString());
 			}
 			
+			List<Favorite> favoriteList =  favoriteService.readByMemberId(memberId);
+			for (Favorite favorite : favoriteList) {
+				logger.info(favorite);
+			}
+			
 			map.put("type", type);
+			map.put("smallid", smallid);
+			map.put("keyword", keyword);
 			map.put("list", list);
+			map.put("favorite", favoriteList);
+			
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,35 +141,7 @@ public class AuctionProductController {
 		
 		return entity;
 	}
-	*/
 	
-	/*@RequestMapping(value = "/auction/{type}", method = RequestMethod.POST)
-	public void listPagePost(@PathVariable("type") int type, @PathVariable("page") int page,  Model model) throws Exception{
-		logger.info("경매 리스트 출력 더보기 시작");
-		logger.info( " type : " + type + "*****");
-		
-		SearchCriteria cri = new SearchCriteria();
-		cri.setCategory(2);
-		logger.info("page : "+ page);
-		cri.setPage(page);
-		
-		logger.info(cri.toString());
-		
-		List<Product> list = productService.listByCri(cri, type);
-		for (Product product : list) {
-			logger.info(product.toString());
-		}
-		
-		logger.info("-----------");
-		int count = productService.listBySearchCount(cri, type);
-		logger.info("count : " + count);
-		model.addAttribute("list", list);
-		model.addAttribute("type", type);
-		
-		PageMaker  pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(count);
-		model.addAttribute("pageMaker", pageMaker);
-		
-	}*/
+/*//	관심경매 등록
+	public */
 }

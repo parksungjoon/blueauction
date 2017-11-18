@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -27,10 +28,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.WebUtils;
 
+import com.mysql.cj.api.Session;
+
 import kr.co.blueauction.login.LoginDTO;
 import kr.co.blueauction.login.LoginInterceptor;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
+import kr.co.blueauction.photo.domain.Photo;
+import kr.co.blueauction.product.domain.Product;
+import kr.co.blueauction.product.service.ProductService;
 
 @Controller
 //@RequestMapping("/main")
@@ -40,9 +46,27 @@ public class MemberController {
 	private MemberService service;
 	@Inject
 	private JavaMailSender mailSender;
+	@Inject
+	private ProductService productService;
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
+	public String loginGET(@ModelAttribute("dto") LoginDTO dto, HttpServletRequest req) {
 		logger.info("/login 실행");
+		
+		
+		HttpSession session=req.getSession();
+		
+		Object obj=session.getAttribute("login");
+	
+		if(obj != null) {
+			logger.info("자동로그인할 login세션이있음");
+			
+			return "redirect:/";
+		}else {
+		logger.info("자동로그인할 login세션이없음");
+		
+		}
+		return "/login";
 	}
 
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
@@ -94,7 +118,7 @@ public class MemberController {
 		member=(Member)obj;
 		
 		
-		
+			
 		model.addAttribute("member", member);
 		
 		logger.info("session.getAttribute(\"login\")"+obj.toString());
@@ -197,8 +221,24 @@ public class MemberController {
 		}
 		out.flush();
 		out.close();
+	}
+	@RequestMapping(value="/member/mypage/goodsmarket", method=RequestMethod.GET)
+	public String goodsmarket(@ModelAttribute("product") Product product, HttpSession session, Model model) throws Exception {
+		//login 세션을 가저옴
+		Object member=session.getAttribute("login");
+		logger.info("/member/mypage/goodsmarket에서 "+member.toString());
+		Member member1=(Member)member;
+		//세션에 저장되어 있는 멤버에서 memberId를 가저옴
+		String memberId=member1.getMemberId();
 		
-		
+		//상품을 받아옴
+			List<Product> products = productService.productSellList(memberId);
+			for (Product product2 : products) {
+				System.out.println("product2.getPhoto().toString() : "+product2.getPhoto().toString());
+			}
+			model.addAttribute("products", products);
+			logger.info(products.toString());
+		return "member/productsmarket";
 	}
 	
 }

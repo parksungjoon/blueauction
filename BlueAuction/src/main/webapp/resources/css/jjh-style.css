@@ -106,3 +106,8 @@
 	-webkit-filter: grayscale(100%);
 	filter: gray;
 }
+
+/* 헤더에 검색 박스 수정 */
+.search-box {
+	width: 1000px;
+}

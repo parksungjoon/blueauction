@@ -24,12 +24,12 @@
 				<div class="rd-navbar-nav-wrap">
 					<!-- RD Navbar Nav-->
 					<ul class="rd-navbar-nav">
-						<li class="active"><a href="WEB-INF/views/templates/index.html">Home</a></li>
+						<li class="active"><a href="/WEB-INF/views/templates/index.html">Home</a></li>
 						<li><a href="/WEB-INF/views/templates/about-us.html">About Us</a></li>
 						<li><a href="#">Services</a> <!-- RD Navbar Dropdown-->
 							<ul class="rd-navbar-dropdown">
-								<li><a href="WEB-INF/views/templates/services.html">Services</a></li>
-								<li><a href=" WEB-INF/views/templates/single-service.html">Single Service</a></li>
+								<li><a href="/WEB-INF/views/templates/services.html">Services</a></li>
+								<li><a href="/WEB-INF/views/templates/single-service.html">Single Service</a></li>
 							</ul></li>
 						<li><a href="#">Gallery</a> <!-- RD Navbar Dropdown-->
 							<ul class="rd-navbar-dropdown">
@@ -106,7 +106,7 @@
              
               <c:if test="${not empty login}">
                <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
-              <a> ${login.memberId} 님이 로그인 하셨습니다</a>
+              <a href="/mypage"> ${login.memberId} 님이 로그인 하셨습니다</a>
                 <li><a href="/logout">로그아웃</a></li>
               </c:if>
               
@@ -133,9 +133,9 @@
 					<div class="rd-navbar-brand">
 						<a class="brand-name" href="index.html"> <img
 							class="logo-default"
-							src="resources/images/logo-default-173x55.png" alt="" width="173"
+							src="/resources/images/logo-default-173x55.png" alt="" width="173"
 							height="55" /> <img class="logo-inverse"
-							src="resources/images/logo-inverse-173x55.png" alt="" width="173"
+							src="/resources/images/logo-inverse-173x55.png" alt="" width="173"
 							height="55" /></a>
 					</div>
 				</div>
@@ -144,26 +144,21 @@
 					<div class="rd-navbar-search">
 						<a class="rd-navbar-search-toggle"
 							data-rd-navbar-toggle=".rd-navbar-search" href="#"><span></span></a>
-						<form class="rd-search" action="search-results.html"
-							data-search-live="rd-search-results-live" method="GET">
-							<div
-								class="rd-mailform-inline rd-mailform-sm rd-mailform-inline-modern">
+<!-- 						<form class="rd-search" action="#" data-search-live="rd-search-results-live" method="POST"> -->
+							<div class="rd-mailform-inline rd-mailform-sm rd-mailform-inline-modern search-box">
 								<div class="rd-mailform-inline-inner">
 									<div class="form-wrap form-wrap-icon mdi-magnify">
 										<label class="form-label form-label"
 											for="rd-navbar-search-form-input">Search...</label> <input
 											class="rd-navbar-search-form-input form-input"
-											id="rd-navbar-search-form-input" type="text" name="s"
-											autocomplete="off">
+											id="rd-navbar-search-form-input" type="text" >
 										<div class="rd-search-results-live"></div>
 									</div>
-									<button
-										class="rd-search-form-submit rd-search-form-submit-icon mdi mdi-magnify"></button>
-									<button
-										class="rd-search-form-submit button form-button button-sm button-secondary">search</button>
+									<button class="rd-search-form-submit rd-search-form-submit-icon mdi mdi-magnify"></button>
+									<button class="rd-search-form-submit button form-button button-sm button-secondary" >search</button>
 								</div>
 							</div>
-						</form>
+					<!-- 	</form> -->
 					</div>
 				</div>
 				<div class="rd-navbar-aside-right">

@@ -26,22 +26,207 @@
 		<![endif]--%> 
    <script src="/resources/js/jquery-1.12.4.min.js"></script>
    <script type="text/javascript">
-   	$(document).ready(function(){
-   		$(".jjh-cri").click(function(event){
-   			event.preventDefault();
-   			var cri = $(this).attr("href");
-   			alert(cri);
-   			$.ajax({
-   				type : "post",
-   				date : cri,
-   				url :  "/product/auction/" + type,
-   				success : function(data){
-   					alert("success");
-   				}
-   			});
-   		});
-   	});
-   </script>
+   
+   	var page = 1;
+ 	var type = ${type};
+ 	var smallid = ${smallid};
+ 	var keyword = null;
+ 	/* var memberId = ${login.memberId}; */
+ 	
+    $(document).ready(function(){
+    	/* 경매 진행 중 리스트 페이지에서만 검색 가능 */
+    	$(".form-button").click(function(event){
+    		if(type == 2){
+    			page = 1;
+    			keyword = $("#rd-navbar-search-form-input").val();
+        		alert(keyword);
+        		$.ajax({
+    				type : "post",
+    				data : {page:page, keyword:keyword},
+    				dataType : "json",
+    				url:"/product/auction/" + type + "/" + smallid,
+    				success : function(data){
+    					alert("검색 성공!");
+    					var list = data.list;
+    					for ( var index in list) {
+    						console.log(list[index].name);
+    					}
+    					searchPrint(list);
+    					$("#rd-navbar-search-form-input").val("keyword");
+    				}
+        		});
+    		}else{
+    			alert("여기서는 안됨!!! 경매중으로 ㄱㄱ");
+    		}
+    	});
+    	
+   		$(".jjh-pageLoader").click(function(event) {
+   		 	event.preventDefault();
+  			
+  			page = page + 1;
+  			alert("page : " + page + ", type : " + type + ", smallid : " + smallid + ", keyword : " + keyword);
+  			
+  	  		$.ajax({
+  	  			type: "post",
+  	  			data : {page:page, keyword:keyword},
+  	  			dataType : "json ",
+  	  			url: "/product/auction/" + type + "/" + smallid,
+  	  			success : function(data){
+  	  				var list = data.list;
+  	  				var favorite = data.favorite;
+  	  				
+    	  			for ( var index in list) {
+						console.log(list[index].name);
+					}
+    	  			
+    	  			console.log(data.type);
+    	  			for ( var index in list) {
+						console.log(list[index].auctionend);
+					}
+    	  			switch(data.type){
+  					case 1 : preparePrint(list, favorite); break;
+  					case 2 : doingPrint(list); break;
+  					case 3 : finishedPrint(list); break;
+  					default : break;
+  					}
+  	  			} 			
+  	  		});
+  	  	}); 
+   });
+   	
+   	function preparePrint(list, favorite){
+  	 	var html = "";
+
+  		   for ( var i in list) {
+  			html +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
+  	  		html +="      <div class='product product-counter product-auction'>";
+  	  		html +="         <div class='product-counter-inner'>";
+  	  		html +="          <div class='jjh-counter' >" + list[i].auctionstart + "</div>";
+  	  		html +="        </div>";
+  	  		html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+  	  		html +="        <div class='product-title'>";
+  	  		html +="          <h5>" + list[i].name +"</h5>";
+  	  		html +="        </div>";
+  	  		html +="        <div class='product-price-wrap'>";
+  	  		html +="          <div class='product-price'>";
+  	  		html +="            <p>Start Price</p>";
+  	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
+  	  		html +="          </div>";
+  	  		html +="        </div>";
+  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='shopping-cart.html'>Detail</a></div>";
+  	  		
+  	  		// 관심경매 하트 표시
+  	  		 for ( var j in favorite) {
+  	  			var state = false;
+				if(favorite[j].productId == list[i].productId){
+					state = true;
+					break;
+				}
+			}
+  	  		
+  	  		if(state){
+  	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
+  	  		}else{
+  	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
+  	  		} 
+
+  	  		html +="      </div>";
+  	  		html +="    </div>";
+		}   
+     $(".auction-list").append(html);
+  	}
+  	
+  	 function doingPrint(list){
+  	 	var html = "";
+
+  		   for ( var i in list) {
+  			   console.log(list[i].auctionend);
+  			html +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
+  	  		html +="      <div class='product product-counter product-auction'>";
+  	  		html +="         <div class='product-counter-inner'>";
+  	  		html +="          <div class='countdown jjh-counter is-countdown' data-time=\"" + list[i].auctionend + "\" data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'>" + list[i].auctionend + "</div>";
+  	  		html +="        </div>";
+  	  		html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+  	  		html +="        <div class='product-title'>";
+  	  		html +="          <h5>" + list[i].name +"</h5>";
+  	  		html +="        </div>";
+  	  		html +="        <div class='jjh-price'>";
+  	  		html +="          <div class='product-price'>";
+  	  		html +="            <p>Start Price</p>";
+  	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
+  	  		html +="          </div>";
+  	  		html +="          <br>";
+  	  		html +="           <div class='jjh-currentPrice'>";
+  	  		html +="             <p class=''><strong>Current Price</strong></p>";
+  	  		html +="             <h6>$320.00</h6>";
+  	  		html +="           </div>";
+  	  		html +="        </div>";
+  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
+  	  		html +="      </div>";
+  	  		html +="    </div>";
+		}   
+     $(".auction-list").append(html);
+     
+  	} 
+  	
+  	 function finishedPrint(list){
+  	 	var html = "";
+
+  		   for ( var i in list) {
+  			html +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
+  	  		html +="      <div class='product product-counter product-auction'>";
+  	  		html +="         <div class='product-counter-inner jjh-inner'>";
+  	  		html +="          <div class='jjh-counter' >" + list[i].auctionend + " 종료</div>";
+  	  		html +="        </div>";
+  	  		html +="        <div class='jjh-finished product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+  	  		html +="        <div class='product-title'>";
+  	  		html +="          <h5>" + list[i].name +"</h5>";
+  	  		html +="        </div>";
+            html +="<div class='jjh-price'>";
+            html +="<br>";
+            html +="<div class='jjh-currentPrice'>";
+            html +="<p class=''><strong>Successful bid</strong></p>";
+            html +="<h6>$320.00</h6>";
+            html +="</div>";
+            html +="</div>";
+  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='shopping-cart.html'>Detail</a></div>";
+  	  		html +="      </div>";
+  	  		html +="    </div>";
+		}   
+  	     $(".auction-list").append(html);
+   	}
+  	 
+  	 function searchPrint(list){
+  		var st = "";
+
+		   for ( var i in list) {
+			   st +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
+			   st +="      <div class='product product-counter product-auction'>";
+			   st +="         <div class='product-counter-inner'>";
+			   st +="          <div class='countdown jjh-counter' data-time=" + list[i].auctionend + " data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
+			   st +="        </div>";
+			   st +="        <div class='product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+			   st +="        <div class='product-title'>";
+			   st +="          <h5>" + list[i].name +"</h5>";
+			   st +="        </div>";
+			   st +="        <div class='jjh-price'>";
+			   st +="          <div class='product-price'>";
+			   st +="            <p>Start Price</p>";
+			   st +="            <h6>" + list[i].basicprice + "원</h6>";
+			   st +="          </div>";
+			   st +="          <br>";
+			   st +="           <div class='jjh-currentPrice'>";
+			   st +="             <p class=''><strong>Current Price</strong></p>";
+			   st +="             <h6>$320.00</h6>";
+			   st +="           </div>";
+			   st +="        </div>";
+			   st +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
+			   st +="      </div>";
+			   st +="    </div>";
+		}   
+ 	 $(".auction-list").html(st);
+  	 }
+  </script>
   </head>
   
   <body>
@@ -75,7 +260,7 @@
         <c:if test="${type == 2 }">
           <%--참여 경매 잔여 시간 표시 헤더 --%>
            <div class="jjh-top">
-              <div class="countdown jjh-topCounter" data-time="2017/11/17 08:30:00" data-format="MM/DDHMS" data-type="until" data-layout="{dn} {dl} {hnn}{sep}{mnn}{sep}{snn}"></div>
+              <div class="countdown jjh-topCounter" data-time="2017/11/17 08:30:00" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
            </div>
         </c:if>
       
@@ -150,37 +335,38 @@
                             
                             <div class="product-button"><a class="jjh-listButton button-secondary" href="/product/auction/readpage/${product.productId }">Detail</a></div>
                             <c:if test="${type == 1 }">
-                              <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
-                            </c:if>
+                            
+                              <%--for문 break를 위한 set --%>
+                                <c:set value="false" var="doneLoop"/>
+                                <c:forEach items="${favorite }" var="favorite">
+                                  <c:if test="${not doneLoop }">
+                                    <c:choose>
+                                    <c:when test="${favorite.productId == product.productId }">
+                                      <c:set value="true" var="state"/>
+                                      <c:set value="true" var="doneLoop"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                      <c:set value = "false" var="state"/>
+                                    </c:otherwise>
+                                  </c:choose>
+                                  </c:if>
+                                </c:forEach>
+                                
+                                <c:choose>
+                                  <c:when test="${state }">
+                                    <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/full-heart.png"></button>
+                                  </c:when>
+                                  <c:otherwise>
+                                    <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
+                                  </c:otherwise>
+                                </c:choose>
+                             </c:if>
                           </div>
                         </div>
                 </c:forEach>
             </div>
-              
-              
-              <%-- 페이징 시작 --%>
-             <div class="text-center">
-                  <ul class="pagination">
-      
-                    <c:if test="${pageMaker.prev}">
-                      <li><a href="${type }${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
-                    </c:if>
-                    
-                    
-                    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-                      <li <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-                        <a class="jjh-cri" href="${type }${pageMaker.makeSearch(idx)}" name="${idx }">${idx}</a>
-                      </li>
-                    </c:forEach>
-      
-                    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-                      <li><a href="${type }${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
-                    </c:if>
-      
-                  </ul>
-                </div>
                 
-              <!-- 	<span><a class="button-blog button button-default-outline jjh-pageLoader" href="#" >load more products</a></span> -->
+                <span><a class="button-blog button button-default-outline jjh-pageLoader" href="#" >load more products</a></span>
                 <div class="jjh-newButton"><button class="button button-secondary " type="button">New Auction</button></div>
               <br>
             </div>
