@@ -4,4 +4,20 @@
 
 <!-- MyBatis XML 설정 파일(MyBatis설정의 중앙 허브 역할) -->
 <configuration>
+
+	<settings>
+   		<setting name="mapUnderscoreToCamelCase" value="true"/>
+   	</settings>
+   	
+   	<typeAliases>
+        <typeAlias type="kr.co.blueauction.favorite.domain.Favorite" alias="Favorite"/>
+        <typeAlias type="kr.co.blueauction.member.domain.Member" alias="Member"/>
+        <typeAlias type="kr.co.blueauction.order.domain.Orders" alias="Orders"/>
+        <typeAlias type="kr.co.blueauction.product.domain.Product" alias="Product"/>
+        <typeAlias type="kr.co.blueauction.reply.domain.Reply" alias="Reply"/>
+        <typeAlias type="kr.co.blueauction.bid.domain.Bid" alias="Bid"/>
+        <typeAlias type="kr.co.blueauction.photo.domain.Photo" alias="Photo"/>
+        <typeAlias type="kr.co.blueauction.common.domain.SearchCriteria" alias="SearchCriteria"/>
+	</typeAliases>
+   
 </configuration>

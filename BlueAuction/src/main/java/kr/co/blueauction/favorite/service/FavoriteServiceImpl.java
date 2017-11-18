@@ -16,8 +16,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Inject
 	private FavoriteDao favoriteDao;
 	
-	private static final String NAMESPACE = "kr.co.blueauction.mapper.favoriteMapper";
-
 	@Override
 	public void insert(Favorite favorite) {
 		favoriteDao.insert(favorite);

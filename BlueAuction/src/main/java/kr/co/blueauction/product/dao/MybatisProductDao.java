@@ -78,8 +78,12 @@ public class MybatisProductDao implements ProductDao {
 	
 	/** 로그인된 회원의 중고판매 물품 리스트를 조회 */
 	@Override
-	public List<Product> productSellList(String memberId) throws Exception{
-		
-		return sqlSession.selectList(namespace+".productSellList", memberId);
+	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception{
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("auctionFlag", auctionFlag);
+
+	
+		return sqlSession.selectList(namespace+".productSellList", map);
 	}
 }

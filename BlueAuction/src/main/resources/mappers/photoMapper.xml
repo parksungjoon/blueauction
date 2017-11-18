@@ -20,6 +20,11 @@
 	
 	<delete id="delete" parameterType="int">
 		delete from photo
-		where photo_id = {value}
+		where photo_id = #{value}
+	</delete>
+	
+	<delete id="deleteByproductId" parameterType="int">
+		delete from photo
+		where product_id = #{value}
 	</delete>
 </mapper>
