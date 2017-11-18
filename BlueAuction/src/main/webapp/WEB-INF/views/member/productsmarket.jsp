@@ -58,54 +58,60 @@
     <!-- Breadcrumbs END -->
 
 
-    <section class="section section-lg bg-white"> 
-    <c:if test="${not empty products}">
-    <c:forEach var="product" items="${products}" varStatus="status">
-      <div class="shell shell-bigger product-single">
-        <div
-          class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
+   <section class="section section-lg bg-white"> <c:if
+      test="${not empty products}">
+      <c:forEach var="product" items="${products}" varStatus="status">
+      < <!-- Product Page START-->
+        <section class="section section-lg bg-white">
+        <div class="shell shell-bigger product-single">
+          <div
+            class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
 
-          <img class="product-image-area animateImageIn"
+            <!-- 상품 이미지 START -->
+            <div class="cell-md-4 cell-lg-5 cell-xl-4">
+              <div class="product-single-preview">
+                <div
+                  class="unit unit-sm-horizontal unit-sm-middle unit-spacing-md-midle unit--inverse unit-sm">
+                  
+                  <div class="unit-right product-single-image">
+                    <div class="product-single-image-element">
+                      <img class="product-image-area animateImageIn"
             src="/resources/images/img/${product.photo[0]}" alt=""
             width="300">
-
-          <div
-            class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
-            <div class="heading-5" id="smallName"></div>
-            <li><a href="../../product/auction/readpage/${product.productId}"> ${product.name} </a></li>
-            <div class="divider divider-default"></div>
-            <div class="detail">
-              <dl class="nv3 nfirst present">
-                
-                <dd class="redprice">
-                <dt class="redprice">판매가</dt>
-                  <div class="present_price" id="Price">
-                    <span class="present_num" id="presentNum">${product.price}</span>
-                    원
-                  </div>
-                  <div class="shell">
-                    <div class="range range-xs-center">
-                      <div class="cell-sm-11 cell-lg-8">
-                        <p class="h3-alternate">상세 정보</p>
-                        <p class="text-spacing-sm" id="productInfo">
-                          ${product.productinfo}</p>
-                      </div>
                     </div>
                   </div>
-                </dd>
+                </div>
+              </div>
+            </div>
+            <!-- 상품 이미지 END -->
 
-
-              </dl>
-
+            <div
+              class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
+              <div class="heading-5">소분류명</div>
+              <h3><a href="/product/${product.productId}">${product.name}</a></h3>
+              <div class="divider divider-default"></div>
+              <div class="detail">
+                <dl class="nv3 nfirst present"> 
+                  <dt class="redprice">판매가</dt>
+                  <dd class="redprice">
+                    <div class="present_price" id="Price">
+                      <span class="present_num">${product.price}</span> 원
+                    </div>
+                  </dd>
+                  <dt class="redprice">배송방식</dt>
+                  <dd class="redprice">
+                    <span class="">${product.deliverytype}</span>
+                  </dd>
+                </dl>
+                <a class="button button-xs button-secondary" href="#">구매하기</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-
-
-
-    </c:forEach> </section>
+       
+        
+      </c:forEach></section>
     </c:if>
     <c:if test="${empty products}">
     <h5> 판매 상품이 없습니다</h5>
