@@ -10,7 +10,7 @@
    	</settings>
    	
    	<typeAliases>
-        <typeAlias type="kr.co.blueauction.favorite.domain.Favorite" alias="Favorites"/>
+        <typeAlias type="kr.co.blueauction.favorite.domain.Favorite" alias="Favorite"/>
         <typeAlias type="kr.co.blueauction.member.domain.Member" alias="Member"/>
         <typeAlias type="kr.co.blueauction.order.domain.Orders" alias="Orders"/>
         <typeAlias type="kr.co.blueauction.product.domain.Product" alias="Product"/>
