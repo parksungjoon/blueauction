@@ -93,6 +93,53 @@
   	  			} 			
   	  		});
   	  	}); 
+   		
+   		/** 상세보기 - hidden으로 넘기기 */
+   		$(document).on("click", ".readPage", function(event){
+   			event.preventDefault();
+   			
+   			var href = $(this).attr("href");
+   			
+   			var form = document.createElement("form");
+   			form.setAttribute("action", href);	
+   			form.setAttribute("method", "post");
+   			
+   			var type = document.createElement("input");
+   			type.setAttribute("type", "hidden");
+   			type.setAttribute("name", "type");
+   			type.setAttribute("value", ${type});
+   			
+   			var smallid = document.createElement("input");
+   			smallid.setAttribute("type", "hidden");
+   			smallid.setAttribute("name", "smallid");
+   			smallid.setAttribute("value", ${smallid});
+   			
+   			var page = document.createElement("input");
+   			page.setAttribute("type", "hidden");
+   			page.setAttribute("name", "page");
+   			page.setAttribute("value", "1");
+   			if(${page != null}){
+   				page.setAttribute("value", ${page});
+   			}
+   			
+   			var keyword = document.createElement("input");
+   			keyword.setAttribute("type", "hidden");
+   			keyword.setAttribute("name", "keyword");
+   			keyword.setAttribute("value", "");
+   			if(${keyword != null}){
+   				keyword.setAttribute("value", ${keyword});
+   			}
+   			
+   			form.appendChild(type);
+   			form.appendChild(smallid);
+   			form.appendChild(page);
+   			form.appendChild(keyword);
+   			
+   			console.log(form);
+   			
+   			document.body.appendChild(form);
+   			form.submit();
+   		});
    });
    	
    	function preparePrint(list, favorite){
@@ -114,7 +161,7 @@
   	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
   	  		html +="          </div>";
   	  		html +="        </div>";
-  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='shopping-cart.html'>Detail</a></div>";
+  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
   	  		
   	  		if(${login != null}){
     	  		// 관심경매 하트 표시
@@ -166,7 +213,7 @@
   	  		html +="             <h6>$320.00</h6>";
   	  		html +="           </div>";
   	  		html +="        </div>";
-  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
+  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage'  href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
   	  		html +="      </div>";
   	  		html +="    </div>";
 		}   
@@ -194,7 +241,7 @@
             html +="<h6>$320.00</h6>";
             html +="</div>";
             html +="</div>";
-  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='shopping-cart.html'>Detail</a></div>";
+  	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage'  href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
   	  		html +="      </div>";
   	  		html +="    </div>";
 		}   
@@ -225,7 +272,7 @@
 			   st +="             <h6>$320.00</h6>";
 			   st +="           </div>";
 			   st +="        </div>";
-			   st +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
+			   st +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
 			   st +="      </div>";
 			   st +="    </div>";
 		}   
@@ -338,7 +385,7 @@
                               </c:when>
                             </c:choose>
                             
-                            <div class="product-button"><a class="jjh-listButton button-secondary" href="/product/auction/readpage/${product.productId }">Detail</a></div>
+                            <div class="product-button"><a class="jjh-listButton button-secondary readPage" href="/product/auction/readpage/${product.productId }">Detail</a></div>
                             <c:if test="${type == 1 }">
                             
                             <c:if test="${not empty login}">
