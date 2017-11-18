@@ -66,13 +66,13 @@
           class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
 
           <img class="product-image-area animateImageIn"
-            src="/resources/images/${product.photo[0]}" alt=""
+            src="/resources/images/img/${product.photo[0]}" alt=""
             width="300">
 
           <div
             class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
             <div class="heading-5" id="smallName"></div>
-            <h3 id="productName">${product.name}</h3>
+            <li><a href="../../product/auction/readpage/${product.productId}"> ${product.name} </a></li>
             <div class="divider divider-default"></div>
             <div class="detail">
               <dl class="nv3 nfirst present">

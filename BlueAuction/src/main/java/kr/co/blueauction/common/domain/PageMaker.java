@@ -34,21 +34,31 @@ public class PageMaker {
 	
 	private void calcData() {
 		
+		logger.info("요청 페이지 :  " + cri.getPage());
+		logger.info("perPageNum :  " + cri.getPerPageNum());
+		logger.info("displayPageNum :  " + displayPageNum);
+		
 		if (cri.getPage() == 0) {
 			endPage = (int) (Math.ceil((cri.getPage()+1) / (double) displayPageNum) * displayPageNum);
+			logger.info("요청 페이지=0 endPage :  " + endPage);
 		} else {
-			endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
+			double page = (double)(cri.getPage() + 10) / (double)(displayPageNum*displayPageNum);
+			logger.info("페이지 계산 :  " + page);
+			endPage = (int) (Math.ceil(page) * 10) ;
+			logger.info("요청 페이지!=0 endPage :  " + endPage);
 		}
 		
 		startPage = (endPage - displayPageNum) + 1;
+		logger.info("startPage :  " + startPage);
 		int tempEndPage = (int) (Math.ceil(totalCount / cri.getPerPageNum())+1);
+		logger.info("tempEndPage :  " + tempEndPage);
 		
 		if(endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
 		
 		prev = (startPage == 1) ? false : true;
-		next = ((endPage * cri.getPerPageNum()) >= totalCount) ? false : true;
+		next = ((endPage * 10) >= totalCount) ? false : true;
 		
 	}
 	
@@ -61,7 +71,7 @@ public class PageMaker {
 	public String makeSearch(int page) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
 																			.queryParam("perPageNum", cri.getPerPageNum()).queryParam("keyword",  encoding(cri.getKeyword()))
-																			.queryParam("category", cri.getCategory()).queryParam("smallid", cri.getSmallid()).build();
+																			.queryParam("category", cri.getCategory()).queryParam("smallCategory", cri.getSmallid()).build();
 		
 		return uriComponents.toUriString();
 	}

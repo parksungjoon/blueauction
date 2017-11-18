@@ -104,7 +104,7 @@ public class Reply {
 	public void setDeleteFlag(String deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Reply [replyId=" + replyId + ", memberId=" + memberId + ", productId=" + productId + ", content="

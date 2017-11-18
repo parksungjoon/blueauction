@@ -12,15 +12,15 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <link rel="icon" href="resources/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
     <%-- Stylesheets --%>
-    <link rel="stylesheet" href="resources/css/ksj-css.css">
+    <link rel="stylesheet" href="/resources/css/ksj-css.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald:200,400%7CLato:300,400,300italic,700%7CMontserrat:900">
-    <link rel="stylesheet" href="resources/css/bootstrap.css">
-    <link rel="stylesheet" href="resources/css/style.css">
-    <link rel="stylesheet" href="resources/css/mdi.css">
-    <link rel="stylesheet" href="resources/css/fl-bigmug-line.css">
-    <link rel="stylesheet" href="resources/css/cms-pdetail.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/resources/css/style.css">
+    <link rel="stylesheet" href="/resources/css/mdi.css">
+    <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="/resources/css/cms-pdetail.css">
     
     <script src="/resources/js/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
@@ -42,7 +42,7 @@
     				<div class="comment-footer">
     					<button type="button" class="btn btn-info btn-sm btn-reply" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Reply</button>
             			<button type="button" name="{{content}}" class="btn btn-success btn-sm btn-reply-modify" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Modify</button>
-           				<button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Delete</button>
+           				<button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#deleteModal" value="{{replyId}}">Delete</button>
     				</div>
     			</div>
     			<div class="comment-text">
@@ -50,13 +50,13 @@
     			</div>
     		</div>
  		</article>
-		</div>
+	</div>
     </script>
     
     <script id="template2" type="text/x-handlebars-template">
-  <div class="reply-container rcontainer-type2">
+  	<div class="reply-container rcontainer-type2">
       <article class="comment">
-		<img class="replyicon" alt="reply" src="resources/images/img/reply.png" width="20" height="20" style="left: {{levelNo}}px">
+		<img class="replyicon" alt="reply" src="/resources/images/img/reply.png" width="20" height="20" style="left: {{levelNo}}px">
         <div class="comment-body" style="margin-left: {{levelNo}}px">
         <div class="comment-header">
           <input class="productid" type="hidden" value="{{productId}}">
@@ -65,14 +65,40 @@
             <div class="comment-footer">
            		<button type="button" class="btn btn-info btn-sm btn-reply" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Reply</button>
             	<button type="button" name="{{content}}" class="btn btn-success btn-sm btn-reply-modify" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Modify</button>
-           		<button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Delete</button>
+           		<button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#deleteModal" value="{{replyId}}">Delete</button>
             </div>
           </div>
           <div class="comment-text">
             <p>{{content}}</p>
           </div>
         </div>
-    </article>
+   	 </article>
+    </div>
+    </script>
+    
+    
+    <script id="template3" type="text/x-handlebars-template">
+    <div class="reply-container">
+      <article class="comment">
+        <div class="comment-body" style="margin-left: {{levelNo}}px">
+          <div class="comment-text">
+            <p><strong>삭제된 글입니다.</strong></p>
+          </div>
+        </div>
+     </article>
+    </div>
+    </script>
+    
+    <script id="template4" type="text/x-handlebars-template">
+    <div class="reply-container rcontainer-type2">
+      <article class="comment">
+    <img class="replyicon" alt="reply" src="/resources/images/img/reply.png" width="20" height="20" style="left: {{levelNo}}px">
+        <div class="comment-body" style="margin-left: {{levelNo}}px">
+          <div class="comment-text">
+            <p><strong>삭제된 글입니다.</strong></p>
+          </div>
+        </div>
+     </article>
     </div>
     </script>
     
@@ -99,10 +125,11 @@
     		var type = $(".modal-title").text();
     		
     		switch (type) {
+    		
 			case "댓글 작성":
 				alert("댓글 작성 실행");
 				var parentId = $(this).attr("value");
-	    		addReply(parentId);	
+    			addReply(parentId);	
 				break;
 				
 			case "댓글 수정":
@@ -110,13 +137,18 @@
 				var replyId = $(this).attr("value");
 	    		modifyReply(replyId);	
 				break;
-
+				
 			default:
 				alert("댓글 삭제 실행");
+				var replyId = $(this).attr("value");
+				deleteReply(replyId);
 				break;
 			}
     		
+    		
+    		
     		$(".btn-close").trigger("click");
+    		
     	});
     	
     	$(document).on("click", ".btn-reply", function() {
@@ -135,14 +167,14 @@
     	});
     	
     	$(document).on("click", ".btn-reply-delete", function() {
-    		Event.
     		$(".modal-title").text("댓글 삭제");
     		$(".btn-register").text("Delete");
-    		var parentId = $(this).attr("value");
-    		$(".btn-register").attr("value", parentId);
+    		var replyId = $(this).attr("value");
+    		$(".btn-register").attr("value", replyId);
     	});
 	});
     
+    	/* 댓글 목록 출력 */
     	function listPage(productId, page) {
     		
     		var url = "/reply/" + productId + "/" + (page*10)
@@ -156,17 +188,27 @@
         		for ( var i in list) {
         			var source;
         			var template;
-    				if (list[i].levelNo == 0) {
-    					source = $("#template").html();
+        			
+						if (list[i].deleteFlag == 'Y') {
+							if (list[i].levelNo == 0) {
+	    						source = $("#template3").html();
+        					} else {
+        						source = $("#template4").html();
+        					}
+						} else {
+        					if (list[i].levelNo == 0) {
+	    						source = $("#template").html();
+        					} else {
+        						source = $("#template2").html();
+        					}
+						}
+						
     					template = Handlebars.compile(source);
+   						list[i].levelNo *= 30;
     					$("#reply-list").append(template(list[i]));
-    				} else {
-    					source = $("#template2").html();
-    					template = Handlebars.compile(source);
-    					list[i].levelNo *= 30; 
-    					$("#reply-list").append(template(list[i]));
-    				}
-        		};
+    										
+    				}; 
+        			
         		
         		$(".reply-container").last().css("border-bottom", "1px solid gray");
         		$("#productId").attr("value", productId);
@@ -174,15 +216,16 @@
         		printPageNum(data.pageMaker)
         		
     		});
+   		};
     		
-		};
 		
+		/* 하단 페이지 번호 출력 */
 		function printPageNum(pageMaker) {
 			
 			var pages = "";
 			
 			if (pageMaker.prev) {
-				pages += "<li><a href='" + (pageMaker.startPage - 1) + "'>≪</a></li>";
+				pages += "<li><a href='" + (pageMaker.startPage - 2) + "'>≪</a></li>";
 			}
 			
 			for (var i = pageMaker.startPage; i <= pageMaker.endPage; i++) {
@@ -191,12 +234,13 @@
 			}
 			
 			if (pageMaker.next) {
-				pages += "<li><a href='" + (pageMaker.end + 1) + "'>≪</a></li>";
+				pages += "<li><a href='" + (pageMaker.endPage) + "'>≫</a></li>";
 			}
 			
 			$('#pagination').html(pages);
 		}
 		
+		/* 페이지 이동 */
 		function movePage() {
 			$('.pagination').on("click", "a", function() {
 				event.preventDefault();
@@ -205,6 +249,7 @@
 			})
 		}
 		
+		/* 댓글 등록 */
 		function addReply(parentId) {
 			var memberId = $("#memberId").attr("value");
 			var productId = $("#productId").attr("value");
@@ -254,16 +299,15 @@
 		function deleteReply(replyId) {
 			
 			var url = "/reply/" + replyId
-			var content = $(".tarea-reply").val();
 			
 			$.ajax({
-				type: "put",
+				type: "delete",
 				url: url,
 				headers: { 
 		              "Content-Type": "application/json;charset=UTF-8",
-		              "X-HTTP-Method-Override": "PUT" },
+		              "X-HTTP-Method-Override": "DELETE" },
 				dataType: 'text',
-				data: JSON.stringify({replyId:replyId, content:content}),
+				data: JSON.stringify({replyId:replyId}),
 				success: function(data) {
 					page = 0;
 					listPage(productId, page);
@@ -281,7 +325,6 @@
     
     <%-- Page--%>
     <div class="page">
-      
       <%-- page Header START --%>
       <jsp:include page="/WEB-INF/views/include/header.jsp" />
       <%-- page Header END --%>
@@ -311,12 +354,12 @@
                 <div class="unit unit-sm-horizontal unit-sm-middle unit-spacing-md-midle unit--inverse unit-sm">
                   <div class="unit-body">
                     <ul class="product-thumbnails">
-                      <li class="active" data-large-image="images/shop-01-420x550.png"><img src="resources/images/shop-01-54x71.png" alt="" width="54" height="71"></li>
-                      <li data-large-image="images/shop-02-420x550.png"><img src="resources/images/shop-02-54x71.png" alt="" width="54" height="71"></li>
+                      <li class="active" data-large-image="images/shop-01-420x550.png"><img src="/resources/images/shop-01-54x71.png" alt="" width="54" height="71"></li>
+                      <li data-large-image="images/shop-02-420x550.png"><img src="/resources/images/shop-02-54x71.png" alt="" width="54" height="71"></li>
                     </ul>
                   </div>
                   <div class="unit-right product-single-image">
-                    <div class="product-single-image-element"><img class="product-image-area animateImageIn" src="resources/images/shop-01-420x550.png" alt=""></div>
+                    <div class="product-single-image-element"><img class="product-image-area animateImageIn" src="/resources/images/shop-01-420x550.png" alt=""></div>
                   </div>
                 </div>
               </div>
@@ -415,7 +458,7 @@
     <%-- Global Mailform Output--%>
     <div class="snackbars" id="form-output-global"></div>
     
-    <!-- 댓글 모달 -->
+    <!-- 댓글 작성/수정 모달 -->
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
     
@@ -425,7 +468,7 @@
             <h5 class="modal-title"></h5>
           </div>
           <div class="modal-body"> 
-            <textarea class="tarea-reply" rows="3" cols="inherit"></textarea>
+            <textarea class="tarea-reply" rows="3"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default btn-register" data-dismiss="modal"></button>
@@ -435,10 +478,32 @@
     
       </div>
     </div>
-    <!-- 댓글 모달 끝 -->
+    <!-- 댓글 작성/수정 모달 끝 -->
+    
+    <!-- 댓글 삭제 모달 -->
+    <div id="deleteModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-sm">
+    
+        <!-- 모달 내용-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title-delete">댓글 삭제</h5>
+          </div>
+          <div class="modal-body"> 
+            <span>댓글을 삭제하시겠습니까?</span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-register" data-dismiss="modal">Delete</button>
+            <button type="button" class="btn btn-default btn-close" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    <!-- 댓글 삭제 모달 끝 -->
     
     <%-- Javascript--%>
-    <script src="resources/js/core.min.js"></script>
-    <script src="resources/js/script.js"></script>
+    <script src="/resources/js/core.min.js"></script>
+    <script src="/resources/js/script.js"></script>
   </body>
 </html>
