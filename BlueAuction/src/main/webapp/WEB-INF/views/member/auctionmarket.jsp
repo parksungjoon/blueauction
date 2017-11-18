@@ -88,10 +88,10 @@
             <div
               class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
               <div class="heading-5">소분류명</div>
-              <h3><a href="/product/${product.productId}">${product.name}</a></h3>
+               <h3><a href="/product/auction/readpage/${product.productId}">${product.name}</a></h3>
               <div class="divider divider-default"></div>
               <div class="detail">
-                <dl class="nv3 nfirst present"> 
+                <dl class="nv3 nfirst present">
                   <dt class="redprice">판매가</dt>
                   <dd class="redprice">
                     <div class="present_price" id="Price">

@@ -18,12 +18,28 @@
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
     <link rel="stylesheet" href="/resources/css/cms-register.css">
+    <link rel="stylesheet" href="/resources/css/cms-attachment.css">
     
     <script src="/resources/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/resources/js/upload.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 		<!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--> 
+    
+    
+    <script id="template" type="text/x-handlebars-template">
+		<li class="attachment">
+  			<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
+  			<div class="mailbox-attachment-info">
+  			<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+  			<a href="{{fullName}}"  
+     		class="btn btn-default btn-xs pull-right delbtn">x<i class="fa fa-fw fa-remove"></i></a>
+  			</span>
+  			</div>
+		</li>                
+  </script>
     
     <script type="text/javascript">
 		
@@ -35,21 +51,18 @@
 				
 			});
 			
-			
 		});
 		
 		/* ajax로 이미지 파일 전송 및 썸네일 출력 */
 		function handleUpload() {
+	
+			var template = Handlebars.compile($("#template").html());
 			
-			var files = $("input[type=file]")[0].files;
-			
-			for (var i = 0; i < files.length; i++) {
-				console.log("업로드 파일  :  " + files[i].name);
-			};
+			var file = $("input[type=file]")[0].files[0];
 			
 			var formData = new FormData();
 			
-			formData.append("files", files);
+			formData.append("file", file);
 			
 			$.ajax({
 				
@@ -60,15 +73,54 @@
 				contentType: false,
 				type: "POST",
 				success: function(data) {
-					alert("파일 업로드 성공");
+					var fileInfo = getFileInfo(data);
+			        
+			        var html = template(fileInfo);
+			        
+			        $(".uploadedList").append(html);
 					$("#photo").val(""); 
 				}
 				
 			});
 			
-			
 		};
 		
+		/* 상품 등록 */
+		$("#registerForm").submit(function(event){
+			
+		  event.preventDefault();
+		  
+		  var that = $(this);
+		  
+		  var str ="";
+		  $(".uploadedList .delbtn").each(function(index){
+		     str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href") +"'> ";
+		  });
+		  
+		  that.append(str);
+		  that.get(0).submit();
+		});
+		
+		/* 첨부파일 삭제 */
+		$(document).on("click", ".uploadedList .delbtn", function(event){
+			
+			event.preventDefault();
+			
+			var that = $(this);
+			 
+		 	$.ajax({
+			   url:"/product/attach/deleteFile",
+			   type:"post",
+			   data: {fileName:$(this).attr("href")},
+			   dataType:"text",
+			   success:function(result){
+				   if(result == 'deleted'){
+					   that.closest("li").remove();
+				   }
+			   }
+		   }); 
+		 	
+		});
 		
     </script>
     
@@ -99,7 +151,8 @@
           <div class="range range-50 range-md-center">
             <div class="cell-md-11 cell-lg-10 cell-xl-6">
                 <!-- Tab panes-->
-                    <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+                    <form id="registerForm" class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="/used/register">
+                    
                       <div class="range range-20">
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
@@ -117,7 +170,7 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Category</label>
                               <div class="form-wrap box-width-1">
-                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="city">
+                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="smallid">
                                   <option value="1">Clothes</option>
                                   <option value="2">Sundries</option>
                                   <option value="3">Ticket</option>
@@ -142,7 +195,7 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Delivery Type</label>
                               <div class="form-wrap box-width-1">
-                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="city">
+                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="deliverytype">
                                   <option value="1">Direct Dealing</option>
                                   <option value="2">Parcel Service</option>
                                 </select>
@@ -161,10 +214,10 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Photos</label>
                             <button class="button button-secondary reg" type="button">Select File</button>
-                            <input class="form-input file" id="photo" type="file" multiple="multiple" name="photos[]" required="required">
+                            <input class="form-input file" id="photo" type="file" multiple="multiple" name="photo[]" required="required">
                           </div>
                         </div>
-                        <div class="cell-xs-12">
+                        <div class="cell-md-12">
                           <ul class="mailbox-attachments clearfix uploadedList"></ul>
                         </div>
                         <div class="cell-md-12 offset-custom-1">
