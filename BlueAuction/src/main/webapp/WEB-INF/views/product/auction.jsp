@@ -320,18 +320,31 @@
                             
                             <div class="product-button"><a class="jjh-listButton button-secondary" href="/product/auction/readpage/${product.productId }">Detail</a></div>
                             <c:if test="${type == 1 }">
-                              <c:forEach items="${favorite }" var="favorite">
-                              <%--상품이 관심경매로 등록한 상품이면 채워진 하트 --%>
+                              <%--for문 break를 위한 set --%>
+                                <c:set value="false" var="doneLoop"/>
+                                <c:forEach items="${favorite }" var="favorite">
+                                  <c:if test="${not doneLoop }">
+                                    <c:choose>
+                                    <c:when test="${favorite.productId == product.productId }">
+                                      <c:set value="true" var="state"/>
+                                      <c:set value="true" var="doneLoop"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                      <c:set value = "false" var="state"/>
+                                    </c:otherwise>
+                                  </c:choose>
+                                  </c:if>
+                                </c:forEach>
+                                
                                 <c:choose>
-                                  <c:when test="${favorite.productId == product.productId }">
-                                   <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/full-heart.png"></button>
+                                  <c:when test="${state }">
+                                    <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/full-heart.png"></button>
                                   </c:when>
                                   <c:otherwise>
                                     <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
                                   </c:otherwise>
                                 </c:choose>
-                              </c:forEach>
-                            </c:if>
+                             </c:if>
                           </div>
                         </div>
                 </c:forEach>
