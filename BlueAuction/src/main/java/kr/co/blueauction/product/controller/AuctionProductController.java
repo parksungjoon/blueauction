@@ -6,22 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.favorite.domain.Favorite;
 import kr.co.blueauction.favorite.service.FavoriteService;
+import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 
@@ -43,10 +43,21 @@ public class AuctionProductController {
 	@Inject
 	FavoriteService favoriteService;
 	
+	@Inject
+	HttpSession session;
+	
 //	경매 리스트 조회 get
 	@RequestMapping(value = "/auction/{type}/{smallid}", method = RequestMethod.GET)
 	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model)throws Exception{
-		String memberId = "surinim"; // 로그인 
+		Member member = (Member) session.getAttribute("login");
+		if(member == null) {
+			member = new Member();
+			member.setMemberId("");
+		}
+		
+		logger.info(member.toString());
+		String memberId = member.getMemberId();
+		logger.info(memberId);
 		
 		logger.info("경매 리스트  Get");
 		logger.info( " type : " + type + "*****");
@@ -72,11 +83,6 @@ public class AuctionProductController {
 		model.addAttribute("type", type);
 		model.addAttribute("smallid", smallid);
 		
-		/*PageMaker  pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(count);
-		model.addAttribute("pageMaker", pageMaker);*/
-		
 		List<Favorite> favoriteList =  favoriteService.readByMemberId(memberId);
 		for (Favorite favorite : favoriteList) {
 			logger.info(favorite);
@@ -90,18 +96,26 @@ public class AuctionProductController {
 //	경매 리스트 조회 post
 	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword){
+		Member member = (Member) session.getAttribute("login");
+		if(member == null) {
+			member = new Member();
+			member.setMemberId("");
+		}
 		
-		String memberId = "surinim"; // 로그인 
+		logger.info("member : " + member.toString());
+		String memberId = member.getMemberId();
 		
 		logger.info("경매 리스트 Post");
 		logger.info("type : " + type + "$$$$$");
 		logger.info("page : " + page + "#####");
 		logger.info("smallid : " + smallid);
 		logger.info("keyword : " + keyword);
+		logger.info("memberId : " + memberId);
 		
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		List<Favorite> favoriteList =  null;
 		SearchCriteria cri = new SearchCriteria();
 		cri.setCategory(2);
 		cri.setPage(page);
@@ -122,10 +136,13 @@ public class AuctionProductController {
 				logger.info(product.toString());
 			}
 			
-			List<Favorite> favoriteList =  favoriteService.readByMemberId(memberId);
+			favoriteList = favoriteService.readByMemberId(memberId);
+			
+			logger.info("------------");
 			for (Favorite favorite : favoriteList) {
 				logger.info(favorite);
 			}
+			logger.info("------------");
 			
 			map.put("type", type);
 			map.put("smallid", smallid);
@@ -142,6 +159,4 @@ public class AuctionProductController {
 		return entity;
 	}
 	
-/*//	관심경매 등록
-	public */
 }

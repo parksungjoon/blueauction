@@ -31,7 +31,6 @@
  	var type = ${type};
  	var smallid = ${smallid};
  	var keyword = null;
- 	/* var memberId = ${login.memberId}; */
  	
     $(document).ready(function(){
     	/* 경매 진행 중 리스트 페이지에서만 검색 가능 */
@@ -48,6 +47,8 @@
     				success : function(data){
     					alert("검색 성공!");
     					var list = data.list;
+    					var favorite = data.favorite;
+    					
     					for ( var index in list) {
     						console.log(list[index].name);
     					}
@@ -115,20 +116,24 @@
   	  		html +="        </div>";
   	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='shopping-cart.html'>Detail</a></div>";
   	  		
-  	  		// 관심경매 하트 표시
-  	  		 for ( var j in favorite) {
-  	  			var state = false;
-				if(favorite[j].productId == list[i].productId){
-					state = true;
-					break;
-				}
-			}
-  	  		
-  	  		if(state){
-  	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
-  	  		}else{
+  	  		if(${login != null}){
+    	  		// 관심경매 하트 표시
+    	  		 for ( var j in favorite) {
+    	  			var state = false;
+    				if(favorite[j].productId == list[i].productId){
+    					state = true;
+    					break;
+    				}
+    			}
+    	  		
+    	  		if(state){
+    	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
+    	  		}else{
+    	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
+    	  		} 
+  	  		}else {
   	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
-  	  		} 
+  	  		}
 
   	  		html +="      </div>";
   	  		html +="    </div>";
@@ -336,6 +341,7 @@
                             <div class="product-button"><a class="jjh-listButton button-secondary" href="/product/auction/readpage/${product.productId }">Detail</a></div>
                             <c:if test="${type == 1 }">
                             
+                            <c:if test="${not empty login}">
                               <%--for문 break를 위한 set --%>
                                 <c:set value="false" var="doneLoop"/>
                                 <c:forEach items="${favorite }" var="favorite">
@@ -361,6 +367,10 @@
                                   </c:otherwise>
                                 </c:choose>
                              </c:if>
+                            </c:if>
+                            <c:if test="${empty login }">
+                              <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
+                            </c:if>
                           </div>
                         </div>
                 </c:forEach>
