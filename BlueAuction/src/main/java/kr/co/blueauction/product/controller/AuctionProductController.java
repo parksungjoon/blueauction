@@ -46,7 +46,7 @@ public class AuctionProductController {
 //	경매 리스트 조회 get
 	@RequestMapping(value = "/auction/{type}/{smallid}", method = RequestMethod.GET)
 	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model)throws Exception{
-		String memberId = "hwang"; // 로그인 
+		String memberId = "surinim"; // 로그인 
 		
 		logger.info("경매 리스트  Get");
 		logger.info( " type : " + type + "*****");
@@ -91,6 +91,8 @@ public class AuctionProductController {
 	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword){
 		
+		String memberId = "surinim"; // 로그인 
+		
 		logger.info("경매 리스트 Post");
 		logger.info("type : " + type + "$$$$$");
 		logger.info("page : " + page + "#####");
@@ -120,10 +122,16 @@ public class AuctionProductController {
 				logger.info(product.toString());
 			}
 			
+			List<Favorite> favoriteList =  favoriteService.readByMemberId(memberId);
+			for (Favorite favorite : favoriteList) {
+				logger.info(favorite);
+			}
+			
 			map.put("type", type);
 			map.put("smallid", smallid);
 			map.put("keyword", keyword);
 			map.put("list", list);
+			map.put("favorite", favoriteList);
 			
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {

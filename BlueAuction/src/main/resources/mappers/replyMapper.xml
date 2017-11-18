@@ -63,7 +63,7 @@
 	<!-- 댓글 삭제 -->
 	<update id="delete">
 		UPDATE reply 
-		SET    delete_flag = 'T' 
+		SET    delete_flag = 'Y' 
 		WHERE  reply_id = #{replyId}
 	</update>
 	
