@@ -40,7 +40,7 @@
 	      
 	      $("#removeBtn").on("click", function(){
 	    	  formObj.attr("action", "/product/remove/"+${product.productId});
-	    	  formObj.attr("method", "get");
+	    	  formObj.attr("method", "post");
 	    	  formObj.submit();
 	      });
 	      
@@ -241,21 +241,25 @@
           </div>
         </div>
         
-        <form role="form" action="modifyPage" method="post">
-			<%-- <input type='hidden' name='page' value="${cri.page}"> 
-			<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
-			<input type='hidden' name='searchType' value="${cri.searchType}">
-			<input type='hidden' name='keyword' value="${cri.keyword}"> --%>
-		</form>
+        <c:if test="${(login.memberId).equals(product.seller)}">
+        	<c:if test='${(product.auctionstate).equals("BEFORE")}'>
+        		<form role="form" action="modifyPage" method="post">
+					<input type='hidden' name='page' value="${page}"> 
+					<input type='hidden' name='type' value="${type}">
+					<input type='hidden' name='keyword' value="${keyword}">
+					<input type='hidden' name='smallid' value="${smallid}">
+				</form>
+		        <div class="shell">
+		          <div class="range range-xs-right">
+		            <div class="cell-sm-10 cell-lg-4">
+			            <button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
+						<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+		            </div>
+		          </div>
+		        </div>
+        	</c:if>
+        </c:if>
         
-        <div class="shell">
-          <div class="range range-xs-right">
-            <div class="cell-sm-10 cell-lg-4">
-	            <button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-				<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
-            </div>
-          </div>
-        </div>
         
       </section>
       <!-- Product Page END-->

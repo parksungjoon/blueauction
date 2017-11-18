@@ -52,6 +52,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void delete(int productId) throws Exception {
+		photoDao.deleteByproductId(productId);
 		productDao.delete(productId);
 	}
 
