@@ -9,7 +9,7 @@ public class SearchCriteria{
 	private int smallid; // 소분류
 	
 	public SearchCriteria() {
-		this(1, 8, null, 1, 0);
+		this(1, 10, null, 1, 0);
 	}
 	
 	public SearchCriteria(int page, int perPageNum, String keyword, int category, int smallid) {

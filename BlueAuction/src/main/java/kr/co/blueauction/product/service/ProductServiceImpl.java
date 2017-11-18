@@ -72,8 +72,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> productSellList(String memberId) throws Exception {
-		List<Product> productList = productDao.productSellList(memberId);
+	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception {
+		List<Product> productList = productDao.productSellList(memberId, auctionFlag);
 		System.out.println("해당아이디에 상품리스트"+productList.toString());
 
 		if (productList.size() > 0) {
