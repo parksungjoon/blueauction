@@ -74,4 +74,12 @@ public class MybatisProductDao implements ProductDao {
 	public void updateAuctionsatate() throws Exception {
 		sqlSession.update(namespace+".updateAuctionsatate");
 	}
+	
+	
+	/** 로그인된 회원의 중고판매 물품 리스트를 조회 */
+	@Override
+	public List<Product> productSellList(String memberId) throws Exception{
+		
+		return sqlSession.selectList(namespace+".productSellList", memberId);
+	}
 }
