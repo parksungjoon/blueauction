@@ -40,30 +40,8 @@ public class ReplyController {
 		
 		try {
 			
-			if (reply.getReplyId() == 0) { // 신규글
-				
-				replyService.create(reply);
-				entity = new ResponseEntity<String>("success", HttpStatus.OK);
-				
-			} else { // 댓글
-				
-				Reply parentReply = replyService.read(reply.getReplyId());
-				reply.setGroupNo(parentReply.getGroupNo());
-				reply.setLevelNo(parentReply.getLevelNo()+1);
-				reply.setOrderNo(parentReply.getOrderNo()+1);
-				
-				if (parentReply.getLevelNo() == 0) { // 첫 댓글
-					
-					replyService.create(reply);
-					
-				} else { // 댓글의 댓글
-					
-					replyService.liftOrderNo(parentReply);
-					replyService.create(reply);
-					
-				}
-				
-			}
+			replyService.create(reply);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
