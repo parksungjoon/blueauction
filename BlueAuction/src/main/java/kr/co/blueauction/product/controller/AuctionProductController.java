@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
+import kr.co.blueauction.favorite.domain.Favorite;
+import kr.co.blueauction.favorite.service.FavoriteService;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 
@@ -38,80 +40,20 @@ public class AuctionProductController {
 	@Inject
 	ProductService productService;
 	
-	/*@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.GET)
-	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
-		logger.info("경매 리스트 시자자자자자자작");
-		
-		logger.info("경매 리스트 시작!!");
-		cri.setCategory(2);
-		logger.info(cri.toString());
-		logger.info("type : " + type);
-		logger.info("smallid : " + smallid);
-		
-		if(smallid != 0) {
-			cri.setSmallid(smallid);
-		}
-		
-		List<Product> list = productService.listByCri(cri, type);
-		for (Product product : list) {
-			logger.info(product.toString());
-		}
-		
-		logger.info("-----------");
-		int count = productService.listBySearchCount(cri, type);
-		logger.info("count : " + count);
-		model.addAttribute("list", list);
-		model.addAttribute("type", type);
-		
-		PageMaker  pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(count);
-		logger.info(pageMaker.toString());
-		model.addAttribute("pageMaker", pageMaker);
-		
-		return "product/auction";
-	}
-//	경매 리스트 조회
-	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
-	public String  listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int smallid, @RequestParam("cri") SearchCriteria cri, Model model) throws Exception{
-		logger.info("경매 리스트 시작!!");
-		cri.setCategory(2);
-		logger.info(cri.toString());
-		logger.info("type : " + type);
-		logger.info("smallid : " + smallid);
-		
-		if(smallid != 0) {
-			cri.setSmallid(smallid);
-		}
-		
-		List<Product> list = productService.listByCri(cri, type);
-		for (Product product : list) {
-			logger.info(product.toString());
-		}
-		
-		logger.info("-----------");
-		int count = productService.listBySearchCount(cri, type);
-		logger.info("count : " + count);
-		model.addAttribute("list", list);
-		model.addAttribute("type", type);
-		
-		PageMaker  pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(count);
-		logger.info(pageMaker.toString());
-		model.addAttribute("pageMaker", pageMaker);
-		
-		return "product/auction";
-	}*/
+	@Inject
+	FavoriteService favoriteService;
 	
+//	경매 리스트 조회 get
 	@RequestMapping(value = "/auction/{type}/{smallid}", method = RequestMethod.GET)
 	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model)throws Exception{
+		String memberId = "hwang"; // 로그인 
+		
 		logger.info("경매 리스트  Get");
 		logger.info( " type : " + type + "*****");
 		logger.info("smallid : " + smallid);
 		
 		SearchCriteria cri = new SearchCriteria();
-		cri.setCategory(2);
+		cri.setCategory(2); // 카테고리 경매로 set
 		
 		if(smallid != 0) {
 			cri.setSmallid(smallid);
@@ -124,21 +66,28 @@ public class AuctionProductController {
 		}
 		
 		logger.info("-----------");
-		int count = productService.listBySearchCount(cri, type);
+		int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
 		logger.info("count : " + count);
 		model.addAttribute("list", list);
 		model.addAttribute("type", type);
 		model.addAttribute("smallid", smallid);
 		
-		PageMaker  pageMaker = new PageMaker();
+		/*PageMaker  pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(count);
-		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("pageMaker", pageMaker);*/
+		
+		List<Favorite> favoriteList =  favoriteService.readByMemberId(memberId);
+		for (Favorite favorite : favoriteList) {
+			logger.info(favorite);
+		}
+		
+		model.addAttribute("favorite", favoriteList);
 		
 		return "product/auction";
 	}
 	
-//	경매 리스트 조회
+//	경매 리스트 조회 post
 	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword){
 		
@@ -185,39 +134,6 @@ public class AuctionProductController {
 		return entity;
 	}
 	
-	/*@RequestMapping(value = "/auction/{type}/{smallid}", method = RequestMethod.POST)
-	public String listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int smallid,  @RequestParam("page") int page, Model model) throws Exception{
-		logger.info("경매 리스트 출력 더보기 시작");
-		logger.info( " type : " + type + "*****");
-		logger.info("smallid : " + smallid);
-		
-		SearchCriteria cri = new SearchCriteria();
-		cri.setCategory(2);
-		logger.info("page : "+ page);
-		cri.setPage(page);
-		
-		if(smallid != 0) {
-			cri.setSmallid(smallid);
-		}
-		logger.info(cri.toString());
-		
-		List<Product> list = productService.listByCri(cri, type);
-		for (Product product : list) {
-			logger.info(product.toString());
-		}
-		
-		logger.info("-----------");
-		int count = productService.listBySearchCount(cri, type);
-		logger.info("count : " + count);
-		model.addAttribute("list", list);
-		model.addAttribute("type", type);
-		model.addAttribute("smallid", smallid);
-		
-		PageMaker  pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(count);
-		model.addAttribute("pageMaker", pageMaker);
-		
-		return "product/auction";
-	}*/
+/*//	관심경매 등록
+	public */
 }
