@@ -73,6 +73,7 @@
   	  			url: "/product/auction/" + type + "/" + smallid,
   	  			success : function(data){
   	  				var list = data.list;
+  	  				var favorite = data.favorite;
   	  				
     	  			for ( var index in list) {
 						console.log(list[index].name);
@@ -83,7 +84,7 @@
 						console.log(list[index].auctionend);
 					}
     	  			switch(data.type){
-  					case 1 : preparePrint(list); break;
+  					case 1 : preparePrint(list, favorite); break;
   					case 2 : doingPrint(list); break;
   					case 3 : finishedPrint(list); break;
   					default : break;
@@ -93,8 +94,7 @@
   	  	}); 
    });
    	
-   	function preparePrint(list){
-  		
+   	function preparePrint(list, favorite){
   	 	var html = "";
 
   		   for ( var i in list) {
@@ -114,7 +114,22 @@
   	  		html +="          </div>";
   	  		html +="        </div>";
   	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary' href='shopping-cart.html'>Detail</a></div>";
-  	  		html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
+  	  		
+  	  		// 관심경매 하트 표시
+  	  		 for ( var j in favorite) {
+  	  			var state = false;
+				if(favorite[j].productId == list[i].productId){
+					state = true;
+					break;
+				}
+			}
+  	  		
+  	  		if(state){
+  	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
+  	  		}else{
+  	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
+  	  		} 
+
   	  		html +="      </div>";
   	  		html +="    </div>";
 		}   
@@ -320,6 +335,7 @@
                             
                             <div class="product-button"><a class="jjh-listButton button-secondary" href="/product/auction/readpage/${product.productId }">Detail</a></div>
                             <c:if test="${type == 1 }">
+                            
                               <%--for문 break를 위한 set --%>
                                 <c:set value="false" var="doneLoop"/>
                                 <c:forEach items="${favorite }" var="favorite">
