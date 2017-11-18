@@ -31,6 +31,7 @@
  	var type = ${type};
  	var smallid = ${smallid};
  	var keyword = null;
+ 	/* var memberId = ${login.memberId}; */
  	
     $(document).ready(function(){
     	/* 경매 진행 중 리스트 페이지에서만 검색 가능 */
@@ -210,10 +211,6 @@
 		}   
  	 $(".auction-list").html(st);
   	 }
-  	/*  function countdown(){
-  		 var now = new Date();
-  		 current
-  	 } */
   </script>
   </head>
   
@@ -323,7 +320,17 @@
                             
                             <div class="product-button"><a class="jjh-listButton button-secondary" href="/product/auction/readpage/${product.productId }">Detail</a></div>
                             <c:if test="${type == 1 }">
-                              <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
+                              <c:forEach items="${favorite }" var="favorite">
+                              <%--상품이 관심경매로 등록한 상품이면 채워진 하트 --%>
+                                <c:choose>
+                                  <c:when test="${favorite.productId == product.productId }">
+                                   <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/full-heart.png"></button>
+                                  </c:when>
+                                  <c:otherwise>
+                                    <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
+                                  </c:otherwise>
+                                </c:choose>
+                              </c:forEach>
                             </c:if>
                           </div>
                         </div>
