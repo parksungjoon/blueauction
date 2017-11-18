@@ -24,4 +24,7 @@ public interface PhotoDao {
 	
 	// photo 삭제 
 	public void delete(int bidId) throws Exception;
+	
+	//photo productId로 삭제
+	public void deleteByproductId(int productId) throws Exception;
 }

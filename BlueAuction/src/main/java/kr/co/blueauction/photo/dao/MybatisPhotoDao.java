@@ -38,4 +38,10 @@ public class MybatisPhotoDao implements PhotoDao{
 		return sqlSession.selectList(NAMESPACE+".readByProductId", productId);
 	}
 
+	@Override
+	public void deleteByproductId(int productId) throws Exception {
+		sqlSession.delete(NAMESPACE+".deleteByproductId", productId);
+		
+	}
+
 }
