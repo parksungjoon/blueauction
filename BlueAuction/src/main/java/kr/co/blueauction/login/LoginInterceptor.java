@@ -50,6 +50,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			
 			//response.sendRedirect("/");
 		
+		}else {
+			response.sendRedirect("/login");
 		}
 	}
 
