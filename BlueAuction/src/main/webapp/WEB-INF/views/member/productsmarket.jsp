@@ -68,9 +68,9 @@
             <div class="cell-sm-10 cell-lg-8">
               <h3>중고 판매 리스트 </h3>
               <div class="table-novi table-custom-responsive">
-                <table class="table-custom table-hover">
+                <table  class="table table-striped table-hover">
                   <thead>
-                    <tr>
+                    <tr class="info">
                       <th>#</th>
                       <th>가격</th>
                       <th>상품 정보</th>

@@ -72,35 +72,35 @@
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="forms-3-name">name
 													</label> <input class="form-input" id="forms-3-name" value=${member.name}
-													type="text" name="name" data-constraints="@Required">
+													type="text" name="name" data-constraints="@Required" disabled>
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="forms-3-last-name">email
 													</label> <input class="form-input" id="forms-3-last-name" value=${member.email}
-													type="text" name="last-name" data-constraints="@Required">
+													type="text" name="last-name" data-constraints="@Required" disabled>
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="forms-3-company">zipcode</label>
 												<input class="form-input" id="forms-3-company" type="text" value=${member.zipcode}
-													name="company">
+													name="company" disabled>
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="forms-3-city">baseaddress</label>
 												<input class="form-input" id="forms-3-city" type="text" value=${member.baseaddress}
-													name="city">
+													name="city" disabled >
 											</div>
 										</div>
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="form-1-email">detailadress</label>
 												<input class="form-input" id="form-1-email" type="email" value=${member.detailaddress}
-													name="email" data-constraints="@Email @Required">
+													name="email" data-constraints="@Email @Required" disabled>
 											</div>
 										</div>
 
@@ -108,7 +108,7 @@
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside" for="form-1-phone">accountNumber</label>
 												<input class="form-input" id="form-1-phone" type="text" value=${member.accountNumber}
-													name="phone" data-constraints="@Numeric @Required">
+													name="phone" data-constraints="@Numeric @Required" disabled>
 											</div>
 										</div>
 										<!-- <div class="cell-xs-12"> -->
@@ -117,7 +117,7 @@
 												<label class="form-label-outside"
 													for="forms-3-street-address">bank</label> <input
 													class="form-input" id="forms-3-street-address" type="text" value=${member.bank}
-													name="street-address">
+													name="street-address" disabled>
 											</div>
 										</div>
 										<div class="cell-sm-6">
@@ -125,7 +125,7 @@
 												<label class="form-label-outside"
 													for="forms-3-street-address">phoneNumber</label> <input
 													class="form-input" id="forms-3-street-address" type="text" value=${member.phoneNumber}
-													name="street-address">
+													name="street-address" disabled>
 											</div>
 										</div>
 										<div class="cell-md-12 offset-custom-1">
