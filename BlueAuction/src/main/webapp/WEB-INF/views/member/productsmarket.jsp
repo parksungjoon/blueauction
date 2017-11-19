@@ -65,7 +65,7 @@
          <!-- Hover Row Table (입찰 리스트) START -->
         <div class="shell">
           <div class="range range-xs-center">
-            <div class="cell-sm-10 cell-lg-8">
+            <div class="cell-sm-10 cell-lg-10">
               <h3>중고 판매 리스트 </h3>
               <div class="table-novi table-custom-responsive">
                 <table  class="table table-striped table-hover">
@@ -93,40 +93,14 @@
                 </table>
               </div>
             </div>
+            <%-- Shop Sidebar START --%>
+        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
+        <%-- Shop Sidebar END --%>
+            
           </div>
         </div>
         <!-- Hover Row Table (입찰 리스트) END --> 
-        
-        <div class="shell">
-          <div class="range range-xs-center">
-            <div class="cell-sm-10 cell-lg-8">
-            <p class="h3-alternate">상세 정보</p>
-                <p class="text-spacing-sm" id="productInfo">
-                  ${product.productinfo}
-                </p>
-            </div>
-          </div>
-        </div>
-        
-        <c:if test="${(login.memberId).equals(product.seller)}">
-          <c:if test='${(product.auctionstate).equals("BEFORE")}'>
-            <form role="form" action="modifyPage" method="post">
-          <input type='hidden' name='page' value="${page}"> 
-          <input type='hidden' name='type' value="${type}">
-          <input type='hidden' name='keyword' value="${keyword}">
-          <input type='hidden' name='smallid' value="${smallid}">
-        </form>
-            <div class="shell">
-              <div class="range range-xs-right">
-                <div class="cell-sm-10 cell-lg-4">
-                  <button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-            <button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
-                </div>
-              </div>
-            </div>
-          </c:if>
-        </c:if>
-        
+       
         
       </section>
 

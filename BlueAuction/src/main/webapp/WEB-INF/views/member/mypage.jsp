@@ -128,11 +128,7 @@
 													name="street-address" disabled>
 											</div>
 										</div>
-										<div class="cell-md-12 offset-custom-1">
-											<div class="form-button text-sm-right">
-												<button class="button button-secondary" type="submit">checkout</button>
-											</div>
-										</div>
+										
 									</div>
 								</form>
 							</div>
