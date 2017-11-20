@@ -49,7 +49,7 @@ public class UploadController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
+	@RequestMapping(value="/", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
 	public ResponseEntity<String> uploadImages(MultipartFile file) throws Exception {
 		
 		logger.info("originalName : " + file.getOriginalFilename());
