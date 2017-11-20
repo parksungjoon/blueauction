@@ -34,7 +34,7 @@
 		 
 	      $("#modifyBtn").on("click", function(){
 	    	  formObj.attr("action", "/product/modifypage/"+${product.productId});
-	    	  formObj.attr("method", "get");
+	    	  formObj.attr("method", "post");
 	    	  formObj.submit();
 	   	 });
 	      
@@ -248,7 +248,7 @@
 					<input type='hidden' name='type' value="${type}">
 					<input type='hidden' name='keyword' value="${keyword}">
 					<input type='hidden' name='smallid' value="${smallid}">
-				</form>
+				
 		        <div class="shell">
 		          <div class="range range-xs-right">
 		            <div class="cell-sm-10 cell-lg-4">
@@ -257,6 +257,7 @@
 		            </div>
 		          </div>
 		        </div>
+		        </form>
         	</c:if>
         </c:if>
         

@@ -35,6 +35,6 @@
 	
 	<delete id="delete" parameterType="int">
 		delete from BID
-		where bid_id = {value}
+		where bid_id = #{value}
 	</delete>
 </mapper>

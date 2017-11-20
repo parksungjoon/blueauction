@@ -18,7 +18,9 @@ public class Bid {
 	private String biddate;
 	private String winning;
 	
-	public Bid() {}
+	public Bid() {
+		this(0, 0, "", 0, "", "");
+	}
 	
 	public Bid(int productId, String memberId, int bidprice) {
 		this.productId = productId;
