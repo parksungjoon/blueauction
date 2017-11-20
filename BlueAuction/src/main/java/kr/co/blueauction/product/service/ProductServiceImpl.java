@@ -76,7 +76,6 @@ public class ProductServiceImpl implements ProductService {
 	      String[] files = product.getPhoto();
 	      for (int i = 0; i < files.length; i++) {
 	         Photo photo = new Photo(product.getProductId(), files[i]);
-	         logger.info(photo.toString());
 	         photoDao.create(photo);
 	      }
 	      

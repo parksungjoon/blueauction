@@ -46,10 +46,16 @@ public class MybatisBidDao implements BidDao{
 	public List<Bid> readByMemberId(String memberId) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".readByMemberId", memberId);
 	}
-	
-	//종료 경매 낙찰가 조회
+
 	@Override
 	public Bid readWinningPrice(int productId) throws Exception {
-		return sqlSession.selectOne(NAMESPACE + ".readWinningPrice", productId);
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
+	//종료 경매 낙찰가 조회
+	/*@Override
+	public Bid readWinningPrice(int productId) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".readWinningPrice", productId);
+	}*/
 }
