@@ -27,4 +27,8 @@ public interface BidService {
 
 	// bid 삭제
 	public void delete(int bidId) throws Exception;
+	
+	//해당아이디에 입찰, 낙찰 목록조회
+	public List<Bid> bidList(String memberId, String winning) throws Exception;
+	
 }

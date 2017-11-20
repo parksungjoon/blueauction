@@ -45,4 +45,11 @@ public class BidServiceImpl implements BidService {
 	public void delete(int bidId) throws Exception {
 		bidDao.delete(bidId);
 	}
+	
+	@Override
+	//해당아이디에 입찰, 낙찰 목록조회
+	public List<Bid> bidList(String memberId, String winning) throws Exception{
+		return bidDao.bidList(memberId, winning);
+		
+	}
 }

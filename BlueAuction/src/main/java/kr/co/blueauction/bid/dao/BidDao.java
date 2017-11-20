@@ -29,4 +29,7 @@ public interface BidDao {
 	
 	// bid 삭제 
 	public void delete(int bidId) throws Exception;
+	
+	//해당 아이디 bid 조회
+	public List<Bid> bidList(String membrId, String winning) throws Exception; 
 }
