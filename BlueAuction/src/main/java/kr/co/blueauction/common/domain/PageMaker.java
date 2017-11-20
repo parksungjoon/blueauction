@@ -34,24 +34,15 @@ public class PageMaker {
 	
 	private void calcData() {
 		
-		logger.info("요청 페이지 :  " + cri.getPage());
-		logger.info("perPageNum :  " + cri.getPerPageNum());
-		logger.info("displayPageNum :  " + displayPageNum);
-		
 		if (cri.getPage() == 0) {
 			endPage = (int) (Math.ceil((cri.getPage()+1) / (double) displayPageNum) * displayPageNum);
-			logger.info("요청 페이지=0 endPage :  " + endPage);
 		} else {
 			double page = (double)(cri.getPage() + 10) / (double)(displayPageNum*displayPageNum);
-			logger.info("페이지 계산 :  " + page);
 			endPage = (int) (Math.ceil(page) * 10) ;
-			logger.info("요청 페이지!=0 endPage :  " + endPage);
 		}
 		
 		startPage = (endPage - displayPageNum) + 1;
-		logger.info("startPage :  " + startPage);
 		int tempEndPage = (int) (Math.ceil(totalCount / cri.getPerPageNum())+1);
-		logger.info("tempEndPage :  " + tempEndPage);
 		
 		if(endPage > tempEndPage) {
 			endPage = tempEndPage;
