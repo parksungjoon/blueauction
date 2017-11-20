@@ -20,7 +20,7 @@ public class MybatisBidDao implements BidDao{
 	@Inject
 	private SqlSession sqlSession;
 	
-	private static final String NAMESPACE = "kr.co.blueauction.mapper.bidMapper";
+	private static final String NAMESPACE = "kr.co.blueauction.bid.dao.BidDao";
 
 	@Override
 	public void create(Bid bid) throws Exception {
@@ -45,5 +45,11 @@ public class MybatisBidDao implements BidDao{
 	@Override
 	public List<Bid> readByMemberId(String memberId) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".readByMemberId", memberId);
+	}
+	
+	//종료 경매 낙찰가 조회
+	@Override
+	public Bid readWinningPrice(int productId) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".readWinningPrice", productId);
 	}
 }
