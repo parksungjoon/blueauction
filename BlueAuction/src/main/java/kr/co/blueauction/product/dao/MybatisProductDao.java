@@ -26,17 +26,6 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.insert(namespace + ".create", product);
 	}
 	
-	/** 첨부파일 등록 */
-	@Override
-	public void addAttach(String photoName, int productId) throws Exception {
-		
-		Map<String, Object> attachment = new HashMap<>();
-		attachment.put("photoName", photoName);
-		attachment.put("productId", productId);
-		
-		sqlSession.insert(namespace + ".addAttach", attachment);
-	}
-	
 	/** 전체 상품 리스트 조회 */
 	@Override
 	public List<Product> listAll(String flag) throws Exception {
