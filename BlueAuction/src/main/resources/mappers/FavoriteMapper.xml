@@ -27,8 +27,16 @@
 		where product_id = #{value}
 	</select>
 	
-	<delete id="delete" parameterType="int">
-		delete from favorite
-		where favorite_id = {value}
+	<delete id="delete" parameterType="Favorite">
+		DELETE FROM favorite 
+		WHERE  product_id = #{productId} 
+       		AND member_id = #{memberId}
 	</delete>
+	
+	<!-- 관심경매 등록 여부 조회 -->
+	<select id="favoriteCheck" parameterType="Favorite" resultType="Favorite">
+		select *
+		from favorite
+		where member_id = #{memberId} and product_id = #{productId};
+	</select>
 </mapper>

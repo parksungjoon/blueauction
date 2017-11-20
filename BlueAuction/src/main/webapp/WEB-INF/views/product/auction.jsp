@@ -33,6 +33,31 @@
  	var keyword = null;
  	
     $(document).ready(function(){
+    	/* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
+    	
+    	$(document).on("click", ".jjh-favoriteButton", function(event){
+    		var productId = $(this).attr("id");
+    		var st = "";
+    		
+    		$.ajax({
+    			type:"post",
+    			data:{productId:productId},
+    			dataType:"text",
+    			url:"/favorite",
+    			success: function(data){
+    				if(data == 'insert'){
+    					st = "<img alt='favorite-register' src='/resources/images/full-heart.png'>";
+    					$("#" + productId).html(st);
+    				}else if(data == 'delete'){
+    					st = "<img alt='favorite-register' src='/resources/images/empty-heart.png'>";
+    					$("#" + productId).html(st);
+    				}else {
+    					alert("등록/삭제에 실패!");
+    				}
+    			}
+    		});
+    	});
+    	
     	/* 경매 진행 중 리스트 페이지에서만 검색 가능 */
     	$(".form-button").click(function(event){
     		if(type == 2){
@@ -65,7 +90,6 @@
    		 	event.preventDefault();
   			
   			page = page + 1;
-  			alert("page : " + page + ", type : " + type + ", smallid : " + smallid + ", keyword : " + keyword);
   			
   	  		$.ajax({
   	  			type: "post",
@@ -174,9 +198,9 @@
     			}
     	  		
     	  		if(state){
-    	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
+    	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
     	  		}else{
-    	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
+    	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
     	  		} 
   	  		}else {
   	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
@@ -433,10 +457,10 @@
                                 
                                 <c:choose>
                                   <c:when test="${state }">
-                                    <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/full-heart.png"></button>
+                                    <button class="jjh-favoriteButton"  id="${product.productId }"><img alt="favorite-register" src="/resources/images/full-heart.png"></button>
                                   </c:when>
                                   <c:otherwise>
-                                    <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
+                                    <button class="jjh-favoriteButton"  id="${product.productId }"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
                                   </c:otherwise>
                                 </c:choose>
                              </c:if>
