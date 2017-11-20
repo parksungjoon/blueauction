@@ -9,7 +9,7 @@
 		INSERT INTO Photo (product_id, 
 						   photoname) 
 			 	VALUES  (#{productId}, 
-						 #{photoname})
+						 #{photoName})
 	</insert>
 	
 	<select id="readByProductId" parameterType="int" resultType="Photo">

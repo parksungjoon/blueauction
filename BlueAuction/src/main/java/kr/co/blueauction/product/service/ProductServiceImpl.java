@@ -33,7 +33,9 @@ public class ProductServiceImpl implements ProductService {
 		
 		if (files != null) {
 			for (String photoName : files) {
-				productDao.addAttach(photoName, product.getProductId());
+				Photo photo = new Photo(product.getProductId(), photoName);
+		        logger.info(photo.toString());
+		        photoDao.create(photo);
 			}
 		}
 		
@@ -64,6 +66,23 @@ public class ProductServiceImpl implements ProductService {
 		
 		return product;
 	}
+	
+	@Override
+	   public void modify(Product product) throws Exception {
+	      // 사진 삭제
+	      photoDao.deleteByproductId(product.getProductId());
+	      
+	      // 사진 등록
+	      String[] files = product.getPhoto();
+	      for (int i = 0; i < files.length; i++) {
+	         Photo photo = new Photo(product.getProductId(), files[i]);
+	         logger.info(photo.toString());
+	         photoDao.create(photo);
+	      }
+	      
+	      // 상품 수정
+	      productDao.update(product);
+	   }
 
 	@Override
 	public void delete(int productId) throws Exception {
