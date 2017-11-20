@@ -1,5 +1,7 @@
 package kr.co.blueauction.product.domain;
 
+import java.util.Arrays;
+
 public class Product {
 
 	private int productId;
@@ -18,6 +20,7 @@ public class Product {
 	private int basicprice;
 	private String auctionstate;
 	private String name;
+	private int bidprice;
 	
 	private String[] photo;
 	
@@ -184,6 +187,14 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public int getBidprice() {
+		return bidprice;
+	}
+
+	public void setBidprice(int bidprice) {
+		this.bidprice = bidprice;
+	}
 
 	public String[] getPhoto() {
 		return photo;
@@ -199,7 +210,8 @@ public class Product {
 				+ seller + ", salemotive=" + salemotive + ", usingtime=" + usingtime + ", productinfo=" + productinfo
 				+ ", price=" + price + ", deliverytype=" + deliverytype + ", regdate=" + regdate + ", auctionFlag="
 				+ auctionFlag + ", auctionstart=" + auctionstart + ", auctionend=" + auctionend + ", basicprice="
-				+ basicprice + ", auctionstate=" + auctionstate + ", name=" + name + "]";
+				+ basicprice + ", auctionstate=" + auctionstate + ", name=" + name + ", bidprice=" + bidprice
+				+ ", photo=" + Arrays.toString(photo) + "]";
 	}
-	
+
 }

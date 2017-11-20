@@ -61,18 +61,15 @@ public class AuctionProductController {
 	@Inject
 	FavoriteService favoriteService;
 	
-	@Inject
-	HttpSession session;
-	
 //	경매 리스트 조회 get
 	@RequestMapping(value = "/auction/{type}/{smallid}", method = RequestMethod.GET)
-	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model)throws Exception{
-		model = listGet(type, smallid, model);
+	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model, HttpSession session)throws Exception{
+		model = listGet(type, smallid, model, session);
 		
 		return "product/auction";
 	}
 	
-	public Model listGet(int type, int smallid, Model model) throws Exception {
+	public Model listGet(int type, int smallid, Model model, HttpSession session) throws Exception {
 		Member member = (Member) session.getAttribute("login");
 		if(member == null) {
 			member = new Member();
@@ -82,6 +79,7 @@ public class AuctionProductController {
 		String memberId = member.getMemberId();
 		SearchCriteria cri = new SearchCriteria();
 		cri.setCategory(2); // 카테고리 경매로 set
+		cri.setPerPageNum(8);
 		
 		if(smallid != 0) {
 			cri.setSmallid(smallid);
@@ -103,7 +101,7 @@ public class AuctionProductController {
 	
 //	경매 리스트 조회 post
 	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword){
+	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword, HttpSession session){
 		Member member = (Member) session.getAttribute("login");
 		if(member == null) {
 			member = new Member();
@@ -126,6 +124,7 @@ public class AuctionProductController {
 		List<Favorite> favoriteList =  null;
 		SearchCriteria cri = new SearchCriteria();
 		cri.setCategory(2);
+		cri.setPerPageNum(8);
 		cri.setPage(page);
 		
 		if(keyword != null) {
@@ -180,7 +179,7 @@ public class AuctionProductController {
 	 */
 	@RequestMapping(value="/auction/readpage/{productId}", method= RequestMethod.POST)
 	public String readPage(@PathVariable("productId") int productId, Model model,
-			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page) throws Exception {
+			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page, HttpSession session) throws Exception {
 		Member member = (Member) session.getAttribute("login");
 		model.addAttribute("login");
 		
@@ -212,12 +211,12 @@ public class AuctionProductController {
 	
 	@RequestMapping(value="/remove/{productId}", method= RequestMethod.POST)
 	public String remove(@PathVariable("productId") int productId, Model model,
-			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page) throws Exception {
+			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page, HttpSession session) throws Exception {
 		productService.delete(productId);
 		
 		logger.info("type : " + type + ", smallid : " + smallid +", keyword : " + keyword + "smallid : " + smallid);
 		
-		model = listGet(type, smallid, model);
+		model = listGet(type, smallid, model, session);
 		
 		// 경로만 설정해주기.
 		return "/product/auction";

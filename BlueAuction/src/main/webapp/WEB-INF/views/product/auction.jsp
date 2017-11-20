@@ -210,7 +210,11 @@
   	  		html +="          <br>";
   	  		html +="           <div class='jjh-currentPrice'>";
   	  		html +="             <p class=''><strong>Current Price</strong></p>";
-  	  		html +="             <h6>$320.00</h6>";
+      	  	if(list[i].bidprice != 0){
+            	html +="<h6>" + list[i].bidprice + "원</h6>";
+            }else{
+            	html +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
+            }
   	  		html +="           </div>";
   	  		html +="        </div>";
   	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage'  href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
@@ -238,7 +242,11 @@
             html +="<br>";
             html +="<div class='jjh-currentPrice'>";
             html +="<p class=''><strong>Successful bid</strong></p>";
-            html +="<h6>$320.00</h6>";
+            if(list[i].bidprice != 0){
+            	html +="<h6>" + list[i].bidprice + "원</h6>";
+            }else{
+            	html +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
+            }
             html +="</div>";
             html +="</div>";
   	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage'  href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
@@ -269,7 +277,11 @@
 			   st +="          <br>";
 			   st +="           <div class='jjh-currentPrice'>";
 			   st +="             <p class=''><strong>Current Price</strong></p>";
-			   st +="             <h6>$320.00</h6>";
+			   if(list[i].bidprice != 0){
+	            	st +="<h6>" + list[i].bidprice + "원</h6>";
+	            }else{
+	            	st +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
+	            }
 			   st +="           </div>";
 			   st +="        </div>";
 			   st +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
@@ -365,12 +377,19 @@
                                 <div class="jjh-price">
                                   <div class="product-price">
                                     <p>Start Price</p>
-                                    <h6>${product.basicprice }원</h6>
+                                    <c:choose>
+                                       <c:when test="${product.bidprice != 0 }">
+                                        <h6>${product.bidprice }원</h6>
+                                       </c:when>
+                                       <c:otherwise>
+                                        <h6 class="jjh-notSuccess">${product.basicprice }원</h6>
+                                       </c:otherwise>
+                                    </c:choose>
                                   </div>
                                   <br>
                                   <div class="jjh-currentPrice">
                                     <p class=""><strong>Current Price</strong></p>
-                                    <h6>$320.00</h6>
+                                    <h6>${product.bidprice }원</h6>
                                   </div>
                                 </div>
                               </c:when>
@@ -379,7 +398,14 @@
                             <br>
                             <div class="jjh-currentPrice">
                               <p class=""><strong>Successful bid</strong></p>
-                              <h6>$320.00</h6>
+                              <c:choose>
+                                 <c:when test="${product.bidprice != 0 }">
+                                    <h6>${product.bidprice }원</h6>
+                                 </c:when>
+                                 <c:otherwise>
+                                   <h6 class="jjh-notSuccess">${product.basicprice }원</h6>
+                                  </c:otherwise>
+                              </c:choose>
                             </div>
                           </div>
                               </c:when>

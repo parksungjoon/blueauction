@@ -111,3 +111,7 @@
 .search-box {
 	width: 1000px;
 }
+
+.jjh-notSuccess {
+	color: rgb(130, 130, 130);
+}
