@@ -57,9 +57,11 @@ public class ProductServiceImpl implements ProductService {
 				photoArr[i] = photoList.get(i).getPhotoname();
 			}
 		}
-
-		product.setPhoto(photoArr);
-
+		
+		if(photoArr != null){
+			product.setPhoto(photoArr);
+		}
+		
 		return product;
 	}
 
