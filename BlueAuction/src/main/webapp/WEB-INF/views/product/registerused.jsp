@@ -51,6 +51,8 @@
 				
 			});
 			
+			sendAttachment();
+			
 		});
 		
 		/* ajax로 이미지 파일 전송 및 썸네일 출력 */
@@ -85,21 +87,22 @@
 			
 		};
 		
-		/* 상품 등록 */
-		$("#registerForm").submit(function(event){
-			
-		  event.preventDefault();
-		  
-		  var that = $(this);
-		  
-		  var str ="";
-		  $(".uploadedList .delbtn").each(function(index){
-		     str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href") +"'> ";
-		  });
-		  
-		  that.append(str);
-		  that.get(0).submit();
-		});
+		/* 첨부파일 정보 Form에 추가 후 submit */
+		function sendAttachment() {
+    		$("#registerForm").submit(function(event){
+    		  event.preventDefault();
+    		  
+    		  var that = $(this);
+    		  
+    		  var str ="";
+    		  $(".uploadedList .delbtn").each(function(index){
+    		     str += "<input type='hidden' name='photo["+index+"]' value='"+$(this).attr("href") +"'> ";
+    		  });
+    		  
+    		  that.append(str);
+    		  that.get(0).submit();
+    		});
+		};
 		
 		/* 첨부파일 삭제 */
 		$(document).on("click", ".uploadedList .delbtn", function(event){
@@ -151,8 +154,8 @@
           <div class="range range-50 range-md-center">
             <div class="cell-md-11 cell-lg-10 cell-xl-6">
                 <!-- Tab panes-->
-                    <form id="registerForm" class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="/used/register">
-                    
+                    <form id="registerForm" method="post" action="/product/used/register">
+                      <input type="hidden" name="auctionFlag" value="N">
                       <div class="range range-20">
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
@@ -162,21 +165,38 @@
                         </div>
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-last-name">Reason For Sale</label>
-                            <input class="form-input" id="forms-3-last-name" type="text" name="salemotive" data-constraints="@Required">
+                            <label class="form-label-outside" for="forms-3-city">Big Category</label>
+                              <div class="form-wrap box-width-1">
+                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" name="categoryId">
+                                  <option value="1" selected="selected">Auction</option>
+                                  <option value="2">Used Stuff</option>
+                                </select>
+                              </div>
                           </div>
                         </div>
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-city">Category</label>
+                            <label class="form-label-outside" for="forms-3-city">Small Category</label>
                               <div class="form-wrap box-width-1">
-                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="smallid">
-                                  <option value="1">Clothes</option>
+                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" name="smallid">
+                                  <option value="1" selected="selected">Clothes</option>
                                   <option value="2">Sundries</option>
                                   <option value="3">Ticket</option>
                                   <option value="4">Electronics</option>
                                 </select>
                               </div>
+                          </div>
+                        </div>
+                        <div class="cell-sm-4">
+                          <div class="form-wrap form-wrap-validation">
+                            <label class="form-label-outside" for="forms-3-last-name">Product Name</label>
+                            <input class="form-input" id="forms-3-last-name" type="text" name="name" data-constraints="@Required">
+                          </div>
+                        </div>
+                        <div class="cell-sm-8">
+                          <div class="form-wrap form-wrap-validation">
+                            <label class="form-label-outside" for="forms-3-last-name">Reason For Sale</label>
+                            <input class="form-input" id="forms-3-last-name" type="text" name="salemotive" data-constraints="@Required">
                           </div>
                         </div>
                         <div class="cell-sm-4">
@@ -195,8 +215,8 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Delivery Type</label>
                               <div class="form-wrap box-width-1">
-                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="deliverytype">
-                                  <option value="1">Direct Dealing</option>
+                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" name="deliverytype">
+                                  <option value="1" selected="selected">Direct Dealing</option>
                                   <option value="2">Parcel Service</option>
                                 </select>
                               </div>
@@ -209,12 +229,11 @@
                           </div>
                         </div>
                       </div>
-                    </form>
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Photos</label>
                             <button class="button button-secondary reg" type="button">Select File</button>
-                            <input class="form-input file" id="photo" type="file" multiple="multiple" name="photo[]" required="required">
+                            <input class="form-input file" id="photo" type="file" multiple="multiple" name="photo">
                           </div>
                         </div>
                         <div class="cell-md-12">
@@ -225,6 +244,7 @@
                             <button class="button button-secondary" type="submit">Register</button>
                           </div>
                         </div>
+                    </form>
             </div>
           </div>
         </div>

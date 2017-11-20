@@ -5,10 +5,10 @@
 <mapper namespace="kr.co.blueauction.product.dao.ProductDao">
 	
 	<!-- 상품 등록 -->
-	<insert id="create" parameterType="Product">
-		INSERT INTO product 
-		            (category_id,
-		            smallid,
+	<insert id="create" parameterType="Product" useGeneratedKeys="true" keyProperty="productId">
+		INSERT INTO product
+		 			(category_id,
+		             smallid,
 		             seller, 
 		             salemotive, 
 		             usingtime, 
@@ -25,8 +25,7 @@
 			             auctionstate
 			           </if>
 		             ) 
-		VALUES     (
-					#{categoryId},
+		VALUES     (#{categoryId},
 					#{smallid}, 
 		            #{seller}, 
 		            #{salemotive}, 
@@ -45,6 +44,15 @@
 			             </if>
 		             )
 			</insert>
+			
+	<!-- 첨부파일 등록 -->
+	<insert id="addAttach">
+		INSERT INTO photo 
+          		   (product_id, 
+             		photoname) 
+		VALUES     (#{productId}, 
+       		     	#{photoName})
+	</insert>		
 	
 	<!-- 상품 전체 조회 -->
 	<select id="listAll" parameterType="string" resultType="Product">

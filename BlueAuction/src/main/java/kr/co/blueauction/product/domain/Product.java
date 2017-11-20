@@ -25,7 +25,7 @@ public class Product {
 	private String[] photo;
 	
 	public Product() {
-		this(0, 0, 0, "", "",  "", "", "", 0, "", "", null, "", "", 0, "");
+		this(0, 0, 0, "", "",  "", "", "", 0, "", "", null, null, null, 0, "");
 	}
 
 	public Product(int categoryId, int smallid, String name, String seller, String salemotive, String usingtime, String productinfo, int price,

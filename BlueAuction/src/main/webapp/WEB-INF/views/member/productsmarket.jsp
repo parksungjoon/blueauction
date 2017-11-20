@@ -58,64 +58,52 @@
     <!-- Breadcrumbs END -->
 
 
-   <section class="section section-lg bg-white"> <c:if
-      test="${not empty products}">
-      <c:forEach var="product" items="${products}" varStatus="status">
-      < <!-- Product Page START-->
-        <section class="section section-lg bg-white">
-        <div class="shell shell-bigger product-single">
-          <div
-            class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
-
-            <!-- 상품 이미지 START -->
-            <div class="cell-md-4 cell-lg-5 cell-xl-4">
-              <div class="product-single-preview">
-                <div
-                  class="unit unit-sm-horizontal unit-sm-middle unit-spacing-md-midle unit--inverse unit-sm">
-                  
-                  <div class="unit-right product-single-image">
-                    <div class="product-single-image-element">
-                      <img class="product-image-area animateImageIn"
-            src="/resources/images/img/${product.photo[0]}" alt=""
-            width="300">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- 상품 이미지 END -->
-
-            <div
-              class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
-              <div class="heading-5">소분류명</div>
-              <h3><a href="/product/${product.productId}">${product.name}</a></h3>
-              <div class="divider divider-default"></div>
-              <div class="detail">
-                <dl class="nv3 nfirst present"> 
-                  <dt class="redprice">판매가</dt>
-                  <dd class="redprice">
-                    <div class="present_price" id="Price">
-                      <span class="present_num">${product.price}</span> 원
-                    </div>
-                  </dd>
-                  <dt class="redprice">배송방식</dt>
-                  <dd class="redprice">
-                    <span class="">${product.deliverytype}</span>
-                  </dd>
-                </dl>
-                <a class="button button-xs button-secondary" href="#">구매하기</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
+  <!-- Product Page START-->
+      <section class="section section-lg bg-white">
        
         
-      </c:forEach></section>
-    </c:if>
-    <c:if test="${empty products}">
-    <h5> 판매 상품이 없습니다</h5>
-    </c:if>
+         <!-- Hover Row Table (입찰 리스트) START -->
+        <div class="shell">
+          <div class="range range-xs-center">
+            <div class="cell-sm-10 cell-lg-10">
+              <h3>중고 판매 리스트 </h3>
+              <div class="table-novi table-custom-responsive">
+                <table  class="table table-striped table-hover">
+                  <thead>
+                    <tr class="info">
+                      <th>#</th>
+                      <th>가격</th>
+                      <th>상품 정보</th>
+                      <th>판매 가격</th>
+                      <!-- <th>판매 상태</th> -->
+                    </tr>
+                  </thead>
+                  <tbody id="bidListTr">
+                  <c:forEach var="product" items="${products}" varStatus="status">
+                    <tr>
+                      <td>${status.count}</td>
+                      <td>${product.name}</td>
+                      <td>${product.productinfo}</td>
+                      <td>${product.price}원</td>
+                    <%--   <td>${product.}원</td> --%>
+                      
+                    </tr>
+                  </c:forEach>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <%-- Shop Sidebar START --%>
+        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
+        <%-- Shop Sidebar END --%>
+            
+          </div>
+        </div>
+        <!-- Hover Row Table (입찰 리스트) END --> 
+       
+        
+      </section>
+
     <!-- Product Page END-->
 
     <!-- Product Page END-->
@@ -126,6 +114,9 @@
   <%-- END PANEL--%>
   <%-- Global Mailform Output--%>
   <div class="snackbars" id="form-output-global"></div>
+  
+ 
+      <!-- Product Page END-->
 
   <%-- Javascript--%>
   <script src="/resources/js/core.min.js"></script>

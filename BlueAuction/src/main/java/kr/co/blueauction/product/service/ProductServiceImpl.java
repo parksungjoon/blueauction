@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.co.blueauction.common.domain.SearchCriteria;
@@ -16,6 +17,8 @@ import kr.co.blueauction.product.domain.Product;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+	Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+	
 	@Inject
 	ProductDao productDao;
 	@Inject
@@ -23,7 +26,17 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void create(Product product) throws Exception {
+		
 		productDao.create(product);
+		
+		String[] files = product.getPhoto();
+		
+		if (files != null) {
+			for (String photoName : files) {
+				productDao.addAttach(photoName, product.getProductId());
+			}
+		}
+		
 	}
 
 	@Override
@@ -44,9 +57,11 @@ public class ProductServiceImpl implements ProductService {
 				photoArr[i] = photoList.get(i).getPhotoname();
 			}
 		}
-
-		product.setPhoto(photoArr);
-
+		
+		if(photoArr != null){
+			product.setPhoto(photoArr);
+		}
+		
 		return product;
 	}
 
