@@ -107,13 +107,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception {
 		List<Product> productList = productDao.productSellList(memberId, auctionFlag);
-		System.out.println("해당아이디에 상품리스트"+productList.toString());
 
 		if (productList.size() > 0) {
 			for (int i = 0; i < productList.size(); i++) {
 				if (productList.get(i) != null) {
 					int productId = productList.get(i).getProductId();
-					System.out.println("productList.get(" + i + ").getProductId()" + String.valueOf(productId));
 
 					List<Photo> photoList = photoDao.readByProductId(productId);
 					String[] photoArr = null;
@@ -122,15 +120,11 @@ public class ProductServiceImpl implements ProductService {
 
 						for (int j = 0; j < photoArr.length; j++) {
 							photoArr[j] = photoList.get(j).getPhotoname();
-							System.out.println(photoArr[j]);
 						}
 						
 					}
 					
 					productList.get(i).setPhoto(photoArr);
-				
-					
-				//	System.out.println("photoarray : " +photoarray);
 				}
 			}
 		}

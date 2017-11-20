@@ -8,6 +8,7 @@ package kr.co.blueauction.product.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -56,6 +57,8 @@ public class ProductDetailController {
 	
 	@Resource(name = "uploadPath")
 	private String uploadPath;
+	
+	
 	
 	/**
 	 * producdt 상세보기 
