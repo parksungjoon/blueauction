@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.bid.service.BidService;
+import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.favorite.domain.Favorite;
 import kr.co.blueauction.favorite.service.FavoriteService;
@@ -88,6 +89,17 @@ public class AuctionProductController {
 		List<Product> list = productService.listByCri(cri, type);
 		
 		int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(count);
+		
+		if(1 == pageMaker.getEndPage()) { // 1페이지가 마지막 페이지면
+			model.addAttribute("endpage", "yes");
+		}else {
+			model.addAttribute("endpage", "no");
+		}
+		
 		model.addAttribute("list", list);
 		model.addAttribute("type", type);
 		model.addAttribute("smallid", smallid);
@@ -138,6 +150,18 @@ public class AuctionProductController {
 		
 		try {
 			List<Product> list = productService.listByCri(cri, type);
+			int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(count);
+			
+			logger.info("page : " + page + ", endpage : " + pageMaker.getEndPage());
+			if(page == pageMaker.getEndPage()) {
+				map.put("endpage", "yes");
+			}else {
+				map.put("endpage", "no");
+			}
 			
 			for (Product product : list) {
 				logger.info(product.toString());
