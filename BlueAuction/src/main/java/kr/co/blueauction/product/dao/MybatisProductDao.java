@@ -45,10 +45,10 @@ public class MybatisProductDao implements ProductDao {
 	}
 	
 	/** 상품 수정 */
-	/*@Override
+	@Override
 	public void update(Product product) throws Exception {
 		sqlSession.update(namespace + ".update", product);
-	}*/
+	}
 	
 	/** {요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 */
 	@Override
@@ -86,4 +86,5 @@ public class MybatisProductDao implements ProductDao {
 	
 		return sqlSession.selectList(namespace+".productSellList", map);
 	}
+
 }
