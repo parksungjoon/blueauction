@@ -9,6 +9,7 @@ package kr.co.blueauction.product.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -205,7 +206,7 @@ public class AuctionProductController {
 	public String readPage(@PathVariable("productId") int productId, Model model,
 			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page, HttpSession session) throws Exception {
 		Member member = (Member) session.getAttribute("login");
-		model.addAttribute("login");
+		model.addAttribute("login", member);
 		
 		Product	product = productService.read(productId); 	
 		model.addAttribute(product);
@@ -216,34 +217,77 @@ public class AuctionProductController {
 		return "/product/productdetail";
 	}
 	
-	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.GET)
-	public String modifyPageGET(@PathVariable("productId") int productId, Model model) throws Exception {
+	/**
+	 * product 수정 페이지 
+	 * @param productId
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.POST)
+	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
 		Product product = productService.read(productId);
 		model.addAttribute("product", product);
 			
 		return "/product/productModify";
 	}
 	
-	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.POST)
-	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
-		// 파일 업로드...!!
+	/**
+	 * product 수정 처리 및 db저장
+	 * @param productId
+	 * @param product
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/modify/{productId}", method= RequestMethod.POST)
+	public String modifyPagePUT(@PathVariable("productId") int productId, Product product, Model model, HttpSession session) throws Exception {
+
+		StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
+		String auctionstart = st.nextToken() + " " + st.nextToken();
+		product.setAuctionstart(auctionstart);
 		
-		logger.info("아직 완료 안됨");
+		String info = product.getProductinfo().replaceAll("\r\n", "<br>");
+		product.setProductinfo(info);
 		
-		return "/";
+		// 사진 및 수정 데이터 저장
+		productService.modify(product);
+		
+		Member member = (Member) session.getAttribute("login");
+		model.addAttribute("login", member);
+		
+		product = productService.read(productId); 	
+		model.addAttribute(product);
+		
+		List<Bid> bidList = bidSevice.readByProductId(productId);
+		model.addAttribute(bidList);
+		
+		return "/product/productdetail";
 	}
 	
+	
+	/**
+	 * 경매 상품 삭제
+	 * @param productId
+	 * @param model
+	 * @param type
+	 * @param smallid
+	 * @param keyword
+	 * @param page
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/remove/{productId}", method= RequestMethod.POST)
 	public String remove(@PathVariable("productId") int productId, Model model,
 			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page, HttpSession session) throws Exception {
 		productService.delete(productId);
 		
-		logger.info("type : " + type + ", smallid : " + smallid +", keyword : " + keyword + "smallid : " + smallid);
-		
 		model = listGet(type, smallid, model, session);
 		
 		// 경로만 설정해주기.
-		return "/product/auction";
+		return "product/auction";
 	}
 	
 	@RequestMapping(value="/auction/register")

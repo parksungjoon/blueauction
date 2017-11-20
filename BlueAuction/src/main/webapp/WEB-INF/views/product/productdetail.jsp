@@ -90,7 +90,7 @@
                     		<c:when test='${(product.auctionstate).equals("AFTER")}'>
                     			<c:choose>
 		                    		<c:when test="${status.count==1}">
-		                    			<li class="active" data-large-image="/resources/images/img/${photo}"><img class="jjh-finished" src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    			<li class="active" data-large-image="/resources/images/img${photo}"><img class="jjh-finished" src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
 		                    		</c:when>
 		                    		<c:otherwise>
 		                    			<li  data-large-image="/resources/images/img/${photo}"><img class="jjh-finished" src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
