@@ -122,22 +122,30 @@
 
 <!--{요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 -->
 	<select id="listByCri" parameterType="map" resultType="Product">
-		SELECT product_id, 
-		       category_id, 
-		       smallid, 
-		       seller, 
-		       salemotive, 
-		       usingtime, 
-		       productinfo, 
-		       price, 
-		       deliverytype,
-		       name, 
-		       regdate, 
-		       auctionstart, 
-		       auctionend, 
-		       basicprice, 
-		       auctionstate 
-		FROM   product 
+		SELECT p.product_id product_id, 
+		       p.category_id category_id, 
+		       p.smallid smallid, 
+		       p.seller seller, 
+		       p.salemotive salemotive, 
+		       p.usingtime usingtime, 
+		       p.productinfo productinfo, 
+		       p.price price, 
+		       p.deliverytype deliverytype,
+		       p.name name, 
+		       p.regdate regdate, 
+		       p.auctionstart auctionstart, 
+		       p.auctionend auctionend, 
+		       p.basicprice basicprice, 
+		       p.auctionstate auctionstate,
+		       b.bidprice bidprice 
+		FROM   product p left join bid b
+		ON p.product_id = b.product_id 
+		AND 
+		b.bidprice IN 
+		( 
+		         SELECT   max(bidprice) 
+		         FROM     bid 
+		         GROUP BY product_id)
 		WHERE  category_id = #{cri.category}
 		<if test="cri.smallid != 0">
 			and smallid = #{cri.smallid}

@@ -49,12 +49,12 @@ public class UploadController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/{productId}", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
-	public ResponseEntity<String> uploadImages(@PathVariable("productId") int productId, MultipartFile file) throws Exception {
+	@RequestMapping(value="", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
+	public ResponseEntity<String> uploadImages(MultipartFile file) throws Exception {
 		
 		logger.info("originalName : " + file.getOriginalFilename());
 		
-		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
+		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 	
 	@ResponseBody
@@ -144,7 +144,7 @@ public class UploadController {
 			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 		}
 		
-		return new ResponseEntity<>("deleted", HttpStatus.OK);
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
 }

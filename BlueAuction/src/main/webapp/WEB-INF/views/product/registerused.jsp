@@ -45,7 +45,7 @@
 		
 		$(document).ready(function() {
 			
-			/* 첨부파일 선택지 자동 업로드 */
+			/* 첨부파일 선택 시 자동 업로드 */
 			$("input[type=file]").change(function() {
 				handleUpload();
 				
@@ -68,7 +68,7 @@
 			
 			$.ajax({
 				
-				url: "/product/attach/" + 1,
+				url: "/product/attach/",
 				data: formData,
 				dataType: "text",
 				processData: false,
@@ -160,7 +160,7 @@
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-name">Seller</label>
-                            <input class="form-input" id="forms-3-name" type="text" name="seller" data-constraints="@Required">
+                            <input class="form-input" id="forms-3-name" type="text" name="seller" data-constraints="@Required" value="${login.memberId }" readonly="readonly">
                           </div>
                         </div>
                         <div class="cell-sm-4">
