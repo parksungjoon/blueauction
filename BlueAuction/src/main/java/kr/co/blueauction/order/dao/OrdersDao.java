@@ -20,4 +20,7 @@ public interface OrdersDao {
 	
 	/** 주문 삭제 */
 	public void delete(int orderNo);
+	
+	/** 로그인된 회원의 구매 리스트를 조회 */
+	public List<Orders> orderList(String memberId, String auctionFlag) throws Exception;
 }

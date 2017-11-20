@@ -3,7 +3,7 @@
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 네임스페이스(사용영역) 설정 -->
-<mapper namespace="kr.co.blueauction.mapper.bidMapper">
+<mapper namespace="kr.co.blueauction.bid.dao.BidDao">
 	
 	<insert id="insert" parameterType="Bid">
 		INSERT INTO BID (product_id, 
@@ -14,27 +14,35 @@
 						 #{bidprice})
 	</insert>
 	
-	<select id="readByMemberId" parameterType="string" resultType="bid">
-		Select *
-		From bid
+	<select id="readByMemberId" parameterType="string" resultType="Bid">
+		SELECT *
+		FROM bid
 		WHERE member_id = #{value}
 	</select>
 	
-	<select id="readByProductId" parameterType="int" resultType="bid">
-		select *
-		from bid
-		where product_id = #{value}
-		order by bidprice desc
+	<select id="readByProductId" parameterType="int" resultType="Bid">
+		SELECT *
+		FROM bid
+		WHERE product_id = #{value}
+		ORDER BY bidprice desc
 	</select>
 	
 	<update id="update" parameterType="Bid">
 		UPDATE bid
 		SET winning = 'Y'
-		where bid_no = #{bidNo}
+		WHERE bid_no = #{bidNo}
 	</update>
 	
 	<delete id="delete" parameterType="int">
-		delete from BID
-		where bid_id = #{value}
+		DELETE from BID
+		WHERE bid_id = #{value}
 	</delete>
+	
+	<!-- 종료 경매 낙찰가 조회 -->
+	<select id="readWinningPrice" parameterType="int" resultType="Bid">
+		SELECT *
+		FROM   bid 
+		WHERE  product_id =  #{value}
+		       AND winning = 'Y'
+	</select>
 </mapper>
