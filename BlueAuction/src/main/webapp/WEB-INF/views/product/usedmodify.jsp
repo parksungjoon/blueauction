@@ -22,7 +22,6 @@
     
     <script src="/resources/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/resources/js/upload.js"></script>
-    <script type="text/javascript" src="/resources/js/fileUpload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 		<!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
@@ -40,18 +39,106 @@
   			</span>
   			</div>
 		</li>                
-  	</script>
+  </script>
     
     <script type="text/javascript">
-    
+		
 		$(document).ready(function() {
+			
+			/* 첨부파일 선택 시 자동 업로드 */
+			$("input[type=file]").change(function() {
+				handleUpload();
+				
+			});
 			
 			sendAttachment();
 			
-			autoUpload();
-			
-			
 		});
+		
+		var template = Handlebars.compile($("#template").html());
+			
+		/* ajax로 이미지 파일 전송 및 썸네일 출력 */
+		function handleUpload() {
+	
+			
+			var file = $("input[type=file]")[0].files[0];
+			
+			var formData = new FormData();
+			
+			formData.append("file", file);
+			
+			$.ajax({
+				
+				url: "/product/attach/",
+				data: formData,
+				dataType: "text",
+				processData: false,
+				contentType: false,
+				type: "POST",
+				success: function(data) {
+					var fileInfo = getFileInfo(data);
+			        
+			        var html = template(fileInfo);
+			        
+			        $(".uploadedList").append(html);
+					$("#photo").val(""); 
+				}
+				
+			});
+			
+		};
+		
+		/* 첨부파일 정보 Form에 추가 후 submit */
+		function sendAttachment() {
+    		$("#registerForm").submit(function(event){
+    		  event.preventDefault();
+    		  
+    		  var that = $(this);
+    		  
+    		  var str ="";
+    		  $(".uploadedList .delbtn").each(function(index){
+    		     str += "<input type='hidden' name='photo["+index+"]' value='"+$(this).attr("href") +"'> ";
+    		  });
+    		  
+    		  that.append(str);
+    		  that.get(0).submit();
+    		});
+		};
+		
+		/* 첨부파일 삭제 */
+		$(document).on("click", ".uploadedList .delbtn", function(event){
+			
+			event.preventDefault();
+			
+			$(this).parent().parent().remove();
+		 	
+		});
+		
+		/* 첨부파일 정보 불러오기 */
+		/* $.getJSON("/sboard/getAttach/"+bno,function(list){
+			$(list).each(function(){
+				
+				var fileInfo = getFileInfo(this);
+				
+				var html = template(fileInfo);
+				
+				 $(".uploadedList").append(html);
+				
+			});
+		}); */
+		
+		/* Select값 설정 */
+		function setSelectOption() {
+			
+			var categoryId = '${product.categoryId}'
+			var smallId = '${product.smallid}'
+			var deliveryType = '${product.deliverytype}'
+			
+			if (categoryId == 2) {
+				$(".category option")[1].attr("selected", "selected");
+				alert();
+			}
+		}
 		
     </script>
     
@@ -84,12 +171,22 @@
                 <!-- Tab panes-->
                     <form id="registerForm" method="post" action="/product/used/register">
                       <input type="hidden" name="auctionFlag" value="N">
-                      <input type="hidden" name="categoryId" value="1">
                       <div class="range range-20">
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-name">Seller</label>
-                            <input class="form-input" id="forms-3-name" type="text" name="seller" data-constraints="@Required" value="${login.memberId }" readonly="readonly">
+                            <input class="form-input" id="forms-3-name" type="text" name="seller" data-constraints="@Required" value="${login.memberId }">
+                          </div>
+                        </div>
+                        <div class="cell-sm-4">
+                          <div class="form-wrap form-wrap-validation">
+                            <label class="form-label-outside" for="forms-3-city">Big Category</label>
+                              <div class="form-wrap box-width-1">
+                                <select class="form-control select-filter category" data-placeholder="All" data-minimum-results-for-search="Infinity" name="categoryId">
+                                  <option value="1" selected="selected">Auction</option>
+                                  <option value="2">Used Stuff</option>
+                                </select>
+                              </div>
                           </div>
                         </div>
                         <div class="cell-sm-4">
@@ -105,7 +202,7 @@
                               </div>
                           </div>
                         </div>
-                        <div class="cell-sm-8">
+                        <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-last-name">Product Name</label>
                             <input class="form-input" id="forms-3-last-name" type="text" name="name" data-constraints="@Required">
@@ -143,15 +240,15 @@
                         <div class="cell-xs-12">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-street-address">Product Information</label>
-                            <textarea class="form-input" rows="10" cols="100%" name="productinfo" data-constraints="@Required" style="resize: none"></textarea>
+                            <textarea class="form-input" rows="4" cols="100%" name="productinfo" data-constraints="@Required"></textarea>
                           </div>
                         </div>
                       </div>
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Photos</label>
-                            <button id="filebutton" class="button button-secondary reg btn-select" type="button">Select File</button>
-                            <input class="form-input file" id="photo" type="file" multiple="multiple" name="photo"  required="required">
+                            <button class="button button-secondary reg" type="button">Select File</button>
+                            <input class="form-input file" id="photo" type="file" multiple="multiple" name="photo">
                           </div>
                         </div>
                         <div class="cell-md-12">
