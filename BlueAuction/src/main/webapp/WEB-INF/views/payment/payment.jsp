@@ -87,8 +87,8 @@
                   <div class="tab-pane fade in active" id="tabs-1-1">
                   
                   <%--정보 입력 form 시작 --%>
-                    <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="/payment/${order.orderId}">
-                                         <div class="table-checkout text-left jji-select">
+              <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="/payment/${order.orderId}">
+                         <div class="table-checkout text-left jji-select">
                       <div class="table-novi table-custom-responsive">
                         <table class="table-custom">
                           <tbody>

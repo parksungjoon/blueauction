@@ -35,7 +35,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			  logger.info("current user is not logined");
 	      
 			  saveDest(request);
-	      
+			  String dest = (String)session.getAttribute("dest");
+			  logger.info((String)session.getAttribute("dest"));
 		      Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 		      
 		      if(loginCookie != null) { 
@@ -47,7 +48,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		        	 logger.info("member가 null 이 아님!");
 		          session.setAttribute("login", member); //로그인이 안되있는상태고 자동로그인이 설정되어있는상태일때  세션에로그인추가
 		          //로그인이되었으니 메인페이지로 이동 컨트롤러는 실행되지 않음
-		          response.sendRedirect("/");
+		          response.sendRedirect(dest != null ? (String)dest : "/");
 		          return false;
 		        }else {
 		        	//자동로그인이 설정되어있지 않은상태여서 자동로그인이안되고 컨트롤러로이동한다?
