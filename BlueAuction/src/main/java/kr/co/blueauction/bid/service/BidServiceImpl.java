@@ -52,4 +52,9 @@ public class BidServiceImpl implements BidService {
 		return bidDao.bidList(memberId, winning);
 		
 	}
+	
+	@Override
+	public String leastTime(String memberId) throws Exception {
+		return bidDao.leastTime(memberId);
+	}
 }
