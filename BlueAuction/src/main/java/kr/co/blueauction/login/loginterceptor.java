@@ -17,41 +17,55 @@ import kr.co.blueauction.member.service.MemberService;
 
 public class loginterceptor extends HandlerInterceptorAdapter {
 
-	  private static final Logger logger = LoggerFactory.getLogger(loginterceptor.class);
-	  
-	  @Inject
-	  private MemberService service;
-	  
-	  @Override
-	  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		  logger.info("loginterceptor preHandle 실행");
-		  HttpSession session = request.getSession();   
-		  logger.info("Location Before : " + session.getAttribute("login"));
-		  
-		  if(session.getAttribute("login") == null) {
-			  logger.info("current user is not logined");
-			
-		      Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
-		      
-		      if(loginCookie != null) { 
-		        Member member = service.checkLoginBefore(loginCookie.getValue());
-		        logger.info("loginCookie.getValue()"+loginCookie.getValue());
-		       
-		        logger.info("MEMBER: " + member);
-		        if(member != null){
-		        	  logger.info("member가 null 이 아님!");
-		          session.setAttribute("login", member);
-		          response.sendRedirect("/");
-		          return false;
-		        }
-		      }
-			  return true;
-	    }
-		  
-	    if(session.getAttribute("login") != null) {
-	    	logger.info("SESSION : " + session.getAttribute("login").toString());
-	    }
-	    
-	    return true;
-	  }  
+	private static final Logger logger = LoggerFactory.getLogger(loginterceptor.class);
+
+	@Inject
+	private MemberService service;
+
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		logger.info("loginterceptor preHandle 실행");
+		logger.info("request.getHeader(\"REFERER\")"+request.getHeader("REFERER"));
+		logger.info("request.getHeader(\"REFERER\").substring(16)"+request.getHeader("REFERER").substring(16));
+		HttpSession session = request.getSession();
+		logger.info("Location Before : " + session.getAttribute("login"));
+		saveDest(request);
+		logger.info("(String)session.getAttribute(\"dest\")" + (String) session.getAttribute("dest"));
+		if (session.getAttribute("login") == null) {
+			logger.info("current user is not logined");
+
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+
+			if (loginCookie != null) {
+				Member member = service.checkLoginBefore(loginCookie.getValue());
+				logger.info("loginCookie.getValue()" + loginCookie.getValue());
+
+				logger.info("MEMBER: " + member);
+				if (member != null) {
+					logger.info("member가 null 이 아님!");
+					session.setAttribute("login", member);
+					response.sendRedirect("/");
+					return false;
+				}
+			}
+			return true;
+		}
+
+		if (session.getAttribute("login") != null) {
+			logger.info("SESSION : " + session.getAttribute("login").toString());
+		}
+
+		return true;
+	}
+
+	private void saveDest(HttpServletRequest req) {
+		logger.info("loginterceptor  saveDest실행");
+
+		if (req.getMethod().equals("GET")) {
+		
+			req.getSession().setAttribute("dest", req.getHeader("REFERER").substring(16));
+		}
+
+	}
 }

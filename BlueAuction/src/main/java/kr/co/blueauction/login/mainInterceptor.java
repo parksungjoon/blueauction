@@ -24,7 +24,7 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 	  
 	  @Override
 	  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		  logger.info("loginterceptor preHandle 실행");
+		  logger.info("mainInterceptor preHandle 실행");
 		  HttpSession session = request.getSession();   
 		  logger.info("Location Before : " + session.getAttribute("login"));
 		  
