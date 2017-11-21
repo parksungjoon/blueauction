@@ -45,8 +45,9 @@
 		where member_id=#{memberId} and winning=#{winning}
 	</select>
 	
-	<!-- 해당 아이디의 가장 적은 시간 남은 경매 시간 조회  -->
+	<!--  해당 아이디의 가장 적은 시간 남은 경매 시간 조회 -->
 	<select id="leastTime" parameterType="string" resultType="string">
+	<![CDATA[ 
 		SELECT p.auctionend auctionend 
 		FROM   bid b 
 		       JOIN product p 
@@ -54,6 +55,7 @@
 		WHERE  Now() < p.auctionend 
 		       AND b.member_id = #{value} 
 		GROUP  BY b.member_id 
+		]]> 
 	</select>
 
 

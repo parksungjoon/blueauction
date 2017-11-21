@@ -68,7 +68,7 @@ public class AuctionProductController {
 	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model, HttpSession session)throws Exception{
 		model = listGet(type, smallid, model, session);
 		
-		return "product/auction";
+		return "/product/auction";
 	}
 	
 	public Model listGet(int type, int smallid, Model model, HttpSession session) throws Exception {
@@ -243,13 +243,6 @@ public class AuctionProductController {
 	 */
 	@RequestMapping(value="/modify/{productId}", method= RequestMethod.POST)
 	public String modifyPagePUT(@PathVariable("productId") int productId, Product product, Model model, HttpSession session) throws Exception {
-
-		StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
-		String auctionstart = st.nextToken() + " " + st.nextToken();
-		product.setAuctionstart(auctionstart);
-		
-		String info = product.getProductinfo().replaceAll("\r\n", "<br>");
-		product.setProductinfo(info);
 		
 		// 사진 및 수정 데이터 저장
 		productService.modify(product);
@@ -263,7 +256,7 @@ public class AuctionProductController {
 		List<Bid> bidList = bidSevice.readByProductId(productId);
 		model.addAttribute(bidList);
 		
-		return "/product/productdetail";
+		return "redirect:/product/productdetail";
 	}
 	
 	
@@ -282,17 +275,27 @@ public class AuctionProductController {
 	@RequestMapping(value="/remove/{productId}", method= RequestMethod.POST)
 	public String remove(@PathVariable("productId") int productId, Model model,
 			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page, HttpSession session) throws Exception {
+		
 		productService.delete(productId);
 		
 		model = listGet(type, smallid, model, session);
 		
-		// 경로만 설정해주기.
-		return "product/auction";
+		return "redirect:/product/auction";
 	}
 	
-	@RequestMapping(value="/auction/register")
-	public String register() {
+	@RequestMapping(value = "auction/register", method = RequestMethod.GET)
+	public String registerGET(Model model, HttpSession session)throws Exception{
+		
 		return "/product/registerauction";
+	}
+	
+	@RequestMapping(value = "auction/register", method = RequestMethod.POST)
+	public String registerPOST(Model model, HttpSession session, Product product)throws Exception{
+		productService.create(product);
+		
+		model = listGet(1, product.getSmallid(), model, session);
+		
+		return "redirect:/product/auction";
 	}
 	
 }

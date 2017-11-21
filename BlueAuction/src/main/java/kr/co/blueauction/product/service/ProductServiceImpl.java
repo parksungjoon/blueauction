@@ -1,6 +1,7 @@
 package kr.co.blueauction.product.service;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.inject.Inject;
 
@@ -18,7 +19,7 @@ import kr.co.blueauction.product.domain.Product;
 public class ProductServiceImpl implements ProductService {
 
 	Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-	
+
 	@Inject
 	ProductDao productDao;
 	@Inject
@@ -27,18 +28,29 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void create(Product product) throws Exception {
 		
+		if(product.getCategoryId() == 2) {
+			// 날짜 형식 변경
+			StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
+			String auctionstart = st.nextToken() + " " + st.nextToken();
+			product.setAuctionstart(auctionstart);
+		}
+
+		// <br>처리
+		String info = product.getProductinfo().replaceAll("\r\n", "<br>");
+		product.setProductinfo(info);
+
 		productDao.create(product);
-		
+
 		String[] files = product.getPhoto();
-		
+
 		if (files != null) {
 			for (String photoName : files) {
 				Photo photo = new Photo(product.getProductId(), photoName);
-		        logger.info(photo.toString());
-		        photoDao.create(photo);
+				logger.info(photo.toString());
+				photoDao.create(photo);
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -59,32 +71,41 @@ public class ProductServiceImpl implements ProductService {
 				photoArr[i] = photoList.get(i).getPhotoname();
 			}
 		}
-		
-		if(photoArr != null){
+
+		if (photoArr != null) {
 			product.setPhoto(photoArr);
 		}
-		
+
 		return product;
 	}
-	
+
 	@Override
-	   public void modify(Product product) throws Exception {
-	      // 사진 삭제
-	      photoDao.deleteByproductId(product.getProductId());
-	      
-	      // 사진 등록
-	      String[] files = product.getPhoto();
-	      if(files != null) {
-	    	  for (int i = 0; i < files.length; i++) {
-	 	         Photo photo = new Photo(product.getProductId(), files[i]);
-	 	         photoDao.create(photo);
-	 	      }
-	 	      
-	      }
-	     
-	      // 상품 수정
-	      productDao.update(product);
-	   }
+	public void modify(Product product) throws Exception {
+		// 날짜 형식 변경
+		StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
+		String auctionstart = st.nextToken() + " " + st.nextToken();
+		product.setAuctionstart(auctionstart);
+
+		// <br>처리
+		String info = product.getProductinfo().replaceAll("\r\n", "<br>");
+		product.setProductinfo(info);
+
+		// 사진 삭제
+		photoDao.deleteByproductId(product.getProductId());
+
+		// 사진 등록
+		String[] files = product.getPhoto();
+		if (files != null) {
+			for (int i = 0; i < files.length; i++) {
+				Photo photo = new Photo(product.getProductId(), files[i]);
+				photoDao.create(photo);
+			}
+
+		}
+
+		// 상품 수정
+		productDao.update(product);
+	}
 
 	@Override
 	public void delete(int productId) throws Exception {
@@ -124,9 +145,9 @@ public class ProductServiceImpl implements ProductService {
 						for (int j = 0; j < photoArr.length; j++) {
 							photoArr[j] = photoList.get(j).getPhotoname();
 						}
-						
+
 					}
-					
+
 					productList.get(i).setPhoto(photoArr);
 				}
 			}
