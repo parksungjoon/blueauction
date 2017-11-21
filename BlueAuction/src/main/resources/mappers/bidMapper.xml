@@ -36,13 +36,24 @@
 	<delete id="delete" parameterType="int">
 		delete from BID
 		where bid_id =
-		{value}
+		#{value}
 	</delete>
 
 	<select id="bidList" parameterType="map" resultType="bid">
 		select *
 		from bid
 		where member_id=#{memberId} and winning=#{winning}
+	</select>
+	
+	<!-- 해당 아이디의 가장 적은 시간 남은 경매 시간 조회  -->
+	<select id="leastTime" parameterType="string" resultType="string">
+		SELECT p.auctionend auctionend 
+		FROM   bid b 
+		       JOIN product p 
+		         ON b.product_id = p.product_id 
+		WHERE  Now() < p.auctionend 
+		       AND b.member_id = #{value} 
+		GROUP  BY b.member_id 
 	</select>
 
 
