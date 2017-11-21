@@ -19,7 +19,7 @@
 		<h6>경매장터</h6>
 		<ul class="list-marked list-marked-secondary">
 			<li><a href="/member/mypage/auctionmarket">판매리스트</a></li>
-			<li><a href="#">입찰리스트</a></li>
+			<li><a href="/member/mypage/bidlist">입찰리스트</a></li>
 			<li><a href="#">낙찰리스트</a></li>
 			<li><a href="#">구매리스트</a></li>
 		</ul>

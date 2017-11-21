@@ -30,6 +30,6 @@ public interface BidDao {
 	// bid 삭제 
 	public void delete(int bidId) throws Exception;
 	
-	//종료 경매 낙찰가 조회
-	public Bid readWinningPrice(int productId) throws Exception;
+	//해당 아이디 bid 조회
+	public List<Bid> bidList(String membrId, String winning) throws Exception; 
 }

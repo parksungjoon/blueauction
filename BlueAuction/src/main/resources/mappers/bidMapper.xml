@@ -3,46 +3,47 @@
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 네임스페이스(사용영역) 설정 -->
-<mapper namespace="kr.co.blueauction.bid.dao.BidDao">
-	
+<mapper namespace="kr.co.blueauction.mapper.bidMapper">
+
 	<insert id="insert" parameterType="Bid">
-		INSERT INTO BID (product_id, 
-						 member_id, 
-						 bidprice) 
-				VALUES  (#{productId}, 
-						 #{memberId}, 
-						 #{bidprice})
+		INSERT INTO BID (product_id,
+		member_id,
+		bidprice)
+		VALUES (#{productId},
+		#{memberId},
+		#{bidprice})
 	</insert>
-	
-	<select id="readByMemberId" parameterType="string" resultType="Bid">
-		SELECT *
-		FROM bid
+
+	<select id="readByMemberId" parameterType="string" resultType="bid">
+		Select *
+		From bid
 		WHERE member_id = #{value}
 	</select>
-	
-	<select id="readByProductId" parameterType="int" resultType="Bid">
-		SELECT *
-		FROM bid
-		WHERE product_id = #{value}
-		ORDER BY bidprice desc
+
+	<select id="readByProductId" parameterType="int" resultType="bid">
+		select *
+		from bid
+		where product_id = #{value}
+		order by bidprice desc
 	</select>
-	
+
 	<update id="update" parameterType="Bid">
 		UPDATE bid
 		SET winning = 'Y'
-		WHERE bid_no = #{bidNo}
+		where bid_no = #{bidNo}
 	</update>
-	
+
 	<delete id="delete" parameterType="int">
-		DELETE from BID
-		WHERE bid_id = #{value}
+		delete from BID
+		where bid_id =
+		{value}
 	</delete>
-	
-	<!-- 종료 경매 낙찰가 조회 -->
-	<select id="readWinningPrice" parameterType="int" resultType="Bid">
-		SELECT *
-		FROM   bid 
-		WHERE  product_id =  #{value}
-		       AND winning = 'Y'
+
+	<select id="bidList" parameterType="map" resultType="bid">
+		select *
+		from bid
+		where member_id=#{memberId} and winning=#{winning}
 	</select>
+
+
 </mapper>

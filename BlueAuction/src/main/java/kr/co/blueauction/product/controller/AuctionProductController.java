@@ -9,7 +9,6 @@ package kr.co.blueauction.product.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -29,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.bid.service.BidService;
-import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.favorite.domain.Favorite;
 import kr.co.blueauction.favorite.service.FavoriteService;
@@ -90,17 +88,6 @@ public class AuctionProductController {
 		List<Product> list = productService.listByCri(cri, type);
 		
 		int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(count);
-		
-		if(1 == pageMaker.getEndPage()) { // 1페이지가 마지막 페이지면
-			model.addAttribute("endpage", "yes");
-		}else {
-			model.addAttribute("endpage", "no");
-		}
-		
 		model.addAttribute("list", list);
 		model.addAttribute("type", type);
 		model.addAttribute("smallid", smallid);
@@ -151,18 +138,6 @@ public class AuctionProductController {
 		
 		try {
 			List<Product> list = productService.listByCri(cri, type);
-			int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
-			
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(count);
-			
-			logger.info("page : " + page + ", endpage : " + pageMaker.getEndPage());
-			if(page == pageMaker.getEndPage()) {
-				map.put("endpage", "yes");
-			}else {
-				map.put("endpage", "no");
-			}
 			
 			for (Product product : list) {
 				logger.info(product.toString());
@@ -206,7 +181,7 @@ public class AuctionProductController {
 	public String readPage(@PathVariable("productId") int productId, Model model,
 			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page, HttpSession session) throws Exception {
 		Member member = (Member) session.getAttribute("login");
-		model.addAttribute("login", member);
+		model.addAttribute("login");
 		
 		Product	product = productService.read(productId); 	
 		model.addAttribute(product);
@@ -217,77 +192,34 @@ public class AuctionProductController {
 		return "/product/productdetail";
 	}
 	
-	/**
-	 * product 수정 페이지 
-	 * @param productId
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.POST)
-	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
+	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.GET)
+	public String modifyPageGET(@PathVariable("productId") int productId, Model model) throws Exception {
 		Product product = productService.read(productId);
 		model.addAttribute("product", product);
 			
 		return "/product/productModify";
 	}
 	
-	/**
-	 * product 수정 처리 및 db저장
-	 * @param productId
-	 * @param product
-	 * @param model
-	 * @param session
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/modify/{productId}", method= RequestMethod.POST)
-	public String modifyPagePUT(@PathVariable("productId") int productId, Product product, Model model, HttpSession session) throws Exception {
-
-		StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
-		String auctionstart = st.nextToken() + " " + st.nextToken();
-		product.setAuctionstart(auctionstart);
+	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.POST)
+	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
+		// 파일 업로드...!!
 		
-		String info = product.getProductinfo().replaceAll("\r\n", "<br>");
-		product.setProductinfo(info);
+		logger.info("아직 완료 안됨");
 		
-		// 사진 및 수정 데이터 저장
-		productService.modify(product);
-		
-		Member member = (Member) session.getAttribute("login");
-		model.addAttribute("login", member);
-		
-		product = productService.read(productId); 	
-		model.addAttribute(product);
-		
-		List<Bid> bidList = bidSevice.readByProductId(productId);
-		model.addAttribute(bidList);
-		
-		return "/product/productdetail";
+		return "/";
 	}
 	
-	
-	/**
-	 * 경매 상품 삭제
-	 * @param productId
-	 * @param model
-	 * @param type
-	 * @param smallid
-	 * @param keyword
-	 * @param page
-	 * @param session
-	 * @return
-	 * @throws Exception
-	 */
 	@RequestMapping(value="/remove/{productId}", method= RequestMethod.POST)
 	public String remove(@PathVariable("productId") int productId, Model model,
 			@ModelAttribute("type")int type,  @ModelAttribute("smallid")int smallid,  @ModelAttribute("keyword")String keyword,  @ModelAttribute("page")int page, HttpSession session) throws Exception {
 		productService.delete(productId);
 		
+		logger.info("type : " + type + ", smallid : " + smallid +", keyword : " + keyword + "smallid : " + smallid);
+		
 		model = listGet(type, smallid, model, session);
 		
 		// 경로만 설정해주기.
-		return "product/auction";
+		return "/product/auction";
 	}
 	
 	@RequestMapping(value="/auction/register")

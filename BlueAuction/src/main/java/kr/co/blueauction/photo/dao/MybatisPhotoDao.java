@@ -25,7 +25,7 @@ public class MybatisPhotoDao implements PhotoDao{
 
 	@Override
 	public void create(Photo photo) throws Exception {
-		sqlSession.insert(NAMESPACE+".insert", photo);
+		sqlSession.insert(NAMESPACE+".inset", photo);
 	}
 
 	@Override

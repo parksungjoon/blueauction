@@ -60,9 +60,9 @@
 	background: none;
 }
 
-/* .jjh-newButton{
+.jjh-newButton{
 	margin-left: 500px;
-} */
+}
 
 /* ongoing-auction 뷰*/
 .jjh-top {
@@ -112,16 +112,6 @@
 	width: 1000px;
 }
 
-.jjh-pageLoader{
-	margin-right:510px;
-}
-
-.jjh-blanck {
-	width:200px;	
-	margin-right : 500px;
-}
-
-.jjh-newbuttion{
-	 width:200px;
-	 /* margin-right:500px; */
+.jjh-notSuccess {
+	color: rgb(130, 130, 130);
 }

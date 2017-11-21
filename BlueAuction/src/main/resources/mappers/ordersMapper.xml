@@ -59,8 +59,8 @@
 		SELECT orders.*
 		FROM orders, product
 		WHERE orders.product_id = product.product_id 
-		and product.auction_flag = "N"
-		AND orders.member_id = "bonghwan";
+		and product.auction_flag = #{auctionFlag}
+		AND orders.member_id = #{memberId}
 	
 	</select>
 </mapper>

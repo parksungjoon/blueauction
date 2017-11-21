@@ -32,12 +32,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 	}
 
 	@Override
-	public void delete(Favorite favorite) {
-		favoriteDao.delete(favorite);
-	}
-	
-	@Override
-	public Favorite favoriteCheck(Favorite favorite) {
-		return favoriteDao.favoriteCheck(favorite);
+	public void delete(int favoriteId) {
+		favoriteDao.delete(favoriteId);
 	}
 }
