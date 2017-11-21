@@ -31,4 +31,6 @@ public interface BidService {
 	//해당아이디에 입찰, 낙찰 목록조회
 	public List<Bid> bidList(String memberId, String winning) throws Exception;
 	
+	/* 해당아이디의 가장 적은 시간 남은 경매 시간 조회 */
+	public String leastTime(String memberId) throws Exception;
 }
