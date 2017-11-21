@@ -32,4 +32,8 @@ public interface BidDao {
 	
 	//해당 아이디 bid 조회
 	public List<Bid> bidList(String membrId, String winning) throws Exception; 
+	
+	/* 해당 아이디의 가장 적은 시간 남은 경매 시간 조회 */
+	public String leastTime(String memberId) throws Exception;
+	
 }
