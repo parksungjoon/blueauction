@@ -30,7 +30,7 @@ public class MybatisProductDao implements ProductDao {
 	@Override
 	public void addAttach(String photoName, int productId) throws Exception {
 		
-		Map<String, Object> attachment = new HashMap<>();
+		Map<String, Object> attachment = new HashMap<String, Object>();
 		attachment.put("photoName", photoName);
 		attachment.put("productId", productId);
 		
