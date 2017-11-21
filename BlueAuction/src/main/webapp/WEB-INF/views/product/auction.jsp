@@ -133,14 +133,11 @@
    		
    		/** 새로운 경매 등록 */
     	$("#registerAction").click(function () {
-    		fromData();
+    		fromData("/product/auction/register");
 		});
    		
    		function fromData(href){
    			var form = document.createElement("form");
-   			if(href == undefind){
-   				href = "/product/auction/register";
-   			}
    			form.setAttribute("action", href);	
    			form.setAttribute("method", "post");
    			
