@@ -178,7 +178,7 @@ event.preventDefault();
   	  		html +="         <div class='product-counter-inner'>";
   	  		html +="          <div class='jjh-counter' >" + list[i].auctionstart + "</div>";
   	  		html +="        </div>";
-  	  		html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+  	  		html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
   	  		html +="        <div class='product-title'>";
   	  		html +="          <h5>" + list[i].name +"</h5>";
   	  		html +="        </div>";
@@ -225,7 +225,7 @@ event.preventDefault();
   	  		html +="         <div class='product-counter-inner'>";
   	  		html +="          <div class='countdown jjh-counter is-countdown' data-time=\"" + list[i].auctionend + "\" data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'>" + list[i].auctionend + "</div>";
   	  		html +="        </div>";
-  	  		html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+  	  		html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
   	  		html +="        <div class='product-title'>";
   	  		html +="          <h5>" + list[i].name +"</h5>";
   	  		html +="        </div>";
@@ -261,7 +261,7 @@ event.preventDefault();
   	  		html +="         <div class='product-counter-inner jjh-inner'>";
   	  		html +="          <div class='jjh-counter' >" + list[i].auctionend + " 종료</div>";
   	  		html +="        </div>";
-  	  		html +="        <div class='jjh-finished product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+  	  		html +="        <div class='jjh-finished product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
   	  		html +="        <div class='product-title'>";
   	  		html +="          <h5>" + list[i].name +"</h5>";
   	  		html +="        </div>";
@@ -292,7 +292,7 @@ event.preventDefault();
 			   st +="         <div class='product-counter-inner'>";
 			   st +="          <div class='countdown jjh-counter' data-time=" + list[i].auctionend + " data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
 			   st +="        </div>";
-			   st +="        <div class='product-image '><a href='product-page.html'><img src='/resources/pro-img/bicycle.jpg' alt='' width='331' height='245'/></a></div>";
+			   st +="        <div class='product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
 			   st +="        <div class='product-title'>";
 			   st +="          <h5>" + list[i].name +"</h5>";
 			   st +="        </div>";
@@ -319,7 +319,7 @@ event.preventDefault();
   	 }
   	 
   	 function printPageLoader(data){
-  		 st = ""
+  		 st = "";
   		 
   		 if(data == 'no'){
   			 st += "<a class='button-blog button button-default-outline jjh-pageLoader'>load more products</a>";
@@ -393,9 +393,9 @@ event.preventDefault();
                               </c:choose>
                             </div>
                             <c:choose>
-                              <c:when test="${type == 1 }"><div class="product-image "><a href="product-page.html"><img src="/resources/pro-img/bicycle.jpg" alt="" width="331" height="245"/></a></div></c:when>
-                              <c:when test="${type == 2 }"><div class="product-image "><a href="product-page.html"><img src="/resources/pro-img/bicycle.jpg" alt="" width="331" height="245"/></a></div></c:when>
-                              <c:when test="${type == 3 }"><div class="jjh-finished product-image"><a href="product-page.html"><img src="/resources/pro-img/bicycle.jpg" alt="" width="331" height="245"/></a></div></c:when>
+                              <c:when test="${type == 1 }"><div class="product-image "><a href="product-page.html"><img src="/resources/images/img${product.mainphoto }" alt="" width="331" height="245"/></a></div></c:when>
+                              <c:when test="${type == 2 }"><div class="product-image "><a href="product-page.html"><img src="/resources/images/img${product.mainphoto }" alt="" width="331" height="245"/></a></div></c:when>
+                              <c:when test="${type == 3 }"><div class="jjh-finished product-image"><a href="product-page.html"><img src="/resources/images/img${product.mainphoto }" alt="" width="331" height="245"/></a></div></c:when>
                             </c:choose>
                             <div class="product-title">
                               <h5>${product.name }</h5>
@@ -477,9 +477,10 @@ event.preventDefault();
                                   </c:otherwise>
                                 </c:choose>
                              </c:if>
-                            </c:if>
-                            <c:if test="${empty login }">
+                             
+                             <c:if test="${empty login }">
                               <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
+                            </c:if>
                             </c:if>
                           </div>
                         </div>
