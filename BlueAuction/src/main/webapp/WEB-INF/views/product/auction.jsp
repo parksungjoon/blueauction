@@ -33,6 +33,31 @@
  	var keyword = null;
  	
     $(document).ready(function(){
+    	/* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
+    	
+    	$(document).on("click", ".jjh-favoriteButton", function(event){
+    		var productId = $(this).attr("id");
+    		var st = "";
+    		
+    		$.ajax({
+    			type:"post",
+    			data:{productId:productId},
+    			dataType:"text",
+    			url:"/favorite",
+    			success: function(data){
+    				if(data == 'insert'){
+    					st = "<img alt='favorite-register' src='/resources/images/full-heart.png'>";
+    					$("#" + productId).html(st);
+    				}else if(data == 'delete'){
+    					st = "<img alt='favorite-register' src='/resources/images/empty-heart.png'>";
+    					$("#" + productId).html(st);
+    				}else {
+    					alert("등록/삭제에 실패!");
+    				}
+    			}
+    		});
+    	});
+    	
     	/* 경매 진행 중 리스트 페이지에서만 검색 가능 */
     	$(".form-button").click(function(event){
     		if(type == 2){
@@ -61,11 +86,10 @@
     		}
     	});
     	
-   		$(".jjh-pageLoader").click(function(event) {
-   		 	event.preventDefault();
+    	$(document).on("click", ".jjh-pageLoader", function(event){
+event.preventDefault();
   			
   			page = page + 1;
-  			alert("page : " + page + ", type : " + type + ", smallid : " + smallid + ", keyword : " + keyword);
   			
   	  		$.ajax({
   	  			type: "post",
@@ -75,6 +99,7 @@
   	  			success : function(data){
   	  				var list = data.list;
   	  				var favorite = data.favorite;
+  	  				var endpage = data.endpage;
   	  				
     	  			for ( var index in list) {
 						console.log(list[index].name);
@@ -90,9 +115,11 @@
   					case 3 : finishedPrint(list); break;
   					default : break;
   					}
+    	  			
+    	  			printPageLoader(endpage);
   	  			} 			
   	  		});
-  	  	}); 
+    	});
    		
    		/** 상세보기 - hidden으로 넘기기 */
    		$(document).on("click", ".readPage", function(event){
@@ -174,9 +201,9 @@
     			}
     	  		
     	  		if(state){
-    	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
+    	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
     	  		}else{
-    	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
+    	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
     	  		} 
   	  		}else {
   	  			html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
@@ -290,6 +317,16 @@
 		}   
  	 $(".auction-list").html(st);
   	 }
+  	 
+  	 function printPageLoader(data){
+  		 st = ""
+  		 
+  		 if(data == 'no'){
+  			 st += "<a class='button-blog button button-default-outline jjh-pageLoader'>load more products</a>";
+  		 }
+  		 
+  		 $(".jjh-pageMore").html(st);
+  	 }
   </script>
   </head>
   
@@ -377,6 +414,11 @@
                                 <div class="jjh-price">
                                   <div class="product-price">
                                     <p>Start Price</p>
+                                    <h6>${product.basicprice }원</h6>
+                                  </div>
+                                  <br>
+                                  <div class="jjh-currentPrice">
+                                    <p class=""><strong>Current Price</strong></p>
                                     <c:choose>
                                        <c:when test="${product.bidprice != 0 }">
                                         <h6>${product.bidprice }원</h6>
@@ -385,11 +427,6 @@
                                         <h6 class="jjh-notSuccess">${product.basicprice }원</h6>
                                        </c:otherwise>
                                     </c:choose>
-                                  </div>
-                                  <br>
-                                  <div class="jjh-currentPrice">
-                                    <p class=""><strong>Current Price</strong></p>
-                                    <h6>${product.bidprice }원</h6>
                                   </div>
                                 </div>
                               </c:when>
@@ -433,10 +470,10 @@
                                 
                                 <c:choose>
                                   <c:when test="${state }">
-                                    <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/full-heart.png"></button>
+                                    <button class="jjh-favoriteButton"  id="${product.productId }"><img alt="favorite-register" src="/resources/images/full-heart.png"></button>
                                   </c:when>
                                   <c:otherwise>
-                                    <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
+                                    <button class="jjh-favoriteButton"  id="${product.productId }"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
                                   </c:otherwise>
                                 </c:choose>
                              </c:if>
@@ -449,8 +486,17 @@
                 </c:forEach>
             </div>
                 
-                <span><a class="button-blog button button-default-outline jjh-pageLoader" href="#" >load more products</a></span>
-                <div class="jjh-newButton"><button class="button button-secondary " type="button">New Auction</button></div>
+                <c:choose>
+                  <c:when test="${endpage eq 'no' }">
+                     <span class="jjh-pageMore"><a class="button-blog button button-default-outline jjh-pageLoader" href="#" >load more products</a></span>
+                  </c:when>
+                  <c:otherwise>
+                      <div class="jjh-blanck"></div>
+                  </c:otherwise>
+                </c:choose>
+                
+                
+                <div class="jjh-newBox" ><button class="button button-secondary jjh-newButton" type="button">New Auction</button></div>
               <br>
             </div>
           </div>
