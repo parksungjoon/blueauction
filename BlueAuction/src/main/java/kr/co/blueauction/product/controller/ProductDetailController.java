@@ -57,8 +57,7 @@ public class ProductDetailController {
 	
 	@RequestMapping(value = "auction/register", method = RequestMethod.GET)
 	public String registerGET(Model model, HttpSession session)throws Exception{
-		
-		return "product/registerauction";
+		return "/product/registerauction";
 	}
 	
 	
