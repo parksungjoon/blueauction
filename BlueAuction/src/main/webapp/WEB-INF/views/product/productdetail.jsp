@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
+    
     <%-- Stylesheets --%>
     <link rel="stylesheet" href="/resources/css/jjh-style.css">
     <link rel="stylesheet" href="/resources/css/ksj-css.css">
@@ -19,13 +20,7 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
-     
-		<%--[if lt IE 10]>
-    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
-    <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
-    <script src="js/html5shiv.min.js"></script>
-		<![endif]--%> 
-		
+    
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 	 $(document).ready(function(){
@@ -90,10 +85,10 @@
                     		<c:when test='${(product.auctionstate).equals("AFTER")}'>
                     			<c:choose>
 		                    		<c:when test="${status.count==1}">
-		                    			<li class="active" data-large-image="/resources/images/img${photo}"><img class="jjh-finished" src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    			<li class="active" data-large-image="/resources/images/img${photo}"><img class="jjh-finished" src="/resources/images/img${photo}" alt="" width="54" height="71"></li>
 		                    		</c:when>
 		                    		<c:otherwise>
-		                    			<li  data-large-image="/resources/images/img/${photo}"><img class="jjh-finished" src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    			<li  data-large-image="/resources/images/img${photo}"><img class="jjh-finished" src="/resources/images/img${photo}" alt="" width="54" height="71"></li>
 		                    		</c:otherwise>
                     			</c:choose>
                     		</c:when>
@@ -101,10 +96,10 @@
                     		<c:otherwise>
                     			<c:choose>
 		                    		<c:when test="${status.count==1}">
-		                    			<li class="active" data-large-image="/resources/images/img/${photo}"><img src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    			<li class="active" data-large-image="/resources/images/img${photo}"><img src="/resources/images/img${photo}" alt="" width="54" height="71"></li>
 		                    		</c:when>
 		                    		<c:otherwise>
-		                    			<li data-large-image="/resources/images/img/${photo}"><img src="/resources/images/img/${photo}" alt="" width="54" height="71"></li>
+		                    			<li data-large-image="/resources/images/img${photo}"><img src="/resources/images/img${photo}" alt="" width="54" height="71"></li>
 		                    		</c:otherwise>
                     			</c:choose>
                     		</c:otherwise>
@@ -117,10 +112,10 @@
                   <div class="unit-right product-single-image" style="">
                   	<c:choose>
 	                  	<c:when test='${(product.auctionstate).equals("AFTER")}'>
-				        	<div class="product-single-image-element ksj-divImg" ><img class="product-image-area animateImageIn ksj-imgSize jjh-finished"  src="/resources/images/img/${product.photo[0]}" alt=""></div>
+				        	<div class="product-single-image-element ksj-divImg" ><img class="product-image-area animateImageIn ksj-imgSize jjh-finished"  src="/resources/images/img${product.photo[0]}" alt=""></div>
 				    	</c:when>
 				     	<c:otherwise>
-				        	<div class="product-single-image-element ksj-divImg" ><img class="product-image-area animateImageIn ksj-imgSize"  src="/resources/images/img/${product.photo[0]}" alt=""></div>
+				        	<div class="product-single-image-element ksj-divImg" ><img class="product-image-area animateImageIn ksj-imgSize"  src="/resources/images/img${product.photo[0]}" alt=""></div>
 				      	</c:otherwise>
                		</c:choose>
                   </div>

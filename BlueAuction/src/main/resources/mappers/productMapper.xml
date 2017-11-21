@@ -131,7 +131,8 @@
              p.auctionend auctionend, 
              p.basicprice basicprice, 
              p.auctionstate auctionstate,
-             b.bidprice bidprice 
+             b.bidprice bidprice,
+             ph.photoname mainphoto 
       FROM   product p left join bid b
       ON p.product_id = b.product_id 
       AND 
@@ -140,6 +141,15 @@
                SELECT   max(bidprice) 
                FROM     bid 
                GROUP BY product_id)
+       left join photo ph
+       ON p.product_id = ph.product_id 
+		AND 
+		ph.photoname IN 
+		( 
+		         SELECT   photoname 
+		         FROM     photo 
+		         GROUP BY product_id 
+		         HAVING   min(photo_id))
       WHERE  p.category_id = #{cri.category}
       <if test="cri.smallid != 0">
          and p.smallid = #{cri.smallid}

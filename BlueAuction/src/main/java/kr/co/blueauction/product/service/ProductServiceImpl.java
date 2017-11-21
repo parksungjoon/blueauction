@@ -74,11 +74,14 @@ public class ProductServiceImpl implements ProductService {
 	      
 	      // 사진 등록
 	      String[] files = product.getPhoto();
-	      for (int i = 0; i < files.length; i++) {
-	         Photo photo = new Photo(product.getProductId(), files[i]);
-	         photoDao.create(photo);
+	      if(files != null) {
+	    	  for (int i = 0; i < files.length; i++) {
+	 	         Photo photo = new Photo(product.getProductId(), files[i]);
+	 	         photoDao.create(photo);
+	 	      }
+	 	      
 	      }
-	      
+	     
 	      // 상품 수정
 	      productDao.update(product);
 	   }
