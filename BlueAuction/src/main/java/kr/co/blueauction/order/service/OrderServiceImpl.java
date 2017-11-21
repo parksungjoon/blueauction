@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+
 import kr.co.blueauction.order.dao.OrdersDao;
 import kr.co.blueauction.order.domain.Orders;
 
@@ -39,6 +40,8 @@ public class OrderServiceImpl implements OrderService {
 	public void delete(int orderNo) {
 		ordersDao.delete(orderNo);
 	}
+	
+
 
 	@Override
 	/** 로그인된 회원의 중고or 옥션 구매 리스트를 조회 **/
@@ -46,6 +49,14 @@ public class OrderServiceImpl implements OrderService {
 		List<Orders> orderList= ordersDao.orderList(memberId, auctionFlag);
 		
 		return orderList;
-
+	}
+	
+	@Override
+	public Orders select(int orderId) throws Exception{
+		return ordersDao.select(orderId);
+	}
+	@Override
+	public void update(int orderId) throws Exception{
+		 ordersDao.update(orderId);
 	}
 }

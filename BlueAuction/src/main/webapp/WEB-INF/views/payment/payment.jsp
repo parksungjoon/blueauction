@@ -21,6 +21,25 @@
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%> 
+    <script type="text/javascript">
+    function same(){
+    	
+    	$('#memberId').val('${member.memberId}');
+    	$('#name').val('${member.name}');
+    	$('#zipcode').val('${member.zipcode}');
+    	$('#baseaddress').val('${member.baseaddress}');
+    	$('#detailaddress').val('${member.detailaddress}');
+    	$('#email').val('${member.email}');
+    	$('#phoneNumber').val('${member.phoneNumber}');
+    	
+    	
+    }
+    
+    
+    </script>
+    
+    
+    
   </head>
   
   <body>
@@ -68,42 +87,48 @@
                   <div class="tab-pane fade in active" id="tabs-1-1">
                   
                   <%--정보 입력 form 시작 --%>
-                    <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="/payment">
+                    <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="/payment/${order.orderId}">
                                          <div class="table-checkout text-left jji-select">
                       <div class="table-novi table-custom-responsive">
                         <table class="table-custom">
                           <tbody>
                             <tr>
-                              <td><strong class="jjh-proInfo">Product</strong></td>
-                              <td>따듯한 롱패딩<%--주문하고자 하는 상품 이름 --%></td>
+                              <td><strong class="jjh-proInfo">상품id</strong></td>
+                              <td>${order.productId}<%--주문하고자 하는 상품 이름 --%></td>
                             </tr>
                             <tr>
                               <td><strong class="jjh-proInfo">Price</strong></td>
-                              <td>$58.00</td>
+                              <td>${order.price}</td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="checkbox">
+                         <label><input type="checkbox" value="N" onclick="same()">로그인한 회원정보와 동일합니다</label>
+                      </div>
+                      </div>
                       <div class="range range-20">
+                      
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                           <%--아이디는 로그인 세션값 받아와서 자동 입력되도록... readonly적용함 --%>
                             <label class="form-label-outside" for="forms-3-name">Id</label>
-                            <input class="form-input" id="forms-3-name" type="text" name="memberid" data-constraints="@Required" readonly>
+                            <input class="form-input" type="text" id="memberId" name="memberId" value="${member.memberId}"data-constraints="@Required" readonly>
                           </div>
                         </div>
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-last-name">Name</label>
-                            <input class="form-input" id="forms-3-last-name" type="text" name="name" data-constraints="@Required">
+                            <input class="form-input" type="text" id="name" name="name" data-constraints="@Required">
                           </div>
                         </div>
                         
                           <div class="cell-sm-6">
                            <label class="form-label-outside">Address</label>
                             <div class="form-wrap form-wrap-inline">
-                                <input class="form-input" id="sample6_postcode" type="text" name="street-address" placeholder="우편번호">
+                                <input class="form-input" type="text" id="zipcode" name="street-address" placeholder="우편번호">
                             </div>
                           </div>
                           <div class="cell-sm-6">
@@ -113,26 +138,26 @@
                           </div>
                           <div class="cell-xs-12">
                           <div class="form-wrap form-wrap-inline">
-                            <input class="form-input" id="sample6_address" type="text" name="basic_address" placeholder="기본주소">
+                            <input class="form-input"  type="text" id="baseaddress" name="basic_address" placeholder="기본주소">
                           </div>
                           <div class="form-wrap form-wrap-inline">
-                            <input class="form-input" id="sample6_address2" type="text" name="detail_address" placeholder="상세주소">
+                            <input class="form-input"  type="text" id="detailaddress" name="detail_address" placeholder="상세주소">
                           </div>
                         </div>
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="form-1-email">E-mail</label>
-                            <input class="form-input" id="form-1-email" type="email" name="email" data-constraints="@Email @Required">
+                            <input class="form-input"  type="email" id="email" name="email" data-constraints="@Email @Required">
                           </div>
                         </div>
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="form-1-phone">Phone</label>
-                            <input class="form-input" id="form-1-phone" type="text" name="phone" data-constraints="@Numeric @Required">
+                            <input class="form-input" type="text" id="phoneNumber" name="phone" data-constraints="@Numeric @Required">
                           </div>
                         </div>
                       </div>
-                    </form>
+                    
                     <%--정보 입력 form 종료 --%>
                     
                     <div class="cell-md-12 offset-custom-1">
@@ -141,7 +166,7 @@
                           </div>
                         </div>
                   </div>
-
+                    </form>
                   </div>
                 </div>
               </div>

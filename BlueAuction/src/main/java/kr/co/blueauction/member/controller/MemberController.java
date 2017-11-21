@@ -1,10 +1,12 @@
 package kr.co.blueauction.member.controller;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -34,6 +36,8 @@ import kr.co.blueauction.login.LoginDTO;
 import kr.co.blueauction.login.LoginInterceptor;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
+import kr.co.blueauction.order.domain.Orders;
+import kr.co.blueauction.order.service.OrderService;
 import kr.co.blueauction.photo.domain.Photo;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
@@ -48,6 +52,8 @@ public class MemberController {
 	private JavaMailSender mailSender;
 	@Inject
 	private ProductService productService;
+	@Inject
+	private OrderService orderService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("dto") LoginDTO dto, HttpServletRequest req) {
@@ -128,12 +134,27 @@ public class MemberController {
 	public String mainGET(@ModelAttribute("member") Member member) {
 		return "/examplePage/main";
 	}
-	@RequestMapping(value ="/payment", method = RequestMethod.GET)
-	public void paymentGET(@ModelAttribute("member") Member member,HttpSession session) {
+	@RequestMapping(value ="/payment/{orderId}", method = RequestMethod.GET)
+	public String paymentGET(@ModelAttribute("orderId") int orderId, HttpSession session, HttpServletRequest req, Model model) throws Exception {
+		logger.info("paymentGET 컨트롤러 실행");
+		//로그인된 정보를 불러온다
+		Object object=session.getAttribute("login");
+		model.addAttribute("member", (Member)object);
+		logger.info(object.toString());
 		
+		Orders orders= orderService.select(orderId);
+		
+		model.addAttribute("order", orders);
+		
+		return "payment/payment";
 	}
-	@RequestMapping(value ="/payment", method = RequestMethod.POST)
-	public void paymentGET2(@ModelAttribute("member") Member member, HttpSession session) {
+	@RequestMapping(value ="/payment/{orderId}", method = RequestMethod.POST)
+	public String paymentPOST(@ModelAttribute("orderId") int orderId, HttpSession session) throws Exception {
+		logger.info("paymentPOST 실행");
+		logger.info("String.valueOf(orderId)"+String.valueOf(orderId));
+		orderService.update(orderId);
+		
+		return "redirect:payment/pay-result";
 
 	}
 	@RequestMapping(value ="/member/register", method = RequestMethod.GET)

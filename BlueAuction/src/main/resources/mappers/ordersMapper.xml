@@ -63,4 +63,20 @@
 		AND orders.member_id = #{memberId}
 	
 	</select>
+	
+	<!--주문번호로 주문항목가저기  -->
+	<select id="orderselect" parameterType="int" resultType="Orders">
+		SELECT *
+		from orders
+		where order_id=#{orderId}
+	
+	</select>
+	
+	<update id="payupdate" parameterType="int">
+		  
+			  update orders set
+			  paystate ="Y"
+			  where order_id=#{orderId}
+	</update>
+
 </mapper>

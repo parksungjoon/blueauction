@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+
 import kr.co.blueauction.order.domain.Orders;
 
 @Repository
@@ -50,5 +51,16 @@ public class MybatisOrderDao implements OrdersDao{
 		map.put("memberId", memberId);
 		map.put("auctionFlag", auctionFlag);
 		return sqlSession.selectList(NAMESPACE+".orderList", map);
+	}
+	
+	/** 주문번호로 주문가저오기**/
+	@Override
+	public Orders select(int orderId) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+".orderselect", orderId);
+	}
+	
+	@Override
+	public void update(int orderId) throws Exception{
+		 sqlSession.update(NAMESPACE+".payupdate", orderId);
 	}
 }
