@@ -52,19 +52,14 @@ public class MemberController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("dto") LoginDTO dto, HttpServletRequest req) {
 		logger.info("/login 실행");
-		
-		
 		HttpSession session=req.getSession();
-		
 		Object obj=session.getAttribute("login");
 	
 		if(obj != null) {
 			logger.info("자동로그인할 login세션이있음");
-			
 			return "redirect:/";
 		}else {
 		logger.info("자동로그인할 login세션이없음");
-		
 		}
 		return "/login";
 	}
