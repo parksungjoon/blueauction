@@ -20,7 +20,7 @@
 		<ul class="list-marked list-marked-secondary">
 			<li><a href="/member/mypage/auctionmarket">판매리스트</a></li>
 			<li><a href="/member/mypage/bidlist">입찰리스트</a></li>
-			<li><a href="#">낙찰리스트</a></li>
+			<li><a href="/member/mypage/winninglist">낙찰리스트</a></li>
 			<li><a href="#">구매리스트</a></li>
 		</ul>
 	</div>

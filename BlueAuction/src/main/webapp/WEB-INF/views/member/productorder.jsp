@@ -72,19 +72,20 @@
                   <thead>
                     <tr class="info">
                       <th>#</th>
-                      <th>상품명</th>
-                      <th>상품 정보</th>
-                      <th>판매 가격</th>
+                      <th>상품가격</th>
+                      <th>배송상태</th>
+                      <th>결제여부</th>
+                      
                       <!-- <th>판매 상태</th> -->
                     </tr>
                   </thead>
                   <tbody id="bidListTr">
-                  <c:forEach var="product" items="${products}" varStatus="status">
+                  <c:forEach var="order" items="${orders}" varStatus="status">
                     <tr>
                       <td>${status.count}</td>
-                      <td>${product.name}</td>  
-                      <td>${product.productinfo}</td>
-                      <td>${product.price}원</td>
+                      <td>${order.price}원</td>
+                      <td>${order.dstate}</td>
+                      <td>${order.paystate}</td>
                     <%--   <td>${product.}원</td> --%>
                       
                     </tr>

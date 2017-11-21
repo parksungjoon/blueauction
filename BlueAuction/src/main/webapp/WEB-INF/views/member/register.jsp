@@ -278,7 +278,7 @@
             action="/member/register">
             <div class="range range-20">
 
-              <div class="cell-sm-6">
+              <div class="cell-sm-8">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">ID</label>
                   <input class="form-input" id="memberId" type="text"
@@ -290,13 +290,13 @@
                 <div class="form-wrap-validation">
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="idCheck()" value="check ID"></input> <input
-                    type="hidden" id="idChk" value='N' />
+                    onclick="idCheck()" value="check ID"></input> 
+                    <input type="hidden" id="idChk" value='N' />
                 </div>
               </div>
 
 
-              <div class="cell-sm-5">
+              <div class="cell-sm-6">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Password</label>
                   <input class="form-input" id="passwd" type="password"
@@ -304,7 +304,7 @@
                     placeholder="Password">
                 </div>
               </div>
-              <div class="cell-sm-5">
+              <div class="cell-sm-6">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Password
                     Check</label> <input class="form-input" id="passwdCheck"
@@ -330,19 +330,18 @@
                 </div>
               </div>
 
-              <div class="cell-sm-6">
+              <div class="cell-sm-7">
                 <label class="form-label-outside">Address</label>
                 <div class="form-wrap form-wrap-inline">
                   <input class="form-input" id="sample6_postcode"
                     type="text" name="zipcode" placeholder="우편번호">
                 </div>
               </div>
-              <div class="cell-sm-3">
+              <div class="cell-sm-5">
                 <div class="form-wrap-validation">
                   <button type="button"
                     class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="sample6_execDaumPostcode()">POSTAL
-                    CODE</button>
+                    onclick="sample6_execDaumPostcode()">POSTAL CODE</button>
                 </div>
               </div>
               <div class="cell-xs-12">
@@ -357,7 +356,7 @@
               </div>
 
 
-              <div class="cell-sm-6">
+              <div class="cell-sm-5">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Email</label>
                   <input class="form-input" id="email" type="text"
@@ -365,25 +364,23 @@
                     placeholder="EMAIL">
                 </div>
               </div>
-              <div class="cell-sm-3">
-                <div class="form-wrap-validation">
+              <div class="cell-sm-2">
+                <div class="form-wrap form-wrap-validation">
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
                     onclick="emailCheck()" value="check Email"></input>
                   <input type="hidden" id="emailChk" value='N' />
                 </div>
               </div>
-              <div class="cell-sm-1">
-                <div class="form-wrap-validation">
-                  <button type="button" name="memberIdCheck"
+               <div class="cell-sm-2">
+                <div class="form-wrap form-wrap-validation">
+                  <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="emailAuthenCheck()"
-                    value="email authentification"
-                    data-target="#layerpop" data-toggle="modal"></button>
+                    onclick="emailAuthenCheck()" value="authentification"></input>
                   <input type="hidden" id="emailAuthenChk" value='N' />
                 </div>
               </div>
-
+          
 
               <div class="cell-sm-10">
                 <div class="form-wrap form-wrap-validation">
@@ -424,8 +421,7 @@
               <div class="cell-sm-3">
                 <div class="form-wrap-validation">
                   <button type="submit"
-                    class="button button-secondary jjh-postCodeSearchBtn">
-                    SUBMIT</button>
+                    class="button button-secondary jjh-postCodeSearchBtn">SUBMIT</button>
                 </div>
               </div>
             </div>

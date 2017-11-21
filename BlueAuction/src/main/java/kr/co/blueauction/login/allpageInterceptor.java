@@ -15,16 +15,16 @@ import org.springframework.web.util.WebUtils;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
 
-public class AuthInterceptor extends HandlerInterceptorAdapter {
+public class allpageInterceptor extends HandlerInterceptorAdapter {
 
-	  private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
+	  private static final Logger logger = LoggerFactory.getLogger(allpageInterceptor.class);
 	  
 	  @Inject
 	  private MemberService service;
 	  
 	  @Override
 	  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		  logger.info("AuthInterceptor preHandle 실행");
+		  logger.info("allpageInterceptor preHandle 실행");
 
 		  HttpSession session = request.getSession();   
 	    
@@ -45,20 +45,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		        logger.info("MEMBER: " + member);
 		        if(member != null){
 		        	System.out.println("member가 null 이 아님!");
-		          session.setAttribute("login", member); //로그인이 안되있는상태고 자동로그인이 설정되어있는상태일때  세션에로그인추가
-		          //로그인이되었으니 메인페이지로 이동 컨트롤러는 실행되지 않음
-		          response.sendRedirect("/");
-		          return false;
-		        }else {
-		        	//자동로그인이 설정되어있지 않은상태여서 자동로그인이안되고 컨트롤러로이동한다?
-		        	//login으로갈려고햇을때 login controller가실행되 login으로 이동할수있다
-		        	//login으로가려한게아니면 다른컨트롤러가 실행되어 다른페이지로이동할수잇다(로그인이 안되있는대 다른페이지로가지면안된다)
-		        	if(session.getAttribute("dest").equals("/login")) {
-		        		
-		        	};
-		        	return true;
+		          session.setAttribute("login", member);
+		          return true;
 		        }
-		        
 		      }
 			  response.sendRedirect("/login");
 	      

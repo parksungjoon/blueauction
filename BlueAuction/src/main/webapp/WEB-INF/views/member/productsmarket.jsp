@@ -72,9 +72,10 @@
                   <thead>
                     <tr class="info">
                       <th>#</th>
-                      <th>가격</th>
+                      <th>상품명</th>
                       <th>상품 정보</th>
                       <th>판매 가격</th>
+                      
                       <!-- <th>판매 상태</th> -->
                     </tr>
                   </thead>

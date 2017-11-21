@@ -74,6 +74,7 @@ public class MemberController {
 		logger.info("/loginPost 실행" );
 		Member vo = service.login(dto);
 		if (vo == null) {
+			
 			return;
 		}
 		model.addAttribute("member", vo);
@@ -111,7 +112,7 @@ public class MemberController {
 		return "redirect:/";	
 		
 	}
-
+	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypageGET(@ModelAttribute("member") Member member, HttpSession session, Model model) {
 		Object obj=session.getAttribute("login");

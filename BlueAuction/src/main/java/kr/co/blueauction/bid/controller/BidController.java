@@ -37,6 +37,7 @@ public class BidController {
 	@Inject
 	private BidService service;
 
+	//입찰목록을 가저온다
 	@RequestMapping(value ="/member/mypage/bidlist", method = RequestMethod.GET)
 	public String mybidlist(@ModelAttribute("bid") Bid bid, HttpSession session, Model model) throws Exception {
 		// login 세션을 가저옴
@@ -53,6 +54,7 @@ public class BidController {
 		return "member/bidlist";
 	}
 	
+	//낙찰목록을가져온다
 	@RequestMapping(value ="/member/mypage/winninglist", method = RequestMethod.GET)
 	public String mywinninglist(@ModelAttribute("bid") Bid bid, HttpSession session, Model model) throws Exception {
 		// login 세션을 가저옴
