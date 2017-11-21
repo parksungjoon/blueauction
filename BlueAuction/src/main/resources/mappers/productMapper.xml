@@ -45,16 +45,7 @@
 		             )
 			</insert>
 			
-	<!-- 첨부파일 등록 -->
-	<insert id="addAttach">
-		INSERT INTO photo 
-          		   (product_id, 
-             		photoname) 
-		VALUES     (#{productId}, 
-       		     	#{photoName})
-	</insert>		
-	
-	<!-- 상품 전체 조회 -->
+	<!-- 상품 전체 조회 --> 
 	<select id="listAll" parameterType="string" resultType="Product">
 		SELECT product_id, 
 		       category_id,
@@ -73,7 +64,7 @@
 		       basicprice, 
 		       auctionstate 
 		FROM   product 
-		WHERE  auction_flag = #{value}; 
+		WHERE  auction_flag = #{value}
 	</select>
 	
 	<!-- 상품 아이디에 따른 상품 조회 -->
@@ -95,78 +86,81 @@
 		       basicprice, 
 		       auctionstate 
 		FROM   product 
-		WHERE  product_id = #{value}; 
+		WHERE  product_id = #{value}
 	</select>
 	
 	<!-- 상품 삭제 -->
 	<delete id="delete" parameterType="int">
 		DELETE FROM product 
-		WHERE  product_id = #{value}; 
+		WHERE  product_id = #{value}
 	</delete>
 	
 	 <!-- 상품 수정 -->
-	<!-- <update id="update" parameterType="Product">
-		UPDATE product 
-		SET  salemotive = #{salemotive}, 
-		       productinfo = #{productinfo}, 
-		       price = #{price}, 
-		       deliverytype = #{deliverytype}, 
-		       regdate = now(), 
-		       auction_flag = ?, 
-		       auctionstart = ?, 
-		       auctionend = ?, 
-		       basicprice = ?, 
-		       auctionstate = ? 
-		WHERE  product_id = #{productId}; 
-	</update> -->
+   <update id="update" parameterType="Product">
+      UPDATE product 
+      SET    name = #{name},
+            usingtime = #{usingtime},
+            salemotive = #{salemotive}, 
+             productinfo = #{productinfo}, 
+             <if test="categoryId = 1">
+             price = #{price}, 
+             </if>
+             <if test="categoryId = 2">
+             auctionstart = #{auctionstart}, 
+             auctionend = date_add(#{auctionstart}, interval '30' minute), 
+             basicprice = #{basicprice}, 
+             </if>
+            deliverytype = #{deliverytype}
+      WHERE  product_id = #{productId} 
+   </update>
 
 <!--{요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 -->
-	<select id="listByCri" parameterType="map" resultType="Product">
-		SELECT p.product_id product_id, 
-		       p.category_id category_id, 
-		       p.smallid smallid, 
-		       p.seller seller, 
-		       p.salemotive salemotive, 
-		       p.usingtime usingtime, 
-		       p.productinfo productinfo, 
-		       p.price price, 
-		       p.deliverytype deliverytype,
-		       p.name name, 
-		       p.regdate regdate, 
-		       p.auctionstart auctionstart, 
-		       p.auctionend auctionend, 
-		       p.basicprice basicprice, 
-		       p.auctionstate auctionstate,
-		       b.bidprice bidprice 
-		FROM   product p left join bid b
-		ON p.product_id = b.product_id 
-		AND 
-		b.bidprice IN 
-		( 
-		         SELECT   max(bidprice) 
-		         FROM     bid 
-		         GROUP BY product_id)
-		WHERE  category_id = #{cri.category}
-		<if test="cri.smallid != 0">
-			and smallid = #{cri.smallid}
-		</if>
-		<if test="cri.keyword != null">
-			AND name LIKE CONCAT('%', #{cri.keyword}, '%')
-		</if>
-		<if test="type != 0">
-			<if test="type == 1">
-				AND auctionstate = 'BEFORE'
-			</if>
-			<if test="type == 2">
-				AND auctionstate = 'DOING'
-			</if>
-			<if test="type == 3">
-				AND auctionstate = 'AFTER'
-			</if>
-		</if> 
-		ORDER  BY product_id DESC, regdate DESC 
-		LIMIT  #{cri.pageStart}, #{cri.perPageNum}; 
-	</select>
+   <select id="listByCri" parameterType="map" resultType="Product">
+      SELECT p.product_id product_id, 
+             p.category_id category_id, 
+             p.smallid smallid, 
+             p.seller seller, 
+             p.salemotive salemotive, 
+             p.usingtime usingtime, 
+             p.productinfo productinfo, 
+             p.price price, 
+             p.deliverytype deliverytype,
+             p.name name, 
+             p.regdate regdate, 
+             p.auctionstart auctionstart, 
+             p.auctionend auctionend, 
+             p.basicprice basicprice, 
+             p.auctionstate auctionstate,
+             b.bidprice bidprice 
+      FROM   product p left join bid b
+      ON p.product_id = b.product_id 
+      AND 
+      b.bidprice IN 
+      ( 
+               SELECT   max(bidprice) 
+               FROM     bid 
+               GROUP BY product_id)
+      WHERE  p.category_id = #{cri.category}
+      <if test="cri.smallid != 0">
+         and p.smallid = #{cri.smallid}
+      </if>
+      <if test="cri.keyword != null">
+         AND p.name LIKE CONCAT('%', #{cri.keyword}, '%')
+      </if>
+      <if test="type != 0">
+         <if test="type == 1">
+            AND p.auctionstate = 'BEFORE'
+         </if>
+         <if test="type == 2">
+            AND p.auctionstate = 'DOING'
+         </if>
+         <if test="type == 3">
+            AND p.auctionstate = 'AFTER'
+         </if>
+      </if> 
+      ORDER  BY p.product_id DESC, p.regdate DESC 
+      LIMIT  #{cri.pageStart}, #{cri.perPageNum}; 
+   </select>
 	
 	<!-- 검색 조건에 따른 전체 상품 리스트 수 -->
 	<select id="listBySearchCount" parameterType="map" resultType="int">

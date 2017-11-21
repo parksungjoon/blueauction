@@ -16,5 +16,8 @@ public interface FavoriteService {
 	public List<Favorite> readByProductId(int productId);
 	
 	/** 관심물품 삭제 */
-	public void delete(int favoriteId);
+	public void delete(Favorite favorite);
+	
+	/** 관심물품 여부 조회 */
+	public Favorite favoriteCheck(Favorite favorite);
 }

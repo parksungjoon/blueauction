@@ -10,9 +10,6 @@ public interface ProductDao {
 	/** 상품 등록 */
 	public void create(Product product) throws Exception;
 	
-	/** 첨부파일 등록 */
-	public void addAttach(String photoName, int productId) throws Exception;
-	
 	/** 전체 상품 리스트 조회 */
 	public List<Product> listAll(String flag)throws Exception;
 	
@@ -23,7 +20,7 @@ public interface ProductDao {
 	public void delete(int productId)throws Exception;
 	
 	/** 상품 수정 */
-	/*public void update(Product product)throws Exception;*/
+	public void update(Product product)throws Exception;
 	
 	/** {요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회  */
 	public List<Product> listByCri(SearchCriteria cri, int type) throws Exception;
