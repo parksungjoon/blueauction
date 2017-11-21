@@ -21,6 +21,7 @@ public class Product {
 	private String auctionstate;
 	private String name;
 	private int bidprice;
+	private String mainphoto;
 	
 	private String[] photo;
 	
@@ -204,6 +205,14 @@ public class Product {
 		this.photo = photo;
 	}
 
+	public String getMainphoto() {
+		return mainphoto;
+	}
+
+	public void setMainphoto(String mainphoto) {
+		this.mainphoto = mainphoto;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", categoryId=" + categoryId + ", smallid=" + smallid + ", seller="
@@ -211,7 +220,7 @@ public class Product {
 				+ ", price=" + price + ", deliverytype=" + deliverytype + ", regdate=" + regdate + ", auctionFlag="
 				+ auctionFlag + ", auctionstart=" + auctionstart + ", auctionend=" + auctionend + ", basicprice="
 				+ basicprice + ", auctionstate=" + auctionstate + ", name=" + name + ", bidprice=" + bidprice
-				+ ", photo=" + Arrays.toString(photo) + "]";
+				+ ", mainphoto=" + mainphoto + ", photo=" + Arrays.toString(photo) + "]";
 	}
 
 }
