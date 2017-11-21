@@ -33,6 +33,7 @@
  	var keyword = null;
  	
     $(document).ready(function(){
+    	
     	/* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
     	
     	$(document).on("click", ".jjh-favoriteButton", function(event){
@@ -87,7 +88,7 @@
     	});
     	
     	$(document).on("click", ".jjh-pageLoader", function(event){
-event.preventDefault();
+			event.preventDefault();
   			
   			page = page + 1;
   			
@@ -127,7 +128,19 @@ event.preventDefault();
    			
    			var href = $(this).attr("href");
    			
+   			fromData(href);
+   		});
+   		
+   		/** 새로운 경매 등록 */
+    	$("#registerAction").click(function () {
+    		fromData();
+		});
+   		
+   		function fromData(href){
    			var form = document.createElement("form");
+   			if(href == undefind){
+   				href = "/product/auction/register";
+   			}
    			form.setAttribute("action", href);	
    			form.setAttribute("method", "post");
    			
@@ -166,8 +179,10 @@ event.preventDefault();
    			
    			document.body.appendChild(form);
    			form.submit();
-   		});
+   		}
+   		
    });
+    
    	
    	function preparePrint(list, favorite){
   	 	var html = "";
@@ -496,8 +511,7 @@ event.preventDefault();
                   </c:otherwise>
                 </c:choose>
                 
-                
-                <div class="jjh-newBox" ><button class="button button-secondary jjh-newButton" type="button">New Auction</button></div>
+                <div class="jjh-newBox" ><button class="button button-secondary jjh-newButton" type="button" id="registerAction">New Auction</button></div>
               <br>
             </div>
           </div>
