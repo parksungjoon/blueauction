@@ -8,6 +8,7 @@ package kr.co.blueauction.product.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -40,7 +41,7 @@ import kr.co.blueauction.product.service.ProductService;
  * @since 2017. 11. 13.
  */
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/product/*")
 public class ProductDetailController {
 	
 	Logger logger = Logger.getLogger(ProductDetailController.class);
@@ -54,8 +55,12 @@ public class ProductDetailController {
 	@Inject
 	FavoriteService favoriteService;
 	
-	@Resource(name = "uploadPath")
-	private String uploadPath;
+	@RequestMapping(value = "auction/register", method = RequestMethod.GET)
+	public String registerGET(Model model, HttpSession session)throws Exception{
+		
+		return "product/registerauction";
+	}
+	
 	
 	/**
 	 * producdt 상세보기 

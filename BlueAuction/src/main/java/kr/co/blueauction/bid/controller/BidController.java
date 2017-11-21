@@ -52,5 +52,21 @@ public class BidController {
 		logger.info(bids.toString());
 		return "member/bidlist";
 	}
+	
+	@RequestMapping(value ="/member/mypage/winninglist", method = RequestMethod.GET)
+	public String mywinninglist(@ModelAttribute("bid") Bid bid, HttpSession session, Model model) throws Exception {
+		// login 세션을 가저옴
+		Object member = session.getAttribute("login");
+		logger.info("/member/mypage/mybidlist에서 " + member.toString());
+		Member member1 = (Member) member;
+		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
+		String memberId = member1.getMemberId();
+		String winning = "Y";
+		// 상품을 받아옴
+		List<Bid> bids = service.bidList(memberId, winning);
+		model.addAttribute("bids", bids);
+		logger.info(bids.toString());
+		return "member/winninglist";
+	}
 
 }
