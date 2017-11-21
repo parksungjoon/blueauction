@@ -27,6 +27,17 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void create(Product product) throws Exception {
+		
+		if(product.getCategoryId() == 2) {
+			// 날짜 형식 변경
+			StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
+			String auctionstart = st.nextToken() + " " + st.nextToken();
+			product.setAuctionstart(auctionstart);
+		}
+
+		// <br>처리
+		String info = product.getProductinfo().replaceAll("\r\n", "<br>");
+		product.setProductinfo(info);
 
 		productDao.create(product);
 

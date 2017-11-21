@@ -37,17 +37,22 @@
   </script>
     
     <script type="text/javascript">
-		
+    var smallid = 1;
+    
 		$(document).ready(function() {
+			
+			/* 상품 종류 select */
+			/* $("select[name='smallid']").change(function() {
+				smallid = $(this).selected().val();
+			}); */
+			
+			
 			
 			/* 첨부파일 선택 시 자동 업로드 */
 			$("input[type=file]").change(function() {
 				handleUpload();
-				
 			});
-			
 			sendAttachment();
-			
 		});
 		
 		/* ajax로 이미지 파일 전송 및 썸네일 출력 */
@@ -144,13 +149,17 @@
         </div>
       </section>
       <!-- Product Page-->
+      
+      
       <section class="section section-lg bg-white">
         <div class="shell shell-wide">
           <div class="range range-50 range-md-center">
             <div class="cell-md-11 cell-lg-10 cell-xl-6">
                 <!-- Tab panes-->
-                    <form id="registerForm" method="post" action="/product/used/register">
-                      <input type="hidden" name="auctionFlag" value="N">
+                    <form id="registerForm" method="post" action="/product/auction/register">
+                      <input type="hidden" name="categoryId" value="2">
+                      <input type="hidden" name="auctionFlag" value="Y">
+                      
                       <div class="range range-20">
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
@@ -180,30 +189,37 @@
                         <div class="cell-sm-10">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-last-name">Reason For Sale</label>
-                            <input class="form-input" id="forms-3-last-name" type="text" name="salemotive" data-constraints="@Required">
+                            <input class="form-input" id="forms-3-last-name" type="text" name="salemotive" >
                           </div>
                         </div>
-                        <div class="cell-sm-4">
+                        <div class="cell-sm-5">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-company">Period Of Use</label>
                             <input class="form-input" id="forms-3-company" type="text" name="usingtime" data-constraints="@Required">
                           </div>
                         </div>
-                        <div class="cell-sm-4">
+                        <div class="cell-sm-5">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-city">Price</label>
-                            <input class="form-input" id="forms-3-city" type="text" name="price" data-constraints="@Required">
+                            <label class="form-label-outside" for="forms-3-city">basicPrice</label>
+                            <input class="form-input" id="forms-3-city" type="text" name="basicprice" data-constraints="@Required">
                           </div>
                         </div>
-                        <div class="cell-sm-4">
+                        <div class="cell-sm-5">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Delivery Type</label>
                               <div class="form-wrap box-width-1">
                                 <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" name="deliverytype">
-                                  <option value="1" selected="selected">Direct Dealing</option>
-                                  <option value="2">Parcel Service</option>
+                                  <option value="Direct Dealing" selected="selected">Direct Dealing</option>
+                                  <option value="Parcel Service">Parcel Service</option>
                                 </select>
                               </div>
+                          </div>
+                        </div>
+                        <div class="cell-sm-6">
+                          <div class="form-wrap form-wrap-validation">
+                            <label class="form-label-outside" for="forms-3-city">Auction Date</label>
+                           <%--  <input type="date" class="form-input data" id="form-element-date" data-time-picker="date" name="auctionstart" value="${product.auctionstart}" > --%>
+                           <input type="datetime-local" class="form-input" step='3600' value="${product.auctionstart}" name="auctionstart" data-constraints="@Required" >
                           </div>
                         </div>
                         <div class="cell-xs-12">

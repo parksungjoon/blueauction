@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ import kr.co.blueauction.product.service.ProductService;
  * @since 2017. 11. 13.
  */
 @Controller
-@RequestMapping("/product/*")
+@RequestMapping("/product")
 public class ProductDetailController {
 	
 	Logger logger = Logger.getLogger(ProductDetailController.class);
@@ -55,10 +56,19 @@ public class ProductDetailController {
 	@Inject
 	FavoriteService favoriteService;
 	
-	@RequestMapping(value = "auction/register", method = RequestMethod.GET)
-	public String registerGET(Model model, HttpSession session)throws Exception{
+	/*@RequestMapping(value = "auction/register", method = RequestMethod.GET)
+	public String registerPOST(Model model, HttpSession session)throws Exception{
+		
 		return "/product/registerauction";
 	}
+	
+	@RequestMapping(value = "auction/register", method = RequestMethod.POST)
+	public String registPOST(Model model, HttpSession session, Product product)throws Exception{
+		productService.create(product);
+		
+		
+		return "/product/auction";
+	}*/
 	
 	
 	/**
