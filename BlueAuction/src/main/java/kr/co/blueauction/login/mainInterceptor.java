@@ -41,7 +41,7 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 		        if(member != null){
 		        	  logger.info("member가 null 이 아님!");
 		          session.setAttribute("login", member);
-		          response.sendRedirect("/");
+		        
 		          return false;
 		        }
 		      }
