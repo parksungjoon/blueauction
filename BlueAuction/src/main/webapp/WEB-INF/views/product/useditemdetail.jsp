@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/resources/css/cms-pdetail.css">
     
     <script src="/resources/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/resources/js/fileUpload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
     
 		<%--[if lt IE 10]>
@@ -30,77 +31,6 @@
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%> 
-    
-    <script id="template" type="text/x-handlebars-template">
-	<div class="reply-container">
-  		<article class="comment">
-				<div class="comment-body">
- 				<div class="comment-header">
-					<input class="productid" type="hidden" value="{{productId}}">
- 					<p class="comment-title">{{ memberId }}</p>
-    				<time class="comment-time" datetime="2017">{{ regdate }}</time>
-    				<div class="comment-footer">
-    					<button type="button" class="btn btn-info btn-sm btn-reply" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Reply</button>
-            			<button type="button" name="{{content}}" class="btn btn-success btn-sm btn-reply-modify" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Modify</button>
-           				<button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#deleteModal" value="{{replyId}}">Delete</button>
-    				</div>
-    			</div>
-    			<div class="comment-text">
-    				<p>{{content}}</p>
-    			</div>
-    		</div>
- 		</article>
-	</div>
-    </script>
-    
-    <script id="template2" type="text/x-handlebars-template">
-  	<div class="reply-container rcontainer-type2">
-      <article class="comment">
-		<img class="replyicon" alt="reply" src="/resources/images/img/reply.png" width="20" height="20" style="left: {{levelNo}}px">
-        <div class="comment-body" style="margin-left: {{levelNo}}px">
-        <div class="comment-header">
-          <input class="productid" type="hidden" value="{{productId}}">
-          <p class="comment-title">{{ memberId }}</p>
-            <time class="comment-time" datetime="2017">{{ regdate }}</time>
-            <div class="comment-footer">
-           		<button type="button" class="btn btn-info btn-sm btn-reply" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Reply</button>
-            	<button type="button" name="{{content}}" class="btn btn-success btn-sm btn-reply-modify" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Modify</button>
-           		<button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#deleteModal" value="{{replyId}}">Delete</button>
-            </div>
-          </div>
-          <div class="comment-text">
-            <p>{{content}}</p>
-          </div>
-        </div>
-   	 </article>
-    </div>
-    </script>
-    
-    
-    <script id="template3" type="text/x-handlebars-template">
-    <div class="reply-container">
-      <article class="comment">
-        <div class="comment-body" style="margin-left: {{levelNo}}px">
-          <div class="comment-text">
-            <p><strong>삭제된 글입니다.</strong></p>
-          </div>
-        </div>
-     </article>
-    </div>
-    </script>
-    
-    <script id="template4" type="text/x-handlebars-template">
-    <div class="reply-container rcontainer-type2">
-      <article class="comment">
-    <img class="replyicon" alt="reply" src="/resources/images/img/reply.png" width="20" height="20" style="left: {{levelNo}}px">
-        <div class="comment-body" style="margin-left: {{levelNo}}px">
-          <div class="comment-text">
-            <p><strong>삭제된 글입니다.</strong></p>
-          </div>
-        </div>
-     </article>
-    </div>
-    </script>
     
     <script type="text/javascript">
     
@@ -145,8 +75,6 @@
 				break;
 			}
     		
-    		
-    		
     		$(".btn-close").trigger("click");
     		
     	});
@@ -180,7 +108,6 @@
     		var url = "/reply/" + productId + "/" + (page*10)
     		
     		$.getJSON(url , function(data) {
-    			
     			var list = data.list;
     			
     			$('#reply-list *').remove();
@@ -206,17 +133,31 @@
     					template = Handlebars.compile(source);
    						list[i].levelNo *= 30;
     					$("#reply-list").append(template(list[i]));
-    										
     				}; 
         			
         		
         		$(".reply-container").last().css("border-bottom", "1px solid gray");
         		$("#productId").attr("value", productId);
         		
+        		if (${login.memberId == null}) {
+        			$(".btn-reply, .btn-reply-modify, .btn-reply-delete").hide();
+				} else if(${login.memberId != null}) {
+					
+        			var titles = $(".comment-header");
+        			for(var i=0; i<titles.length; i++) {
+        				if ($(titles[i]).children(".comment-title").html().trim() != '${login.memberId}') {
+        					$(titles[i]).children(".comment-footer").children(".btn-reply-modify, .btn-reply-delete").hide();
+    					} 
+        			}
+        			
+				};
+        		
         		printPageNum(data.pageMaker)
         		
-    		});
-   		};
+    		});  
+        		
+        		
+    	};
     		
 		
 		/* 하단 페이지 번호 출력 */
@@ -229,7 +170,7 @@
 			}
 			
 			for (var i = pageMaker.startPage; i <= pageMaker.endPage; i++) {
-				var numClass = pageMaker.cri.page == i ? 'class=active' : '';
+				var numClass = pageMaker.cri.page == (i*10)+1 ? 'class=active' : '';
 				pages += "<li " + numClass +  "><a href='" + (i-1) + "'>" + i + "</a></li>";
 			}
 			
@@ -333,11 +274,11 @@
       <section class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
         <div class="shell">
           <p class="breadcrumbs-custom-subtitle">Product </p>
-          <p class="heading-1 breadcrumbs-custom-title">Autcion Product</p>
+          <p class="heading-1 breadcrumbs-custom-title">Used Product</p>
           <ul class="breadcrumbs-custom-path">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">product</a></li>
-            <li class="active">Auction</li>
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Product</a></li>
+            <li class="active">Used Product</li>
           </ul>
         </div>
       </section>
@@ -367,16 +308,31 @@
             <!-- 상품 이미지 END -->
             
             <div class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
-              <div class="heading-5">소분류명</div>
-              <h3>제품명(title)</h3>
+              <div class="heading-5">
+                <c:choose>
+                  <c:when test="${product.smallid == 1 }">의류</c:when>
+                  <c:when test="${product.smallid == 2 }">잡화</c:when>
+                  <c:when test="${product.smallid == 3 }">티켓</c:when>
+                  <c:when test="${product.smallid == 4 }">가전제품</c:when>
+                </c:choose>
+              </div>
+              <h3>${product.name }</h3>
               <div class="divider divider-default"></div>
               <div class="detail">
                <dl class="nv3 nfirst present">
                		<dt class="redprice">판매가</dt>
 					<dd class="redprice">
-						<div class="present_price" id="Price"><span class="present_num">152,000</span> 원  </div>
+						<div class="present_price" id="Price"><span class="present_num">${product.price }</span> 원  </div>
 					</dd>
-                    <dt class="redprice">배송방식</dt ><dd class="redprice"><span class="">택배</span>
+                    <dt class="redprice">배송방식</dt ><dd class="redprice">
+                    <c:choose>
+                      <c:when test="${product.deliverytype == 1 }"><span class="">직거래</span></c:when>                    
+                      <c:when test="${product.deliverytype == 2 }"><span class="">택배</span></c:when>                    
+                    </c:choose>
+                    </dd>
+                    <dt class="redprice">판매자</dt>
+                    <dd class="redprice">
+                      <div class="present_price" id="Price"><span class="present_num">${product.seller }</span></div>
                     </dd> 
 				</dl> 
                 <a class="button button-xs button-secondary" href="#">구매하기</a>
@@ -390,11 +346,7 @@
             <div class="cell-sm-10 cell-lg-8">
             <p class="h3-alternate">상세 정보</p>
 		            <p class="text-spacing-sm">
-		            We are proud to offer you our hi-tech original goods. 
-		            The products of our store are the real bestsellers and we have a great number of faithful customers. 
-		            Their testimonials prove that the reputation of our company is simply perfect. 
-		            We observe the policy of providing only branded commodities. 
-		            This fact confirms that we sell only high quality goods at a fair price. 
+		            ${product.productinfo }
 		            </p>
             </div>
           </div>
@@ -415,29 +367,41 @@
         </div>
               </div>
               <!-- 댓글 작성란 -->
-              <div class="section-lg qna-write">
-                <p class="h3-alternate">문의 작성</p>
-                <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" action="/reply">
-                  <div class="range range-20">
-                    <div class="cell-xs-12">
-                      <div class="form-wrap form-wrap-validation">
-                        <input id="memberId" type="hidden" name="memberId" value="홍길동${login.memberId}">
-                        <input id="productId" type="hidden" name="productId">
-                        <textarea class="form-input" id="form-comment-message" name="content" data-constraints="@Required"></textarea>
+              <c:choose>
+                <c:when test="${not empty login }">
+                  <div class="section-lg qna-write">
+                    <p class="h3-alternate">문의 작성</p>
+                    <form class="rd-mailform" action="">
+                      <div class="range range-20">
+                        <div class="cell-xs-12">
+                          <div class="form-wrap form-wrap-validation">
+                            <input id="memberId" type="hidden" name="memberId" value="${login.memberId}">
+                            <input id="productId" type="hidden" name="productId">
+                            <textarea class="form-input" id="form-comment-message" name="content" data-constraints="@Required"></textarea>
+                          </div>
+                        </div>
+                        <div class="cell-xs-12 offset-custom-1">
+                          <div class="form-button">
+                            <button id="btn-send" class="button button-secondary" type="button">send comment</button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="cell-xs-12 offset-custom-1">
-                      <div class="form-button">
-                        <button id="btn-send" class="button button-secondary" type="button">send comment</button>
-                      </div>
-                    </div>
+                          <div class="form-button btn-function">
+                            <c:choose>
+                              <c:when test="${login.memberId == product.seller }">
+                                <button class="button button-secondary" type="button">Modify</button>
+                                <button class="button button-secondary back" type="button">Go Back</button>
+                              </c:when>
+                              <c:otherwise>
+                                <button class="button button-secondary back" type="button">Go Back</button>
+                              </c:otherwise>                              
+                            </c:choose>
+                          </div>
+                    </form>
                   </div>
-                      <div class="form-button btn-function">
-                        <button class="button button-secondary" type="button">Modify</button>
-                        <button class="button button-secondary back" type="button">Go Back</button>
-                      </div>
-                </form>
-              </div>
+                </c:when>
+                <c:otherwise></c:otherwise>
+              </c:choose>
               <!-- 댓글 작성란 끝 -->
             </div>
           </div>
@@ -501,6 +465,76 @@
       </div>
     </div>
     <!-- 댓글 삭제 모달 끝 -->
+    
+    <script id="template" type="text/x-handlebars-template">
+  	<div class="reply-container">
+      <article class="comment">
+        <div class="comment-body">
+        <div class="comment-header">
+          <input class="productid" type="hidden" value="{{productId}}">
+          <p class="comment-title" id="{{ memberId }}">{{ memberId }}</p>
+            <time class="comment-time" datetime="2017">{{ regdate }}</time>
+            <div class="comment-footer">
+              <button type="button" class="btn btn-info btn-sm btn-reply" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Reply</button>
+                  <button type="button" name="{{content}}" class="btn btn-success btn-sm btn-reply-modify" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Modify</button>
+                  <button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#deleteModal" value="{{replyId}}">Delete</button>
+            </div>
+          </div>
+          <div class="comment-text">
+            <p>{{content}}</p>
+          </div>
+        </div>
+      </article>
+  	</div>
+    </script>
+    
+    <script id="template2" type="text/x-handlebars-template">
+    <div class="reply-container rcontainer-type2">
+      <article class="comment">
+    <img class="replyicon" alt="reply" src="/resources/images/img/reply.png" width="20" height="20" style="left: {{levelNo}}px">
+        <div class="comment-body" style="margin-left: {{levelNo}}px">
+        <div class="comment-header">
+          <input class="productid" type="hidden" value="{{productId}}">
+          <p class="comment-title" id="{{ memberId }}">{{ memberId }}</p>
+            <time class="comment-time" datetime="2017">{{ regdate }}</time>
+            <div class="comment-footer">
+              <button type="button" class="btn btn-info btn-sm btn-reply" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Reply</button>
+              <button type="button" name="{{content}}" class="btn btn-success btn-sm btn-reply-modify" data-toggle="modal" data-target="#myModal" value="{{replyId}}">Modify</button>
+              <button type="button" class="btn btn-danger btn-sm btn-reply-delete" data-toggle="modal" data-target="#deleteModal" value="{{replyId}}">Delete</button>
+            </div>
+          </div>
+          <div class="comment-text">
+            <p>{{content}}</p>
+          </div>
+        </div>
+     </article>
+    </div>
+    </script>
+    
+    <script id="template3" type="text/x-handlebars-template">
+    <div class="reply-container">
+      <article class="comment">
+        <div class="comment-body" style="margin-left: {{levelNo}}px">
+          <div class="comment-text">
+            <p><strong>삭제된 글입니다.</strong></p>
+          </div>
+        </div>
+     </article>
+    </div>
+    </script>
+    
+    <script id="template4" type="text/x-handlebars-template">
+    <div class="reply-container rcontainer-type2">
+      <article class="comment">
+    <img class="replyicon" alt="reply" src="/resources/images/img/reply.png" width="20" height="20" style="left: {{levelNo}}px">
+        <div class="comment-body" style="margin-left: {{levelNo}}px">
+          <div class="comment-text">
+            <p><strong>삭제된 글입니다.</strong></p>
+          </div>
+        </div>
+     </article>
+    </div>
+    </script>
     
     <%-- Javascript--%>
     <script src="/resources/js/core.min.js"></script>

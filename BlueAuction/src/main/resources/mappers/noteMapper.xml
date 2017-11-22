@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.co.blueauction.mapper.noteMapper">
+	
+	<insert id="send" parameterType="Note">
+		INSERT INTO Note (sender, 
+						 receiver, 
+						 subject,
+						 content
+						) 
+				VALUES  (#{sender}, 
+						 #{receiver}, 
+						 #{subject},
+						 #{content})
+	</insert>
+	
+	<select id="notelist" parameterType="string" resultType="Note">
+		SELECT note_id, 
+       sender, 
+       receiver, 
+       subject, 
+       content, 
+       readdate, 
+       regdate, 
+       deletestatus 
+FROM   note 
+WHERE  receiver = #{value} 
+ORDER  BY note_id DESC   
+	</select>
+	<select id="noteRead" parameterType="int" resultType="Note">
+		select note_id, sender, receiver, subject, content, readdate, regdate, deletestatus from note where note_id=#{value}
+	</select>
+	<update id="updateReadDate" parameterType="int">
+		update note set readdate=now() where note_id=#{value}
+	</update>
+	<delete id="noteDelete" parameterType="int">
+		delete from note where note_id=#{value}
+	</delete>
+	<select id="listByCri" parameterType="map" resultType="Note">
+	<![CDATA[
+		select * from note
+		where note_id>0
+	]]>
+	<if test="cri.keyword !=null">
+		<if test="cri.keyword=='R'.toString()">
+			and receiver=#{memberId}
+		</if>
+		<if test="cri.keyword=='S'.toString()">
+			and sender=#{memberId}
+		</if>
+	</if>
+	<![CDATA[
+	order by note_id desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	]]>
+	</select>
+	
+	<select id="listCount" parameterType="map" resultType="int">
+	<![CDATA[
+		select count(note_id)
+		from note
+		where note_id>0
+	]]>
+	<if test="cri.keyword !=null">
+		<if test="cri.keyword=='R'.toString()">
+			and receiver=#{memberId}
+		</if>
+		<if test="cri.keyword=='S'.toString()">
+			and sender=#{memberId}
+		</if>
+	</if>
+	</select>
+	
+</mapper>

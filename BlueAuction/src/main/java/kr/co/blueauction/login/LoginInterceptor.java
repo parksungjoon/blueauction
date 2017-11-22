@@ -37,19 +37,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				response.addCookie(loginCookie);	//쿠키 response에 담음
 			}
 			String dest = (String)session.getAttribute("dest");
-			//dest = "";
-			
-		//	logger.info("(String)dest"+(String)dest);
-			//response.sendRedirect("/templates/checkout.html");		
-			
-			//System.out.println((String)dest);
-			//response.setHeader("test", "Test");
-			
-			//response.sendRedirect("/WEB-INF/views/mypage.jsp");
+			logger.info("dest"+dest);
 			response.sendRedirect(dest != null ? (String)dest : "/");
-			
-			//response.sendRedirect("/");
-		
 		}else {
 			response.sendRedirect("/login");
 		}

@@ -31,6 +31,7 @@ public class loginterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		logger.info("Location Before : " + session.getAttribute("login"));
 		saveDest(request);
+		 String dest = (String)session.getAttribute("dest");
 		logger.info("(String)session.getAttribute(\"dest\")" + (String) session.getAttribute("dest"));
 		if (session.getAttribute("login") == null) {
 			logger.info("current user is not logined");
@@ -45,26 +46,36 @@ public class loginterceptor extends HandlerInterceptorAdapter {
 				if (member != null) {
 					logger.info("member가 null 이 아님!");
 					session.setAttribute("login", member);
-					response.sendRedirect("/");
+					 response.sendRedirect(dest != null ? (String)dest : "/");
 					return false;
 				}
 			}
 			return true;
 		}
-
 		if (session.getAttribute("login") != null) {
 			logger.info("SESSION : " + session.getAttribute("login").toString());
 		}
-
 		return true;
 	}
 
 	private void saveDest(HttpServletRequest req) {
 		logger.info("loginterceptor  saveDest실행");
+		  
+	    String uri = req.getRequestURI();
+	    String query = req.getQueryString();
 
+	    if (query == null || query.equals("null")) {
+	      query = "";
+	    } else {
+	      query = "?" + query;
+	    }
 		if (req.getMethod().equals("GET")) {
-		
+		if(req.getHeader("REFERER")!=null) {
 			req.getSession().setAttribute("dest", req.getHeader("REFERER").substring(16));
+		}else
+		{
+			  req.getSession().setAttribute("dest", uri + query);
+		}
 		}
 
 	}

@@ -5,6 +5,7 @@
     <h6>회원정보</h6>
     <ul class="list-marked list-marked-secondary">
       <li><a href="/mypage">회원정보</a></li>
+      <li><a href="/member/mypage/note/list">쪽지함</a>
     </ul>
   </div>
 	<div class="shop-aside-item" ">
@@ -21,7 +22,7 @@
 			<li><a href="/member/mypage/auctionmarket">판매리스트</a></li>
 			<li><a href="/member/mypage/bidlist">입찰리스트</a></li>
 			<li><a href="/member/mypage/winninglist">낙찰리스트</a></li>
-			<li><a href="#">구매리스트</a></li>
+			<li><a href="/member/mypage/auctionorder">구매리스트</a></li>
 		</ul>
 	</div>
 

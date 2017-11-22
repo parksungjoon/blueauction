@@ -63,43 +63,60 @@
        
         
          <!-- Hover Row Table (입찰 리스트) START -->
-        <div class="shell">
-          <div class="range range-xs-center">
-            <div class="cell-sm-10 cell-lg-10">
-              <h3>중고 구매 리스트 </h3>
-              <div class="table-novi table-custom-responsive">
-                <table  class="table table-striped table-hover">
-                  <thead>
-                    <tr class="info">
-                      <th>#</th>
-                      <th>상품가격</th>
-                      <th>배송상태</th>
-                      <th>결제여부</th>
-                      
-                      <!-- <th>판매 상태</th> -->
-                    </tr>
-                  </thead>
-                  <tbody id="bidListTr">
-                  <c:forEach var="order" items="${orders}" varStatus="status">
-                    <tr>
-                      <td>${status.count}</td>
-                      <td>${order.price}원</td>
-                      <td>${order.dstate}</td>
-                      <td>${order.paystate}</td>
-                    <%--   <td>${product.}원</td> --%>
-                      
-                    </tr>
-                  </c:forEach>
-                  </tbody>
-                </table>
-              </div>
+          <section class="section section-lg bg-white">
+        <div class="shell shell-bigger">
+          <div class="range range-ten range-50 range-sm-center range-lg-justify">
+            <div class="cell-sm-9 cell-md-6">
+              <h3>쪽지읽기</h3>
+              <hr class="divider divider-left divider-default">
+              <!-- RD Mailform-->
+              <!-- <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post"> -->
+                <div class="range range-20">
+                  <div class="cell-sm-6">
+                    <div class="form-wrap form-wrap-validation">
+                      <label class="form-label-outside" for="form-1-name">제목</label>
+                      <input class="form-input" id="sender" type="text" name="sender" value="${note.subject}" data-constraints="@Required"/>
+                    </div>
+                  </div>
+                  <div class="cell-sm-6">
+                    <div class="form-wrap form-wrap-validation">
+                      <label class="form-label-outside" for="form-1-last-name">보낸사람</label>
+                      <input class="form-input" id="receiver" type="text" name="receiver" value="${note.sender}" data-constraints="@Required"/>
+                    </div>
+                  </div>
+                  <div class="cell-sm-12">
+                    <div class="form-wrap form-wrap-validation">
+                      <label class="form-label-outside" for="form-1-phone">보낸날짜</label>
+                      <input class="form-input" id="subject" type="text" name="subject" value="${note.regdate}" data-constraints="@Required"/>
+                    </div>
+                  </div>
+                  <div class="cell-xs-12">
+                    <div class="form-wrap form-wrap-validation">
+                      <label class="form-label-outside" for="form-1-message">내용</label>
+                      <textarea class="form-input" id="content" name="content"  data-constraints="@Required">${note.content}</textarea>
+                    </div>
+                  </div>
+                  <div class="cell-xs-12 offset-custom-1">
+                    <div class="form-button">
+                      <button class="button button-secondary" id="sendNote">답장하기</button>
+                      <button class="button button-secondary" id="removeNote">삭제하기</button>
+                    </div>
+                  </div>
+                </div>
+                <form role="form" method="post">
+                  <input type="hidden" name="noteId" value="${note.noteId}">
+                </form>
+             <!--  </form> -->
             </div>
-            <%-- Shop Sidebar START --%>
-        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
-        <%-- Shop Sidebar END --%>
-            
+             <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
           </div>
         </div>
+      </section>
+            <%-- Shop Sidebar START --%>
+       
+        <%-- Shop Sidebar END --%>
+            
+        
         <!-- Hover Row Table (입찰 리스트) END --> 
        
         
@@ -122,5 +139,18 @@
   <%-- Javascript--%>
   <script src="/resources/js/core.min.js"></script>
   <script src="/resources/js/script.js"></script>
+  
+  <script type="text/javascript">
+  	$(function(){
+  		var formObj=$("form[role='form']");
+  		console.log(formObj);
+  		
+  		$("#removeNote").on("click", function(){
+  			formObj.attr("action","/member/mypage/note/delete");
+  			formObj.submit();
+  		});
+  		
+  	});
+  </script>
 </body>
 </html>

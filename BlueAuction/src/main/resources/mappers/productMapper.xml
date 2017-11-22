@@ -13,36 +13,36 @@
 		             salemotive, 
 		             usingtime, 
 		             productinfo, 
-		             price, 
+		             <if test="categoryId = 1">
+		             	price, 
+		             </if>
 		             deliverytype,
-		             name
-		             <if test="auctionFlag != null">
-		             ,
-		             	auction_flag, 
-			             auctionstart, 
-			             auctionend, 
-			             basicprice, 
-			             auctionstate
-			           </if>
-		             ) 
+		             name,
+		             <if test="categoryId = 2">
+			             auctionstart,
+			             auctionend,
+			             basicprice,
+		             </if>
+			         auction_flag
+		           ) 
 		VALUES     (#{categoryId},
 					#{smallid}, 
 		            #{seller}, 
 		            #{salemotive}, 
 		            #{usingtime}, 
 		            #{productinfo}, 
+		            <if test="categoryId = 1">
 		            #{price}, 
+		            </if>
 		            #{deliverytype},
-		            #{name}
-		            <if test="auctionFlag != null">
-		            ,
-		             	#{auctionFlag}, 
-			            #{auctionstart}, 
-			             #{auctionend}, 
-			             #{basicprice}, 
-			             #{auctionstate}
-			             </if>
-		             )
+		            #{name},
+		           	<if test="categoryId = 2">
+			       		#{auctionstart}, 
+			            date_add(#{auctionstart}, interval '30' minute), 
+			            #{basicprice}, 
+		            </if>
+			        #{auctionFlag}
+		            )
 			</insert>
 			
 	<!-- 상품 전체 조회 --> 
