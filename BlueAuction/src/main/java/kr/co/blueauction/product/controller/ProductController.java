@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -218,7 +219,7 @@ public class ProductController {
 	
 	/**
 	 * 경매 상품 삭제
-	 ** @param productId 상품아이디 
+	 * @param productId 상품아이디 
 	 * @param model model
 	 * @param type 경매 타입(경매 시작 전 / 경매 중 / 경매 종료)
 	 * @param smallid 카테고리(의류, 잡화, 티켓, 가전제품)
@@ -238,12 +239,29 @@ public class ProductController {
 		return "redirect:/product/auction/1/0";
 	}
 	
+	/**
+	 * 새 경매 등록  - GET방식
+	 * @param model model
+	 * @param session session
+	 * @return view String 값
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "auction/register", method = RequestMethod.GET)
 	public String registerGET(Model model, HttpSession session)throws Exception{
 		
 		return "/product/registerauction";
 	}
 	
+	
+	/**
+	 * 새 경매 등록 db저장 및 처리 - POST방식
+	 * @param model model
+	 * @param session session
+	 * @param product 상품 객체
+	 * @param redirectAttributes 
+	 * @return 상품 리스트 화면으로 
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "auction/register", method = RequestMethod.POST)
 	public String registerPOST(Model model, HttpSession session, Product product,RedirectAttributes redirectAttributes)throws Exception{
 		productService.create(product);
@@ -258,5 +276,112 @@ public class ProductController {
 		/*redirectAttributes.addAttribute(model.asMap());*/
 		
 		return "redirect:/product/auction/1/"+product.getSmallid()+"";
+	}
+	
+	/**
+	 * 중고상품 리스트 출력
+	 * 
+	 * @param model
+	 * @return 상품 리스트
+	 */
+	@RequestMapping(value="/used", method=RequestMethod.GET)
+	public String list(Model model) {
+		try {
+			model = productService.listUsedItems(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/product/usedlist";
+	}
+	
+	/**
+	 * 중고상품 리스트 더 보기
+	 * 
+	 * @param page 출력할 페이지 번호
+	 * @param keyword 검색어
+	 * @return 상품 리스트
+	 */
+	@RequestMapping(value="/used", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> getMoreList(@RequestParam("page") int page, @RequestParam("keyword") String keyword) {
+
+		ResponseEntity<Map<String, Object>> entity = null;
+
+		try {
+			
+			Map<String, Object> list = productService.getMoreList(page, keyword);
+			
+			entity = new ResponseEntity<Map<String,Object>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
+			e.printStackTrace();
+		}
+		
+		return entity;
+	}
+	
+	/**
+	 * 중고상품 등록
+	 * 
+	 * @return 뷰 주소
+	 */
+	@RequestMapping(value="/used/register", method=RequestMethod.GET)
+	public String createGet() {
+		return "/product/registerused";
+	}
+	
+	/**
+	 * 중고상품 등록
+	 * 
+	 * @param product 상품 객체
+	 * @return 뷰 주소
+	 */
+	@RequestMapping(value="/used/register", method=RequestMethod.POST)
+	public String createPost(Product product) {
+		try {
+			logger.info("중고상품 컨트롤러 실행");
+			productService.create(product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/product/used";
+	}
+	
+	/**
+	 * 중고상품 상세 보기
+	 * 
+	 * @param productId 상품 아이디
+	 * @param model
+	 * @return 뷰 주소
+	 */
+	@RequestMapping(value="/used/{productId}", method=RequestMethod.GET)
+	public String listPageGet(@PathVariable("productId") int productId, Model model) {
+		try {
+			Product product = productService.read(productId);
+			model.addAttribute("product", product);
+			logger.info("중고 상품 상세 보기 페이지 이동");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/product/useditemdetail";
+	}
+	
+	/**
+	 * 중고상품 수정
+	 * 
+	 * @param productId 상품 아이디
+	 * @param model 
+	 * @return 뷰 주소
+	 */
+	@RequestMapping(value="/used/modify/{productId}", method=RequestMethod.GET)
+	public String modifyGet(@PathVariable("productId") int productId, Model model) {
+		Product product;
+		try {
+			product = productService.read(productId);
+			model.addAttribute("product", product);
+			logger.info("중고 상품 수정 페이지 이동");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/product/usedmodify";
 	}
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	PhotoDao photoDao;
 
 	@Override
+	@Transactional
 	public void create(Product product) throws Exception {
 		
 		if(product.getCategoryId() == 2) {
@@ -54,7 +56,6 @@ public class ProductServiceImpl implements ProductService {
 		if (files != null) {
 			for (String photoName : files) {
 				Photo photo = new Photo(product.getProductId(), photoName);
-				logger.info(photo.toString());
 				photoDao.create(photo);
 			}
 		}
@@ -79,7 +80,6 @@ public class ProductServiceImpl implements ProductService {
 			for (int i = 0; i < photoArr.length; i++) {
 				String tmp = photoList.get(i).getPhotoname();
 				photoArr[i] = tmp.replaceAll("s_", "");
-				logger.info(photoArr[i]);
 			}
 		}
 
@@ -91,8 +91,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public void modify(Product product) throws Exception {
-		logger.info(product.toString());
 		
 		// 날짜 형식 변경
 		StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
@@ -121,6 +121,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(int productId) throws Exception {
 		photoDao.deleteByproductId(productId);
 		productDao.delete(productId);
@@ -220,6 +221,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	/** 중고 상품 리스트 출력 */
 	@Override
+	@Transactional
 	public Model listUsedItems(Model model) throws Exception {
 
 		SearchCriteria cri = new SearchCriteria();
@@ -249,6 +251,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	/** 중고상품 리스트 더 보기 */
 	@Override
+	@Transactional
 	public Map<String, Object> getMoreList(int page, String keyword) throws Exception {
 		
 		SearchCriteria cri = new SearchCriteria();

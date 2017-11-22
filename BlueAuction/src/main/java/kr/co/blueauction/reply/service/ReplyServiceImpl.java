@@ -60,8 +60,8 @@ public class ReplyServiceImpl implements ReplyService {
 	
 //	댓글 목록 출력 및 페이징 처리
 	@Override
-	public List<Reply> listPage(SearchCriteria cri) throws Exception {
-		return replyDao.listPage(cri);
+	public List<Reply> listPage(SearchCriteria cri, int productId) throws Exception {
+		return replyDao.listPage(cri, productId);
 	}
 	
 //	전체 댓글 수 계산

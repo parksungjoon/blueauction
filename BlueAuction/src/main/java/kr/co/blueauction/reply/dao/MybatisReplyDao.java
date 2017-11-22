@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.co.blueauction.common.domain.SearchCriteria;
@@ -14,6 +16,8 @@ import kr.co.blueauction.reply.domain.Reply;
 
 @Repository
 public class MybatisReplyDao implements ReplyDao{
+	
+	Logger logger = LoggerFactory.getLogger(MybatisReplyDao.class);
 
 	@Inject
 	private SqlSession sqlSession;
@@ -40,8 +44,11 @@ public class MybatisReplyDao implements ReplyDao{
 	
 //	댓글 목록 출력 및 페이징 처리
 	@Override
-	public List<Reply> listPage(SearchCriteria cri) throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".listPage", cri);
+	public List<Reply> listPage(SearchCriteria cri, int productId) throws Exception {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("page", cri.getPage());
+		map.put("productId", productId);
+		return sqlSession.selectList(NAMESPACE + ".listPage", map);
 	}
 	
 //	전체 댓글 수 계산

@@ -17,7 +17,7 @@ public interface ReplyService {
 	public void delete(int replyId) throws Exception;
 	
 //	댓글 목록 출력 및 페이징 처리
-	public List<Reply> listPage(SearchCriteria cri) throws Exception;
+	public List<Reply> listPage(SearchCriteria cri, int productId) throws Exception;
 	
 //	전체 댓글 수 계산
 	public int count(int productId) throws Exception;
