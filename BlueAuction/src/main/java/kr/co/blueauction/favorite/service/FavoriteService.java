@@ -4,6 +4,13 @@ import java.util.List;
 
 import kr.co.blueauction.favorite.domain.Favorite;
 
+/**
+ * 관심경매 등록 위한 Service
+ *
+ * @author 정지현
+ * @since 2017. 11. 20.
+ *
+ */
 public interface FavoriteService {
 	
 	/** 관심물품 등록 */
@@ -19,5 +26,5 @@ public interface FavoriteService {
 	public void delete(Favorite favorite);
 	
 	/** 관심물품 여부 조회 */
-	public Favorite favoriteCheck(Favorite favorite);
+	public String favoriteInsertOrDelete(Favorite favorite);
 }

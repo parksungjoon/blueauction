@@ -81,7 +81,7 @@
                   </thead>
                   <tbody id="bidListTr">
                   <c:forEach var="product" items="${products}" varStatus="status">
-                    <tr>
+                    <tr style = "cursor:pointer;" onClick = " location.href='/product/used/${product.productId}' ">
                       <td>${status.count}</td>
                       <td>${product.name}</td>
                       <td>${product.productinfo}</td>
