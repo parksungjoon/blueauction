@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
+import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.photo.dao.PhotoDao;
 import kr.co.blueauction.photo.domain.Photo;
 import kr.co.blueauction.product.dao.ProductDao;
@@ -159,5 +162,54 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		return productList;
+	}
+	/** 로그인 회원 아이디 조회 */
+	@Override
+	public String memberIdGet(HttpSession session) throws Exception {
+		String memberId = null;
+		Member member = (Member) session.getAttribute("login");
+		if(member == null) {
+			member = new Member();
+			member.setMemberId("");
+		}
+		
+		memberId = member.getMemberId();
+		return memberId;
+	}
+	
+	/** 경매 SearchCriteria 설정 */
+	@Override
+	public SearchCriteria setCri(int smallid, int page, String keyword) throws Exception {
+		SearchCriteria cri = new SearchCriteria();
+		cri.setCategory(2); // 카테고리 경매로 set
+		cri.setPerPageNum(8); // 페이지당 출력 리스트 개수 설정
+		cri.setPage(page);
+		
+		if(keyword != null) {
+			cri.setKeyword(keyword);
+		}
+		
+		if(smallid != 0) {
+			cri.setSmallid(smallid);
+		}
+		
+		return cri;
+	}
+	
+	/** 경매 마지막 페이지인지 여부 조회 */
+	@Override
+	public String checkEndPage(SearchCriteria cri, int totalCount) throws Exception {
+		String check = null;
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		
+		if(1 == pageMaker.getEndPage()) { // 1페이지가 마지막 페이지면
+			check = "yes";
+		}else {
+			check = "no";
+		}
+		
+		return check;
 	}
 }
