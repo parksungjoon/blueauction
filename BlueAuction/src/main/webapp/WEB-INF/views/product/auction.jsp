@@ -132,7 +132,13 @@
    		
    		/** 새로운 경매 등록 */
     	$("#registerAction").click(function () {
-    		fromData("/product/auction/register");
+    		var form = document.createElement("form");
+            form.setAttribute("action", "/product/auction/register");    
+            form.setAttribute("method", "get");
+            
+            document.body.appendChild(form);
+            form.submit();
+
 		});
    		
    		function fromData(href){
@@ -143,19 +149,19 @@
    			var type = document.createElement("input");
    			type.setAttribute("type", "hidden");
    			type.setAttribute("name", "type");
-   			type.setAttribute("value", ${type});
+   			type.setAttribute("value", type);
    			
    			var smallid = document.createElement("input");
    			smallid.setAttribute("type", "hidden");
    			smallid.setAttribute("name", "smallid");
-   			smallid.setAttribute("value", ${smallid});
+   			smallid.setAttribute("value", smallid);
    			
    			var page = document.createElement("input");
    			page.setAttribute("type", "hidden");
    			page.setAttribute("name", "page");
    			page.setAttribute("value", "1");
    			if(${page != null}){
-   				page.setAttribute("value", ${page});
+   				page.setAttribute("value", page);
    			}
    			
    			var keyword = document.createElement("input");
@@ -163,7 +169,7 @@
    			keyword.setAttribute("name", "keyword");
    			keyword.setAttribute("value", "");
    			if(${keyword != null}){
-   				keyword.setAttribute("value", ${keyword});
+   				keyword.setAttribute("value", keyword);
    			}
    			
    			form.appendChild(type);
