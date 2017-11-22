@@ -24,7 +24,7 @@
       .reply-flag {
         background: rgb(247, 247, 247);
       }
-      .back {
+      .back, .delete {
         margin-top: 0px;
       }
       .btn-function {

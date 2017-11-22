@@ -46,10 +46,15 @@
     
 		$(document).ready(function() {
 			
+			/* 첨부파일 유효성 검사 */
+			$(function(){
+				checkValidate();
+				$("input:file").change(checkValidate);
+			});
+    
 			sendAttachment();
 			
 			autoUpload();
-			
 			
 		});
 		
@@ -108,25 +113,25 @@
                         <div class="cell-sm-8">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-last-name">Product Name</label>
-                            <input class="form-input" id="forms-3-last-name" type="text" name="name" data-constraints="@Required">
+                            <input class="form-input" id="forms-3-last-name" type="text" name="name" data-constraints="@Required" required="required">
                           </div>
                         </div>
                         <div class="cell-sm-8">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-last-name">Reason For Sale</label>
-                            <input class="form-input" id="forms-3-last-name" type="text" name="salemotive" data-constraints="@Required">
+                            <input class="form-input" id="forms-3-last-name" type="text" name="salemotive" data-constraints="@Required" >
                           </div>
                         </div>
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-company">Period Of Use</label>
-                            <input class="form-input" id="forms-3-company" type="text" name="usingtime" data-constraints="@Required">
+                            <input class="form-input" id="forms-3-company" type="text" name="usingtime" data-constraints="@Required" required="required">
                           </div>
                         </div>
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Price</label>
-                            <input class="form-input" id="forms-3-city" type="text" name="price" data-constraints="@Required">
+                            <input class="form-input" id="forms-3-city" type="text" name="price" data-constraints="@Required" required="required">
                           </div>
                         </div>
                         <div class="cell-sm-4">
@@ -134,8 +139,8 @@
                             <label class="form-label-outside" for="forms-3-city">Delivery Type</label>
                               <div class="form-wrap box-width-1">
                                 <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" name="deliverytype">
-                                  <option value="1" selected="selected">Direct Dealing</option>
-                                  <option value="2">Parcel Service</option>
+                                  <option value="직거래" selected="selected">Direct Dealing</option>
+                                  <option value="택배">Parcel Service</option>
                                 </select>
                               </div>
                           </div>
@@ -143,7 +148,7 @@
                         <div class="cell-xs-12">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-street-address">Product Information</label>
-                            <textarea class="form-input" rows="10" cols="100%" name="productinfo" data-constraints="@Required" style="resize: none"></textarea>
+                            <textarea class="form-input" rows="10" cols="100%" name="productinfo" data-constraints="@Required" style="resize: none" required="required"></textarea>
                           </div>
                         </div>
                       </div>
@@ -151,7 +156,7 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Photos</label>
                             <button id="filebutton" class="button button-secondary reg btn-select" type="button">Select File</button>
-                            <input class="form-input file" id="photo" type="file" multiple="multiple" name="photo"  required="required">
+                            <input class="form-input file" id="photo" type="file" name="photo">
                           </div>
                         </div>
                         <div class="cell-md-12">

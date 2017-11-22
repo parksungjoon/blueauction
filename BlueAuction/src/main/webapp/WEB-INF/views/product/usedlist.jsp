@@ -28,45 +28,88 @@
     
     <script id="template" type="text/x-handlebars-template">
 	{{#each .}}
-    	 <div class="col-xs-12 col-sm-6 col-md-4 isotope-item" data-filter="{{smallid}}">
-			<a class="gallery-item titled-gallery-item" href="{{mainphoto}}" data-lightgallery="group-item">
+    	 <div class="col-xs-12 col-sm-6 col-md-4 isotope-item template-list" data-filter="{{smallid}}">
+			<a class="gallery-item titled-gallery-item" href="/resources/images/img{{mainphoto}}" data-lightgallery="group-item">
          		<div class="gallery-item-image">
-         			<figure><img src="{{mainphoto}}" alt="" width="570" height="380"/></figure>
+         			<figure><img class="productimage" src="/resources/images/img{{mainphoto}}" alt="" width="570" height="380"/></figure>
          			<div class="caption"></div>
          		</div>
 			</a>
-        	 <div class="titled-gallery-caption"><a href="#">{{name}}</a></div>
+        	 <div class="titled-gallery-caption"><a class="godetail" href="/product/used/{{productId}}">{{name}}</a></div>
          </div>
 	{{/each}}         
     </script>
     
+    <style type="text/css">
+      .productimage {
+        max-width: 570px;
+        max-height: 380px;
+      }
+    </style>
+    
     <script type="text/javascript">
+    
+    var count = ${count};
+    var page = 9;
+    var keyword = null;
     
     $(document).ready(function() {
     	var list = ${list};
-	    handleUpload(list);
+	    printList(list);
+	    
+	    function goDetail() {
+			$(document).on("click", ".godetail", function(event) {
+				
+				event.preventDefault();
+				
+				
+				
+			})
+		}
 	});
     
     
     /* 중고물품 리스트 출력 */
-    function handleUpload(list) {
+    function printList(list) {
 
     	var template = Handlebars.compile($("#template").html());
 				
         var html = template(list);
-        $("#products").append(html);
+        
+        $("#products").html(html);
     	
     };
+    
+    /* 상품 더 보기 */
+    $(document).on("click", ".load-more-products", function(){
+			
+    	page += 9;
+    	
+  		$.ajax({
+  			type: "post",
+  			data : {page:page, keyword:keyword},
+  			dataType : "json ",
+  			url: "/product/used/",
+  			success : function(data){
+  				printList(data.list)
+  				var productCount = $(".template-list").size();
+  				if (productCount >= count) {
+					$("#btn-load").hide();
+				}
+  			} 			
+  		});
+	  		
+	});
+    
     </script>
     
   </head>
+  
   <body>
     <%-- Page preloader--%>
     <jsp:include page="/WEB-INF/views/include/pageloader.jsp"/>
-    
     <!-- Page-->
     <div class="page">
-    
       <%-- page Header START --%>
       <jsp:include page="/WEB-INF/views/include/header.jsp" />
       <%-- page Header END --%>
@@ -97,11 +140,11 @@
                   <!-- Isotope Filters-->
                   <button class="isotope-filters-toggle button button-xs button-primary" data-custom-toggle=".isotope-filters-list" data-custom-toggle-hide-on-blur="true">Filter<span class="caret"></span></button>
                   <ul class="isotope-filters-list">
-                    <li><a class="active" data-isotope-filter="*" data-isotope-group="gallery-01" href="#">All Categories</a></li>
-                    <li><a data-isotope-filter="1" data-isotope-group="gallery-01" href="#">Clothes</a></li>
-                    <li><a data-isotope-filter="2" data-isotope-group="gallery-01" href="#">Sundries</a></li>
-                    <li><a data-isotope-filter="3" data-isotope-group="gallery-01" href="#">Ticket</a></li>
-                    <li><a data-isotope-filter="4" data-isotope-group="gallery-01" href="#">Electronics</a></li>
+                    <li><a class="active type" data-isotope-filter="*" data-isotope-group="gallery-01" href="#">All Categories</a></li>
+                    <li><a class="type" data-isotope-filter="1" data-isotope-group="gallery-01" href="#">Clothes</a></li>
+                    <li><a class="type" data-isotope-filter="3" data-isotope-group="gallery-01" href="#">Ticket</a></li>
+                    <li><a class="type" data-isotope-filter="4" data-isotope-group="gallery-01" href="#">Electronics</a></li>
+                    <li><a class="type" data-isotope-filter="2" data-isotope-group="gallery-01" href="#">Others</a></li>
                   </ul>
                 </li>
               </ul>
@@ -109,13 +152,14 @@
             <!-- Isotope Content-->
             <div class="cell-lg-12">
               <div class="isotope isotope-titled-gallery" data-isotope-layout="fitRows" data-isotope-group="gallery-01" data-lightgallery="group">
-                <div id="products" class="row">
-                  
-                </div>
+              <div id="products" class="row">
+              
+              </div>
               </div>
             </div>
           </div>
         </div>
+        <button id="btn-load" class="button-blog button button-default-outline load-more-products" >load more products</button>
       </section>
 
      <%-- Page Footer--%>

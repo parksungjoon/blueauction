@@ -34,7 +34,7 @@
     
     <script type="text/javascript">
     
-    var productId = 1 /* ${product.productId} */;
+    var productId = ${product.productId};
     var page = 0;
     
     $(document).ready(function() {
@@ -156,9 +156,7 @@
         		
     		});  
         		
-        		
     	};
-    		
 		
 		/* 하단 페이지 번호 출력 */
 		function printPageNum(pageMaker) {
@@ -256,6 +254,11 @@
 			});
 		}
 		
+		/* 상품 이미지 출력 */
+		function printImages() {
+			var imageList = $(product.photo);
+			console.log('이미지 리스트' +  imageList);
+		}
     </script>
     
   </head>
@@ -294,13 +297,21 @@
               <div class="product-single-preview">
                 <div class="unit unit-sm-horizontal unit-sm-middle unit-spacing-md-midle unit--inverse unit-sm">
                   <div class="unit-body">
-                    <ul class="product-thumbnails">
-                      <li class="active" data-large-image="images/shop-01-420x550.png"><img src="/resources/images/shop-01-54x71.png" alt="" width="54" height="71"></li>
-                      <li data-large-image="images/shop-02-420x550.png"><img src="/resources/images/shop-02-54x71.png" alt="" width="54" height="71"></li>
+                    <ul id="imagelist" class="product-thumbnails">
+                      <c:forEach var="image" items="${product.photo }" varStatus="status">
+                        <c:choose>
+                          <c:when test="${status.index == 0}">
+                            <li class="active" data-large-image="/resources/images/img${image }"><img src="/resources/images/img${image }" alt="" width="54" height="71"></li>    
+                          </c:when>
+                          <c:otherwise>
+                            <li data-large-image="/resources/images/img${image }"><img src="/resources/images/img${image }" alt="" width="54" height="71"></li>
+                          </c:otherwise>
+                        </c:choose>
+                      </c:forEach>
                     </ul>
                   </div>
                   <div class="unit-right product-single-image">
-                    <div class="product-single-image-element"><img class="product-image-area animateImageIn" src="/resources/images/shop-01-420x550.png" alt=""></div>
+                    <div class="product-single-image-element"><img class="product-image-area animateImageIn" src="/resources/images/img${product.photo[0] }" alt=""></div>
                   </div>
                 </div>
               </div>
@@ -325,10 +336,7 @@
 						<div class="present_price" id="Price"><span class="present_num">${product.price }</span> 원  </div>
 					</dd>
                     <dt class="redprice">배송방식</dt ><dd class="redprice">
-                    <c:choose>
-                      <c:when test="${product.deliverytype == 1 }"><span class="">직거래</span></c:when>                    
-                      <c:when test="${product.deliverytype == 2 }"><span class="">택배</span></c:when>                    
-                    </c:choose>
+                     <span class="">${product.deliverytype }</span>                  
                     </dd>
                     <dt class="redprice">판매자</dt>
                     <dd class="redprice">
@@ -389,8 +397,9 @@
                           <div class="form-button btn-function">
                             <c:choose>
                               <c:when test="${login.memberId == product.seller }">
-                                <button class="button button-secondary" type="button">Modify</button>
+                                <button class="button button-secondary modify" type="button">Modify</button>
                                 <button class="button button-secondary back" type="button">Go Back</button>
+                                <button class="button button-secondary delete" type="button">Delete</button>
                               </c:when>
                               <c:otherwise>
                                 <button class="button button-secondary back" type="button">Go Back</button>

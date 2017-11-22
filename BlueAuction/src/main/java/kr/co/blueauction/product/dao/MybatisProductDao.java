@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
@@ -85,6 +86,12 @@ public class MybatisProductDao implements ProductDao {
 
 	
 		return sqlSession.selectList(namespace+".productSellList", map);
+	}
+	
+	/** 중고 상품 리스트 출력 */
+	@Override
+	public List<Product> listUsedItems() throws Exception {
+		return sqlSession.selectList(namespace + ".listByCri");
 	}
 
 }

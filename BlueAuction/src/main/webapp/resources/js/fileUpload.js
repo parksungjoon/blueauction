@@ -38,20 +38,22 @@ function handleUpload() {
 	
 };
 
+/* 첨부파일 유효성 검사 */
+function checkValidate(){
+	var input = $("input:file").get(0);
+	if(input.value == ""){
+		input.setCustomValidity("사진을 첨부해 주세요.");
+	}else{
+		input.setCustomValidity("");
+	}
+}
+
 /* 첨부파일 정보 Form에 추가 후 submit */
 function sendAttachment() {
 	$("#registerForm").submit(function(event){
 	  
 	  event.preventDefault();
-	  var inputFile =  $("input[type=file]");
-
-	  if (inputFile.val() == "") {
-		  inputFile[0].setCustomValidity("사진을 첨부해 주세요.");
-		  return;
-	  }else{
-		  console.log("입력혀...3");
-		  inputFile[0].setCustomValidity(" ");
-	  }
+	  
 	  var that = $(this);
 	  
 	  var str ="";

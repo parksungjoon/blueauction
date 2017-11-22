@@ -2,6 +2,8 @@ package kr.co.blueauction.product.dao;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
+
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
 
@@ -33,4 +35,9 @@ public interface ProductDao {
 	
 	/** 로그인된 회원의 중고판매 물품 리스트를 조회 */
 	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception;
+	
+	
+	/** 중고상품 리스트 출력 */
+	public List<Product> listUsedItems() throws Exception;
+	
 }
