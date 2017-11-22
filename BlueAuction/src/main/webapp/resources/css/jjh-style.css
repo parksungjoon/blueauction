@@ -129,3 +129,14 @@
 .jjh-notSuccess{
 	color:rgb(130, 130, 130);
 }
+
+.jjh-time{
+	size: 25px;
+	color:black;
+	border: 3px solid #ff3366;
+	border-radius: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

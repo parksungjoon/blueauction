@@ -31,6 +31,13 @@
  	var type = ${type};
  	var smallid = ${smallid};
  	var keyword = null;
+ 	var lefth = 0;
+ 	var leftm = 0;
+ 	var lefts = 0;
+ 	var auctionend;
+ 	var hour;
+ 	var minutes;
+ 	var seconds;
  	
     $(document).ready(function(){
     	
@@ -102,14 +109,6 @@
   	  				var favorite = data.favorite;
   	  				var endpage = data.endpage;
   	  				
-    	  			for ( var index in list) {
-						console.log(list[index].name);
-					}
-    	  			
-    	  			console.log(data.type);
-    	  			for ( var index in list) {
-						console.log(list[index].auctionend);
-					}
     	  			switch(data.type){
   					case 1 : preparePrint(list, favorite); break;
   					case 2 : doingPrint(list); break;
@@ -228,14 +227,16 @@
   	}
   	
   	 function doingPrint(list){
-  	 	var html = "";
-
+			getAuctionTime(list);
+			setTime(seconds, minutes, hour); // 동적 생성 경매의 카운트 다운
+  	 		var html = "";
+  	 		
   		   for ( var i in list) {
-  			   console.log(list[i].auctionend);
+   			
   			html +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
   	  		html +="      <div class='product product-counter product-auction'>";
   	  		html +="         <div class='product-counter-inner'>";
-  	  		html +="          <div class='countdown jjh-counter is-countdown' data-time=\"" + list[i].auctionend + "\" data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'>" + list[i].auctionend + "</div>";
+  	  		html +="          <div class='countdown jjh-counter is-countdown jjh-timer' data-time='' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
   	  		html +="        </div>";
   	  		html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
   	  		html +="        <div class='product-title'>";
@@ -261,13 +262,12 @@
   	  		html +="    </div>";
 		}   
      $(".auction-list").append(html);
-     
   	} 
   	
   	 function finishedPrint(list){
-  	 	var html = "";
-
+  	 		var html = "";
   		   for ( var i in list) {
+  			
   			html +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
   	  		html +="      <div class='product product-counter product-auction'>";
   	  		html +="         <div class='product-counter-inner jjh-inner'>";
@@ -296,13 +296,15 @@
    	}
   	 
   	 function searchPrint(list){
-  		var st = "";
+  			getAuctionTime(list);
+			setTime(seconds, minutes, hour); // 동적 생성 경매의 카운트 다운
+  			var st = "";
 
 		   for ( var i in list) {
 			   st +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
 			   st +="      <div class='product product-counter product-auction'>";
 			   st +="         <div class='product-counter-inner'>";
-			   st +="          <div class='countdown jjh-counter' data-time=" + list[i].auctionend + " data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
+			   st +="          <div class='countdown jjh-counter jjh-timer' data-time='" + list[i].auctionend + "' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
 			   st +="        </div>";
 			   st +="        <div class='product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
 			   st +="        <div class='product-title'>";
@@ -330,6 +332,7 @@
  	 $(".auction-list").html(st);
   	 }
   	 
+  	 /** 페이지 더보기 출력 */
   	 function printPageLoader(data){
   		 st = "";
   		 
@@ -338,6 +341,104 @@
   		 }
   		 
   		 $(".jjh-pageMore").html(st);
+  	 }
+ 
+  	 /** 동적 생성 경매의 카운트 다운 */
+  	 function setTime(secs, mins, hours){
+  		 var strs; // 초(문자열)
+  		 var strm; // 분(문자열)
+  		 var strh; // 시(문자열)
+  		hour = hours;
+  		min = mins;
+  		sec = secs;
+  		
+  		var now = new Date(); // 현재 시간
+  		var nowh = now.getHours(); // 현재 시간(시)
+  		var nowm = now.getMinutes(); // 현재 시간(분)
+  		var nows = now.getSeconds(); // 현재 시간(초)
+  		
+  		if(sec == 0){ // 초가 0일때
+  			sec = 60; // 60초로 변환
+  			min = min -1; // 분 -1
+  		}
+  		
+  		lefts = sec - nows; // 남은 시간(초) = 경매 종료 시간(초) - 현재 시간(초)
+  		
+  		if(min == -1){ // 분이 음수
+  			min = 59;
+  			hour = hour -1; 
+  		}
+  		leftm = min - nowm; // 남은 시간(분) = 경매 종료 시간(분) - 현재 시간(분)
+  		
+  		lefth = hour - nowh; // 남은 시간(시) = 경매 종료 시간(시) - 현재 시간(시)
+  		
+  		countdown(); // 시간 - 1 setTimeout
+  	 }
+  	 
+  	 /** 1초에 시간 -1씩 */
+  	 function countdown(){
+  		 lefts = lefts - 1;
+  		 
+  		 if(lefts == -1){
+  			lefts = 59;
+  			leftm = leftm - 1;
+  		 }
+  		 
+  		 if(lefts == 0){ // 남은 시간(초)가 0이면
+  			lefts = "00"; // 문자열 '00' 할당
+  		 }
+  		 
+  		 if(lefts > 0 && lefts <10){ // 남은 시간(초)가 한자리 수
+  			 var strs = "0" + lefts; // 앞에 0이 붙는 문자열로 변환
+  		 }else{
+  			 strs = lefts;
+  		 }
+  		 
+  		 if(leftm == -1){
+  			leftm = 59;
+  			lefth = lefth - 1;
+  		 }
+  		 
+  		 if(leftm == 0){ // 남은 시간(분)가 0이면
+  			 leftm = "00"; // 문자열 '00' 할당
+  		 }
+  		 
+  		 if(leftm > 0 && leftm <10){ // 남은 시간(분)가 한자리 수
+  			var strm = "0" + leftm; // 앞에 0이 붙는 분자열로 변환
+  		 }else{
+  			 strm = leftm;
+  		 }
+  		 
+  		if(lefth == -1){
+  			lefth = 23;
+  		 }
+  		 
+  		 if(lefth == 0){ // 남은 시간(시)가 0이면
+  			 lefth = "00"; // 문자열 '00' 할당
+  		 }
+  		 
+  		if(lefth > 0 && lefth <10){ // 남은 시간(시)가 한자리 수
+  			var strh = "0" + lefth; // 앞에 0이 붙는 분자열로 변환
+  		 }else{
+  			 strh = lefth;
+  		 }
+  		 
+  		 if(lefts == 0 && leftm == 0 && lefth == 0){
+  			$(".jjh-timer").html("Finished Countdown"); // 경매 종료시 종료 메시지 출력
+  			return;
+  		 }
+  		 
+  		$(".jjh-timer").html(strh + ":" + strm + ":" + strs); // 경매 남은 시간 출력
+  		 window.setTimeout("countdown()", 1000); // 1초마다 함수 실행
+  	 }
+  	 
+  	 // 경매 시간 시, 분, 초로 get
+  	 function getAuctionTime(data){
+  		 auctionend = data[0].auctionend; // 경매 종료 시간(doing의 경매 종료 시간은 다 같음)
+		 auctionend = new Date(auctionend);
+		 hour = auctionend.getHours(); // 시간
+		 minutes = auctionend.getMinutes(); // 분
+		 seconds = auctionend.getSeconds(); // 초
   	 }
   </script>
   </head>
@@ -369,14 +470,7 @@
           </ul>
         </div>
       </section>
-      
-        <c:if test="${type == 2 }">
-          <%--참여 경매 잔여 시간 표시 헤더 --%>
-           <div class="jjh-top">
-              <div class="countdown jjh-topCounter" data-time="2017/11/17 08:30:00" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
-           </div>
-        </c:if>
-      
+
       <%-- product catalog--%>
       <section class="section section-lg bg-gray-lighter text-center">
         <div class="shell shell-wide" >
