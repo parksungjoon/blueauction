@@ -6,8 +6,6 @@
 
 package kr.co.blueauction.favorite.controller;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -40,33 +38,24 @@ public class FavoriteController {
 	@Inject
 	private FavoriteService favoriteService;
 	
-	// 관심 경매 등록, 삭제 post
+	/**
+	 * @param productId 선택 상품 아이디
+	 * @param session
+	 * @return 등록 or 삭제 결과 리턴
+	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public ResponseEntity<String> registOrDelete(@RequestParam("productId") int productId, HttpSession session){
 		Member member = (Member) session.getAttribute("login");
 		String memberId = member.getMemberId();
 		String result = null;
-		
 		ResponseEntity<String> entity = null;
-		
-		logger.info("productId : " + productId);
-		logger.info("memberId : " + memberId);
 		
 		Favorite favorite = new Favorite(memberId, productId);
 		
-		Favorite check = favoriteService.favoriteCheck(favorite);
-		
 		try {
-			if(check == null) {
-				favoriteService.insert(favorite);
-				result = "insert";
-				logger.info("관심경매 등록");
-			}else {
-				favoriteService.delete(favorite);
-				result = "delete";
-				logger.info("관심경매 삭제");
-			}
-			entity = new ResponseEntity<String>(result, HttpStatus.OK);
+			 result = favoriteService.favoriteInsertOrDelete(favorite);
+	
+			 entity = new ResponseEntity<String>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
