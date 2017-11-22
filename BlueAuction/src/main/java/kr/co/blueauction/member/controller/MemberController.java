@@ -148,25 +148,17 @@ public class MemberController {
 		
 		return "payment/payment";
 	}
-	@RequestMapping(value ="/pay-result", method = RequestMethod.POST)
-	public String paymentPOST(@ModelAttribute("orderId") int orderId, HttpSession session) throws Exception {
+	@RequestMapping(value ="/payresult/{orderId}", method = RequestMethod.POST)
+	public String paymentPOST(HttpSession session) throws Exception {
 		logger.info("paymentPOST 실행");
-		logger.info("String.valueOf(orderId)"+String.valueOf(orderId));
-		orderService.update(orderId);
-		
-		return "payment/pay-result";
-
-	}
-	
-	@RequestMapping(value ="/payresult", method = RequestMethod.GET)
-	public String paymentGET(@ModelAttribute("orderId") int orderId, HttpSession session) throws Exception {
-		/*logger.info("paymentPOST 실행");
-		logger.info("String.valueOf(orderId)"+String.valueOf(orderId));
-		orderService.update(orderId);*/
+		//logger.info("String.valueOf(orderId)"+String.valueOf(orderId));
+		//orderService.update(orderId);
 		
 		return "payment/payresult";
 
 	}
+	
+
 	@RequestMapping(value ="/member/register", method = RequestMethod.GET)
 	public void memberRegistGET(@ModelAttribute("member") Member member,HttpSession session) {
 	}

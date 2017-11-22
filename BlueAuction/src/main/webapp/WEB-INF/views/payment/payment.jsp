@@ -87,7 +87,7 @@
                   <div class="tab-pane fade in active" id="tabs-1-1">
                   
                   <%--정보 입력 form 시작 --%>
-              <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="/payment/${order.orderId}">
+              <form  data-form-output="form-output-global" data-form-type="contact" method="POST" action="/payresult/${order.orderId}">
                          <div class="table-checkout text-left jji-select">
                       <div class="table-novi table-custom-responsive">
                         <table class="table-custom">
@@ -183,7 +183,7 @@
     <%-- PANEL--%>
     <%-- END PANEL--%>
     <%-- Global Mailform Output--%>
-    <div class="snackbars" id="form-output-global"></div>
+   <!--  <div class="snackbars" id="form-output-global"></div> -->
     
     <%-- Javascript--%>
     <script src="/resources/js/core.min.js"></script>
