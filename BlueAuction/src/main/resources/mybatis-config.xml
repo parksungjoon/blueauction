@@ -17,6 +17,7 @@
         <typeAlias type="kr.co.blueauction.reply.domain.Reply" alias="Reply"/>
         <typeAlias type="kr.co.blueauction.bid.domain.Bid" alias="Bid"/>
         <typeAlias type="kr.co.blueauction.photo.domain.Photo" alias="Photo"/>
+        <typeAlias type="kr.co.blueauction.note.domain.Note" alias="Note"/>
         <typeAlias type="kr.co.blueauction.common.domain.SearchCriteria" alias="SearchCriteria"/>
 	</typeAliases>
    

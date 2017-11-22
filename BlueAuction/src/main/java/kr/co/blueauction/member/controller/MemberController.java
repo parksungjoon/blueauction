@@ -28,14 +28,20 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.mysql.cj.api.Session;
 
+import kr.co.blueauction.common.domain.PageMaker;
+import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.login.LoginDTO;
 import kr.co.blueauction.login.LoginInterceptor;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
+import kr.co.blueauction.note.domain.Note;
+import kr.co.blueauction.note.service.NoteService;
 import kr.co.blueauction.order.domain.Orders;
 import kr.co.blueauction.order.service.OrderService;
 import kr.co.blueauction.photo.domain.Photo;
@@ -54,6 +60,8 @@ public class MemberController {
 	private ProductService productService;
 	@Inject
 	private OrderService orderService;
+	@Inject
+	private NoteService noteService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("dto") LoginDTO dto, HttpServletRequest req) {
@@ -277,6 +285,55 @@ public class MemberController {
 			model.addAttribute("products", products);
 			logger.info(products.toString());
 		return "member/auctionmarket";
+	}
+	
+	@RequestMapping(value="/member/mypage/note/list", method=RequestMethod.GET)
+	public String noteList(@ModelAttribute("cri") SearchCriteria cri,  HttpSession session, Model model) throws Exception {
+		logger.info("크리투스트링:"+cri.toString());
+		//login 세션을 가저옴
+		Object member=session.getAttribute("login");
+		logger.info("/member/mypage/notelist에서 "+member.toString());
+		Member member1=(Member)member;
+		
+		//세션에 저장되어 있는 멤버에서 memberId를 가저옴
+		String memberId=member1.getMemberId();
+		List<Note> notelist=noteService.listByCri(cri, memberId);
+		model.addAttribute("list", notelist);
+		
+		
+		PageMaker pageMaker=new PageMaker();
+		pageMaker.setCri(cri);
+		
+		pageMaker.setTotalCount(noteService.listCountCriteria(cri,memberId));
+		model.addAttribute("pageMaker", pageMaker);
+		
+		
+		
+		return "member/noteList";
+	}
+	
+	@RequestMapping(value="/member/mypage/note/read", method=RequestMethod.GET)
+	public String noteRead(@RequestParam("noteId") int noteId, Model model, HttpSession session) {
+		Note note=noteService.readNote(noteId);
+		Object member=session.getAttribute("login");
+		Member member1=(Member)member;
+		String memberId=member1.getMemberId();
+		logger.info("읽는 사람"+memberId+"받는사람"+note.getReceiver());
+		if(note.getReceiver().equalsIgnoreCase(memberId)) {
+			logger.info("왜 여기로 안들어오니");
+			noteService.updateReadDate(noteId);
+		}
+		model.addAttribute(note);
+		
+		return "member/noteRead";
+	}
+	
+	@RequestMapping(value="/member/mypage/note/delete", method=RequestMethod.POST)
+	public String noteDelete(@RequestParam("noteId") int noteId, RedirectAttributes rttr) {
+		noteService.deleteNote(noteId);
+		rttr.addFlashAttribute("msg","SUCCESS");
+		
+		return "redirect:/member/mypage/note/list";
 	}
 	
 }

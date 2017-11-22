@@ -5,6 +5,7 @@
     <h6>회원정보</h6>
     <ul class="list-marked list-marked-secondary">
       <li><a href="/mypage">회원정보</a></li>
+      <li><a href="/member/mypage/note/list">쪽지함</a>
     </ul>
   </div>
 	<div class="shop-aside-item" ">
