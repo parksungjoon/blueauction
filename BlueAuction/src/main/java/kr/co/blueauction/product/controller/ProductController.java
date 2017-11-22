@@ -219,7 +219,7 @@ public class ProductController {
 	
 	/**
 	 * 경매 상품 삭제
-	 ** @param productId 상품아이디 
+	 * @param productId 상품아이디 
 	 * @param model model
 	 * @param type 경매 타입(경매 시작 전 / 경매 중 / 경매 종료)
 	 * @param smallid 카테고리(의류, 잡화, 티켓, 가전제품)
@@ -239,12 +239,29 @@ public class ProductController {
 		return "redirect:/product/auction/1/0";
 	}
 	
+	/**
+	 * 새 경매 등록  - GET방식
+	 * @param model model
+	 * @param session session
+	 * @return view String 값
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "auction/register", method = RequestMethod.GET)
 	public String registerGET(Model model, HttpSession session)throws Exception{
 		
 		return "/product/registerauction";
 	}
 	
+	
+	/**
+	 * 새 경매 등록 db저장 및 처리 - POST방식
+	 * @param model model
+	 * @param session session
+	 * @param product 상품 객체
+	 * @param redirectAttributes 
+	 * @return 상품 리스트 화면으로 
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "auction/register", method = RequestMethod.POST)
 	public String registerPOST(Model model, HttpSession session, Product product,RedirectAttributes redirectAttributes)throws Exception{
 		productService.create(product);
