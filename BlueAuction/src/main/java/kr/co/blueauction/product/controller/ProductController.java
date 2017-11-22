@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.bid.service.BidService;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.favorite.domain.Favorite;
 import kr.co.blueauction.favorite.service.FavoriteService;
+import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 
@@ -29,11 +32,14 @@ import kr.co.blueauction.product.service.ProductService;
  * 경매 리스트를 위한 ProductController 
  *
  * @author 정지현
- * @since 2017. 11. 22.
+ * @author 김수진
+ * @author 최명승
+ * 
+ * @since 2017. 11. 13.
  */
 
 @Controller
-/*@RequestMapping("/product")*/
+@RequestMapping("/product")
 public class ProductController {
 	
 	private static final Logger logger = Logger.getLogger(AuctionProductController.class);
@@ -60,14 +66,30 @@ public class ProductController {
 	 * @return model 리턴
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/auction/{type}/{smallid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/auction/{type}/{smallid}", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public String listPageGet(@PathVariable("type") int type, @PathVariable("smallid") int smallid, Model model, HttpSession session)throws Exception{
-		model = listGet(type, smallid, model, session);
+		Map<String, Object> map = listGet(type, smallid, session);
+		
+		model.addAttribute("endpage", map.get("endpage"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("type", map.get("type"));
+		model.addAttribute("smallid", map.get("smallid"));
+		model.addAttribute("favorite", map.get("favorite"));
 		
 		return "/product/auction";
 	}
 	
-	public Model listGet(int type, int smallid, Model model, HttpSession session) throws Exception {
+	/**
+	 *  관심경매 리스트 Get
+	 * @param type 경매 타입(경매 시작 전 / 경매 중 / 경매 종료)
+	 * @param smallid 카테고리(의류, 잡화, 티켓, 가전제품)
+	 * @param session session
+	 * @return map 리턴
+	 * @throws Exception
+	 */
+	public Map<String, Object> listGet(int type, int smallid, HttpSession session) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
 		int page = 1; // 첫 페이지 설정
 		String keyword = null;
 		
@@ -83,17 +105,17 @@ public class ProductController {
 		
 		List<Favorite> favoriteList =  favoriteService.readByMemberId(memberId); // 로그인한 회원의 관심경매 리스트
 		
-		model.addAttribute("endpage", checkEndPage);
-		model.addAttribute("list", list);
-		model.addAttribute("type", type);
-		model.addAttribute("smallid", smallid);
-		model.addAttribute("favorite", favoriteList);
+		map.put("endpage", checkEndPage);
+		map.put("list", list);
+		map.put("type", type);
+		map.put("smallid", smallid);
+		map.put("favorite", favoriteList);
 		
-		return model;
+		return map;
 	}
 	
-//	경매 리스트 조회 post
 	/**
+	 * 경매 리스트 조회 post
 	 * @param type 경매 타입(경매 시작 전 / 경매 중 / 경매 종료)
 	 * @param smallid 카테고리(의류, 잡화, 티켓, 가전제품)
 	 * @param page 요청 페이지
@@ -134,4 +156,107 @@ public class ProductController {
 		return entity;
 	}
 	
+	/**
+	 * producdt 상세보기 
+	 * @param productId 상품아이디 
+	 * @param model model
+	 * @param type 경매 타입(경매 시작 전 / 경매 중 / 경매 종료)
+	 * @param smallid 카테고리(의류, 잡화, 티켓, 가전제품)
+	 * @param keyword 검색값
+	 * @param page 요청 페이지
+	 * @return view String 값
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/auction/readpage/{productId}", method= RequestMethod.POST)
+	public String readPage(@PathVariable("productId") int productId, Model model, HttpSession session) throws Exception {
+		Member member = (Member) session.getAttribute("login");
+		model.addAttribute("login", member);
+		
+		Product	product = productService.read(productId); 	
+		model.addAttribute(product);
+		
+		List<Bid> bidList = bidSevice.readByProductId(productId);
+		model.addAttribute(bidList);
+		
+		return "/product/productdetail";
+	}
+	
+	/**
+	 * product 수정 페이지 
+	 * @param productId 상품 아이디
+	 * @param model model
+	 * @return view String 값
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.POST)
+	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
+		Product product = productService.read(productId);
+		model.addAttribute("product", product);
+			
+		return "/product/productModify";
+	}
+	
+	/**
+	 * product 수정 처리 및 db저장
+	 * @param productId 상품 아이디
+	 * @param model model
+	 * @param product 상품 객체
+	 * @param session session
+	 * @return view String 값
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/modify/{productId}", method= RequestMethod.POST)
+	public String modifyPagePUT(@PathVariable("productId") int productId, Product product, Model model) throws Exception {
+		
+		// 사진 및 수정 데이터 저장
+		productService.modify(product);
+		
+		String url = "redirect:/product/auction/readpage/"+productId+"";
+		
+		return url;
+	}
+	
+	/**
+	 * 경매 상품 삭제
+	 ** @param productId 상품아이디 
+	 * @param model model
+	 * @param type 경매 타입(경매 시작 전 / 경매 중 / 경매 종료)
+	 * @param smallid 카테고리(의류, 잡화, 티켓, 가전제품)
+	 * @param keyword 검색값
+	 * @param page 요청 페이지
+	 * @param session session
+	 * @return view String 값
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/remove/{productId}", method= RequestMethod.POST)
+	public String remove(@PathVariable("productId") int productId, Model model, HttpSession session) throws Exception {
+		productService.delete(productId);
+		
+		Map<String, Object> map = listGet(1, 0, session);
+		model.addAllAttributes(map);
+		
+		return "redirect:/product/auction/1/0";
+	}
+	
+	@RequestMapping(value = "auction/register", method = RequestMethod.GET)
+	public String registerGET(Model model, HttpSession session)throws Exception{
+		
+		return "/product/registerauction";
+	}
+	
+	@RequestMapping(value = "auction/register", method = RequestMethod.POST)
+	public String registerPOST(Model model, HttpSession session, Product product,RedirectAttributes redirectAttributes)throws Exception{
+		productService.create(product);
+		
+		Map<String, Object> map = listGet(1, product.getSmallid(), session);
+		
+		model.addAttribute("endpage", map.get("endpage"));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("type", map.get("type"));
+		model.addAttribute("smallid", map.get("smallid"));
+		model.addAttribute("favorite", map.get("favorite"));
+		/*redirectAttributes.addAttribute(model.asMap());*/
+		
+		return "redirect:/product/auction/1/"+product.getSmallid()+"";
+	}
 }

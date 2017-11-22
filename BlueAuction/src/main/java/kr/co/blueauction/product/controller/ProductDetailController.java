@@ -166,4 +166,24 @@ public class ProductDetailController {
 		return "/product/registerauction";
 	}*/
 	
+	
+	
+	/*@RequestMapping(value="/modify/{productId}", method= RequestMethod.PUT)
+	public String modifyPagePUT(@PathVariable("productId") int productId, Product product, Model model, HttpSession session) throws Exception {
+		logger.info("Controller : " + product.toString());
+		
+		// 사진 및 수정 데이터 저장
+		productService.modify(product);
+		
+		Member member = (Member) session.getAttribute("login");
+		model.addAttribute("login", member);
+		
+		product = productService.read(productId); 	
+		model.addAttribute(product);
+		
+		List<Bid> bidList = bidSevice.readByProductId(productId);
+		model.addAttribute(bidList);
+		
+		return "redirect:/product/productdetail/"+productId+"";
+	}*/
 }
