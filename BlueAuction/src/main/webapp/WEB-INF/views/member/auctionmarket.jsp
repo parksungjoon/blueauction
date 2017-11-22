@@ -80,13 +80,11 @@
                   </thead>
                   <tbody id="bidListTr">
                   <c:forEach var="product" items="${products}" varStatus="status">
-                    <tr>
+                   <tr>
                       <td>${status.count}</td>
-                      <td>${product.name}</td>  
+                      <td>${product.name}</a></td>  
                       <td>${product.productinfo}</td>
                       <td>${product.price}원</td>
-                    <%--   <td>${product.}원</td> --%>
-                      
                     </tr>
                   </c:forEach>
                   </tbody>

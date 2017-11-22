@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
 <head>
@@ -52,7 +52,7 @@
 			type : 'POST',
 			data : "memberId=" + memberId,
 			dataType : "text",
-			url : '/memberCheck',
+			url : '/member/memberCheck',
 			success : function(rData, textStatus, xhr) {
 				var chkRst = rData;
 				if (chkRst == "null") {
@@ -62,6 +62,7 @@
 					alert("중복 되어 있습니다");
 					$("#idChk").val('N');
 				}
+				
 			},
 			error : function(xhr, status, e) {
 				alert(e);
@@ -79,7 +80,7 @@
 			type : 'POST',
 			data : "email=" + email,
 			dataType : "text",
-			url : '/memberEmailCheck',
+			url : '/member/memberEmailCheck',
 			success : function(rData, textStatus, xhr) {
 				var chkRst = rData;
 				if (chkRst == "null") {
@@ -126,7 +127,126 @@
 				}
 			})
 	}
+	
+	/* $('#button').click(function(){
+		alert("submit 눌림");
+	});
+	 */
+	
+	
+	
+	
+
 </script>
+<script>
+   /*  function checked()
+        {
+            var idtext = document.getElementById("ide");
+            <!-- //아이디의 id값 -->
+            var patext = document.getElementById("pass");
+            <!-- //비밀번호의 id -->
+            var cpatext = document.getElementById("cpass");
+           <!-- //비밀번호확인의 id값 -->
+            var mtext = document.getElementById("mail");
+           <!-- //e-mail의 id값 -->
+            var nametext = document.getElementById("name");
+           <!-- //이름의 id값 -->
+            var hobby = document.getElementsByName("hobby");
+           <!-- //체크박스의 취미 id값 -->
+            var intro =  document.getElementById("intro");
+   <!-- //자기소개란 id값 -->
+            var id = idtext.value;
+            var password = patext.value;
+            var cpassword = cpatext.value;
+            var mail = mtext.value;
+            var name = nametext.value;
+            var regExp1 = /^[a-zA-Z0-9]{4,12}$/;
+            //id와 비밀번호의 유효성 검사
+            var regExp2 = /[a-z0-9]{2,}@[a-z0-9-]{2,}\.[a-z0-9]{2,}/i;
+            //e-mail의 유효성 검사
+            var regname = /^[가-힝]{2,}$/;
+            //이름의 유효성 검사
+            
+            if(!regExp1.test(id))
+             //아이디 유효성 검사 후 4~12자의 영문 대소문자와 숫자의 유효성이 안 맞다면
+             //공백을 주고 알람을 띄운다.
+             //밑에 동일한 유효성 검사
+            {
+                alert("형식에 맞춰 ID를 입력하세요");
+                idtext.value = "";
+                idtext.focus();
+                return false;
+            }
+            else if (!regExp1.test(password))
+            {
+                alert("형식에 맞춰 비밀번호를 입력하세요");
+                patext.value = "";
+                patext.focus();
+                return false;
+            } 
+            else if (!(cpassword.slice(0, cpassword.length) === password.slice(0, password.length))) 
+            {
+                alert("비밀번호가 동일하지 않습니다.");
+                cpatext.value = "";
+                cpatext.focus();
+                return false;
+            } 
+            else if ((cpassword.slice(0, cpassword.length) === id.slice(0, id.length))) 
+            {
+                alert("비밀번호가 ID와 동일하면 안됩니다.");
+                patext.value = "";
+                patext.focus();
+                cpatext.value = "";
+                cpatext.focus();
+                return false;
+            }
+            else if (!regExp2.test(mail))
+            {
+                alert("올바른 이메일 형식이 아닙니다.");
+                mtext.value = "";
+                mtext.focus();
+                return false;
+            }
+            else if (!regname.test(name))
+            {
+                alert("이름을 제대로 입력하세요");
+                nametext.value = "";
+                nametext.focus();
+                return false;
+            } 
+            //체크박스 유효성 검사
+            else if(document.data.hobby[0].checked==false && 
+                    document.data.hobby[1].checked==false && 
+                    document.data.hobby[2].checked==false && 
+                    document.data.hobby[3].checked==false && 
+                    document.data.hobby[4].checked==false){
+                 alert("관심분야를 체크해 주세요");
+                 return false;
+              }
+            //자기소개란 유효성 검사
+            //공백이 있다면 안됨.
+            else if(intro.value==""){
+                alert("자기 소개란을 100자 내외로 기입해주세요");
+                return false;
+             }
+            else
+            {
+                if(checks())
+                {
+                   alert("회원가입을 진행합니다");
+                   return true;
+                }
+                else
+                {
+                   return false;
+                }
+             }
+          }
+   */
+    </script>
+
+
+
 <body>
   <%-- Page preloader 시작--%>
   <jsp:include page="/WEB-INF/views/include/pageloader.jsp" />
@@ -134,137 +254,11 @@
   <%--Page 시작 --%>
   <div class="page">
 
-    <%-- Page Header 시작--%>
-    <header
-      class="section page-header bg-gray-darker breadcrumbs-custom-wrap">
-    <%-- RD Navbar--%>
-    <div class="rd-navbar-wrap rd-navbar-shop-header">
-      <nav class="rd-navbar" data-layout="rd-navbar-fixed"
-        data-sm-layout="rd-navbar-fixed"
-        data-md-layout="rd-navbar-fullwidth"
-        data-md-device-layout="rd-navbar-fixed"
-        data-lg-layout="rd-navbar-static"
-        data-lg-device-layout="rd-navbar-static"
-        data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px"
-        data-stick-up="true" data-sm-stick-up="true"
-        data-md-stick-up="true" data-lg-stick-up="true">
-      <div class="rd-navbar-top-panel">
-        <div class="rd-navbar-nav-wrap">
-          <%-- RD Navbar Nav--%>
-          <ul class="rd-navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about-us.html">About Us</a></li>
-            <li><a href="#">Services</a> <%-- RD Navbar Dropdown--%>
-              <ul class="rd-navbar-dropdown">
-                <li><a href="services.html">Services</a></li>
-                <li><a href="single-service.html">Single
-                    Service</a></li>
-              </ul></li>
-            <li><a href="#">Gallery</a> <%-- RD Navbar Dropdown--%>
-              <ul class="rd-navbar-dropdown">
-                <li><a href="grid-album-gallery.html">Grid
-                    Album Gallery</a></li>
-                <li><a href="fullwidth-gallery-inside-title.html">Fullwidth
-                    Gallery Inside Title</a></li>
-                <li><a href="grid-gallery-outside-title.html">Grid
-                    Gallery Outside Title</a></li>
-                <li><a href="masonry-gallery-outside-title.html">Masonry
-                    Gallery Outside Title</a></li>
-              </ul></li>
-            <li><a href="#">Blog</a> <%-- RD Navbar Dropdown--%>
-              <ul class="rd-navbar-dropdown">
-                <li><a href="classic-blog.html">Classic Blog</a></li>
-                <li><a href="grid-blog.html">Grid Blog</a></li>
-                <li><a href="masonry-blog.html">Masonry Blog</a></li>
-                <li><a href="modern-blog.html">Modern Blog</a></li>
-                <li><a href="audio-post.html">Audio Post</a></li>
-                <li><a href="image-post.html">Image Post</a></li>
-                <li><a href="single-post.html">Single Post</a></li>
-                <li><a href="video-post.html">Video Post</a></li>
-              </ul></li>
-            <li><a href="#">Shop</a> <%-- RD Navbar Dropdown--%>
-              <ul class="rd-navbar-dropdown">
-                <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="product-page.html">Product Page</a></li>
-                <li><a href="shop-3-columns-layout.html">Shop 3
-                    Columns Layout</a></li>
-                <li><a href="shopping-cart.html">Shopping Cart</a>
-                </li>
-              </ul></li>
-            <li class="active"><a href="#">Pages</a> <%-- RD Navbar Megamenu--%>
-              <ul class="rd-navbar-megamenu rd-navbar-megamenu-banner">
-                <li><img
-                  src="/resources/images/accordions-1-570x600.jpg"
-                  alt="" width="570" height="600" /></li>
-                <li>
-                  <ul class="rd-megamenu-list">
-                    <li><a href="404-page.html">404 Page</a></li>
-                    <li><a href="503-page.html">503 Page</a></li>
-                    <li><a href="careers.html">Careers</a></li>
-                    <li><a href="single-job.html">Single Job</a></li>
-                    <li><a href="coming-soon.html">Coming Soon</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="tooltips.html">Tooltips</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <ul class="rd-megamenu-list">
-                    <li><a href="our-history.html">Our History</a></li>
-                    <li><a href="login-page.html">Login Page</a></li>
-                    <li><a href="registration-page.html">Registration
-                        Page</a></li>
-                    <li><a href="search-results.html">Search
-                        Results</a></li>
-                    <li><a href="under-construction.html">Under
-                        Construction</a></li>
-                    <li><a href="privacy-policy.html">Privacy
-                        policy</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <ul class="rd-megamenu-list">
-                    <li><a href="accordions.html">Accordions</a></li>
-                    <li><a href="countdown.html">Countdown</a></li>
-                    <li><a href="forms.html">Forms</a></li>
-                    <li><a href="grid-system.html">Grid System</a></li>
-                    <li><a href="tables.html">Tables</a></li>
-                    <li><a href="tabs.html">Tabs</a></li>
-                    <li><a href="typography.html">Typography</a></li>
-                    <li><a href="radials.html">Radials</a></li>
-                  </ul>
-                </li>
-              </ul></li>
-            <li><a href="contacts.html">Contacts</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <%-- Page 상단 로고 시작--%>
-      <div class="rd-navbar-inner">
-        <%-- RD Navbar Panel--%>
-        <div class="rd-navbar-panel">
-          <%-- RD Navbar Toggle--%>
-          <button class="rd-navbar-toggle"
-            data-rd-navbar-toggle=".rd-navbar-nav-wrap">
-            <span></span>
-          </button>
-          <%-- RD Navbar Brand--%>
-          <div class="rd-navbar-brand">
-            <a class="brand-name" href="index.html"><img
-              class="logo-default"
-              src="/resources/images/logo-default-173x55.png" alt=""
-              width="173" height="55" /><img class="logo-inverse"
-              src="/resources/images/logo-inverse-173x55.png" alt=""
-              width="173" height="55" /></a>
-          </div>
-        </div>
-      </div>
-      <%-- Page 상단 로고 종료--%> </nav>
-    </div>
-    </header>
-    <%-- Page Header 종료--%>
-
-
+   <%-- page Header START --%>
+    <jsp:include page="/WEB-INF/views/include/header.jsp" />
+    <%-- page Header END --%>
+    
+    
     <%-- Formatting forms START --%>
     <section class="section section-lg bg-white text-center">
     <div class="shell">
@@ -291,7 +285,7 @@
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
                     onclick="idCheck()" value="check ID"></input> 
-                    <input type="hidden" id="idChk" value='N' />
+                    <input type="text" id="idChk" value='N' />
                 </div>
               </div>
 
@@ -369,7 +363,7 @@
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
                     onclick="emailCheck()" value="check Email"></input>
-                  <input type="hidden" id="emailChk" value='N' />
+                  <input type="text" id="emailChk" value='N' />
                 </div>
               </div>
                <div class="cell-sm-2">
@@ -377,7 +371,7 @@
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
                     onclick="emailAuthenCheck()" value="authentification"></input>
-                  <input type="hidden" id="emailAuthenChk" value='N' />
+                  <input type="texdt" id="emailAuthenChk" value='N' />
                 </div>
               </div>
           
@@ -406,6 +400,9 @@
                       <option value="1" selected="">국민</option>
                       <option value="2">농협</option>
                       <option value="3">신한</option>
+                      <option value="4">신협</option>
+                      <option value="5">우리</option>
+                      <option value="6">하나</option>
                     </select>
                   </div>
                   <div class="col-sm-9">
@@ -419,9 +416,8 @@
 
               <div class="cell-sm-8"></div>
               <div class="cell-sm-3">
-                <div class="form-wrap-validation">
-                  <button type="submit"
-                    class="button button-secondary jjh-postCodeSearchBtn">SUBMIT</button>
+                <div>
+                  <button id="button" type="button" class="click">SUBMIT</button>
                 </div>
               </div>
             </div>
@@ -454,7 +450,7 @@
           <!-- Footer -->
           <div class="modal-footer">
             Footer
-            <button type="button" class="btn btn-default"
+            <button type="sumit" class="btn btn-default"
               data-dismiss="modal">닫기</button>
           </div>
         </div>

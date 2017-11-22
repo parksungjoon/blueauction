@@ -38,9 +38,7 @@
   <%-- Page--%>
   <div class="page">
 
-    <%-- page Header START --%>
-    <jsp:include page="/WEB-INF/views/include/header.jsp" />
-    <%-- page Header END --%>
+ 
 
     <!-- Breadcrumbs START -->
     <section
