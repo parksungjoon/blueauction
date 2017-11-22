@@ -172,9 +172,10 @@ public class MemberController {
 	}
 
 	@RequestMapping(value ="/register", method = RequestMethod.POST)
-	public void memberRegistPOST(@ModelAttribute("member") Member member, HttpSession session, HttpServletRequest request) throws Exception{
+	public String memberRegistPOST(@ModelAttribute("member") Member member, HttpSession session, HttpServletRequest request) throws Exception{
+		logger.info("/member/register  controller  POST 실행");
 		service.insertMember(member);
-		
+		return "redirect:/";
 	}	
 	@RequestMapping(value = "/memberCheck")
 	 public void checkId(HttpServletRequest req, HttpServletResponse res, ModelMap model) throws Exception {

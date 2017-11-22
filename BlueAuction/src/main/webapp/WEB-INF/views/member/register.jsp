@@ -37,8 +37,10 @@
 			document.getElementById("passwordCheckText").innerHTML = "";
 		} else if (passwd != passwdCheck) {
 			document.getElementById("passwordCheckText").innerHTML = "<b><font color=#DF3F32 size=4pt> 비밀번호가 맞지 않습니다. </font></b>"
+			$('#pwChk').val('N');		
 		} else {
 			document.getElementById("passwordCheckText").innerHTML = "<b><font color=#4F84C4 size=4pt> 비밀번호가 올바르게 입력 되었습니다. </font></b>"
+				$('#pwChk').val('Y');	
 		}
 	};
 	function idCheck() {
@@ -98,16 +100,22 @@
 	};
 	function emailAuthenCheck() {
 		var email = $('#email').val();
-		alert("메일을 확인해주세요");
+		
+		if($("#emailChk").val() =='Y'){
+			alert("메일을 확인해주세요");
+			$("#layerpop").modal();
 		$.ajax({
 			type : 'POST',
 			data : "email=" + email,
 			dataType : "text",
-			url : '/emailAuthenCheck',
+			url : '/member/emailAuthenCheck',
 			success : function() {
 			}
 		}
-		)
+		)}
+		else{
+			alert("이메일 중복을 확인해주세요");
+		}
 	}
 	function uidCheck(){
 		
@@ -116,135 +124,45 @@
 			type: 'POST',
 			data : "uid=" +uid,
 			dataType : "text",
-			url : '/uidCheck',
+			url : '/member/uidCheck',
 			success:function(data){
 				if(data =="1"){
 					alert("일치합니다");
+					$("#emailAuthenChk").val('Y');
 				}
 				else{
 					alert("일치하지 않습니다");
+					$("#emailAuthenChk").val('N');
 					}
 				}
 			})
 	}
 	
-	/* $('#button').click(function(){
-		alert("submit 눌림");
-	});
-	 */
-	
-	
-	
-	
+
+	 
+	 function clickz(){
+		 
+		 if($("#idChk").val() =='N'){
+		 		alert("아이디 중복을 확인해주세요");
+		 		return;
+		 }
+		 if($("#emailChk").val() =='N'){
+			 alert("이메일 중복을 확인해주세요");
+			 return;
+		 }
+		 if($("#pwChk").val() =='N'){
+			 alert("비밀번호가 일치하지 않습니다");
+			 return;
+		 }
+		 if($("#emailAuthenChk").val()=='N'){
+			 alert("이메일 인증을 진행하세요");
+			 return;
+		 }
+		 $('#forrm').submit();
+	 }
+	 
 
 </script>
-<script>
-   /*  function checked()
-        {
-            var idtext = document.getElementById("ide");
-            <!-- //아이디의 id값 -->
-            var patext = document.getElementById("pass");
-            <!-- //비밀번호의 id -->
-            var cpatext = document.getElementById("cpass");
-           <!-- //비밀번호확인의 id값 -->
-            var mtext = document.getElementById("mail");
-           <!-- //e-mail의 id값 -->
-            var nametext = document.getElementById("name");
-           <!-- //이름의 id값 -->
-            var hobby = document.getElementsByName("hobby");
-           <!-- //체크박스의 취미 id값 -->
-            var intro =  document.getElementById("intro");
-   <!-- //자기소개란 id값 -->
-            var id = idtext.value;
-            var password = patext.value;
-            var cpassword = cpatext.value;
-            var mail = mtext.value;
-            var name = nametext.value;
-            var regExp1 = /^[a-zA-Z0-9]{4,12}$/;
-            //id와 비밀번호의 유효성 검사
-            var regExp2 = /[a-z0-9]{2,}@[a-z0-9-]{2,}\.[a-z0-9]{2,}/i;
-            //e-mail의 유효성 검사
-            var regname = /^[가-힝]{2,}$/;
-            //이름의 유효성 검사
-            
-            if(!regExp1.test(id))
-             //아이디 유효성 검사 후 4~12자의 영문 대소문자와 숫자의 유효성이 안 맞다면
-             //공백을 주고 알람을 띄운다.
-             //밑에 동일한 유효성 검사
-            {
-                alert("형식에 맞춰 ID를 입력하세요");
-                idtext.value = "";
-                idtext.focus();
-                return false;
-            }
-            else if (!regExp1.test(password))
-            {
-                alert("형식에 맞춰 비밀번호를 입력하세요");
-                patext.value = "";
-                patext.focus();
-                return false;
-            } 
-            else if (!(cpassword.slice(0, cpassword.length) === password.slice(0, password.length))) 
-            {
-                alert("비밀번호가 동일하지 않습니다.");
-                cpatext.value = "";
-                cpatext.focus();
-                return false;
-            } 
-            else if ((cpassword.slice(0, cpassword.length) === id.slice(0, id.length))) 
-            {
-                alert("비밀번호가 ID와 동일하면 안됩니다.");
-                patext.value = "";
-                patext.focus();
-                cpatext.value = "";
-                cpatext.focus();
-                return false;
-            }
-            else if (!regExp2.test(mail))
-            {
-                alert("올바른 이메일 형식이 아닙니다.");
-                mtext.value = "";
-                mtext.focus();
-                return false;
-            }
-            else if (!regname.test(name))
-            {
-                alert("이름을 제대로 입력하세요");
-                nametext.value = "";
-                nametext.focus();
-                return false;
-            } 
-            //체크박스 유효성 검사
-            else if(document.data.hobby[0].checked==false && 
-                    document.data.hobby[1].checked==false && 
-                    document.data.hobby[2].checked==false && 
-                    document.data.hobby[3].checked==false && 
-                    document.data.hobby[4].checked==false){
-                 alert("관심분야를 체크해 주세요");
-                 return false;
-              }
-            //자기소개란 유효성 검사
-            //공백이 있다면 안됨.
-            else if(intro.value==""){
-                alert("자기 소개란을 100자 내외로 기입해주세요");
-                return false;
-             }
-            else
-            {
-                if(checks())
-                {
-                   alert("회원가입을 진행합니다");
-                   return true;
-                }
-                else
-                {
-                   return false;
-                }
-             }
-          }
-   */
-    </script>
-
 
 
 <body>
@@ -266,7 +184,8 @@
         <div class="cell-sm-10 cell-lg-8">
           <h3>Join Us</h3>
           <%-- RD Mailform--%>
-          <form class="rd-mailform text-left"
+          <form id="forrm" class="rd-mailform text-left"
+          
             data-form-output="form-output-global"
             data-form-type="contact" method="post"
             action="/member/register">
@@ -276,7 +195,7 @@
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">ID</label>
                   <input class="form-input" id="memberId" type="text"
-                    name="memberId" data-constraints="@Required"
+                    name="memberId" 
                     placeholder="ID">
                 </div>
               </div>
@@ -285,7 +204,7 @@
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
                     onclick="idCheck()" value="check ID"></input> 
-                    <input type="text" id="idChk" value='N' />
+                    <input type="hidden" id="idChk" value='N' />
                 </div>
               </div>
 
@@ -306,6 +225,7 @@
                     data-constraints="@Required"
                     onkeyup="passwordCheck()"
                     placeholder="Password Check">
+                    <input type="hidden" id="pwChk" value='N' />
                 </div>
               </div>
               <div class="cell-sm-5">
@@ -363,7 +283,7 @@
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
                     onclick="emailCheck()" value="check Email"></input>
-                  <input type="text" id="emailChk" value='N' />
+                  <input type="hidden" id="emailChk" value='N' />
                 </div>
               </div>
                <div class="cell-sm-2">
@@ -371,7 +291,7 @@
                   <input type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
                     onclick="emailAuthenCheck()" value="authentification"></input>
-                  <input type="texdt" id="emailAuthenChk" value='N' />
+                  <input type="hidden" id="emailAuthenChk" value='N' />
                 </div>
               </div>
           
@@ -381,7 +301,7 @@
                   <label class="form-label-outside" for="forms-3-name">Phone</label>
                   <input class="form-input" id="forms-3-name"
                     type="text" name="phoneNumber"
-                    data-constraints="@Required"
+                   
                     placeholder="-없이 숫자만 입력해주세요">
                 </div>
               </div>
@@ -414,10 +334,10 @@
                 </div>
               </div>
 
-              <div class="cell-sm-8"></div>
+              
               <div class="cell-sm-3">
                 <div>
-                  <button id="button" type="button" class="click">SUBMIT</button>
+                  <button id="clickzz" type="button" class="click" onclick="clickz()" >SUBMIT</button>
                 </div>
               </div>
             </div>
@@ -439,18 +359,18 @@
           <!-- body -->
           <div class="modal-body">
             <input class="cell-sm-8 form-input" id="uid" type="text"
-              name="accountNumber" data-constraints="@Required"
+              name="accountNumber"
               placeholder="uid" >Body
           </div>
            <div class="modal-body">
             <button class="cell-sm-8 form-input" id="uid" type="text"
-              name="accountNumber" data-constraints="@Required"
+              name="accountNumber" 
               placeholder="uid" onclick="uidCheck()" >제출</button>
           </div>
           <!-- Footer -->
           <div class="modal-footer">
             Footer
-            <button type="sumit" class="btn btn-default"
+            <button type="button" class="btn btn-default"
               data-dismiss="modal">닫기</button>
           </div>
         </div>
@@ -467,8 +387,8 @@
   <%-- PANEL--%>
   <%-- END PANEL--%>
   <%-- Global Mailform Output--%>
-  <div class="snackbars" id="form-output-global"></div>
-
+  <!-- <div class="snackbars" id="form-output-global"></div>
+ -->
   <%-- Javascript--%>
   <script src="/resources/js/core.min.js"></script>
   <script src="/resources/js/script.js"></script>
