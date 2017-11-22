@@ -70,7 +70,8 @@
 	<!-- 댓글 목록 출력 및 페이징 처리 -->
 	<select id="listPage" resultType="Reply">
 		SELECT * 
-		FROM   reply 
+		FROM   reply
+		WHERE  product_id = #{productId} 
 		ORDER  BY groupno DESC, 
         		  orderno ASC 
 		LIMIT  #{page}, 10 

@@ -57,19 +57,16 @@
     		switch (type) {
     		
 			case "댓글 작성":
-				alert("댓글 작성 실행");
 				var parentId = $(this).attr("value");
     			addReply(parentId);	
 				break;
 				
 			case "댓글 수정":
-				alert("댓글 수정 실행");
 				var replyId = $(this).attr("value");
 	    		modifyReply(replyId);	
 				break;
 				
 			default:
-				alert("댓글 삭제 실행");
 				var replyId = $(this).attr("value");
 				deleteReply(replyId);
 				break;
@@ -254,11 +251,6 @@
 			});
 		}
 		
-		/* 상품 이미지 출력 */
-		function printImages() {
-			var imageList = $(product.photo);
-			console.log('이미지 리스트' +  imageList);
-		}
     </script>
     
   </head>

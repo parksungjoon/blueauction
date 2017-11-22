@@ -103,7 +103,7 @@ public class ReplyController {
 			int totalCount = replyService.count(productId);
 			pageMaker.setTotalCount(totalCount);
 			
-			List<Reply> list = replyService.listPage(cri);
+			List<Reply> list = replyService.listPage(cri, productId);
 			pagingMap.put("list", list);
 			
 			pagingMap.put("pageMaker", pageMaker);
