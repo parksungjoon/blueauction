@@ -40,7 +40,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			logger.info("dest"+dest);
 			response.sendRedirect(dest != null ? (String)dest : "/");
 		}else {
-			response.sendRedirect("/login");
+			response.sendRedirect("/member/login");
 		}
 	}
 

@@ -106,12 +106,12 @@
              
               <c:if test="${not empty login}">
                <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
-              <li><a href="/mypage"> ${login.memberId}</a>님이 로그인 하셨습니다<li>
-                <li><a href="/logout">로그아웃</a></li>
+              <li><a href="/member/mypage"> ${login.memberId}</a>님이 로그인 하셨습니다<li>
+                <li><a href="/member/logout">로그아웃</a></li>
               </c:if>
               
               <c:if test="${empty login}">
-              <li><a href="/login">Login</a></li>
+              <li><a href="/member/login">Login</a></li>
               <li><a href="/member/register">Register</a>
             
               </c:if>

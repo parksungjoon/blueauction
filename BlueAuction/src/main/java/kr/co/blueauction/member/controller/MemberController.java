@@ -49,7 +49,7 @@ import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 
 @Controller
-//@RequestMapping("/main")
+@RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Inject
@@ -80,7 +80,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
-		logger.info("/loginPost 실행" );
+		logger.info("member/loginPost 실행" );
 		Member vo = service.login(dto);
 		if (vo == null) {
 			
@@ -118,7 +118,7 @@ public class MemberController {
 			}
 		}
 		logger.info("로그아웃되었습니다");
-		return "redirect:/";	
+		return "redirect:/member/";	
 		
 	}
 	
@@ -249,7 +249,7 @@ public class MemberController {
 		out.flush();
 		out.close();
 	}
-	@RequestMapping(value="/member/mypage/goodsmarket", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/goodsmarket", method=RequestMethod.GET)
 	public String goodsmarket(@ModelAttribute("product") Product product, HttpSession session, Model model) throws Exception {
 		//login 세션을 가저옴
 		Object member=session.getAttribute("login");
@@ -268,7 +268,7 @@ public class MemberController {
 		return "member/productsmarket";
 	}
 	
-	@RequestMapping(value="/member/mypage/auctionmarket", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/auctionmarket", method=RequestMethod.GET)
 	public String auctionmarket(@ModelAttribute("product") Product product, HttpSession session, Model model) throws Exception {
 		//login 세션을 가저옴
 		Object member=session.getAttribute("login");
@@ -287,7 +287,7 @@ public class MemberController {
 		return "member/auctionmarket";
 	}
 	
-	@RequestMapping(value="/member/mypage/note/list", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/note/list", method=RequestMethod.GET)
 	public String noteList(@ModelAttribute("cri") SearchCriteria cri,  HttpSession session, Model model) throws Exception {
 		logger.info("크리투스트링:"+cri.toString());
 		//login 세션을 가저옴
@@ -312,7 +312,7 @@ public class MemberController {
 		return "member/noteList";
 	}
 	
-	@RequestMapping(value="/member/mypage/note/read", method=RequestMethod.GET)
+	@RequestMapping(value="/mypage/note/read", method=RequestMethod.GET)
 	public String noteRead(@RequestParam("noteId") int noteId, Model model, HttpSession session) {
 		Note note=noteService.readNote(noteId);
 		Object member=session.getAttribute("login");
@@ -328,7 +328,7 @@ public class MemberController {
 		return "member/noteRead";
 	}
 	
-	@RequestMapping(value="/member/mypage/note/delete", method=RequestMethod.POST)
+	@RequestMapping(value="/mypage/note/delete", method=RequestMethod.POST)
 	public String noteDelete(@RequestParam("noteId") int noteId, RedirectAttributes rttr) {
 		noteService.deleteNote(noteId);
 		rttr.addFlashAttribute("msg","SUCCESS");
