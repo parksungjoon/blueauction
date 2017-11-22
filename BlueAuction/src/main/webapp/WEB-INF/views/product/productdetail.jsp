@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
@@ -24,20 +25,29 @@
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 	 $(document).ready(function(){
-		 var formObj = $("form[role='form']");
-		 console.log(formObj);
+		 var formObj = $("#modifyPage");
+		 console.log(formObj.attr("action"));
+		
+		 $("#modifyBtn").click(function(event) {
+		 	event.preventDefault();
+		 	var productId = formObj.attr("action");
+		 	/* alert("수정 : " + formObj.attr("action")); */
+		 	
+		 	formObj.attr("action", "/product/modifypage/"+productId);
+	    	formObj.attr("method", "post");
+	    	formObj.submit();
+		 });
 		 
-	      $("#modifyBtn").on("click", function(){
-	    	  formObj.attr("action", "/product/modifypage/"+${product.productId});
-	    	  formObj.attr("method", "post");
-	    	  formObj.submit();
-	   	 });
-	      
-	      $("#removeBtn").on("click", function(){
-	    	  formObj.attr("action", "/product/remove/"+${product.productId});
-	    	  formObj.attr("method", "post");
-	    	  formObj.submit();
-	      });
+		 $("#removeBtn").click(function(event) {
+			event.preventDefault();
+			
+			var productId = formObj.attr("action");
+			
+			formObj.attr("action", "/product/remove/"+productId);    
+			formObj.attr("method", "post");
+			formObj.submit();
+			
+		});
 	      
 	  });
 	
@@ -178,6 +188,8 @@
 							</dd>
 						</c:otherwise>
 					</c:choose>
+					<dt class="redprice">배송방식</dt> <dd class="redprice">${product.deliverytype}</dd>
+					<dt class="redprice">판매자</dt> <dd class="redprice">${product.seller}</dd>
 				</dl> 
 				
 				<c:if test='${(product.auctionstate).equals("DOING")}'>
@@ -238,13 +250,13 @@
         
         <c:if test="${(login.memberId).equals(product.seller)}">
         	<c:if test='${(product.auctionstate).equals("BEFORE")}'>
-        		<form role="form" action="modifyPage" method="post">
+        		<form role="form" action="${productId}" method="post" id="modifyPage">
 					<input type='hidden' name='page' value="${page}"> 
 					<input type='hidden' name='type' value="${type}">
 					<input type='hidden' name='keyword' value="${keyword}">
 					<input type='hidden' name='smallid' value="${smallid}">
 				
-		        <div class="shell">
+		        <div class="shell"> 
 		          <div class="range range-xs-right">
 		            <div class="cell-sm-10 cell-lg-4">
 			            <button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>

@@ -59,19 +59,11 @@
     <script type="text/javascript">
       
       $(document).ready(function() {
-         
-         /* 첨부파일 선택지 자동 업로드 */
-         $("input[type=file]").change(function() {
-            handleUpload();
-         });
-         sendAttachment();
-         
-         
-      /*    $("button[type='submit']").click(function(event){
-            event.preventDefault();
-            
-            $.ajax
-         }); */
+    	  /* 첨부파일 선택지 자동 업로드 */
+          $("input[type=file]").change(function() {
+             handleUpload();
+          });
+          sendAttachment();
          
       });
       
@@ -122,7 +114,7 @@
             that.append(str);
             that.get(0).submit();
           });
-      };
+      };		
       
       /* 첨부파일 삭제 */
       $(document).on("click", ".uploadedList .delbtn", function(event){
@@ -241,7 +233,7 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Auction Date</label>
                            <%--  <input type="date" class="form-input data" id="form-element-date" data-time-picker="date" name="auctionstart" value="${product.auctionstart}" > --%>
-                           <input type="datetime-local" class="form-input" step='3600' value="${product.auctionstart}" name="auctionstart" data-constraints="@Required" >
+                           <input type="datetime-local" class="form-input" step='3600' value="" name="auctionstart" data-constraints="@Required" >
                           </div>
                         </div>
                         
