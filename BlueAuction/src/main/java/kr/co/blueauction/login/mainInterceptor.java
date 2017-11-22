@@ -25,20 +25,14 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("mainInterceptor preHandle 실행");
 		HttpSession session = request.getSession();
-		logger.info("Location Before : " + session.getAttribute("login"));
 		saveDest(request);
 		String dest = (String) session.getAttribute("dest");
 		if (session.getAttribute("login") == null) {
-			logger.info("현제 로그인 안되있어");
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 			if (loginCookie != null) {
 				Member member = service.checkLoginBefore(loginCookie.getValue());
-				logger.info("loginCookie.getValue()" + loginCookie.getValue());
-				logger.info("MEMBER: " + member);
 				if (member != null) {
-					logger.info("member가 null 이 아님!");
 					session.setAttribute("login", member);
 					// logger.info("request.getHeader(\"REFERER\").substring(16)"+request.getHeader("REFERER").substring(16));
 					// response.sendRedirect(request.getHeader("REFERER").substring(16));
@@ -48,14 +42,10 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 			}
 			return true;
 		}
-		if (session.getAttribute("login") != null) {
-			logger.info("SESSION : " + session.getAttribute("login").toString());
-		}
 		return true;
 	}
 
 	private void saveDest(HttpServletRequest req) {
-		logger.info("mainInterceptor  saveDest실행");
 
 		String uri = req.getRequestURI();
 		String query = req.getQueryString();
@@ -67,9 +57,7 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		if (req.getMethod().equals("GET")) {
-			logger.info("dest: " + (uri + query));
 			if (req.getHeader("REFERER") == null) {
-				logger.info("REFERER null");
 				req.getSession().setAttribute("dest", uri + query);
 			}
 		}

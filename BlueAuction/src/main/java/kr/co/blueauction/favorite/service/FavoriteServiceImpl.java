@@ -37,7 +37,19 @@ public class FavoriteServiceImpl implements FavoriteService {
 	}
 	
 	@Override
-	public Favorite favoriteCheck(Favorite favorite) {
-		return favoriteDao.favoriteCheck(favorite);
+	public String favoriteInsertOrDelete(Favorite favorite) {
+		String result = null;
+		Favorite check = null;
+		
+		check = favoriteDao.favoriteCheck(favorite);
+		
+		if(check == null) {
+			insert(favorite);
+			result = "insert";
+		}else {
+			delete(favorite);
+			result = "delete";
+		}
+		return result;
 	}
 }

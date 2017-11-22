@@ -63,12 +63,15 @@ public class ProductServiceImpl implements ProductService {
 		Product product = productDao.read(productId);
 
 		List<Photo> photoList = photoDao.readByProductId(productId);
+		
 		String[] photoArr = null;
 		if (photoList.size() > 0) {
 			photoArr = new String[photoList.size()];
 
 			for (int i = 0; i < photoArr.length; i++) {
-				photoArr[i] = photoList.get(i).getPhotoname();
+				String tmp = photoList.get(i).getPhotoname();
+				photoArr[i] = tmp.replaceAll("s_", "");
+				logger.info(photoArr[i]);
 			}
 		}
 
@@ -81,6 +84,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void modify(Product product) throws Exception {
+		logger.info(product.toString());
+		
 		// 날짜 형식 변경
 		StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
 		String auctionstart = st.nextToken() + " " + st.nextToken();
