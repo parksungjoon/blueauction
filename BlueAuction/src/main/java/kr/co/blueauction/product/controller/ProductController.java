@@ -147,6 +147,7 @@ public class ProductController {
 			map.put("keyword", keyword);
 			map.put("list", list);
 			map.put("favorite", favoriteList);
+			map.put("endpage", checkEndPage);
 			
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {

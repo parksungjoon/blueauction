@@ -210,7 +210,7 @@ public class ProductServiceImpl implements ProductService {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
 		
-		if(1 == pageMaker.getEndPage()) { // 1페이지가 마지막 페이지면
+		if(cri.getPage() == pageMaker.getEndPage()) { // 1페이지가 마지막 페이지면
 			check = "yes";
 		}else {
 			check = "no";

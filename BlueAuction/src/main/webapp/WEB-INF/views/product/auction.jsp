@@ -76,8 +76,10 @@
     				dataType : "json",
     				url:"/product/auction/" + type + "/" + smallid,
     				success : function(data){
-    					alert("검색 성공!");
     					var list = data.list;
+    					var endpage = data.endpage;
+      	  				
+        	  			printPageLoader(endpage);
 
     					searchPrint(list);
     					$("#rd-navbar-search-form-input").val(keyword);
@@ -203,9 +205,9 @@
   	  		html +="        </div>";
   	  		
   	  		if(type ==3){
-  	  			html +="        <div class='jjh-finished product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
+  	  			html +="        <div class='jjh-finished product-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></div>";
   	  		}else{
-  	  			html +="        <div class='product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
+  	  			html +="        <div class='product-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></div>";
   	  		}
   	  		
   	  		html +="        <div class='product-title'>";
@@ -271,9 +273,7 @@
       	  		}else{
       	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
       	  		} 
-    	  	}/* else {
-    	  		html +="        <button class='jjh-favoriteButton'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
-    	  	} */
+    	  	}
   
 	  	}
 	  		html +="      </div>";
@@ -299,7 +299,7 @@
 				   st +="         <div class='product-counter-inner'>";
 				   st +="          <div class='countdown jjh-counter jjh-timer' data-time='" + list[i].auctionend + "' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
 				   st +="        </div>";
-				   st +="        <div class='product-image '><a href='product-page.html'><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></a></div>";
+				   st +="        <div class='product-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></div>";
 				   st +="        <div class='product-title'>";
 				   st +="          <h5>" + list[i].name +"</h5>";
 				   st +="        </div>";
@@ -331,7 +331,7 @@
   		 st = "";
   		 
   		 if(data == 'no'){
-  			 st += "<a class='button-blog button button-default-outline jjh-pageLoader'>load more products</a>";
+  			 st += "<a class='button-blog button button-default-outline jjh-pageLoader' href='#' >load more products</a>";
   		 }
   		 
   		 $(".jjh-pageMore").html(st);
@@ -495,9 +495,9 @@
                               </c:choose>
                             </div>
                             <c:choose>
-                              <c:when test="${type == 1 }"><div class="product-image "><a href="product-page.html"><img src="/resources/images/img${product.mainphoto }" alt="" width="331" height="245"/></a></div></c:when>
-                              <c:when test="${type == 2 }"><div class="product-image "><a href="product-page.html"><img src="/resources/images/img${product.mainphoto }" alt="" width="331" height="245"/></a></div></c:when>
-                              <c:when test="${type == 3 }"><div class="jjh-finished product-image"><a href="product-page.html"><img src="/resources/images/img${product.mainphoto }" alt="" width="331" height="245"/></a></div></c:when>
+                              <c:when test="${type == 1 }"><div class="product-image jjh-image"><img src="/resources/images/img${product.mainphoto }" alt="image" /></div></c:when>
+                              <c:when test="${type == 2 }"><div class="product-image jjh-image"><img src="/resources/images/img${product.mainphoto }" alt="image"/></div></c:when>
+                              <c:when test="${type == 3 }"><div class="jjh-finished product-image jjh-image"><img src="/resources/images/img${product.mainphoto }" alt="image" /></div></c:when>
                             </c:choose>
                             <div class="product-title">
                               <h5>${product.name }</h5>
@@ -579,10 +579,7 @@
                                   </c:otherwise>
                                 </c:choose>
                              </c:if>
-                             
-                             <%-- <c:if test="${empty login }">
-                              <button class="jjh-favoriteButton"><img alt="favorite-register" src="/resources/images/empty-heart.png"></button>
-                            </c:if> --%>
+
                             </c:if>
                           </div>
                         </div>
@@ -594,16 +591,16 @@
                </c:choose>
             </div>
                 
+              <span class="jjh-newBox" ><button class="button button-secondary jjh-newButton" type="button" id="registerAction">New Auction</button></span>
+                
                 <c:choose>
                   <c:when test="${endpage eq 'no' }">
-                     <span class="jjh-pageMore"><a class="button-blog button button-default-outline jjh-pageLoader" href="#" >load more products</a></span>
+                     <div class="jjh-pageMore"><a class="button-blog button button-default-outline jjh-pageLoader" href="#" >load more products</a></div>
                   </c:when>
                   <c:otherwise>
                       <div class="jjh-blanck"></div>
                   </c:otherwise>
                 </c:choose>
-                
-                <div class="jjh-newBox" ><button class="button button-secondary jjh-newButton" type="button" id="registerAction">New Auction</button></div>
               <br>
             </div>
           </div>
