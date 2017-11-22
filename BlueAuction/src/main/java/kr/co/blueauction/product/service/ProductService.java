@@ -1,8 +1,11 @@
 package kr.co.blueauction.product.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
+import org.springframework.ui.Model;
 
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
@@ -44,4 +47,10 @@ public interface ProductService {
 	
 	/** 경매 리스트 마지막 페이지인지 여부 조회 */
 	public String checkEndPage(SearchCriteria cri,  int totalCount) throws Exception;
+	
+	/** 중고 상품 리스트 출력 */
+	public Model listUsedItems(Model model) throws Exception;
+	
+	/** 중고 상품 리스트 더 보기 */
+	public Map<String, Object> getMoreList(int page, String keyword) throws Exception;
 }

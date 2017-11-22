@@ -1,6 +1,8 @@
 package kr.co.blueauction.product.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.inject.Inject;
@@ -9,6 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import com.google.gson.Gson;
 
 import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
@@ -212,4 +217,66 @@ public class ProductServiceImpl implements ProductService {
 		
 		return check;
 	}
+	
+	/** 중고 상품 리스트 출력 */
+	@Override
+	public Model listUsedItems(Model model) throws Exception {
+
+		SearchCriteria cri = new SearchCriteria();
+		cri.setCategory(1);
+		cri.setPerPageNum(9);
+		
+		List<Product> list = productDao.listByCri(cri, 0);
+		
+		int count = productDao.listBySearchCount(cri, 0);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(count);
+		
+		for (Product product : list) {
+			product.setMainphoto(product.getMainphoto().replaceAll("s_", ""));
+		}
+		
+		Gson gson = new Gson();
+		String jsonlist = gson.toJson(list);
+		
+		model.addAttribute("list", jsonlist);
+		model.addAttribute("count", count);
+			
+		return model;
+	}
+	
+	/** 중고상품 리스트 더 보기 */
+	@Override
+	public Map<String, Object> getMoreList(int page, String keyword) throws Exception {
+		
+		SearchCriteria cri = new SearchCriteria();
+		cri.setCategory(1);
+		cri.setPerPageNum(page);
+		cri.setPage(1);
+		
+		if(keyword != null) {
+			cri.setKeyword(keyword);
+		}
+		
+		List<Product> list = productDao.listByCri(cri, 0);
+		for (Product product : list) {
+		}
+		int count = productDao.listBySearchCount(cri, 0);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(count);
+		
+		for (Product product : list) {
+			product.setMainphoto(product.getMainphoto().replaceAll("s_", ""));
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("list", list);
+		resultMap.put("count", count);
+		
+		return resultMap;
+	};
 }
