@@ -65,7 +65,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("dto") LoginDTO dto, HttpServletRequest req) {
-		logger.info("/login 실행");
+		logger.info("/member/login 실행");
 		HttpSession session=req.getSession();
 		Object obj=session.getAttribute("login");
 	
@@ -118,7 +118,7 @@ public class MemberController {
 			}
 		}
 		logger.info("로그아웃되었습니다");
-		return "redirect:/member/";	
+		return "redirect:/";	
 		
 	}
 	
@@ -167,11 +167,11 @@ public class MemberController {
 	}
 	
 
-	@RequestMapping(value ="/member/register", method = RequestMethod.GET)
+	@RequestMapping(value ="/register", method = RequestMethod.GET)
 	public void memberRegistGET(@ModelAttribute("member") Member member,HttpSession session) {
 	}
 
-	@RequestMapping(value ="/member/register", method = RequestMethod.POST)
+	@RequestMapping(value ="/register", method = RequestMethod.POST)
 	public void memberRegistPOST(@ModelAttribute("member") Member member, HttpSession session, HttpServletRequest request) throws Exception{
 		service.insertMember(member);
 		
