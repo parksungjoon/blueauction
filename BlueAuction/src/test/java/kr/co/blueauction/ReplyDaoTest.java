@@ -62,19 +62,7 @@ public class ReplyDaoTest {
 		}
 	}
 	
-//	@Test
-	public void listPageTeset() {
-		SearchCriteria searchCriteria = new SearchCriteria();
-		searchCriteria.setPage(20);
-		try {
-			List<Reply> list = replyDao.listPage(searchCriteria, 69);
-			for (Reply reply : list) {
-				logger.info(reply.toString());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 //	@Test
 	public void testCount() {

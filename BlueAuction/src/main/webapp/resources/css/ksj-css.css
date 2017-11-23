@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 div.detail dl.nv3{
-	width:80%;
+	width:100%;
 	/* border-bottom:1px solid #D0D0D0; */
 	display:table;
 }
@@ -34,7 +34,7 @@ dl.nv3.present{
 }
 
 div.detail dl.nv3 dd.redprice{
-	width:80%;
+	width:100%;
 	clear:both;
 }
 

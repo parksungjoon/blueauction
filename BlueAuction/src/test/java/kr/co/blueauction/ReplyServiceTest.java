@@ -63,19 +63,7 @@ public class ReplyServiceTest {
 		}
 	}
 	
-//	@Test
-	/*public void listPageTeset() {
-		SearchCriteria searchCriteria = new SearchCriteria();
-		searchCriteria.setPage(30);
-		try {
-			List<Reply> list = replyService.listPage(searchCriteria, 69);
-			for (Reply reply : list) {
-				logger.info("리스트 출력  :  " + reply.toString());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
+
 	
 //	@Test
 	public void testCount() {

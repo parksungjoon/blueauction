@@ -139,7 +139,6 @@
       
     </script>
     
-    <!--   <script>$('.date').datepicker({ dateFormat: 'yyyy-mm-dd' }).val();</script> -->
   </head>
   <body>
     <%-- Page preloader--%>
@@ -167,7 +166,7 @@
           <div class="range range-50 range-md-center">
             <div class="cell-md-11 cell-lg-10 cell-xl-6">
                 <!-- Tab panes-->
-                    <form class="rd-mailform text-left" id="modifyForm" method="post" action="/product/modify/${product.productId}">
+                    <form class="rd-mailform text-left" id="modifyForm" method="post" action="/product/auction/modify/${product.productId}">
                     <input type="hidden" name="categoryId" value="2">
                     <input type="hidden" name="smallId" value="${product.smallid}">
                     

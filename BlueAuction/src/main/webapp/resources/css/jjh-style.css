@@ -113,7 +113,7 @@
 }
 
 .jjh-pageLoader{
-	margin-right:510px;
+	margin-left:515px;
 }
 
 .jjh-blanck {
@@ -144,4 +144,9 @@
 .jjh-emptyList {
 	margin-left: 385px;
 	color: rgb(255, 51, 102);
+}
+
+.jjh-image {
+	max-width: 331;
+	max-height: 245;
 }
