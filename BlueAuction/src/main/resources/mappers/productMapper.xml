@@ -180,6 +180,9 @@
 		<if test="cri.smallid != 0">
 		and smallid = #{cri.smallid}
 		</if>
+		<if test="cri.keyword != null">
+         AND name LIKE CONCAT('%', #{cri.keyword}, '%')
+     	</if>
 		<if test="type != 0">
 			<if test="type == 1">
 				AND auctionstate = 'BEFORE'

@@ -49,7 +49,6 @@
     
     <script type="text/javascript">
     
-    var count = ${count};
     var page = 9;
     var keyword = null;
     
@@ -57,17 +56,7 @@
     	var list = ${list};
 	    printList(list);
 	    
-	    function goDetail() {
-			$(document).on("click", ".godetail", function(event) {
-				
-				event.preventDefault();
-				
-				
-				
-			})
-		}
 	});
-    
     
     /* 중고물품 리스트 출력 */
     function printList(list) {
@@ -85,7 +74,13 @@
 			
     	page += 9;
     	
-  		$.ajax({
+  		getMoreList();
+	  		
+	});
+    
+    /* 리스트 불러오기 */
+    function getMoreList() {
+    	$.ajax({
   			type: "post",
   			data : {page:page, keyword:keyword},
   			dataType : "json ",
@@ -93,14 +88,24 @@
   			success : function(data){
   				printList(data.list)
   				var productCount = $(".template-list").size();
-  				if (productCount >= count) {
+  				$("#btn-load").show();
+  				if (productCount >= data.count) {
 					$("#btn-load").hide();
 				}
   			} 			
   		});
-	  		
-	});
+	}
+	
     
+    /* 검색 */
+	$(document).on("click", ".button-secondary", function() {
+		
+		keyword = $("#rd-navbar-search-form-input").val();
+		page = 9;
+		getMoreList();
+		
+	})
+	
     </script>
     
   </head>
