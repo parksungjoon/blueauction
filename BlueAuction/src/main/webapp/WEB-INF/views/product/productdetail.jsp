@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
     
     <%-- Stylesheets --%>
     <link rel="stylesheet" href="/resources/css/jjh-style.css">
@@ -179,6 +178,7 @@
 						</span> 원  </div>
 						<div class="point"><span class="sf fc6">  시작가   <span class="num_thm" id="basicPrice">${product.basicprice}</span> 원 </span></div>
 					</dd>
+					<c:if test='${!((product.auctionstate).equals("BEFORE"))}'>
 					<dt class="redprice">입찰수</dt ><dd class="redprice" id="bidCount">
 					<c:choose>
 							<c:when test="${bidList == null}">
@@ -190,6 +190,8 @@
 						</c:choose>
 						회
 					</dd>
+					</c:if>
+					
 					<c:choose>
 						<c:when test='${(product.auctionstate).equals("BEFORE")}'>
 							<dt class="redprice">시작시간</dt >
