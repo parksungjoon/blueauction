@@ -67,7 +67,7 @@ public class ReplyDaoTest {
 		SearchCriteria searchCriteria = new SearchCriteria();
 		searchCriteria.setPage(20);
 		try {
-			List<Reply> list = replyDao.listPage(searchCriteria);
+			List<Reply> list = replyDao.listPage(searchCriteria, 69);
 			for (Reply reply : list) {
 				logger.info(reply.toString());
 			}
