@@ -131,8 +131,7 @@
    						list[i].levelNo *= 30;
     					$("#reply-list").append(template(list[i]));
     				}; 
-        			
-        		
+    				
         		$(".reply-container").last().css("border-bottom", "1px solid gray");
         		$("#productId").attr("value", productId);
         		
@@ -148,13 +147,16 @@
         			}
         			
 				};
-        		
-        		printPageNum(data.pageMaker)
+				
+				if (data.pageMaker.totalCount <= 10) {
+	    		} else {
+	    			printPageNum(data.pageMaker)
+	    		};
         		
     		});  
         		
     	};
-		
+    	
 		/* 하단 페이지 번호 출력 */
 		function printPageNum(pageMaker) {
 			
@@ -258,7 +260,6 @@
   <body>
   <%-- Page preloader--%>
     <jsp:include page="/WEB-INF/views/include/pageloader.jsp"/>
-    
     <%-- Page--%>
     <div class="page">
       <%-- page Header START --%>
@@ -371,13 +372,13 @@
                 <c:when test="${not empty login }">
                   <div class="section-lg qna-write">
                     <p class="h3-alternate">문의 작성</p>
-                    <form class="rd-mailform" action="">
+                    <form action="/product/used/modify/${product.productId}">
                       <div class="range range-20">
                         <div class="cell-xs-12">
                           <div class="form-wrap form-wrap-validation">
                             <input id="memberId" type="hidden" name="memberId" value="${login.memberId}">
                             <input id="productId" type="hidden" name="productId">
-                            <textarea class="form-input" id="form-comment-message" name="content" data-constraints="@Required"></textarea>
+                            <textarea class="form-input" id="form-comment-message" name="content"></textarea>
                           </div>
                         </div>
                         <div class="cell-xs-12 offset-custom-1">
@@ -389,7 +390,7 @@
                           <div class="form-button btn-function">
                             <c:choose>
                               <c:when test="${login.memberId == product.seller }">
-                                <button class="button button-secondary modify" type="button">Modify</button>
+                                <button class="button button-secondary modify" type="submit">Modify</button>
                                 <button class="button button-secondary back" type="button">Go Back</button>
                                 <button class="button button-secondary delete" type="button">Delete</button>
                               </c:when>

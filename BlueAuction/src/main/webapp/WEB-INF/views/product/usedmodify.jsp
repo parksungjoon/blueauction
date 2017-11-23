@@ -5,7 +5,7 @@
 <html class="wide wow-animation" lang="en">
   <head>
     <!-- Site Title-->
-    <title>Register</title>
+    <title>Modify</title>
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,6 +30,7 @@
     
     
     <script id="template" type="text/x-handlebars-template">
+	{{#each .}}
 		<li class="attachment">
   			<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
   			<div class="mailbox-attachment-info">
@@ -38,7 +39,8 @@
      		class="btn btn-default btn-xs pull-right delbtn">x<i class="fa fa-fw fa-remove"></i></a>
   			</span>
   			</div>
-		</li>                
+		</li>    
+	{{/each}}              
   </script>
     
     <script type="text/javascript">
@@ -113,6 +115,18 @@
 			$(this).parent().parent().remove();
 		 	
 		});
+		
+		/* 첨부파일 출력 */
+		function printAttachment() {
+			
+			var product = ${product};
+			
+			var html = template(product.photo);
+		        
+		    $(".uploadedList").append(html);
+		    
+		}
+		
 		
 		/* 첨부파일 정보 불러오기 */
 		/* $.getJSON("/sboard/getAttach/"+bno,function(list){

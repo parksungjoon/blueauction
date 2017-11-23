@@ -1,11 +1,16 @@
 package kr.co.blueauction.reply.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.reply.dao.ReplyDao;
 import kr.co.blueauction.reply.domain.Reply;
@@ -60,8 +65,25 @@ public class ReplyServiceImpl implements ReplyService {
 	
 //	댓글 목록 출력 및 페이징 처리
 	@Override
-	public List<Reply> listPage(SearchCriteria cri, int productId) throws Exception {
-		return replyDao.listPage(cri, productId);
+	public Map<String, Object> listPage(int productId, int page) throws Exception {
+		
+		SearchCriteria cri = new SearchCriteria();
+		cri.setPage(page);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		Map<String, Object> pagingMap = new HashMap<String, Object>();
+		
+			int totalCount = replyDao.count(productId);
+			pageMaker.setTotalCount(totalCount);
+			
+			List<Reply> list = replyDao.listPage(cri, productId);
+			pagingMap.put("list", list);
+			
+			pagingMap.put("pageMaker", pageMaker);
+			
+		return pagingMap;
 	}
 	
 //	전체 댓글 수 계산
