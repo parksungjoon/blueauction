@@ -7,8 +7,6 @@
 
 
 <header class="section page-header">
-
-
 	<!-- RD Navbar-->
 	<div class="rd-navbar-wrap rd-navbar-shop-header">
 		<nav class="rd-navbar" data-layout="rd-navbar-fixed"
@@ -24,104 +22,27 @@
 				<div class="rd-navbar-nav-wrap">
 					<!-- RD Navbar Nav-->
 					<ul class="rd-navbar-nav">
-						<li class="active"><a href="/WEB-INF/views/templates/index.html">Home</a></li>
-						<li><a href="/WEB-INF/views/templates/about-us.html">About Us</a></li>
-						<li><a href="#">Services</a> <!-- RD Navbar Dropdown-->
+						<li class="active"><a href="/">Home</a></li>
+						<li><a href="/product/used">중고상품</a></li>
+						<li><a href="/prduct/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
 							<ul class="rd-navbar-dropdown">
-								<li><a href="/WEB-INF/views/templates/services.html">Services</a></li>
-								<li><a href="/WEB-INF/views/templates/single-service.html">Single Service</a></li>
+								<li><a href="/product/auction/1/0">시작전 경매</a></li>
+								<li><a href="/product/auction/2/0">진행중 경매</a></li>
+								<li><a href="/product/auction/3/0">마감된 경매</a></li>
 							</ul></li>
-						<li><a href="#">Gallery</a> <!-- RD Navbar Dropdown-->
-							<ul class="rd-navbar-dropdown">
-								<li><a href="/WEB-INF/views/templates/grid-album-gallery.html">Grid Album
-										Gallery</a></li>
-								<li><a href="/WEB-INF/views/templates/fullwidth-gallery-inside-title.html">Fullwidth
-										Gallery Inside Title</a></li>
-								<li><a href="/WEB-INF/views/templates/grid-gallery-outside-title.html">Grid
-										Gallery Outside Title</a></li>
-								<li><a href="/WEB-INF/views/templates/masonry-gallery-outside-title.html">Masonry
-										Gallery Outside Title</a></li>
-							</ul></li>
-						<li><a href="#">Blog</a> <!-- RD Navbar Dropdown-->
-							<ul class="rd-navbar-dropdown">
-								<li><a href="/WEB-INF/views/templates/classic-blog.html">Classic Blog</a></li>
-								<li><a href="/WEB-INF/views/templates/grid-blog.html">Grid Blog</a></li>
-								<li><a href="/WEB-INF/views/templates/masonry-blog.html">Masonry Blog</a></li>
-								<li><a href="/WEB-INF/views/templates/modern-blog.html">Modern Blog</a></li>
-								<li><a href="/WEB-INF/views/templates/audio-post.html">Audio Post</a></li>
-								<li><a href="/WEB-INF/views/templates/image-post.html">Image Post</a></li>
-								<li><a href="/WEB-INF/views/templates/single-post.html">Single Post</a></li>
-								<li><a href="/WEB-INF/views/templates/video-post.html">Video Post</a></li>
-							</ul></li>
-						<li><a href="#">Shop</a> <!-- RD Navbar Dropdown-->
-							<ul class="rd-navbar-dropdown">
-								<li><a href="/WEB-INF/views/templates/checkout.html">Checkout</a></li>
-								<li><a href="/WEB-INF/views/templates/product-page.html">Product Page</a></li>
-								<li><a href="/WEB-INF/views/templates/shop-3-columns-layout.html">Shop 3 Columns
-										Layout</a></li>
-								<li><a href="/WEB-INF/views/templates/shopping-cart.html">Shopping Cart</a></li>
-							</ul></li>
-						<li><a href="#">Pages</a> <!-- RD Navbar Megamenu-->
-							<ul class="rd-navbar-megamenu rd-navbar-megamenu-banner">
-								<li><img src="/resources/images/accordions-1-570x600.jpg"
-									alt="" width="570" height="600" /></li>
-								<li>
-									<ul class="rd-megamenu-list">
-										<li><a href="/WEB-INF/views/templates/404-page.html">404 Page</a></li>
-										<li><a href="/WEB-INF/views/templates/503-page.html">503 Page</a></li>
-										<li><a href="/WEB-INF/views/templates/careers.html">Careers</a></li>
-										<li><a href="/WEB-INF/views/templates/single-job.html">Single Job</a></li>
-										<li><a href="/WEB-INF/views/templates/coming-soon.html">Coming Soon</a></li>
-										<li><a href="/WEB-INF/views/templates/pricing.html">Pricing</a></li>
-										<li><a href="/WEB-INF/views/templates/tooltips.html">Tooltips</a></li>
-									</ul>
-								</li>
-								<li>
-									<ul class="rd-megamenu-list">
-										<li><a href="/WEB-INF/views/templates/our-history.html">Our History</a></li>
-										<li><a href="/WEB-INF/views/templates/login-page.html">Login Page</a></li>
-										<li><a href="/WEB-INF/views/templates/registration-page.html">Registration
-												Page</a></li>
-										<li><a href="/WEB-INF/views/templates/search-results.html">Search Results</a></li>
-										<li><a href="/WEB-INF/views/templates/under-construction.html">Under
-												Construction</a></li>
-										<li><a href="/WEB-INF/views/templates/privacy-policy.html">Privacy policy</a></li>
-									</ul>
-								</li>
-								<li>
-									<ul class="rd-megamenu-list">
-										<li><a href="/WEB-INF/views/templates/accordions.html">Accordions</a></li>
-										<li><a href="/WEB-INF/views/templates/countdown.html">Countdown</a></li>
-										<li><a href="/WEB-INF/views/templates/forms.html">Forms</a></li>
-										<li><a href="/WEB-INF/views/templates/grid-system.html">Grid System</a></li>
-										<li><a href="/WEB-INF/views/templates/tables.html">Tables</a></li>
-										<li><a href="/WEB-INF/views/templates/tabs.html">Tabs</a></li>
-										<li><a href="/WEB-INF/views/templates/typography.html">Typography</a></li>
-										<li><a href="/WEB-INF/views/templates/radials.html">Radials</a></li>
-									</ul>
-								</li>
-							</ul></li>
-						<li><a href="contacts.html">Contacts</a></li>
-            
-             
-              <c:if test="${not empty login}">
-               <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
-              <li><a href="/member/mypage"> ${login.memberId}</a>님이 로그인 하셨습니다<li>
-                <li><a href="/member/logout">로그아웃</a></li>
-                <li><span class="icon icon-md-smaller icon-primary mdi mdi-email"><span class="label label-success" id="counter">4</span>
-                </span></li>
-                
-              </c:if>
-              
-              <c:if test="${empty login}">
-              <li><a href="/member/login">Login</a></li>
-              <li><a href="/member/register">Register</a></li>
-            
-              </c:if>
-              
-              
-              
-             
+            			
+				              <c:if test="${not empty login}">
+				               <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
+				              	<li><a href="/member/mypage"> ${login.memberId}</a>님</li>
+				                <li><a href="/member/logout">Logout</a></li>
+				                <li><span class="icon icon-md-smaller ksj-icon-primary mdi mdi-email"><span class="badge badge-primary" id="counter">4</span>
+				                </span></li>
+				              </c:if>
+				              
+				              <c:if test="${empty login}">
+				              <li><a href="/member/login">Login</a></li>
+				              <li><a href="/member/register">Join Us</a></li>
+				              </c:if>
 					</ul>
 				</div>
 			</div>
