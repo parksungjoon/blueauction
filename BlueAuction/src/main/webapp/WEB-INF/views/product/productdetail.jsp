@@ -30,7 +30,6 @@
 		 $("#modifyBtn").click(function(event) {
 		 	event.preventDefault();
 		 	var productId = formObj.attr("action");
-		 	/* alert("수정 : " + formObj.attr("action")); */
 		 	
 		 	formObj.attr("action", "/product/modifypage/"+productId);
 	    	formObj.attr("method", "post");
@@ -46,6 +45,24 @@
 			formObj.attr("method", "post");
 			formObj.submit();
 			
+		});
+		 
+		$("#goListBtn").click(function(event){
+			event.preventDefault();
+			
+			 window.history.back();
+			
+			/* var type = $("input[name=page]")[0].attr('value');
+			var smallid = $("input[name=smallid]")[0].attr('value');
+			
+			formObj.attr("action", "/product/auction/"+type+"/"+smallid);    
+			formObj.attr("method", "GET");
+			
+			alert("type : " + type);
+			alert("smallid : " + smallid);
+			alert("formObj : " + formObj.attr("action")); */
+			
+			/* formObj.submit(); */
 		});
 	      
 	  });
@@ -250,14 +267,15 @@
         <c:if test="${(login.memberId).equals(product.seller)}">
         	<c:if test='${(product.auctionstate).equals("BEFORE")}'>
         		<form role="form" action="${productId}" method="post" id="modifyPage">
-					<input type='hidden' name='page' value="${page}"> 
+				 	<%-- <input type='hidden' name='page' value="${page}"> 
 					<input type='hidden' name='type' value="${type}">
 					<input type='hidden' name='keyword' value="${keyword}">
-					<input type='hidden' name='smallid' value="${smallid}">
+					<input type='hidden' name='smallid' value="${smallid}"> --%>
 				
 		        <div class="shell"> 
 		          <div class="range range-xs-right">
 		            <div class="cell-sm-10 cell-lg-4">
+		            	<button type="submit" class="btn" id="goListBtn">GO LIST</button>
 			            <button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
 						<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
 		            </div>

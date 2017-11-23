@@ -169,10 +169,8 @@ public class ProductController {
 	 * @return view String 값
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/auction/readpage/{productId}", method= RequestMethod.POST)
-	public String readPage(@PathVariable("productId") int productId, Model model, HttpSession session) throws Exception {
-		Member member = (Member) session.getAttribute("login");
-		model.addAttribute("login", member);
+	@RequestMapping(value="/auction/readpage/{productId}", method= RequestMethod.GET)
+	public String readPage(@PathVariable("productId") int productId, Model model) throws Exception {
 		
 		Product	product = productService.read(productId); 	
 		model.addAttribute(product);
@@ -194,7 +192,7 @@ public class ProductController {
 	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
 		Product product = productService.read(productId);
 		model.addAttribute("product", product);
-			
+		
 		return "/product/productModify";
 	}
 	

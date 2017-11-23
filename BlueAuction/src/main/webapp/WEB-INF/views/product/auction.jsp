@@ -111,16 +111,16 @@
     	});
    		
    		/** 상세보기 - hidden으로 넘기기 */
-   		$(document).on("click", ".readPage", function(event){
+   	/* 	$(document).on("click", ".readPage", function(event){
    			event.preventDefault();
    			
    			var href = $(this).attr("href");
    			
    			fromData(href);
-   		});
+   		}); */
    		
    		/** 새로운 경매 등록 */
-    	$("#registerAction").click(function () {
+    	/* $("#registerAction").click(function () {
     		var form = document.createElement("form");
             form.setAttribute("action", "/product/auction/register");    
             form.setAttribute("method", "get");
@@ -128,7 +128,7 @@
             document.body.appendChild(form);
             form.submit();
 
-		});
+		}); */
    		
    		function fromData(href){
    			var form = document.createElement("form");
