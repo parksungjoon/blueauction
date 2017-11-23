@@ -23,29 +23,31 @@
     
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
+	
 	 $(document).ready(function(){
+		 
 		 var formObj = $("#modifyPage");
-		 console.log(formObj.attr("action"));
+		 $("#removeBtn").click(function(event) {
+				event.preventDefault();
+				var productId = formObj.attr("action");
+				
+				formObj.attr("action", "/product/auction/remove/"+productId);    
+				formObj.attr("method", "post");
+				formObj.submit();
+				
+			});
+		 
 		
 		 $("#modifyBtn").click(function(event) {
 		 	event.preventDefault();
 		 	var productId = formObj.attr("action");
 		 	
-		 	formObj.attr("action", "/product/modifypage/"+productId);
+		 	formObj.attr("action", "/product/auction/modifypage/"+productId);
 	    	formObj.attr("method", "post");
 	    	formObj.submit();
 		 });
 		 
-		 $("#removeBtn").click(function(event) {
-			event.preventDefault();
-			
-			var productId = formObj.attr("action");
-			
-			formObj.attr("action", "/product/remove/"+productId);    
-			formObj.attr("method", "post");
-			formObj.submit();
-			
-		});
+		
 		 
 		$("#goListBtn").click(function(event){
 			event.preventDefault();
@@ -101,7 +103,7 @@
           <div class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
           
           	<!-- 상품 이미지 START -->
-            <div class="cell-md-4 cell-lg-5 cell-xl-4">
+            <div class="cell-md-5 cell-lg-5 cell-xl-5">
               <div class="product-single-preview">
                 <div class="unit unit-sm-horizontal unit-sm-middle unit-spacing-md-midle unit--inverse unit-sm">
                   <div class="unit-body">
@@ -150,7 +152,7 @@
             </div>
             <!-- 상품 이미지 END -->
             
-            <div class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
+            <div class="cell-md-5 cell-lg-4 cell-xl-4 text-center text-md-left">
               <div class="heading-5" id="smallName">
 				<c:choose>
 					<c:when test="${product.smallid == 1 }"> 의류 </c:when>
