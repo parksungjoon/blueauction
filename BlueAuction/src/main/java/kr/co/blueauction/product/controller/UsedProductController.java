@@ -38,7 +38,7 @@ import kr.co.blueauction.product.service.ProductService;
 import kr.co.blueauction.product.util.UploadFileUtils;
 
 @Controller
-@RequestMapping("/product/*")
+//@RequestMapping("/product/*")
 public class UsedProductController {
 
 	Logger logger = LoggerFactory.getLogger(UsedProductController.class);

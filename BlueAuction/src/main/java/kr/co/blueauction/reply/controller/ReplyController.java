@@ -90,29 +90,12 @@ public class ReplyController {
 		
 		ResponseEntity<Map<String, Object>> entity = null;
 		
-		SearchCriteria cri = new SearchCriteria();
-		cri.setPage(page);
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		
-		Map<String, Object> pagingMap = new HashMap<String, Object>();
-		
 		try {
-			
-			int totalCount = replyService.count(productId);
-			pageMaker.setTotalCount(totalCount);
-			
-			List<Reply> list = replyService.listPage(cri, productId);
-			pagingMap.put("list", list);
-			
-			pagingMap.put("pageMaker", pageMaker);
-			
-			entity = new ResponseEntity<Map<String,Object>>(pagingMap, HttpStatus.OK);
-			
+			Map<String, Object> map = replyService.listPage(productId, page);
+			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

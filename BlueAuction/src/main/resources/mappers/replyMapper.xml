@@ -7,32 +7,17 @@
 
 	<!-- 댓글 등록 -->
 	<insert id="create">
-	
-	<selectKey keyProperty="replyId" resultType="int" order="BEFORE">
-		SELECT Max(reply_id)+1 
-		FROM   reply
-	</selectKey>
-	
 		INSERT INTO reply
-             		(reply_Id,
-             		member_id,
+             		(member_id,
              		product_id, 
              		content, 
              		groupno, 
              		levelno, 
              		orderno)
-		VALUES      (${replyId},
-					#{memberId}, 
+		VALUES      (#{memberId}, 
         		    #{productId}, 
              		#{content},
-             		<choose>
-             			<when test="groupNo == 0">
-		             		${replyId},
-             			</when>
-             			<otherwise>
-             				#{groupNo},
-             			</otherwise>
-             		</choose>
+       				#{groupNo},
              		#{levelNo}, 
              		#{orderNo} )
 	</insert>

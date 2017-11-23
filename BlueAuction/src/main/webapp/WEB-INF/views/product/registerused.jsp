@@ -102,10 +102,10 @@
                             <label class="form-label-outside" for="forms-3-city">Small Category</label>
                               <div class="form-wrap box-width-1">
                                 <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" name="smallid">
-                                  <option value="1" selected="selected">Clothes</option>
-                                  <option value="2">Sundries</option>
-                                  <option value="3">Ticket</option>
-                                  <option value="4">Electronics</option>
+                                  <option value="1" selected="selected">의류</option>
+                                  <option value="2">잡화</option>
+                                  <option value="3">티켓</option>
+                                  <option value="4">가전제품</option>
                                 </select>
                               </div>
                           </div>
@@ -139,8 +139,8 @@
                             <label class="form-label-outside" for="forms-3-city">Delivery Type</label>
                               <div class="form-wrap box-width-1">
                                 <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" name="deliverytype">
-                                  <option value="직거래" selected="selected">Direct Dealing</option>
-                                  <option value="택배">Parcel Service</option>
+                                  <option value="직거래" selected="selected">직거래</option>
+                                  <option value="택배">택배</option>
                                 </select>
                               </div>
                           </div>

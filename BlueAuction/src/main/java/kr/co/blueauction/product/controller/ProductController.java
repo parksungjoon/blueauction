@@ -169,10 +169,8 @@ public class ProductController {
 	 * @return view String 값
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/auction/readpage/{productId}", method= RequestMethod.POST)
-	public String readPage(@PathVariable("productId") int productId, Model model, HttpSession session) throws Exception {
-		Member member = (Member) session.getAttribute("login");
-		model.addAttribute("login", member);
+	@RequestMapping(value="/auction/readpage/{productId}", method= RequestMethod.GET)
+	public String readPage(@PathVariable("productId") int productId, Model model) throws Exception {
 		
 		Product	product = productService.read(productId); 	
 		model.addAttribute(product);
@@ -190,11 +188,11 @@ public class ProductController {
 	 * @return view String 값
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/modifypage/{productId}", method= RequestMethod.POST)
+	@RequestMapping(value="/auction/modifypage/{productId}", method= RequestMethod.POST)
 	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
 		Product product = productService.read(productId);
 		model.addAttribute("product", product);
-			
+		
 		return "/product/productModify";
 	}
 	
@@ -207,7 +205,7 @@ public class ProductController {
 	 * @return view String 값
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/modify/{productId}", method= RequestMethod.POST)
+	@RequestMapping(value="/auction/modify/{productId}", method= RequestMethod.POST)
 	public String modifyPagePUT(@PathVariable("productId") int productId, Product product, Model model) throws Exception {
 		
 		// 사진 및 수정 데이터 저장
@@ -230,12 +228,12 @@ public class ProductController {
 	 * @return view String 값
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/remove/{productId}", method= RequestMethod.POST)
-	public String remove(@PathVariable("productId") int productId, Model model, HttpSession session) throws Exception {
+	@RequestMapping(value="/auction/remove/{productId}", method= RequestMethod.POST)
+	public String remove(@PathVariable("productId")int productId, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
 		productService.delete(productId);
 		
 		Map<String, Object> map = listGet(1, 0, session);
-		model.addAllAttributes(map);
+		redirectAttributes.addFlashAttribute(map);
 		
 		return "redirect:/product/auction/1/0";
 	}
@@ -264,17 +262,12 @@ public class ProductController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "auction/register", method = RequestMethod.POST)
-	public String registerPOST(Model model, HttpSession session, Product product,RedirectAttributes redirectAttributes)throws Exception{
+	public String registerPOST(Model model, HttpSession session, Product product, RedirectAttributes redirectAttributes)throws Exception{
 		productService.create(product);
 		
 		Map<String, Object> map = listGet(1, product.getSmallid(), session);
 		
-		model.addAttribute("endpage", map.get("endpage"));
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("type", map.get("type"));
-		model.addAttribute("smallid", map.get("smallid"));
-		model.addAttribute("favorite", map.get("favorite"));
-		/*redirectAttributes.addAttribute(model.asMap());*/
+		redirectAttributes.addFlashAttribute(map);
 		
 		return "redirect:/product/auction/1/"+product.getSmallid()+"";
 	}

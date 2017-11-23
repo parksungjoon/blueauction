@@ -1,6 +1,7 @@
 package kr.co.blueauction.reply.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.reply.domain.Reply;
@@ -17,7 +18,7 @@ public interface ReplyService {
 	public void delete(int replyId) throws Exception;
 	
 //	댓글 목록 출력 및 페이징 처리
-	public List<Reply> listPage(SearchCriteria cri, int productId) throws Exception;
+	public Map<String, Object> listPage(int productId, int page) throws Exception;
 	
 //	전체 댓글 수 계산
 	public int count(int productId) throws Exception;
