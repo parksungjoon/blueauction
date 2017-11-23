@@ -57,6 +57,17 @@
 		GROUP  BY b.member_id 
 		]]> 
 	</select>
+	
+	<select id="winningList" resultType="bid">
+		select bid_id, product_id, member_id, max(bidprice) from bid group by product_id
+	</select>
+	
+	<update id="updateWinning" parameterType="map">
+		update bid set winning='Y' where bid_id in
+		<foreach collection="winningList" item="winner" separator="," open="(" close=")">
+			#{winner.bidId}
+		</foreach>
+	</update>
 
 
 </mapper>

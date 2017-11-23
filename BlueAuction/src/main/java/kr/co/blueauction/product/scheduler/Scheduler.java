@@ -1,6 +1,7 @@
 package kr.co.blueauction.product.scheduler;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -8,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import kr.co.blueauction.bid.domain.Bid;
+import kr.co.blueauction.bid.service.BidService;
 import kr.co.blueauction.product.service.ProductService;
 
 /**
@@ -22,6 +25,9 @@ public class Scheduler {
 	@Inject
 	private ProductService productService;
 	
+	@Inject
+	private BidService bidService;
+	
 	private Logger logger = Logger.getLogger(Scheduler.class);
 	
 	
@@ -31,6 +37,19 @@ public class Scheduler {
 		try {
 			logger.info("현재시간: " + (new Date()).toString() + " 에 auctionState 실행");
 			productService.updateAuctionsatate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Scheduled(cron = "0 30 * * * *")
+	public void winningState() {
+		try {
+			logger.info("현재시간: " + (new Date()).toString() + " 에 winningState 실행");
+			List<Bid> winningList=bidService.selectWinningList();
+			logger.info(winningList);
+			bidService.updateWinning(winningList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -192,9 +192,14 @@
 				</dl> 
 				
 				<c:if test='${(product.auctionstate).equals("DOING")}'>
-				  <a class="button button-xs button-secondary" href="#">입찰하기</a>
+				  <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a>
 				</c:if>
-				
+                <!-- TEST 하시려면 푸세요. 대신 제가 서버를 켜야합니다. -->
+				<!-- <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a> -->
+                <c:if test="${not empty login }">
+                <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
+                <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
+                </c:if>
 				<c:if test='${(product.auctionstate).equals("AFTER")}'>
 					<button class="button button-xs btn" disabled="disabled">종료</button>
 				</c:if>
@@ -234,6 +239,9 @@
             </div>
           </div>
         </div>
+        <!-- 테스트 하시려면 자신의 아이피를 입력하세요. -->
+        <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe>
+       <iframe id='child' src='http://192.168.0.78:7777/bid/?productId=${productId}&memberId=${login.memberId}' width=100%; frameborder='0' style="height:1000px;"></iframe> --%>
         <!-- Hover Row Table (입찰 리스트) END --> 
         
         <div class="shell">
@@ -283,5 +291,114 @@
     <%-- Javascript--%>
     <script src="/resources/js/core.min.js"></script>
     <script src="/resources/js/script.js"></script>
+    <div id="bidModal" class="modal modal-primary fade" role="dialog">
+      <div class="modal-dialog">
+    <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">입찰하기</h4>
+          </div>
+        <div class="modal-body" data-rno>
+          <p>최고가<span id='maxPrice'>${bidList.get(0).bidprice}</span></p>
+          <p><input type="hidden" id="memberId" class="form-control" value="${login.memberId}"></p>
+          <p><input type="hidden" id="productId" class="form-control" value="${product.productId}"></p>
+          <p><input type="text" id="bidprice" class="form-control"></p>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="bid">입찰</button>
+        </div>
+        </div>
+      </div>
+    </div>
+
+<div id="winnerModal" class="modal modal-primary fade" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">낙찰!!</h4>
+      </div>
+      <div class="modal-body" data-rno>
+        <span>낙찰 되셨습니다. 확인을 누르면 결재페이지로 이동합니다.</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="favoriteModal" class="modal modal-primary fade" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">10분전 알림</h4>
+      </div>
+      <div class="modal-body" data-rno>
+        즐겨찾기하신 <span id='favorite'></span>번 상품에 대한 경매가 10분후 시작됩니다.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">확인</button>
+      </div>
+    </div>
+  </div>
+</div> 
+<script>
+function chatting() {
+  window.open("http://192.168.78:7777/chat?productId=${product.productId}&memberId=${login.memberId}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=650,height=700,left=0,top=0' );
+}
+function noteSend(){
+  window.open("/note/${product.seller}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=650,height=800,left=0,top=0' );  
+}
+</script>
+<script>
+//메시지 수신 받는 eventListener 등록
+window.addEventListener( 'message', receiveMsgFromChild );
+ 
+// 자식으로부터 메시지 수신
+function receiveMsgFromChild( e ) {
+    console.log( '자식으로부터 받은 메시지 ', e.data );
+    if(e.data=='openModal'){
+      openModal();
+    }else if(e.data.maxprice!=null || e.data.maxprice!=undefined){
+      console.log('자식으로부터 받은 최대값'+e.data.maxprice)
+      $('#maxPrice').html(e.data.maxprice);
+    }else if(e.data.title=='favorite'){
+    	console.log('자식으로부터 받은 즐겨찾기 리스트'+e.data.list);
+    	$('#favorite').html(e.data.list);
+    	$('#favoriteModal').modal('show');
+    }else if(e.data.title=='noteCount'){
+    	 $('#counter').html(e.data.noteCount);
+    }
+}
+
+function openModal(){
+  $('#winnerModal').modal('show');
+}
+</script>
+<script>
+window.onload=function(){
+  
+  $('#bid').on( 'click', function( e ) {
+    console.log('입찰가'+parseInt($('#bidprice').val())+'최고가'+parseInt($('#maxPrice').html()));
+    if(parseInt($('#bidprice').val())<=parseInt($('#maxPrice').html())){
+      alert('더 큰 값을 부르세요!');
+      $('#bidprice').val('');
+      return false;
+    }else{
+    sendMsgToChild({memberId:$('#memberId').val(), productId:$('#productId').val(), bidprice:$('#bidprice').val()});
+    $('#bidprice').val('');
+    $('#bidModal').modal('hide');
+    
+    }
+  });
+  function sendMsgToChild( msg ) {
+      document.getElementById('child').contentWindow.postMessage(msg, '*');
+  }
+}
+</script>
   </body>
 </html>

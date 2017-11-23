@@ -66,4 +66,18 @@ public class MybatisBidDao implements BidDao {
 	public String leastTime(String memberId) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".leastTime", memberId);
 	}
+
+	@Override
+	public List<Bid> selectWinningList() {
+		
+		return sqlSession.selectList(NAMESPACE+".winningList");
+	}
+
+	@Override
+	public void updateWinning(List<Bid> winningList) {
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("winningList", winningList);
+		sqlSession.update(NAMESPACE+".updateWinning",map);
+		
+	}
 }

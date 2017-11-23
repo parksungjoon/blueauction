@@ -35,5 +35,11 @@ public interface BidDao {
 	
 	/* 해당 아이디의 가장 적은 시간 남은 경매 시간 조회 */
 	public String leastTime(String memberId) throws Exception;
+
+	/*경매 낙찰자, 상품 아이디 값 가져오기*/
+	public List<Bid> selectWinningList();
+	
+	/*winningstate 변경*/
+	public void updateWinning(List<Bid> winningList);
 	
 }

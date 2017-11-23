@@ -57,4 +57,16 @@ public class BidServiceImpl implements BidService {
 	public String leastTime(String memberId) throws Exception {
 		return bidDao.leastTime(memberId);
 	}
+
+	@Override
+	public List<Bid> selectWinningList() {
+		// TODO Auto-generated method stub
+		return bidDao.selectWinningList();
+	}
+
+	@Override
+	public void updateWinning(List<Bid> winningList) {
+		bidDao.updateWinning(winningList);
+		
+	}
 }

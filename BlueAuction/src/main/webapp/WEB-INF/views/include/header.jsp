@@ -108,11 +108,14 @@
                <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
               <li><a href="/member/mypage"> ${login.memberId}</a>님이 로그인 하셨습니다<li>
                 <li><a href="/member/logout">로그아웃</a></li>
+                <li><span class="icon icon-md-smaller icon-primary mdi mdi-email"><span class="label label-success" id="counter">4</span>
+                </span></li>
+                
               </c:if>
               
               <c:if test="${empty login}">
               <li><a href="/member/login">Login</a></li>
-              <li><a href="/member/register">Register</a>
+              <li><a href="/member/register">Register</a></li>
             
               </c:if>
               
@@ -166,9 +169,52 @@
 					<div class="rd-navbar-shop">
 						<!-- <a class="rd-navbar-shop-icon mdi mdi-cart"
 							href="shopping-cart.html"><span>2</span></a> -->
+              <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe> --%>
 					</div>
 				</div>
 			</div>
 		</nav>
 	</div>
 </header>
+<div id="favoriteModal" class="modal modal-primary fade" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">10분전 알림</h4>
+      </div>
+      <div class="modal-body" data-rno>
+        즐겨찾기하신 <span id='favorite'></span>번 상품에 대한 경매가 10분후 시작됩니다.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+//메시지 수신 받는 eventListener 등록
+window.addEventListener( 'message', receiveMsgFromChild );
+ 
+// 자식으로부터 메시지 수신
+function receiveMsgFromChild( e ) {
+    console.log( '자식으로부터 받은 메시지 ', e.data );
+    if(e.data=='openModal'){
+      openModal();
+    }else if(e.data.maxprice!=null || e.data.maxprice!=undefined){
+      console.log('자식으로부터 받은 최대값'+e.data.maxprice)
+      $('#maxPrice').html(e.data.maxprice);
+    }else if(e.data.title=='favorite'){
+      console.log('자식으로부터 받은 즐겨찾기 리스트'+e.data.list);
+      $('#favorite').html(e.data.list);
+      $('#favoriteModal').modal('show');
+    }else if(e.data.title=='noteCount'){
+       $('#counter').html(e.data.noteCount);
+    }
+}
+
+function openModal(){
+  $('#winnerModal').modal('show');
+}
+</script>

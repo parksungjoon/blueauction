@@ -33,4 +33,10 @@ public interface BidService {
 	
 	/* 해당아이디의 가장 적은 시간 남은 경매 시간 조회 */
 	public String leastTime(String memberId) throws Exception;
+	
+	/*각 상품당 낙찰자, 상품id 값을 조회*/
+	public List<Bid> selectWinningList();
+	
+	/*낙찰 결과 업데이트*/
+	public void updateWinning(List<Bid> winningList);
 }
