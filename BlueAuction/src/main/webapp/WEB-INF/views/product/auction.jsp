@@ -120,7 +120,7 @@
    		}); */
    		
    		/** 새로운 경매 등록 */
-    	/* $("#registerAction").click(function () {
+    	 $("#registerAction").click(function () {
     		var form = document.createElement("form");
             form.setAttribute("action", "/product/auction/register");    
             form.setAttribute("method", "get");
@@ -128,7 +128,7 @@
             document.body.appendChild(form);
             form.submit();
 
-		}); */
+		});
    		
    		function fromData(href){
    			var form = document.createElement("form");

@@ -24,7 +24,7 @@
 					<ul class="rd-navbar-nav">
 						<li class="active"><a href="/">Home</a></li>
 						<li><a href="/product/used">중고상품</a></li>
-						<li><a href="/prduct/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
+						<li><a href="/product/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
 							<ul class="rd-navbar-dropdown">
 								<li><a href="/product/auction/1/0">시작전 경매</a></li>
 								<li><a href="/product/auction/2/0">진행중 경매</a></li>

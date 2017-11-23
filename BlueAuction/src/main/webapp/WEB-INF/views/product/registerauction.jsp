@@ -23,7 +23,7 @@
     <script src="/resources/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/resources/js/upload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-    
+    <script type="text/javascript" src="/resources/js/fileUpload.js"></script>
     <script id="template" type="text/x-handlebars-template">
 		<li class="attachment">
   			<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
@@ -37,92 +37,19 @@
   </script>
     
     <script type="text/javascript">
-    var smallid = 1;
     
 		$(document).ready(function() {
 			
-			/* 상품 종류 select */
-			/* $("select[name='smallid']").change(function() {
-				smallid = $(this).selected().val();
-			}); */
-			
-			
-			
-			/* 첨부파일 선택 시 자동 업로드 */
-			$("input[type=file]").change(function() {
-				handleUpload();
+			/* 첨부파일 유효성 검사 */
+			$(function(){
+				checkValidate();
+				$("input:file").change(checkValidate);
 			});
+    
 			sendAttachment();
-		});
-		
-		/* ajax로 이미지 파일 전송 및 썸네일 출력 */
-		function handleUpload() {
-	
-			var template = Handlebars.compile($("#template").html());
 			
-			var file = $("input[type=file]")[0].files[0];
+			autoUpload();
 			
-			var formData = new FormData();
-			
-			formData.append("file", file);
-			
-			$.ajax({
-				
-				url: "/product/attach/",
-				data: formData,
-				dataType: "text",
-				processData: false,
-				contentType: false,
-				type: "POST",
-				success: function(data) {
-					var fileInfo = getFileInfo(data);
-			        
-			        var html = template(fileInfo);
-			        
-			        $(".uploadedList").append(html);
-					$("#photo").val(""); 
-				}
-				
-			});
-			
-		};
-		
-		/* 첨부파일 정보 Form에 추가 후 submit */
-		function sendAttachment() {
-    		$("#registerForm").submit(function(event){
-    		  event.preventDefault();
-    		  
-    		  var that = $(this);
-    		  
-    		  var str ="";
-    		  $(".uploadedList .delbtn").each(function(index){
-    		     str += "<input type='hidden' name='photo["+index+"]' value='"+$(this).attr("href") +"'> ";
-    		  });
-    		  
-    		  that.append(str);
-    		  that.get(0).submit();
-    		});
-		};
-		
-		/* 첨부파일 삭제 */
-		$(document).on("click", ".uploadedList .delbtn", function(event){
-			
-			event.preventDefault();
-			
-			var that = $(this);
-			 
-		 	$.ajax({
-			   url:"/product/attach/deleteFile",
-			   type:"post",
-			   data: {fileName:$(this).attr("href")},
-			   dataType:"text",
-			   success:function(result){
-				   if(result == 'deleted'){
-					   that.closest("li").remove();
-				   }
-			   }
-		   }); 
-		 	
 		});
 		
     </script>
