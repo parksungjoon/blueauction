@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Page Header-->
+<link rel="stylesheet" href="/resources/css/jjh-style.css">
 <script type="text/javascript">
 
 </script>
@@ -21,29 +22,36 @@
 			<div class="rd-navbar-top-panel">
 				<div class="rd-navbar-nav-wrap">
 					<!-- RD Navbar Nav-->
-					<ul class="rd-navbar-nav">
-						<li class="active"><a href="/">Home</a></li>
-						<li><a href="/product/used">중고상품</a></li>
-						<li><a href="/product/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
-							<ul class="rd-navbar-dropdown">
-								<li><a href="/product/auction/1/0">시작전 경매</a></li>
-								<li><a href="/product/auction/2/0">진행중 경매</a></li>
-								<li><a href="/product/auction/3/0">마감된 경매</a></li>
-							</ul></li>
-            			
-				              <c:if test="${not empty login}">
-				               <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
-				              	<li><a href="/member/mypage"> ${login.memberId}</a>님</li>
-				                <li><a href="/member/logout">Logout</a></li>
-				                <li><span class="icon icon-md-smaller ksj-icon-primary mdi mdi-email"><span class="badge badge-primary" id="counter">4</span>
-				                </span></li>
-				              </c:if>
-				              
-				              <c:if test="${empty login}">
-				              <li><a href="/member/login">Login</a></li>
-				              <li><a href="/member/register">Join Us</a></li>
-				              </c:if>
-					</ul>
+                  <ul class="jjh-headerNav">
+                    <li class="jjh-headerLi">
+    					<ul class="rd-navbar-nav">
+    						<li class="active"><a href="/">Home</a></li>
+    						<li><a href="/product/used">중고상품</a></li>
+    						<li><a href="/product/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
+    							<ul class="rd-navbar-dropdown">
+    								<li><a href="/product/auction/1/0">시작전 경매</a></li>
+    								<li><a href="/product/auction/2/0">진행중 경매</a></li>
+    								<li><a href="/product/auction/3/0">마감된 경매</a></li>
+    							</ul></li>
+    					</ul>
+                    </li>
+                    <li class="jjh-userHeader">
+                      <ul class="jjh-userUl">
+                        <c:if test="${not empty login}">
+                         <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
+                          <li class="jjh-userLi"><a href="/member/mypage"> ${login.memberId}</a>님</li>
+                          <li class="jjh-userLi"><a href="/member/logout">Logout</a></li>
+                          <li class="jjh-userLi"><span class="icon icon-md-smaller ksj-icon-primary mdi mdi-email"><span class="badge badge-primary" id="counter">4</span>
+                          </span></li>
+                        </c:if>
+                        
+                        <c:if test="${empty login}">
+                        <li class="jjh-userLi"><a href="/member/login">Login</a></li>
+                        <li class="jjh-userLi"><a href="/member/register">Join Us</a></li>
+                        </c:if>
+                      </ul>
+                    <li>
+                  </ul>
 				</div>
 			</div>
 			<div class="rd-navbar-inner">
