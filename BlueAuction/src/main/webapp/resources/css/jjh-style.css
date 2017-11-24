@@ -150,3 +150,43 @@
 	max-width: 331;
 	max-height: 245;
 }
+
+#selectBox {
+	width : 130px;
+	height : 55px;	
+}
+
+#auction-array {
+	float:left;
+	width:130px;
+	height:30px;
+	border: none;
+	background: rgb(243, 246, 253);
+}
+
+.jjh-headerNav{
+	display: inline-block; 
+	width: 100%;
+}
+
+.jjh-headerLi{
+	display: inline-block; 
+	margin-left: 485px;
+}
+
+.jjh-userHeader{
+	display: inline-block; 
+	margin-left: 100px;
+}
+.jjh-userUl{
+	width: 400px;
+	display: inline-block;
+}
+
+.jjh-userLi{
+	width:100px;
+	display: inline-block;
+}
+
+.rd-navbar-nav{
+}
