@@ -296,6 +296,10 @@ public class MemberController {
 		logger.info("/member/mypage/notelist에서 "+member.toString());
 		Member member1=(Member)member;
 		
+		if(cri.getKeyword()==null) {
+			cri.setKeyword("R");
+		}
+		
 		//세션에 저장되어 있는 멤버에서 memberId를 가저옴
 		String memberId=member1.getMemberId();
 		List<Note> notelist=noteService.listByCri(cri, memberId);

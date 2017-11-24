@@ -59,6 +59,7 @@
 	</select>
 	
 	<select id="winningList" resultType="bid">
+	<![CDATA[ 
 		SELECT b1.product_id productId, 
        b1.bidprice   bidprice, 
        b1.bid_id     bidId, 
@@ -67,9 +68,13 @@ FROM   bid AS b1,
        (SELECT product_id, 
                Max(bidprice) AS max_sort 
         FROM   bid 
-        GROUP  BY product_id) AS b2 
+        GROUP  BY product_id) AS b2,
+        product AS p1
 WHERE  b1.bidprice = b2.max_sort 
        AND b1.product_id = b2.product_id
+       AND b1.product_id = p1.product_id
+       AND TIMESTAMPDIFF(minute, p1.auctionend, now())<=0
+       ]]> 
 	</select>
 	
 	<update id="updateWinning" parameterType="map">
