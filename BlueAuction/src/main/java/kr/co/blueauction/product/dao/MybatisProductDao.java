@@ -53,10 +53,11 @@ public class MybatisProductDao implements ProductDao {
 	
 	/** {요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 */
 	@Override
-	public List<Product> listByCri(SearchCriteria cri, int type) throws Exception {
+	public List<Product> listByCri(SearchCriteria cri, int type, String arrayType) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("cri", cri);
 		paramMap.put("type", type);
+		paramMap.put("arraytype", arrayType);
 		
 		return sqlSession.selectList(namespace + ".listByCri", paramMap);
 	}

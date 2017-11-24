@@ -26,20 +26,28 @@
 		<![endif]--%> 
    <script src="/resources/js/jquery-1.12.4.min.js"></script>
    <script type="text/javascript">
-   
    	var page = 1;
- 	var type = ${type};
- 	var smallid = ${smallid};
- 	var keyword = null;
- 	var lefth = 0;
- 	var leftm = 0;
- 	var lefts = 0;
- 	var auctionend;
- 	var hour;
- 	var minutes;
- 	var seconds;
- 	
-    $(document).ready(function(){
+	var type = ${type};
+	var smallid = ${smallid};
+	var keyword = null;
+	 var arraytype = "recent";
+	var lefth = 0;
+	var leftm = 0;
+	var lefts = 0;
+	var auctionend;
+	var hour;
+	var minutes;
+	var seconds;
+	
+	$(document).ready(function(){
+    	
+    	/* 정렬 종류 선택 */
+    	$("#auction-array").change(function(event){
+    		page = 1;
+    		arraytype = $(this).attr("value");
+    		
+    		ajaxPost("html");
+    	});
     	
     	/* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
     	$(document).on("click", ".jjh-favoriteButton", function(event){
@@ -59,34 +67,23 @@
     					st = "<img alt='favorite-register' src='/resources/images/empty-heart.png'>";
     					$("#" + productId).html(st);
     				}else {
-    					alert("등록/삭제에 실패!");
+    					$(".jjh-modalMessage").html("관심경매 등록/삭제에  실패하였습니다.");
+    	    			$("#cannotSearch").modal("show");
     				}
     			}
     		});
     	});
     	
-    	/* 경매 진행 중 리스트 페이지에서만 검색 가능 */
+    	/* 경매 검색 가능 */
     	$(".form-button").click(function(event){
-    		if(type == 2){
+    		if(type != 3){
     			page = 1;
     			keyword = $("#rd-navbar-search-form-input").val();
-        		$.ajax({
-    				type : "post",
-    				data : {page:page, keyword:keyword},
-    				dataType : "json",
-    				url:"/product/auction/" + type + "/" + smallid,
-    				success : function(data){
-    					var list = data.list;
-    					var endpage = data.endpage;
-      	  				
-        	  			printPageLoader(endpage);
 
-    					searchPrint(list);
-    					$("#rd-navbar-search-form-input").val(keyword);
-    				}
-        		});
+				ajaxPost("html");
     		}else{
-    			alert("여기서는 안됨!!! 경매중으로 ㄱㄱ");
+    			$(".jjh-modalMessage").html("마감된 경매 페이지에서는 검색이 불가능 합니다.");
+    			$("#cannotSearch").modal("show");
     		}
     	});
     	
@@ -95,19 +92,7 @@
 			event.preventDefault();
   			page = page + 1;
   			
-  	  		$.ajax({
-  	  			type: "post",
-  	  			data : {page:page, keyword:keyword},
-  	  			dataType : "json ",
-  	  			url: "/product/auction/" + type + "/" + smallid,
-  	  			success : function(data){
-  	  				var endpage = data.endpage;
-  	  				
-    	  			printPageLoader(endpage);
-    	  			
-    	  			printList(data);
-  	  			} 			
-  	  		});
+  			ajaxPost("append");
     	});
    		
    		/** 상세보기 - hidden으로 넘기기 */
@@ -174,157 +159,140 @@
    		
    });
     
+    /* post로 ajax */
+   	function ajaxPost(data){
+    	var patch = data
+   		$.ajax({
+			type : "post",
+			data : {page:page, keyword:keyword, arraytype:arraytype},
+			dataType : "json",
+			url:"/product/auction/" + type + "/" + smallid,
+			success : function(data){
+				var endpage = data.endpage;
+	  				
+	  			printPageLoader(endpage);
+				
+	  			if(patch == "html"){
+	  				$(".auction-list").html(printList(data));
+	  			}else{
+	  				$(".auction-list").append(printList(data));
+	  			}
+			}
+		});
+   	}
+
    	
+    /* 상품 리스트 출력 함수 */
     function printList(data){
     	var html = "";
     	type = data.type;
     	var list = data.list;
     	var favorite = data.favorite;
     	
-    	if(list.length != 0 && type == 2){
-    		getAuctionTime(list);
-			setTime(seconds, minutes, hour); // 동적 생성 경매의 카운트 다운
-    	}
-    	
-    	for ( var i in list) {
-    		html +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
-  	  		html +="      <div class='product product-counter product-auction'>";
-  	  		
-  	  		if(type == 3){
-  	  			html +="         <div class='product-counter-inner jjh-inner'>";
-  	  		}else {
-  	  			html +="         <div class='product-counter-inner'>";
-  	  		}
-  	  		
-  	  		switch(type){
-  	  		case 1 : html +="          <div class='jjh-counter' >" + list[i].auctionstart + "</div>"; break;
-  	  		case 2 : html +="          <div class='countdown jjh-counter is-countdown jjh-timer' data-time='' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>"; break;
-  	  		case 3 : html +="          <div class='jjh-counter' >" + list[i].auctionend + " 종료</div>"; break;
-  	  		}
-  	  		
-  	  		html +="        </div>";
-  	  		
-  	  		if(type ==3){
-  	  			html +="        <div class='jjh-finished product-image jjh-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='' '/></div>";
-  	  		}else{
-  	  			html +="        <div class='product-image jjh-image'><img src='/resources/images/img" + list[i].mainphoto + "' alt=''/></div>";
-  	  		}
-  	  		
-  	  		html +="        <div class='product-title'>";
-	  		html +="          <h5>" + list[i].name +"</h5>";
-	  		html +="        </div>";
-	  		
-	  		if(type == 1){
-	  			html +="        <div class='product-price-wrap'>";
-	  	  		html +="          <div class='product-price'>";
-	  	  		html +="            <p>Start Price</p>";
-	  	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
-	  	  		html +="          </div>";
-	  	  		html +="        </div>";
-	  		}else if(type == 2){
-	  			html +="        <div class='jjh-price'>";
-	  	  		html +="          <div class='product-price'>";
-	  	  		html +="            <p>Start Price</p>";
-	  	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
-	  	  		html +="          </div>";
-	  	  		html +="          <br>";
-	  	  		html +="           <div class='jjh-currentPrice'>";
-	  	  		html +="             <p class=''><strong>Current Price</strong></p>";
-	  	  		
-	      	  	if(list[i].bidprice != 0){
-	            	html +="<h6>" + list[i].bidprice + "원</h6>";
-	            }else{
-	            	html +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
-	            }
-	      	  	
-	  	  		html +="           </div>";
-	  	  		html +="        </div>";
-	  		}else{
-	  			html +="<div class='jjh-price'>";
-	            html +="<br>";
-	            html +="<div class='jjh-currentPrice'>";
-	            html +="<p class=''><strong>Successful bid</strong></p>";
-	            
-	            if(list[i].bidprice != 0){
-	            	html +="<h6>" + list[i].bidprice + "원</h6>";
-	            }else{
-	            	html +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
-	            }
-	            
-	            html +="           </div>";
-	  	  		html +="        </div>";
-	  		}
-	  		
-	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
-	  		
-	  		if(type == 1){
-  	  		if(${login != null}){
-      	  		// 관심경매 하트 표시
-      	  		 for ( var j in favorite) {
-      	  			var state = false;
-      				if(favorite[j].productId == list[i].productId){
-      					state = true;
-      					break;
-      				}
-      			}
-      	  		
-      	  		if(state){
-      	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
-      	  		}else{
-      	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
-      	  		} 
-    	  	}
-  
-	  	}
-	  		html +="      </div>";
-    	  	html +="    </div>";
-    }
-    	
-   $(".auction-list").append(html);
-	  		
-}
-  	 
-    function searchPrint(list){
-		var st = "";
-
-		 	if(list.length == 0){
-		 		st += "<h3 class='jjh-emptyList'>경매가 존재하지 않습니다.</h3>";
-		 	}else{
-		 		getAuctionTime(list);
+    	if(list.length == 0){
+    		html += "<h3 class='jjh-emptyList'>경매가 존재하지 않습니다.</h3>";
+    	}else{
+    		if(type == 2){
+	 			getAuctionTime(list);
 				setTime(seconds, minutes, hour); // 동적 생성 경매의 카운트 다운
-
-			   for ( var i in list) {
-				   st +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
-				   st +="      <div class='product product-counter product-auction'>";
-				   st +="         <div class='product-counter-inner'>";
-				   st +="          <div class='countdown jjh-counter jjh-timer' data-time='" + list[i].auctionend + "' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
-				   st +="        </div>";
-				   st +="        <div class='product-image jjh-image'><img src='/resources/images/img" + list[i].mainphoto + "' alt=''/></div>";
-				   st +="        <div class='product-title'>";
-				   st +="          <h5>" + list[i].name +"</h5>";
-				   st +="        </div>";
-				   st +="        <div class='jjh-price'>";
-				   st +="          <div class='product-price'>";
-				   st +="            <p>Start Price</p>";
-				   st +="            <h6>" + list[i].basicprice + "원</h6>";
-				   st +="          </div>";
-				   st +="          <br>";
-				   st +="           <div class='jjh-currentPrice'>";
-				   st +="             <p class=''><strong>Current Price</strong></p>";
-				   if(list[i].bidprice != 0){
-		            	st +="<h6>" + list[i].bidprice + "원</h6>";
-		            }else{
-		            	st +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
-		            }
-				   st +="           </div>";
-				   st +="        </div>";
-				   st +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
-				   st +="      </div>";
-				   st +="    </div>";
-				}   
-			}
-	 $(".auction-list").html(st);
-	 }
+	 		}
+    		
+    		for ( var i in list) {
+        		html +="<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
+      	  		html +="      <div class='product product-counter product-auction'>";
+      	  		
+      	  		if(type == 3){
+      	  			html +="         <div class='product-counter-inner jjh-inner'>";
+      	  		}else {
+      	  			html +="         <div class='product-counter-inner'>";
+      	  		}
+      	  		
+      	  		switch(type){
+      	  		case 1 : html +="          <div class='jjh-counter' >" + list[i].auctionstart + "</div>"; break;
+      	  		case 2 : html +="          <div class='countdown jjh-counter is-countdown jjh-timer' data-time='' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>"; break;
+      	  		case 3 : html +="          <div class='jjh-counter' >" + list[i].auctionend + " 종료</div>"; break;
+      	  		}
+      	  		
+      	  		html +="        </div>";
+      	  		
+      	  		if(type ==3){
+      	  			html +="        <div class='jjh-finished product-image jjh-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='images'/></div>";
+      	  		}else{
+      	  			html +="        <div class='product-image jjh-image'><img src='/resources/images/img" + list[i].mainphoto + "' alt='image'/></div>";
+      	  		}
+      	  		
+      	  		html +="        <div class='product-title'>";
+    	  		html +="          <h5>" + list[i].name +"</h5>";
+    	  		html +="        </div>";
+    	  		
+    	  		if(type == 1){
+    	  			html +="        <div class='product-price-wrap'>";
+    	  	  		html +="          <div class='product-price'>";
+    	  	  		html +="            <p>Start Price</p>";
+    	  	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
+    	  	  		html +="          </div>";
+    	  	  		html +="        </div>";
+    	  		}else if(type == 2){
+    	  			html +="        <div class='jjh-price'>";
+    	  	  		html +="          <div class='product-price'>";
+    	  	  		html +="            <p>Start Price</p>";
+    	  	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
+    	  	  		html +="          </div>";
+    	  	  		html +="          <br>";
+    	  	  		html +="           <div class='jjh-currentPrice'>";
+    	  	  		html +="             <p class=''><strong>Current Price</strong></p>";
+    	  	  		
+    	      	  	if(list[i].bidprice != 0){
+    	            	html +="<h6>" + list[i].bidprice + "원</h6>";
+    	            }else{
+    	            	html +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
+    	            }
+    	      	  	
+    	  	  		html +="           </div>";
+    	  	  		html +="        </div>";
+    	  		}else{
+    	  			html +="<div class='jjh-price'>";
+    	            html +="<br>";
+    	            html +="<div class='jjh-currentPrice'>";
+    	            html +="<p class=''><strong>Successful bid</strong></p>";
+    	            
+    	            if(list[i].bidprice != 0){
+    	            	html +="<h6>" + list[i].bidprice + "원</h6>";
+    	            }else{
+    	            	html +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
+    	            }
+    	            
+    	            html +="           </div>";
+    	  	  		html +="        </div>";
+    	  		}
+    	  		
+    	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
+    	  		
+    	  		if(type == 1){
+      	  		if(${login != null}){
+          	  		// 관심경매 하트 표시
+          	  		 for ( var j in favorite) {
+          	  			var state = false; // 상품에 대한 관심경매 여부 초기화(false)
+          				if(favorite[j].productId == list[i].productId){
+          					state = true; // 관심경매로 등록된 상품이면 true
+          					break;
+          				}
+          			}
+          	  		
+          	  		if(state){
+          	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/full-heart.png'></button>";
+          	  		}else{
+          	  			html +="        <button class='jjh-favoriteButton' id='" + list[i].productId + "'><img alt='favorite-register' src='/resources/images/empty-heart.png'></button>";
+          	  		} 
+        	  	}
+      
+    	  	}
+    	  		html +="      </div>";
+        	  	html +="    </div>";
+        }
+    }
+    return html;
+}
   	 
   	 /** 페이지 더보기 출력 */
   	 function printPageLoader(data){
@@ -473,6 +441,15 @@
           <div class="range range-sm range-shop">
           
             <div class="cell-lg-10 ">
+            
+            <c:if test="${type == 1 }">
+              <div id = "selectBox">
+                <select id="auction-array">
+                  <option value="recent" selected> 최근 등록 순</option>
+                  <option value="fast"> 빠른 경매 순</option>
+                </select>
+              </div>
+            </c:if>
             
               <div class="range range-70 text-left">
               <%-- 여기에 자기 부분 넣어주세요 --%>

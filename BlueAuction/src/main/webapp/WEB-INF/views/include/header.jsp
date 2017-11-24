@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Page Header-->
 <link rel="stylesheet" href="/resources/css/jjh-style.css">
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
 <script type="text/javascript">
 
 </script>
@@ -111,7 +112,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">10분전 알림</h4>
+        <h4 class="modal-title ">10분전 알림</h4>
       </div>
       <div class="modal-body" data-rno>
         즐겨찾기하신 <span id='favorite'></span>번 상품에 대한 경매가 10분후 시작됩니다.
@@ -119,6 +120,29 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger">확인</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- 경매 종료 페이지에서 검색 불가 모달 창 -->
+<div id="cannotSearch" class="modal fade" >
+  <div class="modal-dialog modal-mm ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h6 class="modal-title jjh-modalTitle">message</h6>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body jjh-modalMessage">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary jjh-close" data-dismiss="modal">Close</button>
+      </div>
+
     </div>
   </div>
 </div>
