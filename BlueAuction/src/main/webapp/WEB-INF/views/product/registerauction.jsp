@@ -40,11 +40,20 @@
     
 		$(document).ready(function() {
 			
-			/* 첨부파일 유효성 검사 */
+			var now = new Date();
+			var year = now.getFullYear();
+			var month = now.getMonth() + 1;
+			var day = now.getDate()+1;
+			var nowDate = year+"-"+month+"-"+day+"T00:00";
+			
+			/* 첨부파일 유효성 검사 및 경매 시간 유효성 검사 */
 			$(function(){
 				checkValidate();
 				$("input:file").change(checkValidate);
 				
+				var time = $("input[type=datetime-local]");
+				time.attr("min", nowDate);
+				time.attr("value", nowDate);
 			});
     
 			sendAttachment();
@@ -52,6 +61,28 @@
 			autoUpload();
 			
 		});
+		
+		/* 첨부파일 삭제 */
+	      $(document).on("click", ".uploadedList .delbtn", function(event){
+	         
+	         event.preventDefault();
+	         
+	         var that = $(this);
+	         that.closest("li").remove();
+	          
+	        $.ajax({
+	            url:"/product/attach/deleteFile",
+	            type:"post",
+	            data: {fileName:$(this).attr("href")},
+	            dataType:"text",
+	            success:function(result){
+	               if(result == 'deleted'){
+	                  that.closest("li").remove();
+	               }
+	            }
+	         });
+	          
+	      });
 		
     </script>
     
