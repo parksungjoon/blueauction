@@ -167,8 +167,13 @@
          <if test="type == 3">
             AND p.auctionstate = 'AFTER'
          </if>
-      </if> 
-      ORDER  BY p.product_id DESC, p.regdate DESC 
+      </if>
+      <if test="arraytype == 'recent'"> 
+      	ORDER  BY p.product_id DESC, p.regdate DESC 
+      </if>
+      <if test="arraytype == 'fast'"> 
+      	ORDER  BY p.auctionstart ASC , p.product_id DESC
+      </if>
       LIMIT  #{cri.pageStart}, #{cri.perPageNum}; 
    </select>
 	
