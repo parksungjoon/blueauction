@@ -93,12 +93,13 @@ public class ProductController {
 		
 		int page = 1; // 첫 페이지 설정
 		String keyword = null;
+		String arrayType = "recent";
 		
 		String memberId = productService.memberIdGet(session); // 로그인 회원 아이디 get
 		
 		SearchCriteria cri = productService.setCri(smallid, page, keyword); // 경매 SearchCriteria 설정
 		
-		List<Product> list = productService.listByCri(cri, type); // 검색조건에 따른 경매 리스트
+		List<Product> list = productService.listByCri(cri, type, arrayType); // 검색조건에 따른 경매 리스트
 		
 		int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
 		
@@ -125,19 +126,20 @@ public class ProductController {
 	 * @return map 리턴
 	 */
 	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword, HttpSession session){
+	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword, @RequestParam("arraytype") String arrayType, HttpSession session){
 		String memberId = null;
 		List<Favorite> favoriteList =  null;
 		SearchCriteria cri = null;
 		String checkEndPage = null;
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
+		logger.info("arrayType : " + arrayType);
 		
 		try {
 			memberId = productService.memberIdGet(session); // 로그인 회원 아이디 get
 			cri = productService.setCri(smallid, page, keyword); // 경매 SearchCriteria 설정
 			
-			List<Product> list = productService.listByCri(cri, type);
+			List<Product> list = productService.listByCri(cri, type, arrayType);
 			int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
 			checkEndPage = productService.checkEndPage(cri, count); // 끝페이지 인지 여부 검사(끝페이지 : "yes", 끝페이지x : "no")
 			favoriteList =  favoriteService.readByMemberId(memberId); // 로그인한 회원의 관심경매 리스트
@@ -278,7 +280,7 @@ public class ProductController {
 	 * @param model
 	 * @return 상품 리스트
 	 */
-	@RequestMapping(value="/used", method=RequestMethod.GET)
+	/*@RequestMapping(value="/used", method=RequestMethod.GET)
 	public String list(Model model) {
 		try {
 			model = productService.listUsedItems(model);
@@ -288,13 +290,13 @@ public class ProductController {
 		return "/product/usedlist";
 	}
 	
-	/**
+	*//**
 	 * 중고상품 리스트 더 보기
 	 * 
 	 * @param page 출력할 페이지 번호
 	 * @param keyword 검색어
 	 * @return 상품 리스트
-	 */
+	 *//*
 	@RequestMapping(value="/used", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> getMoreList(@RequestParam("page") int page, @RequestParam("keyword") String keyword) {
 
@@ -311,7 +313,7 @@ public class ProductController {
 		}
 		
 		return entity;
-	}
+	}*/
 	
 	/**
 	 * 중고상품 등록

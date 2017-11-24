@@ -128,8 +128,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> listByCri(SearchCriteria cri, int type) throws Exception {
-		return productDao.listByCri(cri, type);
+	public List<Product> listByCri(SearchCriteria cri, int type, String arrayType) throws Exception {
+		if(type != 1) {
+			arrayType = "recent";
+		}
+		
+		return productDao.listByCri(cri, type, arrayType);
 	}
 
 	@Override
@@ -206,21 +210,24 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public String checkEndPage(SearchCriteria cri, int totalCount) throws Exception {
 		String check = null;
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(totalCount);
+		int endPage;
 		
-		if(cri.getPage() == pageMaker.getEndPage()) { // 1페이지가 마지막 페이지면
+		endPage = (int)Math.ceil((double)totalCount / cri.getPerPageNum()); // 마지막 페이지 계산
+		if(totalCount == 0) {
 			check = "yes";
 		}else {
-			check = "no";
+			if(cri.getPage() == endPage) { // 요청페이지가 마지막 페이지면
+				check = "yes";
+			}else {
+				check = "no";
+			}
 		}
 		
 		return check;
 	}
 	
 	/** 중고 상품 리스트 출력 */
-	@Override
+	/*@Override
 	@Transactional
 	public Model listUsedItems(Model model) throws Exception {
 
@@ -249,7 +256,7 @@ public class ProductServiceImpl implements ProductService {
 		return model;
 	}
 	
-	/** 중고상품 리스트 더 보기 */
+	*//** 중고상품 리스트 더 보기 *//*
 	@Override
 	@Transactional
 	public Map<String, Object> getMoreList(int page, String keyword) throws Exception {
@@ -281,5 +288,5 @@ public class ProductServiceImpl implements ProductService {
 		resultMap.put("count", count);
 		
 		return resultMap;
-	};
+	};*/
 }

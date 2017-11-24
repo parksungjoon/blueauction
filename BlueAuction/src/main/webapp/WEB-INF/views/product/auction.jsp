@@ -120,7 +120,7 @@
    		}); */
    		
    		/** 새로운 경매 등록 */
-    	/* $("#registerAction").click(function () {
+    	 $("#registerAction").click(function () {
     		var form = document.createElement("form");
             form.setAttribute("action", "/product/auction/register");    
             form.setAttribute("method", "get");
@@ -128,7 +128,7 @@
             document.body.appendChild(form);
             form.submit();
 
-		}); */
+		});
    		
    		function fromData(href){
    			var form = document.createElement("form");
@@ -205,9 +205,9 @@
   	  		html +="        </div>";
   	  		
   	  		if(type ==3){
-  	  			html +="        <div class='jjh-finished product-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></div>";
+  	  			html +="        <div class='jjh-finished product-image jjh-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='' '/></div>";
   	  		}else{
-  	  			html +="        <div class='product-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></div>";
+  	  			html +="        <div class='product-image jjh-image'><img src='/resources/images/img" + list[i].mainphoto + "' alt=''/></div>";
   	  		}
   	  		
   	  		html +="        <div class='product-title'>";
@@ -299,7 +299,7 @@
 				   st +="         <div class='product-counter-inner'>";
 				   st +="          <div class='countdown jjh-counter jjh-timer' data-time='" + list[i].auctionend + "' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
 				   st +="        </div>";
-				   st +="        <div class='product-image '><img src='/resources/images/img" + list[i].mainphoto + "' alt='' width='331' height='245'/></div>";
+				   st +="        <div class='product-image jjh-image'><img src='/resources/images/img" + list[i].mainphoto + "' alt=''/></div>";
 				   st +="        <div class='product-title'>";
 				   st +="          <h5>" + list[i].name +"</h5>";
 				   st +="        </div>";
