@@ -52,7 +52,7 @@
 			alert("ID를 입력하세요");
 			return;
 		}
-		$.ajax({
+		 $.ajax({
 			type : 'POST',
 			data : "memberId=" + memberId,
 			dataType : "text",
@@ -71,12 +71,13 @@
 			error : function(xhr, status, e) {
 				alert(e);
 			}
-		});
+		}); 
+		 return false;
 	};
 	function emailCheck() {
 		var email = $('#email').val();
-		console.log('emailCheck() 실행');
-		if ($('#email').val() == "") {
+		
+	 	if ($('#email').val() == "") {
 			alert("email 입력하세요");
 			return;
 		}
@@ -98,7 +99,7 @@
 			error : function(xhr, status, e) {
 				alert(e);
 			}
-		});
+		}); 
 	};
 	function emailAuthenCheck() {
 		var email = $('#email').val();
@@ -143,7 +144,8 @@
 
 	 
 	 function clickz(){
-		 
+
+		
 		 if($("#idChk").val() =='N'){
 		 		alert("아이디 중복을 확인해주세요");
 		 		return;
@@ -160,6 +162,30 @@
 			 alert("이메일 인증을 진행하세요");
 			 return;
 		 }
+		 if($("#zipcode").val()==""){
+				alert("zipcode를 입력하세요");return;
+		}
+		 if($("#baseaddress").val()==""){
+				alert("baseadderess를 입력하세요");return;
+		}
+		 if($("#detailaddress").val()==""){
+				alert("detailaddress를 입력하세요");return;
+		}
+		 
+		
+		 if($("#phone").val()==""){
+				alert("Phone 을 입력하세요");return;
+		}
+		 if($("#account").val()==""){
+				alert("은행을 선택하세요");return;
+		}
+		 if($("#accountNumber").val()==""){
+				alert("계좌번호를 입력하세요");return;
+		}
+		  
+		
+		 
+		 
 		 $('#forrm').submit();
 	 }
 	 
@@ -186,10 +212,10 @@
         <div class="cell-sm-10 cell-lg-8">
           <h3>Join Us</h3>
           <%-- RD Mailform--%>
-          <form id="forrm" class="rd-mailform text-left"
+          <form id="forrm"  class="text-left"
           
-            data-form-output="form-output-global"
-            data-form-type="contact" method="post"
+          
+            method="post"
             action="/member/register">
             <div class="range range-20">
 
@@ -202,7 +228,7 @@
               </div>
               <div class="cell-sm-3">
                 <div class="form-wrap-validation">
-                	<button class="ksj-btn btn btn-warning button-secondary" name="memberIdCheck" onclick="idCheck()">check ID</button>
+                	<input class="ksj-btn btn btn-warning button-secondary" name="memberIdCheck" onclick="idCheck()" type="button" value="check ID">
                     <input type="hidden" id="idChk" value='N' />
                 </div>
               </div>
@@ -247,7 +273,7 @@
                 <label class="form-label-outside">Address</label>
                 <div class="form-wrap form-wrap-inline">
                   <input class="form-input" id="sample6_postcode"
-                    type="text" name="zipcode" placeholder="우편번호">
+                    type="text" name="zipcode" id="zipcode" placeholder="우편번호">
                 </div>
               </div>
               <div class="cell-sm-5">
@@ -260,11 +286,11 @@
               </div>
               <div class="cell-xs-12">
                 <div class="form-wrap form-wrap-inline">
-                  <input class="form-input" id="sample6_address"
+                  <input class="form-input" id="baseaddress" name="baseaddress"
                     type="text" name="baseaddress" placeholder="기본주소">
                 </div>
                 <div class="form-wrap form-wrap-inline">
-                  <input class="form-input" id="sample6_address2"
+                  <input class="form-input" id="detailaddress"
                     type="text" name="detailaddress" placeholder="상세주소">
                 </div>
               </div>
@@ -279,13 +305,13 @@
               </div>
               <div class="cell-sm-2">	
                 <div class="form-wrap form-wrap-validation">
-			    	<button class="ksj-btn btn btn-warning button-secondary" name="emailCheck" onclick="emailCheck()">check Email</button>
+			    	<input type="button" class="ksj-btn btn btn-warning button-secondary" onclick="emailCheck()" value="check Email"/>
                   	<input type="hidden" id="emailChk" value='N' />
                 </div>
               </div>
                <div class="cell-sm-2">
                 <div class="form-wrap form-wrap-validation">
-                	<button class="btn btn-warning button-secondary ksj-btn" name="authentification" onclick="emailAuthenCheck()">authentification</button>
+                	<input type="button" class="btn btn-warning button-secondary ksj-btn" name="authentification" onclick="emailAuthenCheck()" value="authentification"/>
                   <input type="hidden" id="emailAuthenChk" value='N' />
                 </div>
               </div>
@@ -294,7 +320,7 @@
               <div class="cell-sm-10">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Phone</label>
-                  <input class="form-input" id="forms-3-name"
+                  <input class="form-input" id="phone" name="phone"
                     		type="text" name="phoneNumber" placeholder="-없이 숫자만 입력해주세요">
                 </div>
               </div>
@@ -305,7 +331,7 @@
                   <div class="col-sm-3">
                     <!-- Dropdown list-->
                     <!-- Select 2-->
-                    <select class="col-sm-2 form-control select-filter" data-placeholder="All" 
+                    <select class="col-sm-2 form-control select-filter" data-placeholder="All" name="account" id="account"
                     		data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="bank">
                       <option label="계좌종류"> </option>
                       <option value="1">국민</option>
@@ -318,16 +344,16 @@
                     </select>
                   </div>
                   <div class="col-sm-9">
-                    <input class="cell-sm-8 form-input" id="forms-3-name" type="text" name="accountNumber"
+                    <input class="cell-sm-8 form-input" id="accountNumber" type="text" name="accountNumber"
                       data-constraints="@Required" placeholder="-없이 숫자만 입력해주세요">
                   </div>
                 </div>
               </div>
 
               <div class="cell-sm-3" >
-                <input id="clickzz" type="button" name="memberIdCheck"
+                <button id="clickzz" type="button" name="memberIdCheck"
                     class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="clickz()" value="SUBMIT"></input> 
+                    onclick="clickz()" value="SUBMIT">SUBMIT</button> 
                  <!--  <button id="clickzz" type="button" class="click" onclick="clickz()" >SUBMIT</button> -->
               </div>
             </div>
@@ -350,7 +376,7 @@
           <div class="modal-body">
             <input class="cell-sm-8 form-input" id="uid" type="text"
               name="accountNumber"
-              placeholder="uid" >Body
+              placeholder="uid 입력란" >
           </div>
            <div class="modal-body">
             <button class="cell-sm-8 form-input" id="uid" type="text"
@@ -358,7 +384,7 @@
           </div>
           <!-- Footer -->
           <div class="modal-footer">
-            Footer
+        
             <button type="button" class="btn btn-default"
               data-dismiss="modal">닫기</button>
           </div>
