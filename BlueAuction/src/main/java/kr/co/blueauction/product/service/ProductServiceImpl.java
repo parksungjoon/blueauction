@@ -227,7 +227,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	/** 중고 상품 리스트 출력 */
-	/*@Override
+	@Override
 	@Transactional
 	public Model listUsedItems(Model model) throws Exception {
 
@@ -235,7 +235,7 @@ public class ProductServiceImpl implements ProductService {
 		cri.setCategory(1);
 		cri.setPerPageNum(9);
 		
-		List<Product> list = productDao.listByCri(cri, 0);
+		List<Product> list = productDao.listByCri(cri, 0, "recent");
 		
 		int count = productDao.listBySearchCount(cri, 0);
 		
@@ -256,7 +256,7 @@ public class ProductServiceImpl implements ProductService {
 		return model;
 	}
 	
-	*//** 중고상품 리스트 더 보기 *//*
+	/** 중고상품 리스트 더 보기 */
 	@Override
 	@Transactional
 	public Map<String, Object> getMoreList(int page, String keyword) throws Exception {
@@ -270,7 +270,7 @@ public class ProductServiceImpl implements ProductService {
 			cri.setKeyword(keyword);
 		}
 		
-		List<Product> list = productDao.listByCri(cri, 0);
+		List<Product> list = productDao.listByCri(cri, 0, "recent");
 		for (Product product : list) {
 		}
 		int count = productDao.listBySearchCount(cri, 0);
@@ -288,5 +288,36 @@ public class ProductServiceImpl implements ProductService {
 		resultMap.put("count", count);
 		
 		return resultMap;
-	};*/
+	};
+	
+	/** 중고상품 상세 보기 */
+	@Override
+	public Model getDetail(int productId, Model model) throws Exception {
+		Product product = productDao.read(productId);
+
+		
+		List<Photo> photoList = photoDao.readByProductId(productId);
+		
+		String[] photoArr = null;
+		if (photoList.size() > 0) {
+			photoArr = new String[photoList.size()];
+
+			for (int i = 0; i < photoArr.length; i++) {
+				String tmp = photoList.get(i).getPhotoname();
+				photoArr[i] = tmp.replaceAll("s_", "");
+			}
+		}
+
+		if (photoArr != null) {
+			product.setPhoto(photoArr);
+		}
+		
+		Gson gson = new Gson();
+		String jsonlist = gson.toJson(product);
+		
+		model.addAttribute("jsonproduct", jsonlist);
+		model.addAttribute("product", product);
+		
+		return model;
+	}
 }

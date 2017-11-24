@@ -280,7 +280,7 @@ public class ProductController {
 	 * @param model
 	 * @return 상품 리스트
 	 */
-	/*@RequestMapping(value="/used", method=RequestMethod.GET)
+	@RequestMapping(value="/used", method=RequestMethod.GET)
 	public String list(Model model) {
 		try {
 			model = productService.listUsedItems(model);
@@ -290,13 +290,13 @@ public class ProductController {
 		return "/product/usedlist";
 	}
 	
-	*//**
+	/**
 	 * 중고상품 리스트 더 보기
 	 * 
 	 * @param page 출력할 페이지 번호
 	 * @param keyword 검색어
 	 * @return 상품 리스트
-	 *//*
+	 */
 	@RequestMapping(value="/used", method=RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> getMoreList(@RequestParam("page") int page, @RequestParam("keyword") String keyword) {
 
@@ -313,10 +313,10 @@ public class ProductController {
 		}
 		
 		return entity;
-	}*/
+	}
 	
 	/**
-	 * 중고상품 등록
+	 * 중고상품 등록 페이지 이동
 	 * 
 	 * @return 뷰 주소
 	 */
@@ -362,7 +362,7 @@ public class ProductController {
 	}
 	
 	/**
-	 * 중고상품 수정
+	 * 중고상품 수정 페이지 이동
 	 * 
 	 * @param productId 상품 아이디
 	 * @param model 
@@ -372,12 +372,22 @@ public class ProductController {
 	public String modifyGet(@PathVariable("productId") int productId, Model model) {
 		Product product;
 		try {
-			product = productService.read(productId);
-			model.addAttribute("product", product);
+			model = productService.getDetail(productId, model);
 			logger.info("중고 상품 수정 페이지 이동");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "/product/usedmodify";
+	}
+	
+	@RequestMapping(value="/used/modify/{productId}", method=RequestMethod.POST)
+	public String modifyPost(Product product) {
+		try {
+			productService.modify(product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("중고상품 정보 수정 후 상세 페이지로 이동");
+		return "redirect:/product/used/" + product.getProductId();
 	}
 }

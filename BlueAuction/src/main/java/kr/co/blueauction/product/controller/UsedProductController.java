@@ -1,4 +1,4 @@
-package kr.co.blueauction.product.controller;
+/*package kr.co.blueauction.product.controller;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -126,3 +126,4 @@ public class UsedProductController {
 		return "/product/usedmodify";
 	}
 }
+*/
