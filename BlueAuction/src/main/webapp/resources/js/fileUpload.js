@@ -65,24 +65,3 @@ function sendAttachment() {
 	  that.get(0).submit();
 	});
 };
-
-/* 첨부파일 삭제 */
-$(document).on("click", ".uploadedList .delbtn", function(event){
-	
-	event.preventDefault();
-	
-	var that = $(this);
-	 
- 	$.ajax({
-	   url:"/product/attach/deleteFile",
-	   type:"post",
-	   data: {fileName:$(this).attr("href")},
-	   dataType:"text",
-	   success:function(result){
-		   if(result == 'deleted'){
-			   that.closest("li").remove();
-		   }
-	   }
-   }); 
- 	
-});
