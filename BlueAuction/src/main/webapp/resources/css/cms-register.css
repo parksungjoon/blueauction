@@ -12,3 +12,7 @@
         min-width: 50px;
         min-height: 10px;
       }
+      
+      .cancel {
+      	margin-top: 0px !important;
+      }

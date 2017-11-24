@@ -45,6 +45,10 @@
         max-width: 570px;
         max-height: 380px;
       }
+      #register {
+        margin-top: -35px;
+        margin-bottom: 30px;
+      }
     </style>
     
     <script type="text/javascript">
@@ -86,6 +90,7 @@
   			dataType : "json ",
   			url: "/product/used/",
   			success : function(data){
+  				$("#rd-navbar-search-form-input").val("");
   				printList(data.list)
   				var productCount = $(".template-list").size();
   				$("#btn-load").show();
@@ -134,6 +139,7 @@
 
       <!-- titled Grid gallery-->
       <section class="section section-lg text-center bg-white">
+      <a id="register" class="button-blog button button-default-outline" href="/product/used/register">Register Product</a>
         <div class="shell-wide">
           <h3>our products</h3>
           <div class="isotope-wrap range range-0">
