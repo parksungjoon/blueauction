@@ -28,7 +28,7 @@ public interface ProductService {
 	public void modify(Product product) throws Exception;
 	
 	/** {요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 */
-	public List<Product> listByCri(SearchCriteria cri, int type) throws Exception;
+	public List<Product> listByCri(SearchCriteria cri, int type, String arrayType) throws Exception;
 	
 	/** 검색 조건에 따른 전체 상품 리스트 수 */
 	public int listBySearchCount(SearchCriteria cri, int type) throws Exception;
@@ -53,4 +53,7 @@ public interface ProductService {
 	
 	/** 중고 상품 리스트 더 보기 */
 	public Map<String, Object> getMoreList(int page, String keyword) throws Exception;
+	
+	/** 중고 상품 상세 조회 */
+	public Model getDetail(int productId, Model model) throws Exception;
 }

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
@@ -57,64 +58,44 @@
   </script>
     
     <script type="text/javascript">
-      
+    var template = Handlebars.compile($("#template").html());
+    
       $(document).ready(function() {
+    	  var now = new Date();
+    	  var year = now.getFullYear();
+    	  var month = now.getMonth() + 1;
+    	  var day = now.getDate()+1;
+    	  var nowDate = year+"-"+month+"-"+day+"T00:00";
+    	  
+    	  /* 경매시간 유효성 검사 */
+    	  var time = $("input[type=datetime-local]");
+    	  time.attr("min", nowDate);
+    	  time.attr("value", nowDate);
+			
+
+    	  /* 저장된 사진 있을경우 가져옴 */
+    	  var list = ${jsonP};
+    	  var photoList = list.photo;
+    	  
+    	  for (var i = 0; i < photoList.length; i++) {
+    		  var photo = photoList[i];
+    		  photo = photoList[i].substring(0, 12) + "s_" + photoList[i].substring(12);
+    		  
+    		  var fileInfo = getFileInfo(photo);
+              
+    		  var html = template(fileInfo);
+              
+              $(".uploadedList").append(html);
+			}
+    	  
     	  /* 첨부파일 선택지 자동 업로드 */
           $("input[type=file]").change(function() {
              handleUpload();
           });
+    	  
           sendAttachment();
          
       });
-      
-      /* ajax로 이미지 파일 전송 및 썸네일 출력 */
-      function handleUpload() {
-   
-         var template = Handlebars.compile($("#template").html());
-         
-         var file = $("input[type=file]")[0].files[0];
-         
-         var formData = new FormData();
-         
-         formData.append("file", file);
-         
-         $.ajax({
-            
-            url: "/product/attach/",
-            data: formData,
-            dataType: "text",
-            processData: false,
-            contentType: false,
-            type: "POST",
-            success: function(data) {
-               var fileInfo = getFileInfo(data);
-                 
-                 var html = template(fileInfo);
-                 
-                 $(".uploadedList").append(html);
-               $("#photo").val(""); 
-            }
-            
-         });
-         
-      };
-      
-      /* 첨부파일 정보 Form에 추가 후 submit */
-      function sendAttachment() {
-          $("#modifyForm").submit(function(event){
-            event.preventDefault();
-            
-            var that = $(this);
-            
-            var str ="";
-            $(".uploadedList .delbtn").each(function(index){
-               str += "<input type='hidden' name='photo["+index+"]' value='"+$(this).attr("href") +"'> ";
-            });
-            
-            that.append(str);
-            that.get(0).submit();
-          });
-      };		
       
       /* 첨부파일 삭제 */
       $(document).on("click", ".uploadedList .delbtn", function(event){
@@ -122,8 +103,9 @@
          event.preventDefault();
          
          var that = $(this);
+         that.closest("li").remove();
           
-          $.ajax({
+         /*  $.ajax({
             url:"/product/attach/deleteFile",
             type:"post",
             data: {fileName:$(this).attr("href")},
@@ -133,7 +115,7 @@
                   that.closest("li").remove();
                }
             }
-         }); 
+         });  */
           
       });
       
@@ -168,25 +150,25 @@
                 <!-- Tab panes-->
                     <form class="rd-mailform text-left" id="modifyForm" method="post" action="/product/auction/modify/${product.productId}">
                     <input type="hidden" name="categoryId" value="2">
-                    <input type="hidden" name="smallId" value="${product.smallid}">
+                    <input type="hidden" name="smallId" value="${product.smallid}" required>
                     
                       <div class="range range-20">
                         <div class="cell-sm-12">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-name">title</label>
-                            <input class="form-input" id="forms-3-name" type="text" name="name" data-constraints="@Required" value="${product.name}">
+                            <input class="form-input" id="forms-3-name" type="text" name="name" data-constraints="@Required" value="${product.name}" required>
                           </div>
                         </div>
                         <div class="cell-sm-12">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-last-name">seller</label>
-                            <input class="form-input" id="forms-3-last-name" type="text" name="seller" data-constraints="@Required" readonly="readonly" value="${product.seller}">
+                            <input class="form-input" id="forms-3-last-name" type="text" name="seller" data-constraints="@Required" readonly="readonly" value="${product.seller}" required>
                           </div>
                         </div>
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-company">Start Price</label>
-                            <input class="form-input" id="forms-3-company" type="text" name="basicprice" data-constraints="@Required"  value="${product.basicprice}">
+                            <input class="form-input" id="forms-3-company" type="number" name="basicprice" data-constraints="@Required" min="1000" value="${product.basicprice}" required>
                           </div>
                         </div>
                         <div class="cell-sm-8">
@@ -198,30 +180,30 @@
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Period Of Use</label>
-                            <input class="form-input" id="forms-3-city" type="text" name="usingtime" value="${product.usingtime}">
+                            <input class="form-input" id="forms-3-city" type="text" name="usingtime" value="${product.usingtime}" required>
                           </div>
                         </div>
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Delivery Type</label>
                               <div class="form-wrap box-width-1">
-                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="deliverytype">
+                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="deliverytype" required>
                                   <option value="0"> 주문방식 선택 </option>
                                   <c:choose>
-                                     <c:when test='${(product.deliverytype).equals("Direct Dealing")}'>
-                                        <option value="Direct Dealing" selected="selected">Direct Dealing</option>
+                                     <c:when test='${(product.deliverytype).equals("직거래")}'>
+                                        <option value="직거래" selected="selected">직거래</option>
                                      </c:when>
                                      <c:otherwise>
-                                        <option value="Direct Dealing">Direct Dealing</option>
+                                        <option value="직거래">직거래</option>
                                      </c:otherwise>
                                   </c:choose>
                                   
                                   <c:choose>
-                                     <c:when test='${(product.deliverytype).equals("Parcel Service")}'>
-                                        <option value="Parcel Service" selected="selected">Parcel Service</option>
+                                     <c:when test='${(product.deliverytype).equals("택배")}'>
+                                        <option value="택배" selected="selected">택배</option>
                                      </c:when>
                                      <c:otherwise>
-                                        <option value="Parcel Service">Parcel Service</option>
+                                        <option value="택배">택배</option>
                                      </c:otherwise>
                                   </c:choose>
                                 </select>
@@ -232,14 +214,14 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Auction Date</label>
                            <%--  <input type="date" class="form-input data" id="form-element-date" data-time-picker="date" name="auctionstart" value="${product.auctionstart}" > --%>
-                           <input type="datetime-local" class="form-input" step='3600' value="" name="auctionstart" data-constraints="@Required" >
+                           <input type="datetime-local" class="form-input" step='3600' value="" name="auctionstart" data-constraints="@Required" required>
                           </div>
                         </div>
                         
                         <div class="cell-sm-12">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-street-address">Product Information</label>
-                            <textarea class="form-input" rows="6" cols="100%" name="productinfo" data-constraints="@Required" style="resize: none;">${product.productinfo}</textarea>
+                            <textarea class="form-input" rows="6" cols="100%" name="productinfo" data-constraints="@Required" style="resize: none;" required>${product.productinfo}</textarea>
                           </div>
                         </div>
                         
@@ -253,17 +235,7 @@
                           <!-- 사진 보여주는 곳 -->
                         <div class="cell-md-12">
                           <ul class="mailbox-attachments clearfix uploadedList">
-                          <c:if test="${product.photo ne null }">
-                          	<c:forEach var='photoName'  items='${product.photo}' varStatus='status'>
-                          		<li class="attachment">
-							    	<span class="mailbox-attachment-icon has-img"><img src="/resources/images/img${photoName}" alt="Attachment"></span>
-							        <div class="mailbox-attachment-info">
-							        <a href="/resources/images/img${photoName}" class="mailbox-attachment-name">${photoName}</a>
-							        <a href="/resources/images/img${photoName}" class="btn btn-default btn-xs pull-right delbtn">x<i class="fa fa-fw fa-remove"></i></a>
-							        </div>
-							    </li>
-                          	</c:forEach>
-                          </c:if>
+                        
                           </ul>
                         </div>
                         

@@ -188,5 +188,23 @@
 	display: inline-block;
 }
 
-.rd-navbar-nav{
+#cannotSearch {
+	border-radius: 5px;
+	text-align:center;
+	/* margin-left: 60px; */
+	margin-top: 70px; 
+	vertical-align: middel;
+}
+
+.jjh-modalTitle {
+	color: rgb(255, 51, 102);
+}
+
+.jjh-modalMessage {
+	font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.jjh-close {
+	background: none;
+	border:1px solid rgb(130, 130, 130);
 }

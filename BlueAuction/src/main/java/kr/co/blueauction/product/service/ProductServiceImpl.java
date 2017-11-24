@@ -128,8 +128,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> listByCri(SearchCriteria cri, int type) throws Exception {
-		return productDao.listByCri(cri, type);
+	public List<Product> listByCri(SearchCriteria cri, int type, String arrayType) throws Exception {
+		if(type != 1) {
+			arrayType = "recent";
+		}
+		
+		return productDao.listByCri(cri, type, arrayType);
 	}
 
 	@Override
@@ -231,7 +235,7 @@ public class ProductServiceImpl implements ProductService {
 		cri.setCategory(1);
 		cri.setPerPageNum(9);
 		
-		List<Product> list = productDao.listByCri(cri, 0);
+		List<Product> list = productDao.listByCri(cri, 0, "recent");
 		
 		int count = productDao.listBySearchCount(cri, 0);
 		
@@ -266,7 +270,7 @@ public class ProductServiceImpl implements ProductService {
 			cri.setKeyword(keyword);
 		}
 		
-		List<Product> list = productDao.listByCri(cri, 0);
+		List<Product> list = productDao.listByCri(cri, 0, "recent");
 		for (Product product : list) {
 		}
 		int count = productDao.listBySearchCount(cri, 0);
@@ -285,4 +289,35 @@ public class ProductServiceImpl implements ProductService {
 		
 		return resultMap;
 	};
+	
+	/** 중고상품 상세 보기 */
+	@Override
+	public Model getDetail(int productId, Model model) throws Exception {
+		Product product = productDao.read(productId);
+
+		
+		List<Photo> photoList = photoDao.readByProductId(productId);
+		
+		String[] photoArr = null;
+		if (photoList.size() > 0) {
+			photoArr = new String[photoList.size()];
+
+			for (int i = 0; i < photoArr.length; i++) {
+				String tmp = photoList.get(i).getPhotoname();
+				photoArr[i] = tmp.replaceAll("s_", "");
+			}
+		}
+
+		if (photoArr != null) {
+			product.setPhoto(photoArr);
+		}
+		
+		Gson gson = new Gson();
+		String jsonlist = gson.toJson(product);
+		
+		model.addAttribute("jsonproduct", jsonlist);
+		model.addAttribute("product", product);
+		
+		return model;
+	}
 }

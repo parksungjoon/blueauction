@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+
 import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.bid.service.BidService;
 import kr.co.blueauction.common.domain.SearchCriteria;
@@ -93,12 +95,13 @@ public class ProductController {
 		
 		int page = 1; // 첫 페이지 설정
 		String keyword = null;
+		String arrayType = "recent";
 		
 		String memberId = productService.memberIdGet(session); // 로그인 회원 아이디 get
 		
 		SearchCriteria cri = productService.setCri(smallid, page, keyword); // 경매 SearchCriteria 설정
 		
-		List<Product> list = productService.listByCri(cri, type); // 검색조건에 따른 경매 리스트
+		List<Product> list = productService.listByCri(cri, type, arrayType); // 검색조건에 따른 경매 리스트
 		
 		int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
 		
@@ -125,19 +128,20 @@ public class ProductController {
 	 * @return map 리턴
 	 */
 	@RequestMapping(value="/auction/{type}/{smallid}", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword, HttpSession session){
+	public ResponseEntity<Map<String, Object>> listPagePost(@PathVariable("type") int type, @PathVariable("smallid") int 	smallid, @RequestParam("page") int page, @RequestParam("keyword") String keyword, @RequestParam("arraytype") String arrayType, HttpSession session){
 		String memberId = null;
 		List<Favorite> favoriteList =  null;
 		SearchCriteria cri = null;
 		String checkEndPage = null;
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
+		logger.info("arrayType : " + arrayType);
 		
 		try {
 			memberId = productService.memberIdGet(session); // 로그인 회원 아이디 get
 			cri = productService.setCri(smallid, page, keyword); // 경매 SearchCriteria 설정
 			
-			List<Product> list = productService.listByCri(cri, type);
+			List<Product> list = productService.listByCri(cri, type, arrayType);
 			int count = productService.listBySearchCount(cri, type); // 검색조건에 따른 전체 리스트 수
 			checkEndPage = productService.checkEndPage(cri, count); // 끝페이지 인지 여부 검사(끝페이지 : "yes", 끝페이지x : "no")
 			favoriteList =  favoriteService.readByMemberId(memberId); // 로그인한 회원의 관심경매 리스트
@@ -191,7 +195,12 @@ public class ProductController {
 	@RequestMapping(value="/auction/modifypage/{productId}", method= RequestMethod.POST)
 	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
 		Product product = productService.read(productId);
+		Gson json = new Gson();
+		String jsonlist = json.toJson(product);
+		
+		
 		model.addAttribute("product", product);
+		model.addAttribute("jsonP", jsonlist);
 		
 		return "/product/productModify";
 	}
@@ -314,7 +323,7 @@ public class ProductController {
 	}
 	
 	/**
-	 * 중고상품 등록
+	 * 중고상품 등록 페이지 이동
 	 * 
 	 * @return 뷰 주소
 	 */
@@ -360,7 +369,7 @@ public class ProductController {
 	}
 	
 	/**
-	 * 중고상품 수정
+	 * 중고상품 수정 페이지 이동
 	 * 
 	 * @param productId 상품 아이디
 	 * @param model 
@@ -370,12 +379,46 @@ public class ProductController {
 	public String modifyGet(@PathVariable("productId") int productId, Model model) {
 		Product product;
 		try {
-			product = productService.read(productId);
-			model.addAttribute("product", product);
+			model = productService.getDetail(productId, model);
 			logger.info("중고 상품 수정 페이지 이동");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "/product/usedmodify";
+	}
+	
+	
+	/**
+	 * 중고상품 수정
+	 * 
+	 * @param product 상품 정보가 든 객체
+	 * @return 뷰 주소
+	 */
+	@RequestMapping(value="/used/modify/{productId}", method=RequestMethod.POST)
+	public String modifyPost(Product product) {
+		try {
+			productService.modify(product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("중고상품 정보 수정 후 상세 페이지로 이동");
+		return "redirect:/product/used/" + product.getProductId();
+	}
+	
+	/**
+	 * 중고상품 삭제
+	 * 
+	 * @param productId 상품 아이디
+	 * @return 뷰 주소
+	 */
+	@RequestMapping(value="/used/{productId}", method=RequestMethod.DELETE)
+	public String delete(@PathVariable("productId") int productId) {
+		try {
+			productService.delete(productId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("중고상품 삭제 후 리스트로 이동");
+		return "redirect:/product/used";
 	}
 }
