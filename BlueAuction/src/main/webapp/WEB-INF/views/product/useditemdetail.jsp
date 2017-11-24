@@ -52,7 +52,7 @@
     	
     	$(".btn-register").click(function() {
     		
-    		var type = $(".modal-title").text();
+    		var type = $(".modal-title-reply").text();
     		
     		switch (type) {
     		
@@ -77,14 +77,14 @@
     	});
     	
     	$(document).on("click", ".btn-reply", function() {
-    		$(".modal-title").text("댓글 작성");
+    		$(".modal-title-reply").text("댓글 작성");
     		$(".btn-register").text("Register");
     		var parentId = $(this).attr("value");
     		$(".btn-register").attr("value", parentId);
     	});
     	
     	$(document).on("click", ".btn-reply-modify", function() {
-    		$(".modal-title").text("댓글 수정");
+    		$(".modal-title-reply").text("댓글 수정");
     		$(".btn-register").text("Modify");
     		$(".tarea-reply").val($(this).attr("name"));
     		var replyId = $(this).attr("value");
@@ -92,7 +92,7 @@
     	});
     	
     	$(document).on("click", ".btn-reply-delete", function() {
-    		$(".modal-title").text("댓글 삭제");
+    		$(".modal-title-reply").text("댓글 삭제");
     		$(".btn-register").text("Delete");
     		var replyId = $(this).attr("value");
     		$(".btn-register").attr("value", replyId);
@@ -167,7 +167,7 @@
 			}
 			
 			for (var i = pageMaker.startPage; i <= pageMaker.endPage; i++) {
-				var numClass = pageMaker.cri.page == (i*10)+1 ? 'class=active' : '';
+				var numClass = (pageMaker.cri.page/10)+1 == i ? 'class=active' : '';
 				pages += "<li " + numClass +  "><a href='" + (i-1) + "'>" + i + "</a></li>";
 			}
 			
@@ -253,6 +253,15 @@
 			});
 		}
 		
+		/* 상품 리스트로 돌아가기 */
+		var form = document.createElement("form");
+		$(document).on("click", ".back", function() {
+			form.setAttribute("method", "get");
+			form.setAttribute("action", "/product/used");
+			document.body.appendChild(form);
+			form.submit();
+		});
+		
     </script>
     
   </head>
@@ -286,7 +295,7 @@
           <div class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
           
           	<!-- 상품 이미지 START -->
-            <div class="cell-md-4 cell-lg-5 cell-xl-4">
+            <div class="cell-md-5 cell-lg-5 cell-xl-5">
               <div class="product-single-preview">
                 <div class="unit unit-sm-horizontal unit-sm-middle unit-spacing-md-midle unit--inverse unit-sm">
                   <div class="unit-body">
@@ -311,7 +320,7 @@
             </div>
             <!-- 상품 이미지 END -->
             
-            <div class="cell-md-6 cell-lg-5 cell-xl-5 text-center text-md-left">
+            <div class="cell-md-5 cell-lg-4 cell-xl-4 text-center text-md-left">
               <div class="heading-5">
                 <c:choose>
                   <c:when test="${product.smallid == 1 }">의류</c:when>
@@ -372,7 +381,6 @@
                 <c:when test="${not empty login }">
                   <div class="section-lg qna-write">
                     <p class="h3-alternate">문의 작성</p>
-                    <form action="/product/used/modify/${product.productId}">
                       <div class="range range-20">
                         <div class="cell-xs-12">
                           <div class="form-wrap form-wrap-validation">
@@ -387,11 +395,12 @@
                           </div>
                         </div>
                       </div>
+                    <form action="/product/used/modify/${product.productId}">
                           <div class="form-button btn-function">
                             <c:choose>
                               <c:when test="${login.memberId == product.seller }">
                                 <button class="button button-secondary modify" type="submit">Modify</button>
-                                <button class="button button-secondary back" type="button">Go Back</button>
+                                <button class="button button-secondary back" type="button">Go List</button>
                                 <button class="button button-secondary delete" type="button">Delete</button>
                               </c:when>
                               <c:otherwise>
@@ -431,7 +440,7 @@
         <!-- 모달 내용-->
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title"></h5>
+            <h5 class="modal-title-reply"></h5>
           </div>
           <div class="modal-body"> 
             <textarea class="tarea-reply" rows="3"></textarea>
