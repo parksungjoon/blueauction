@@ -46,7 +46,7 @@
     		page = 1;
     		arraytype = $(this).attr("value");
     		
-    		ajaxPost("html");
+    		ajaxPost("html"); // post로 ajax
     	});
     	
     	/* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
@@ -89,10 +89,10 @@
     	
     	/** 페이지 더보기 */
     	$(document).on("click", ".jjh-pageLoader", function(event){
-			event.preventDefault();
-  			page = page + 1;
+			event.preventDefault(); // 페이지 이벤트 발생시 화면이 맨위로 올라가는 것 방지
+  			page = page + 1; // 페이지 1증가
   			
-  			ajaxPost("append");
+  			ajaxPost("append"); // post로 ajax
     	});
    		
    		/** 상세보기 - hidden으로 넘기기 */
@@ -161,7 +161,7 @@
     
     /* post로 ajax */
    	function ajaxPost(data){
-    	var patch = data
+    	var patch = data // 붙이는 방식
    		$.ajax({
 			type : "post",
 			data : {page:page, keyword:keyword, arraytype:arraytype},
