@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+
 import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.bid.service.BidService;
 import kr.co.blueauction.common.domain.SearchCriteria;
@@ -193,7 +195,12 @@ public class ProductController {
 	@RequestMapping(value="/auction/modifypage/{productId}", method= RequestMethod.POST)
 	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
 		Product product = productService.read(productId);
+		Gson json = new Gson();
+		String jsonlist = json.toJson(product);
+		
+		
 		model.addAttribute("product", product);
+		model.addAttribute("jsonP", jsonlist);
 		
 		return "/product/productModify";
 	}

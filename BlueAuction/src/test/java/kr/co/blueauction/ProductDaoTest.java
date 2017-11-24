@@ -92,7 +92,7 @@ public class ProductDaoTest {
 		cri.setKeyword("휴대폰케이스");
 		
 		logger.info(cri.toString());
-		List<Product> list = productDao.listByCri(cri, 2);
+		List<Product> list = productDao.listByCri(cri, 2, "recent");
 		for (Product product : list) {
 			logger.info(product.toString()); 
 		}

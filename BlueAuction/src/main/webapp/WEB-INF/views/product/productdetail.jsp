@@ -178,7 +178,7 @@
 						</span> 원  </div>
 						<div class="point"><span class="sf fc6">  시작가   <span class="num_thm" id="basicPrice">${product.basicprice}</span> 원 </span></div>
 					</dd>
-					<c:if test='${!((product.auctionstate).equals("BEFORE"))}'>
+					<c:if test='${(product.auctionstate) ne ("BEFORE")}'>
 					<dt class="redprice">입찰수</dt ><dd class="redprice" id="bidCount">
 					<c:choose>
 							<c:when test="${bidList == null}">
@@ -221,10 +221,6 @@
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
                 </c:if>
-				<c:if test='${(product.auctionstate).equals("AFTER")}'>
-					<button class="button button-xs btn" disabled="disabled">종료</button>
-				</c:if>
-				
               </div>
             </div>
           </div>
