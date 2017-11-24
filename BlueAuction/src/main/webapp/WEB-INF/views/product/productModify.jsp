@@ -252,7 +252,19 @@
                         </div>
                           <!-- 사진 보여주는 곳 -->
                         <div class="cell-md-12">
-                          <ul class="mailbox-attachments clearfix uploadedList"></ul>
+                          <ul class="mailbox-attachments clearfix uploadedList">
+                          <c:if test="${product.photo ne null }">
+                          	<c:forEach var='photoName'  items='${product.photo}' varStatus='status'>
+                          		<li class="attachment">
+							    	<span class="mailbox-attachment-icon has-img"><img src="/resources/images/img${photoName}" alt="Attachment"></span>
+							        <div class="mailbox-attachment-info">
+							        <a href="/resources/images/img${photoName}" class="mailbox-attachment-name">${photoName}</a>
+							        <a href="/resources/images/img${photoName}" class="btn btn-default btn-xs pull-right delbtn">x<i class="fa fa-fw fa-remove"></i></a>
+							        </div>
+							    </li>
+                          	</c:forEach>
+                          </c:if>
+                          </ul>
                         </div>
                         
                        <%--  <input type='hidden' name='page' value="${page}"> 

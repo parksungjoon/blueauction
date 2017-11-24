@@ -59,7 +59,17 @@
 	</select>
 	
 	<select id="winningList" resultType="bid">
-		select bid_id, product_id, member_id, max(bidprice) from bid group by product_id
+		SELECT b1.product_id productId, 
+       b1.bidprice   bidprice, 
+       b1.bid_id     bidId, 
+       b1.member_id  memberId 
+FROM   bid AS b1, 
+       (SELECT product_id, 
+               Max(bidprice) AS max_sort 
+        FROM   bid 
+        GROUP  BY product_id) AS b2 
+WHERE  b1.bidprice = b2.max_sort 
+       AND b1.product_id = b2.product_id
 	</select>
 	
 	<update id="updateWinning" parameterType="map">

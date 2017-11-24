@@ -11,6 +11,7 @@
   content="width=device-width, height=device-height, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta charset="utf-8">
+
 <link rel="icon" href="/resources/images/favicon.ico"
   type="image/x-icon">
 <%-- Stylesheets --%>
@@ -21,6 +22,7 @@
 <link rel="stylesheet" href="/resources/css/mdi.css">
 <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
 <link rel="stylesheet" href="/resources/css/jjh-style.css">
+<link rel="stylesheet" href="/resources/css/ksj-css.css">
 
 <%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
@@ -195,15 +197,12 @@
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">ID</label>
                   <input class="form-input" id="memberId" type="text"
-                    name="memberId" 
-                    placeholder="ID">
+                    name="memberId" placeholder="ID">
                 </div>
               </div>
               <div class="cell-sm-3">
                 <div class="form-wrap-validation">
-                  <input type="button" name="memberIdCheck"
-                    class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="idCheck()" value="check ID"></input> 
+                	<button class="ksj-btn btn btn-warning button-secondary" name="memberIdCheck" onclick="idCheck()">check ID</button>
                     <input type="hidden" id="idChk" value='N' />
                 </div>
               </div>
@@ -253,9 +252,10 @@
               </div>
               <div class="cell-sm-5">
                 <div class="form-wrap-validation">
-                  <button type="button"
-                    class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="sample6_execDaumPostcode()">POSTAL CODE</button>
+                <button class="ksj-btn btn btn-warning button-secondary" name="memberIdCheck" onclick="sample6_execDaumPostcode()">POSTAL CODE</button>
+	                  <!-- <button type="button"
+	                    class="button button-secondary jjh-postCodeSearchBtn"
+	                    onclick="sample6_execDaumPostcode()">POSTAL CODE</button> -->
                 </div>
               </div>
               <div class="cell-xs-12">
@@ -270,27 +270,22 @@
               </div>
 
 
-              <div class="cell-sm-5">
+              <div class="cell-sm-8">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Email</label>
-                  <input class="form-input" id="email" type="text"
-                    name="email" data-constraints="@Required"
+                  <input class="form-input" id="email" type="text" name="email" data-constraints="@Required"
                     placeholder="EMAIL">
                 </div>
               </div>
-              <div class="cell-sm-2">
+              <div class="cell-sm-2">	
                 <div class="form-wrap form-wrap-validation">
-                  <input type="button" name="memberIdCheck"
-                    class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="emailCheck()" value="check Email"></input>
-                  <input type="hidden" id="emailChk" value='N' />
+			    	<button class="ksj-btn btn btn-warning button-secondary" name="emailCheck" onclick="emailCheck()">check Email</button>
+                  	<input type="hidden" id="emailChk" value='N' />
                 </div>
               </div>
                <div class="cell-sm-2">
                 <div class="form-wrap form-wrap-validation">
-                  <input type="button" name="memberIdCheck"
-                    class="button button-secondary jjh-postCodeSearchBtn"
-                    onclick="emailAuthenCheck()" value="authentification"></input>
+                	<button class="btn btn-warning button-secondary ksj-btn" name="authentification" onclick="emailAuthenCheck()">authentification</button>
                   <input type="hidden" id="emailAuthenChk" value='N' />
                 </div>
               </div>
@@ -300,9 +295,7 @@
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Phone</label>
                   <input class="form-input" id="forms-3-name"
-                    type="text" name="phoneNumber"
-                   
-                    placeholder="-없이 숫자만 입력해주세요">
+                    		type="text" name="phoneNumber" placeholder="-없이 숫자만 입력해주세요">
                 </div>
               </div>
 
@@ -312,33 +305,30 @@
                   <div class="col-sm-3">
                     <!-- Dropdown list-->
                     <!-- Select 2-->
-                    <select class="col-sm-2 form-control select-filter"
-                      data-placeholder="All"
-                      data-minimum-results-for-search="Infinity"
-                      data-constraints="@Selected" name="bank">
+                    <select class="col-sm-2 form-control select-filter" data-placeholder="All" 
+                    		data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="bank">
                       <option label="계좌종류"> </option>
-                      <option value="1" selected="">국민</option>
+                      <option value="1">국민</option>
                       <option value="2">농협</option>
                       <option value="3">신한</option>
                       <option value="4">신협</option>
                       <option value="5">우리</option>
                       <option value="6">하나</option>
+                      <option value="7">기업</option>
                     </select>
                   </div>
                   <div class="col-sm-9">
-                    <input class="cell-sm-8 form-input"
-                      id="forms-3-name" type="text" name="accountNumber"
-                      data-constraints="@Required"
-                      placeholder="-없이 숫자만 입력해주세요">
+                    <input class="cell-sm-8 form-input" id="forms-3-name" type="text" name="accountNumber"
+                      data-constraints="@Required" placeholder="-없이 숫자만 입력해주세요">
                   </div>
                 </div>
               </div>
 
-              
-              <div class="cell-sm-3">
-                <div>
-                  <button id="clickzz" type="button" class="click" onclick="clickz()" >SUBMIT</button>
-                </div>
+              <div class="cell-sm-3" >
+                <input id="clickzz" type="button" name="memberIdCheck"
+                    class="button button-secondary jjh-postCodeSearchBtn"
+                    onclick="clickz()" value="SUBMIT"></input> 
+                 <!--  <button id="clickzz" type="button" class="click" onclick="clickz()" >SUBMIT</button> -->
               </div>
             </div>
           </form>
@@ -364,8 +354,7 @@
           </div>
            <div class="modal-body">
             <button class="cell-sm-8 form-input" id="uid" type="text"
-              name="accountNumber" 
-              placeholder="uid" onclick="uidCheck()" >제출</button>
+              name="accountNumber"  placeholder="uid" onclick="uidCheck()" >제출</button>
           </div>
           <!-- Footer -->
           <div class="modal-footer">
