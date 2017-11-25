@@ -94,5 +94,11 @@ public class MybatisProductDao implements ProductDao {
 	public List<Product> listUsedItems() throws Exception {
 		return sqlSession.selectList(namespace + ".listByCri");
 	}
+	
+	/** 중고 or 경매의 최근 등록된 4개의 리스트 조회 */
+	@Override
+	public List<Product> recentList(int category) throws Exception {
+		return sqlSession.selectList(namespace + ".recentList", category);
+	}
 
 }

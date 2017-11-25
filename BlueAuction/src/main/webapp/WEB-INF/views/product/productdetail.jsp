@@ -24,7 +24,32 @@
 	<script type="text/javascript">
 	
 	 $(document).ready(function(){
+		 /* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
+	    	$(document).on("click", ".ksj-favoriteButton", function(event){
+	    		var productId = $(this).attr("id");
+	    		var st = "";
+	    		
+	    		$.ajax({
+	    			type:"post",
+	    			data:{productId:productId},
+	    			dataType:"text",
+	    			url:"/favorite",
+	    			success: function(data){
+	    				if(data == 'insert'){
+	    					st = "<img alt='favorite-register' src='/resources/images/full-heart.png'>";
+	    					$("#" + productId).html(st);
+	    				}else if(data == 'delete'){
+	    					st = "<img alt='favorite-register' src='/resources/images/empty-heart.png'>";
+	    					$("#" + productId).html(st);
+	    				}else {
+	    					$(".jjh-modalMessage").html("관심경매 등록/삭제에  실패하였습니다.");
+	    	    			$("#cannotSearch").modal("show");
+	    				}
+	    			}
+	    		});
+	    	});
 		 
+		 /* 글 삭제 버튼 이벤트 */
 		 var formObj = $("#modifyPage");
 		 $("#removeBtn").click(function(event) {
 				event.preventDefault();
@@ -36,7 +61,7 @@
 				
 			});
 		 
-		
+		 /* 글 수정 버튼 이벤트 */
 		 $("#modifyBtn").click(function(event) {
 		 	event.preventDefault();
 		 	var productId = formObj.attr("action");
@@ -45,25 +70,24 @@
 	    	formObj.attr("method", "post");
 	    	formObj.submit();
 		 });
-		 
 		
-		 
+		 /* 이전 목록으로 돌아가는 이벤트 */
 		$("#goListBtn").click(function(event){
 			event.preventDefault();
 			
-			 window.history.back();
+			 /* window.history.back(); */
 			
-			/* var type = $("input[name=page]")[0].attr('value');
-			var smallid = $("input[name=smallid]")[0].attr('value');
+			var type = $("#type").attr('value');
+			var smallid = ${product.smallid};
 			
 			formObj.attr("action", "/product/auction/"+type+"/"+smallid);    
 			formObj.attr("method", "GET");
 			
-			alert("type : " + type);
+			/* alert("type : " + type);
 			alert("smallid : " + smallid);
 			alert("formObj : " + formObj.attr("action")); */
 			
-			/* formObj.submit(); */
+			formObj.submit();
 		});
 	      
 	  });
@@ -119,7 +143,6 @@
 		                    		</c:otherwise>
                     			</c:choose>
                     		</c:when>
-                    		
                     		<c:otherwise>
                     			<c:choose>
 		                    		<c:when test="${status.count==1}">
@@ -160,7 +183,19 @@
 					<c:when test="${product.smallid == 4}"> 가전제품 </c:when>
 				</c:choose>
 			  </div>
-              <h3 id="productName">${product.name}</h3>
+              <h3 id="productName">${product.name}   
+              <button class="ksj-favoriteButton" id="${product.productId}">
+              <c:if test="${not empty login || login.memberId eq product.seller}">
+              <c:choose>
+              	<c:when test="${favorite.favoriteId == 0}">
+              		<img alt="favorite-register" src="/resources/images/empty-heart.png">
+              	</c:when>
+              	<c:otherwise>
+              		<img alt="favorite-register" src="/resources/images/full-heart.png">
+              	</c:otherwise>
+              </c:choose>
+              </c:if>
+              </button></h3>
               <div class="divider divider-default"></div>
               <div class="detail">
                <dl class="nv3 nfirst present">
@@ -168,7 +203,7 @@
 					<dd class="redprice">
 						<div class="present_price" id="Price"><span class="present_num" id="presentNum">
 						<c:choose>
-							<c:when test="${bidList == null}">
+							<c:when test="${bidList eq null}">
 							${product.basicprice}
 							</c:when>
 							<c:otherwise>
@@ -194,14 +229,24 @@
 					
 					<c:choose>
 						<c:when test='${(product.auctionstate).equals("BEFORE")}'>
+						<input type="hidden" id="type" value="1"> 
 							<dt class="redprice">시작시간</dt >
 							<dd class="redprice">
 								<!-- <span class="auction_time">00:24:12</span> -->
 								<div id="bidStartDate" class="jjh-counter">${product.auctionstart}</div>
 							</dd>	
 						</c:when>
+						<c:when test='${(product.auctionstate).equals("DOING")}'>
+						<input type="hidden" id="type" value="2"> 
+							<dt class="redprice">남은시간</dt>
+							<dd class="redprice">
+							<!-- <span class="auction_time">00:24:12</span> -->
+								<div id="bidendDate" class="countdown jjh-counter" data-time="${product.auctionend}" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
+							</dd>
+						</c:when>
 						<c:otherwise>
-							<dt class="redprice">남은시간</dt >
+						<input type="hidden" id="type" value="3"> 
+							<dt class="redprice">남은시간</dt>
 							<dd class="redprice">
 							<!-- <span class="auction_time">00:24:12</span> -->
 								<div id="bidendDate" class="countdown jjh-counter" data-time="${product.auctionend}" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
@@ -212,14 +257,18 @@
 					<dt class="redprice">판매자</dt> <dd class="redprice">${product.seller}</dd>
 				</dl> 
 				
-				<c:if test='${(product.auctionstate).equals("DOING")}'>
+				<c:if test='${(product.auctionstate).equals("DOING") && not empty login}'>
+				  <div id="clock">
 				  <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a>
+                  </div>
 				</c:if>
                 <!-- TEST 하시려면 푸세요. 대신 제가 서버를 켜야합니다. -->
 				<!-- <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a> -->
                 <c:if test="${not empty login }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
+                <c:if test="${login.memberId!=product.seller }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
+                </c:if>
                 </c:if>
               </div>
             </div>
@@ -255,8 +304,8 @@
               </div>
             </div>
           </div>
-        </div>
-        <!-- 테스트 하시려면 자신의 아이피를 입력하세요. -->
+        </div> 
+        <!-- 테스트 하시려면 주석을 푸세요. -->
         <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe>
        <iframe id='child' src='http://192.168.0.78:7777/bid/?productId=${productId}&memberId=${login.memberId}' width=100%; frameborder='0' style="height:1000px;"></iframe> --%>
         <!-- Hover Row Table (입찰 리스트) END --> 
@@ -271,30 +320,30 @@
             </div>
           </div>
         </div>
-        
-        <c:if test="${(login.memberId).equals(product.seller)}">
-        	<c:if test='${(product.auctionstate).equals("BEFORE")}'>
-        		<form role="form" action="${productId}" method="post" id="modifyPage">
-				 	<%-- <input type='hidden' name='page' value="${page}"> 
-					<input type='hidden' name='type' value="${type}">
-					<input type='hidden' name='keyword' value="${keyword}">
-					<input type='hidden' name='smallid' value="${smallid}"> --%>
-				
-		        <div class="shell"> 
-		          <div class="range range-xs-right">
-		            <div class="cell-sm-10 cell-lg-4">
-		            	<button type="submit" class="btn" id="goListBtn">GO LIST</button>
-			            <button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-						<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
-		            </div>
-		          </div>
-		        </div>
-		        </form>
-        	</c:if>
-        </c:if>
-        
-        
-      </section>
+
+
+		<form role="form" action="${productId}" method="post" id="modifyPage">
+			<%-- <input type='hidden' name='page' value="${page}"> 
+			<input type='hidden' name='type' value="${type}">
+			<input type='hidden' name='keyword' value="${keyword}">
+			<input type='hidden' name='smallid' value="${smallid}"> --%>
+
+			<div class="shell">
+				<div class="range range-xs-right">
+					<div class="cell-sm-10 cell-lg-4">
+						<button class="btn" id="goListBtn"><a href="${productId}">GO LIST</a></button>
+						<c:if test="${(login.memberId).equals(product.seller)}">
+							<c:if test='${(product.auctionstate).equals("BEFORE")}'>
+								<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
+								<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+							</c:if>
+						</c:if>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		</section>
       <!-- Product Page END-->
       
       <%-- Page Footer--%>
@@ -309,6 +358,7 @@
     <%-- Javascript--%>
     <script src="/resources/js/core.min.js"></script>
     <script src="/resources/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
     <div id="bidModal" class="modal modal-primary fade" role="dialog">
       <div class="modal-dialog">
     <!-- Modal content-->
@@ -318,7 +368,7 @@
             <h4 class="modal-title">입찰하기</h4>
           </div>
         <div class="modal-body" data-rno>
-          <p>최고가<span id='maxPrice'>${bidList.get(0).bidprice}</span></p>
+          <p>최고가<span id='maxPrice'><c:out value="${bidList.get(0).bidprice eq undefined ? product.basicprice : bidList.get(0).bidprice}"/></span></p>
           <p><input type="hidden" id="memberId" class="form-control" value="${login.memberId}"></p>
           <p><input type="hidden" id="productId" class="form-control" value="${product.productId}"></p>
           <p><input type="text" id="bidprice" class="form-control"></p>
@@ -416,6 +466,21 @@ window.onload=function(){
   function sendMsgToChild( msg ) {
       document.getElementById('child').contentWindow.postMessage(msg, '*');
   }
+  
+  $('#goBuy').on('click',function(e){
+		 self.location="/member/mypage/note/list"; 
+	  });
+	  
+	 
+	  
+	//경매 종료시 입찰 버튼 없애기 
+	$('#bidendDate').countdown('option',{onExpiry: liftOff});
+	  
+	  
+	 
+}
+function liftOff(){
+	  $('#bidModalOpen').remove();
 }
 </script>
   </body>

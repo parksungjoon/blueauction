@@ -320,4 +320,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		return model;
 	}
+	
+	/** 중고 or 경매의 최근 등록된 4개의 리스트 조회 */
+	@Override
+	public List<Product> recentList(int category) throws Exception {
+		return productDao.recentList(category);
+	}
 }

@@ -15,8 +15,11 @@ public interface FavoriteDao {
 	/** 관심물품 등록 */
 	public void insert(Favorite favorite);
 
-	/** 맴버별 관심물품 반환 */
+	/** 멤버별 관심물품 반환 */
 	public List<Favorite> readByMemberId(String memberId);
+	
+	/** 멤버별 관심물품 반환 */
+	public Favorite readByMemberProduct(String memberId, int productId);
 
 	/** 물품아이디로 물품 반환 */
 	public List<Favorite> readByProductId(int productId);

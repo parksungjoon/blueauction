@@ -41,6 +41,13 @@ dl.nv3.present {
 	font-weight: bold;
 }
 
+.ksj-favoriteButton {
+	width:10%;
+	height:10%;
+	border: none;
+	background: none;
+}
+
 div.detail dl.nv3 dd.redprice {
 	width: 100%;
 	clear: both;
@@ -110,4 +117,10 @@ div.detail dl.nv3 dd.redprice div.count {
 	color: #f9ea49;
 }
 
+.ksj-numberInput{
+	width: 100%;
+}
 
+.ksj-submitMargin{
+	margin-top: 35px;
+}

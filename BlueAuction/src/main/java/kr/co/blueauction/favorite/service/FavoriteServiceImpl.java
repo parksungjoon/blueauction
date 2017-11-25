@@ -52,4 +52,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 		}
 		return result;
 	}
+
+	@Override
+	public Favorite readByMemberProduct(String memberId, int productId) {
+		return favoriteDao.readByMemberProduct(memberId, productId);
+	}
 }

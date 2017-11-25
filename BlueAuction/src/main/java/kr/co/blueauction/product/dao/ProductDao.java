@@ -41,4 +41,7 @@ public interface ProductDao {
 	/** 중고상품 리스트 출력 */
 	public List<Product> listUsedItems() throws Exception;
 	
+	/** 중고 or 경매의 최근 등록된 4개의 리스트 조회 */
+	public List<Product> recentList(int category) throws Exception;
+	
 }
