@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ import com.google.gson.Gson;
 import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.bid.service.BidService;
 import kr.co.blueauction.common.domain.SearchCriteria;
+import kr.co.blueauction.favorite.dao.FavoriteDao;
 import kr.co.blueauction.favorite.domain.Favorite;
 import kr.co.blueauction.favorite.service.FavoriteService;
 import kr.co.blueauction.member.domain.Member;
@@ -174,7 +176,15 @@ public class ProductController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/auction/readpage/{productId}", method= RequestMethod.GET)
-	public String readPage(@PathVariable("productId") int productId, Model model) throws Exception {
+	public String readPage(@PathVariable("productId") int productId, Model model, HttpSession session) throws Exception {
+		
+		String memberId = productService.memberIdGet(session);
+		Favorite favorite = new Favorite(0, "", 0, "");
+		if(memberId.equals("")) {
+			favorite = favoriteService.readByMemberProduct(memberId, productId);
+		}
+		logger.info(favorite.toString());
+		model.addAttribute("favorite", favorite);
 		
 		Product	product = productService.read(productId); 	
 		model.addAttribute(product);
@@ -238,7 +248,7 @@ public class ProductController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/auction/remove/{productId}", method= RequestMethod.POST)
-	public String remove(@PathVariable("productId")int productId, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
+	public String remove(@PathVariable("productId")int productId, RedirectAttributes redirectAttributes, HttpSession session) throws Exception {
 		productService.delete(productId);
 		
 		Map<String, Object> map = listGet(1, 0, session);
@@ -255,7 +265,7 @@ public class ProductController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "auction/register", method = RequestMethod.GET)
-	public String registerGET(Model model, HttpSession session)throws Exception{
+	public String registerGET(Model model)throws Exception{
 		
 		return "/product/registerauction";
 	}

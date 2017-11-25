@@ -24,7 +24,32 @@
 	<script type="text/javascript">
 	
 	 $(document).ready(function(){
+		 /* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
+	    	$(document).on("click", ".ksj-favoriteButton", function(event){
+	    		var productId = $(this).attr("id");
+	    		var st = "";
+	    		
+	    		$.ajax({
+	    			type:"post",
+	    			data:{productId:productId},
+	    			dataType:"text",
+	    			url:"/favorite",
+	    			success: function(data){
+	    				if(data == 'insert'){
+	    					st = "<img alt='favorite-register' src='/resources/images/full-heart.png'>";
+	    					$("#" + productId).html(st);
+	    				}else if(data == 'delete'){
+	    					st = "<img alt='favorite-register' src='/resources/images/empty-heart.png'>";
+	    					$("#" + productId).html(st);
+	    				}else {
+	    					$(".jjh-modalMessage").html("관심경매 등록/삭제에  실패하였습니다.");
+	    	    			$("#cannotSearch").modal("show");
+	    				}
+	    			}
+	    		});
+	    	});
 		 
+		 /* 글 삭제 버튼 이벤트 */
 		 var formObj = $("#modifyPage");
 		 $("#removeBtn").click(function(event) {
 				event.preventDefault();
@@ -36,7 +61,7 @@
 				
 			});
 		 
-		
+		 /* 글 수정 버튼 이벤트 */
 		 $("#modifyBtn").click(function(event) {
 		 	event.preventDefault();
 		 	var productId = formObj.attr("action");
@@ -45,25 +70,24 @@
 	    	formObj.attr("method", "post");
 	    	formObj.submit();
 		 });
-		 
 		
-		 
+		 /* 이전 목록으로 돌아가는 이벤트 */
 		$("#goListBtn").click(function(event){
 			event.preventDefault();
 			
-			 window.history.back();
+			 /* window.history.back(); */
 			
-			/* var type = $("input[name=page]")[0].attr('value');
-			var smallid = $("input[name=smallid]")[0].attr('value');
+			var type = $("#type").attr('value');
+			var smallid = ${product.smallid};
 			
 			formObj.attr("action", "/product/auction/"+type+"/"+smallid);    
 			formObj.attr("method", "GET");
 			
-			alert("type : " + type);
+			/* alert("type : " + type);
 			alert("smallid : " + smallid);
 			alert("formObj : " + formObj.attr("action")); */
 			
-			/* formObj.submit(); */
+			formObj.submit();
 		});
 	      
 	  });
@@ -119,7 +143,6 @@
 		                    		</c:otherwise>
                     			</c:choose>
                     		</c:when>
-                    		
                     		<c:otherwise>
                     			<c:choose>
 		                    		<c:when test="${status.count==1}">
@@ -160,7 +183,19 @@
 					<c:when test="${product.smallid == 4}"> 가전제품 </c:when>
 				</c:choose>
 			  </div>
-              <h3 id="productName">${product.name}</h3>
+              <h3 id="productName">${product.name}   
+              <button class="ksj-favoriteButton" id="${product.productId}">
+              <c:if test="${not empty login || login.memberId eq product.seller}">
+              <c:choose>
+              	<c:when test="${favorite.favoriteId == 0}">
+              		<img alt="favorite-register" src="/resources/images/empty-heart.png">
+              	</c:when>
+              	<c:otherwise>
+              		<img alt="favorite-register" src="/resources/images/full-heart.png">
+              	</c:otherwise>
+              </c:choose>
+              </c:if>
+              </button></h3>
               <div class="divider divider-default"></div>
               <div class="detail">
                <dl class="nv3 nfirst present">
@@ -168,7 +203,7 @@
 					<dd class="redprice">
 						<div class="present_price" id="Price"><span class="present_num" id="presentNum">
 						<c:choose>
-							<c:when test="${bidList == null}">
+							<c:when test="${bidList eq null}">
 							${product.basicprice}
 							</c:when>
 							<c:otherwise>
@@ -194,14 +229,24 @@
 					
 					<c:choose>
 						<c:when test='${(product.auctionstate).equals("BEFORE")}'>
+						<input type="hidden" id="type" value="1"> 
 							<dt class="redprice">시작시간</dt >
 							<dd class="redprice">
 								<!-- <span class="auction_time">00:24:12</span> -->
 								<div id="bidStartDate" class="jjh-counter">${product.auctionstart}</div>
 							</dd>	
 						</c:when>
+						<c:when test='${(product.auctionstate).equals("DOING")}'>
+						<input type="hidden" id="type" value="2"> 
+							<dt class="redprice">남은시간</dt>
+							<dd class="redprice">
+							<!-- <span class="auction_time">00:24:12</span> -->
+								<div id="bidendDate" class="countdown jjh-counter" data-time="${product.auctionend}" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
+							</dd>
+						</c:when>
 						<c:otherwise>
-							<dt class="redprice">남은시간</dt >
+						<input type="hidden" id="type" value="3"> 
+							<dt class="redprice">남은시간</dt>
 							<dd class="redprice">
 							<!-- <span class="auction_time">00:24:12</span> -->
 								<div id="bidendDate" class="countdown jjh-counter" data-time="${product.auctionend}" data-format="DDHMS" data-type="until" data-layout="{hnn}{sep}{mnn}{sep}{snn}"></div>
@@ -271,30 +316,30 @@
             </div>
           </div>
         </div>
-        
-        <c:if test="${(login.memberId).equals(product.seller)}">
-        	<c:if test='${(product.auctionstate).equals("BEFORE")}'>
-        		<form role="form" action="${productId}" method="post" id="modifyPage">
-				 	<%-- <input type='hidden' name='page' value="${page}"> 
-					<input type='hidden' name='type' value="${type}">
-					<input type='hidden' name='keyword' value="${keyword}">
-					<input type='hidden' name='smallid' value="${smallid}"> --%>
-				
-		        <div class="shell"> 
-		          <div class="range range-xs-right">
-		            <div class="cell-sm-10 cell-lg-4">
-		            	<button type="submit" class="btn" id="goListBtn">GO LIST</button>
-			            <button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-						<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
-		            </div>
-		          </div>
-		        </div>
-		        </form>
-        	</c:if>
-        </c:if>
-        
-        
-      </section>
+
+
+		<form role="form" action="${productId}" method="post" id="modifyPage">
+			<%-- <input type='hidden' name='page' value="${page}"> 
+			<input type='hidden' name='type' value="${type}">
+			<input type='hidden' name='keyword' value="${keyword}">
+			<input type='hidden' name='smallid' value="${smallid}"> --%>
+
+			<div class="shell">
+				<div class="range range-xs-right">
+					<div class="cell-sm-10 cell-lg-4">
+						<button class="btn" id="goListBtn"><a href="${productId}">GO LIST</a></button>
+						<c:if test="${(login.memberId).equals(product.seller)}">
+							<c:if test='${(product.auctionstate).equals("BEFORE")}'>
+								<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
+								<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+							</c:if>
+						</c:if>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		</section>
       <!-- Product Page END-->
       
       <%-- Page Footer--%>
