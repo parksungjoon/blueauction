@@ -37,6 +37,7 @@ public interface ProductDao {
 	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception;
 	
 	
+	
 	/** 중고상품 리스트 출력 */
 	public List<Product> listUsedItems() throws Exception;
 	

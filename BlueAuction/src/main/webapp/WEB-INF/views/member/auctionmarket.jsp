@@ -70,7 +70,7 @@
               <div class="table-novi table-custom-responsive">
                 <table  class="table table-striped table-hover">
                   <thead>
-                    <tr class="info">
+                    <tr class="danger">
                       <th>#</th>
                       <th>상품명</th>
                       <th>상품 정보</th>

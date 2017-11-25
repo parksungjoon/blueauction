@@ -6,6 +6,7 @@
 package kr.co.blueauction.bid.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -48,9 +49,9 @@ public class BidController {
 		String memberId = member1.getMemberId();
 		String winning = "N";
 		// 상품을 받아옴
-		List<Bid> bids = service.bidList(memberId, winning);
-		model.addAttribute("bids", bids);
-		logger.info(bids.toString());
+		Map<String, Object> map= service.bidList(memberId, winning);
+		model.addAttribute("map", map);
+		//logger.info(bids.toString());
 		return "member/bidlist";
 	}
 	
@@ -65,9 +66,9 @@ public class BidController {
 		String memberId = member1.getMemberId();
 		String winning = "Y";
 		// 상품을 받아옴
-		List<Bid> bids = service.bidList(memberId, winning);
-		model.addAttribute("bids", bids);
-		logger.info(bids.toString());
+		Map<String, Object> map= service.bidList(memberId, winning);
+		model.addAttribute("map", map);
+		
 		return "member/winninglist";
 	}
 

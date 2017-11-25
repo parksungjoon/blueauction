@@ -58,52 +58,57 @@
     <!-- Breadcrumbs END -->
 
 
-  <!-- Product Page START-->
-      <section class="section section-lg bg-white">
-       
-        
-         <!-- Hover Row Table (입찰 리스트) START -->
-        <div class="shell">
-          <div class="range range-xs-center">
-            <div class="cell-sm-10 cell-lg-10">
-              <h3>중고 구매 리스트 </h3>
-              <div class="table-novi table-custom-responsive">
-                <table  class="table table-striped table-hover">
-                  <thead>
-                    <tr class="info">
-                      <th>#</th>
-                      <th>상품가격</th>
-                      <th>배송상태</th>
-                      <th>결제여부</th>
-                      
-                      <!-- <th>판매 상태</th> -->
-                    </tr>
-                  </thead>
-                  <tbody id="bidListTr">
-                  <c:forEach var="order" items="${orders}" varStatus="status">
-                    <tr>
-                      <td>${status.count}</td>
+    <!-- Product Page START-->
+    <section class="section section-lg bg-white"> <!-- Hover Row Table (입찰 리스트) START -->
+    <div class="shell">
+      <div class="range range-xs-center">
+        <div class="cell-sm-10 cell-lg-10">
+          <h3>중고 구매 리스트</h3>
+          <div class="table-novi table-custom-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr class="danger">
+                  <th>#</th>
+                  <th>상품이름</th>
+                  <th>상품가격</th>
+                  <th>배송상태</th>
+                  <th>결제여부</th>
+               
+                  <!-- <th>판매 상태</th> -->
+                </tr>
+              </thead>
+              <tbody id="bidListTr">
+                <c:forEach var="order" items="${map.orderList}"
+                  varStatus="status">
+                  <tr>
+                    <td>${status.count}</td>
+                    <td>${map.productList[status.index].name}</td>
+                    <td>${map.productList[status.index].price}</td>
+                    <td>${order.dstate}</td>
+                    <td>${order.paystate}</td>
+                    
+
+                    <%-- 
+                    <td>${products[status.index].name}</td>
                       <td>${order.price}원</td>
                       <td>${order.dstate}</td>
-                      <td>${order.paystate}</td>
+                      <td>${order.paystate}</td>  --%>
                     <%--   <td>${product.}원</td> --%>
-                      
-                    </tr>
-                  </c:forEach>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <%-- Shop Sidebar START --%>
-        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
-        <%-- Shop Sidebar END --%>
-            
+
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
           </div>
         </div>
-        <!-- Hover Row Table (입찰 리스트) END --> 
-       
-        
-      </section>
+        <%-- Shop Sidebar START --%>
+        <jsp:include
+          page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
+        <%-- Shop Sidebar END --%>
+
+      </div>
+    </div>
+    <!-- Hover Row Table (입찰 리스트) END --> </section>
 
     <!-- Product Page END-->
 
@@ -115,9 +120,9 @@
   <%-- END PANEL--%>
   <%-- Global Mailform Output--%>
   <div class="snackbars" id="form-output-global"></div>
-  
- 
-      <!-- Product Page END-->
+
+
+  <!-- Product Page END-->
 
   <%-- Javascript--%>
   <script src="/resources/js/core.min.js"></script>

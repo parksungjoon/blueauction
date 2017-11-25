@@ -26,7 +26,6 @@ public class loginterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		logger.info("loginterceptor preHandle 실행");
-		logger.info("request.getHeader(\"REFERER\")"+request.getHeader("REFERER"));
 		logger.info("request.getHeader(\"REFERER\").substring(16)"+request.getHeader("REFERER").substring(16));
 		HttpSession session = request.getSession();
 		logger.info("Location Before : " + session.getAttribute("login"));

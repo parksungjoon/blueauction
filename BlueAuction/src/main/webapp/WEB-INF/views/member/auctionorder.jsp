@@ -70,19 +70,21 @@
               <div class="table-novi table-custom-responsive">
                 <table  class="table table-striped table-hover">
                   <thead>
-                    <tr class="info">
+                    <tr class="danger">
                       <th>#</th>
-                      <th>상품가격</th>
-                      <th>배송상태</th>
+                      <th>상품이름</th>
+                      <th>가격</th>
+                      <th>배송여부</th>
                       <th>결제여부</th>
                       
                       <!-- <th>판매 상태</th> -->
                     </tr>
                   </thead>
                   <tbody id="bidListTr">
-                  <c:forEach var="order" items="${orders}" varStatus="status">
+                  <c:forEach var="order" items="${map.orderList}" varStatus="status">
                     <tr>
                       <td>${status.count}</td>
+                      <td>${map.productList[status.index].name}</td>
                       <td>${order.price}원</td>
                       <td>${order.dstate}</td>
                       <td>${order.paystate}</td>

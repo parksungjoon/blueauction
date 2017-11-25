@@ -5,7 +5,10 @@
  */
 package kr.co.blueauction.bid.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,6 +16,9 @@ import org.springframework.stereotype.Service;
 
 import kr.co.blueauction.bid.dao.BidDao;
 import kr.co.blueauction.bid.domain.Bid;
+import kr.co.blueauction.product.dao.ProductDao;
+import kr.co.blueauction.product.domain.Product;
+import kr.co.blueauction.product.service.ProductService;
 import kr.co.blueauction.reply.dao.ReplyDao;
 
 @Service
@@ -20,6 +26,9 @@ public class BidServiceImpl implements BidService {
 
 	@Inject
 	BidDao bidDao;
+	
+	@Inject
+	ProductDao productdao;
 
 	@Override
 	public void create(Bid bid) throws Exception {
@@ -48,8 +57,22 @@ public class BidServiceImpl implements BidService {
 	
 	@Override
 	//해당아이디에 입찰, 낙찰 목록조회
-	public List<Bid> bidList(String memberId, String winning) throws Exception{
-		return bidDao.bidList(memberId, winning);
+	public Map<String, Object> bidList(String memberId, String winning) throws Exception{
+		
+		List<Bid> bidList= bidDao.bidList(memberId, winning);
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("bidList", bidList);
+		List<Product> productList=new ArrayList<Product>();
+		for (Bid bid : bidList) {
+			Product product = productdao.read(bid.getProductId());
+			productList.add(product);
+		}
+		
+		map.put("productList", productList);
+		
+		
+		return map;
 		
 	}
 	
