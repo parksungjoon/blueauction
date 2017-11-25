@@ -372,7 +372,7 @@
                       <div class="present_price" id="Price"><span class="present_num">${product.seller }</span></div>
                     </dd> 
 				</dl> 
-                <a class="button button-xs button-secondary" href="#">구매하기</a>
+                <a class="button button-xs button-secondary" href="/member/payment/${product.productId}">구매하기</a>
               </div>
             </div>
           </div>
