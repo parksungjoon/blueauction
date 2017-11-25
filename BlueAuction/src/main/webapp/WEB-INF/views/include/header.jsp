@@ -92,7 +92,7 @@
 					</button>
 					<!-- RD Navbar Brand-->
 					<div class="rd-navbar-brand">
-						<a class="brand-name" href="index.html"> <img
+						<a class="brand-name" href="/"> <img
 							class="logo-default"
 							src="/resources/images/logo-default-173x55.png" alt="" width="173"
 							height="55" /> <img class="logo-inverse"

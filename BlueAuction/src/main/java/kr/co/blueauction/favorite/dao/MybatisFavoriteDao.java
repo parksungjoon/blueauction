@@ -1,6 +1,8 @@
 package kr.co.blueauction.favorite.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -45,5 +47,14 @@ public class MybatisFavoriteDao implements FavoriteDao{
 	@Override
 	public Favorite favoriteCheck(Favorite favorite) {
 		return sqlSession.selectOne(NAMESPACE + ".favoriteCheck", favorite);
+	}
+
+	@Override
+	public Favorite readByMemberProduct(String memberId, int productId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("productId", productId);
+		
+		return sqlSession.selectOne(NAMESPACE+".readByMemberProduct", map);
 	}
 }

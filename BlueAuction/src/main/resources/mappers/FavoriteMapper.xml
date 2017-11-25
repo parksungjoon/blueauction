@@ -21,6 +21,12 @@
 		WHERE member_id = #{value}
 	</select>
 	
+	<select id="readByMemberProduct" parameterType="map" resultType="Favorite">
+		Select *
+		From favorite
+		WHERE member_id = #{memberId} AND product_id = #{productId}
+	</select>
+	
 	<select id="readByProductId" parameterType="int" resultType="Orders">
 		select *
 		from favorite

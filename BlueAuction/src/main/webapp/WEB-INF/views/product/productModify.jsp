@@ -61,6 +61,12 @@
     var template = Handlebars.compile($("#template").html());
     
       $(document).ready(function() {
+    	  var list = ${jsonP};
+    	  var smallid = list.smallid;
+    	  $("#smallid").val(smallid).prop("selected", true);
+    	  
+    	  $("#info").html(list.productInfo);
+    	  
     	  var now = new Date();
     	  var year = now.getFullYear();
     	  var month = now.getMonth() + 1;
@@ -71,12 +77,14 @@
     	  var time = $("input[type=datetime-local]");
     	  time.attr("min", nowDate);
     	  time.attr("value", nowDate);
+    	  
+    	  $("#can").click(function(){
+    		  window.history.back();
+    	  });
 			
 
     	  /* 저장된 사진 있을경우 가져옴 */
-    	  var list = ${jsonP};
     	  var photoList = list.photo;
-    	  
     	  for (var i = 0; i < photoList.length; i++) {
     		  var photo = photoList[i];
     		  photo = photoList[i].substring(0, 12) + "s_" + photoList[i].substring(12);
@@ -87,6 +95,11 @@
               
               $(".uploadedList").append(html);
 			}
+    	  
+    	  /* 경매 시작 날짜 */
+    	  var date = list.auctionstart;
+    	  date = date.substring(0, 10)+"T"+date.substring(11);
+    	  $("#auctionstart").attr("value", date);
     	  
     	  /* 첨부파일 선택지 자동 업로드 */
           $("input[type=file]").change(function() {
@@ -104,18 +117,6 @@
          
          var that = $(this);
          that.closest("li").remove();
-          
-         /*  $.ajax({
-            url:"/product/attach/deleteFile",
-            type:"post",
-            data: {fileName:$(this).attr("href")},
-            dataType:"text",
-            success:function(result){
-               if(result == 'deleted'){
-                  that.closest("li").remove();
-               }
-            }
-         });  */
           
       });
       
@@ -149,38 +150,50 @@
             <div class="cell-md-11 cell-lg-10 cell-xl-6">
                 <!-- Tab panes-->
                     <form class="rd-mailform text-left" id="modifyForm" method="post" action="/product/auction/modify/${product.productId}">
-                    <input type="hidden" name="categoryId" value="2">
-                    <input type="hidden" name="smallId" value="${product.smallid}" required>
-                    
+                    	<input type="hidden" name="categoryId" value="2">
                       <div class="range range-20">
-                        <div class="cell-sm-12">
+                      <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-name">title</label>
-                            <input class="form-input" id="forms-3-name" type="text" name="name" data-constraints="@Required" value="${product.name}" required>
-                          </div>
-                        </div>
-                        <div class="cell-sm-12">
-                          <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-last-name">seller</label>
-                            <input class="form-input" id="forms-3-last-name" type="text" name="seller" data-constraints="@Required" readonly="readonly" value="${product.seller}" required>
-                          </div>
-                        </div>
-                        <div class="cell-sm-6">
-                          <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-company">Start Price</label>
-                            <input class="form-input" id="forms-3-company" type="number" name="basicprice" data-constraints="@Required" min="1000" value="${product.basicprice}" required>
-                          </div>
-                        </div>
-                        <div class="cell-sm-8">
-                          <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-city">Reason For Sale</label>
-                            <input class="form-input" id="forms-3-city" type="text" name="salemotive" value="${product.salemotive}" >
+                            <label class="form-label-outside" for="forms-3-name">Seller</label>
+                            <input class="form-input" type="text" name="seller" data-constraints="@Required" value="${product.seller}" readonly="readonly"required="required">
                           </div>
                         </div>
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-city">Period Of Use</label>
-                            <input class="form-input" id="forms-3-city" type="text" name="usingtime" value="${product.usingtime}" required>
+                            <label class="form-label-outside" for="forms-3-city">Small Category</label>
+                              <div class="form-wrap box-width-1">
+                                <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" id="smallid" name="smallid" >
+                                  <option value="1">옷</option>
+                                  <option value="2">잡화</option>
+                                  <option value="3">티켓</option>
+                                  <option value="4">가전제품</option>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="cell-sm-10">
+                          <div class="form-wrap form-wrap-validation">
+                            <label class="form-label-outside" for="forms-3-last-name">Product Name</label>
+                            <input class="form-input" type="text" name="name" data-constraints="@Required" value="${product.name}" required="required">
+                          </div>
+                        </div>
+                        <div class="cell-sm-10">
+                          <div class="form-wrap form-wrap-validation">
+                            <label class="form-label-outside" for="forms-3-last-name">Reason For Sale</label>
+                            <input class="form-input" type="text" name="salemotive" value="${product.salemotive}"  >
+                          </div>
+                        </div>
+                        <div class="cell-sm-5">
+                          <div class="form-wrap form-wrap-validation">
+                            <label class="form-label-outside" for="forms-3-company">Period Of Use</label>
+                            <input class="form-input" type="text" name="usingtime" value="${product.usingtime}" data-constraints="@Required" required="required">
+                          </div>
+                        </div>
+                        <div class="cell-sm-5">
+                          <div class="form-wrap form-wrap-validation">
+                            <label class="form-label-outside ksj-numberInput" for="forms-3-company">basicPrice</label>
+                            <input class="form-input" type="number" step="1000" min="1000" value="${product.basicprice}"
+                           	       name="basicprice" data-constraints="@Required" required="required">
                           </div>
                         </div>
                         <div class="cell-sm-4">
@@ -197,7 +210,6 @@
                                         <option value="직거래">직거래</option>
                                      </c:otherwise>
                                   </c:choose>
-                                  
                                   <c:choose>
                                      <c:when test='${(product.deliverytype).equals("택배")}'>
                                         <option value="택배" selected="selected">택배</option>
@@ -213,29 +225,26 @@
                          <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Auction Date</label>
-                           <%--  <input type="date" class="form-input data" id="form-element-date" data-time-picker="date" name="auctionstart" value="${product.auctionstart}" > --%>
-                           <input type="datetime-local" class="form-input" step='3600' value="" name="auctionstart" data-constraints="@Required" required>
+                           <input type="datetime-local" class="form-input" step='3600' id="auctionstart" name="auctionstart" data-constraints="@Required" required>
                           </div>
                         </div>
-                        
                         <div class="cell-sm-12">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-street-address">Product Information</label>
-                            <textarea class="form-input" rows="6" cols="100%" name="productinfo" data-constraints="@Required" style="resize: none;" required>${product.productinfo}</textarea>
+                            <textarea class="form-input" rows="6" cols="100%" id="info" name="productinfo" data-constraints="@Required" style="resize: none;" required></textarea>
                           </div>
                         </div>
                         
                        <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Photos</label>
-                            <button class="button button-secondary reg" type="button">Select File</button>
+                            <button class="ksj-btn btn button-secondary reg" type="button">Select File</button>
                             <input class="form-input file" id="photo" type="file" multiple="multiple" name="photo">
                           </div>
                         </div>
                           <!-- 사진 보여주는 곳 -->
                         <div class="cell-md-12">
                           <ul class="mailbox-attachments clearfix uploadedList">
-                        
                           </ul>
                         </div>
                         
@@ -245,7 +254,8 @@
                         
                         <div class="cell-sm-12 offset-custom-1">
                           <div class="form-button text-sm-right">
-                            <button class="button button-secondary" type="submit">Modify</button>
+                          	<button class="ksj-btn btn btn-warning button-secondary	btn-lg" type="submit">Modify</button>
+                          	<button class="ksj-btn btn btn-warning button-secondary btn-lg" id="can">Cancle</button>
                           </div>
                         </div>
                       </div>
