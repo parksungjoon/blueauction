@@ -49,9 +49,9 @@ public class Scheduler {
 			logger.info("현재시간: " + (new Date()).toString() + " 에 winningState 실행");
 			List<Bid> winningList=bidService.selectWinningList();
 			logger.info(winningList);
-			
+			if(winningList.size()>0) {
 			bidService.updateWinning(winningList);
-			
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

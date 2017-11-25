@@ -30,9 +30,36 @@
     						<li><a href="/product/used">중고상품</a></li>
     						<li><a href="/product/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
     							<ul class="rd-navbar-dropdown">
-    								<li><a href="/product/auction/1/0">시작전 경매</a></li>
+    								<!-- <li><a href="/product/auction/1/0">시작전 경매</a></li>
     								<li><a href="/product/auction/2/0">진행중 경매</a></li>
-    								<li><a href="/product/auction/3/0">마감된 경매</a></li>
+    								<li><a href="/product/auction/3/0">마감된 경매</a></li> -->
+                    <li class="rd-navbar-dropdown-submenu">
+                        <a class="test" href="/product/auction/1/0">시작전 경매</a>
+                    <ul class="rd-navbar-dropdown">
+                      <li><a tabindex="-1" href="/product/auction/1/1">의류</a></li>
+                      <li><a tabindex="-1" href="/product/auction/1/2">잡화</a></li>
+                      <li><a tabindex="-1" href="/product/auction/1/3">티켓</a></li>
+                      <li><a tabindex="-1" href="/product/auction/1/4">가전제품</a></li>
+                    </ul>
+                  </li>
+                  <li class="rd-navbar-dropdown-submenu">
+                        <a class="test" href="/product/auction/2/0">진행중 경매</a>
+                    <ul class="rd-navbar-dropdown">
+                      <li><a tabindex="-1" href="/product/auction/2/1">의류</a></li>
+                      <li><a tabindex="-1" href="/product/auction/2/2">잡화</a></li>
+                      <li><a tabindex="-1" href="/product/auction/2/3">티켓</a></li>
+                      <li><a tabindex="-1" href="/product/auction/2/4">가전제품</a></li>
+                    </ul>
+                  </li>
+                  <li class="rd-navbar-dropdown-submenu">
+                        <a class="test" href="/product/auction/3/0">마감된 경매</a>
+                    <ul class="rd-navbar-dropdown">
+                      <li><a tabindex="-1" href="/product/auction/3/1">의류</a></li>
+                      <li><a tabindex="-1" href="/product/auction/3/2">잡화</a></li>
+                      <li><a tabindex="-1" href="/product/auction/3/3">티켓</a></li>
+                      <li><a tabindex="-1" href="/product/auction/3/4">가전제품</a></li>
+                    </ul>
+                  </li>
     							</ul></li>
     					</ul>
                     </li>
@@ -42,8 +69,8 @@
                          <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
                           <li class="jjh-userLi"><a href="/member/mypage"> ${login.memberId}</a>님</li>
                           <li class="jjh-userLi"><a href="/member/logout">Logout</a></li>
-                          <li class="jjh-userLi"><span class="icon icon-md-smaller ksj-icon-primary mdi mdi-email"><span class="badge badge-primary" id="counter">4</span>
-                          </span></li>
+                          <li class="jjh-userLi"><a href="/member/mypage/note/list"><span class="icon icon-md-smaller ksj-icon-primary mdi mdi-email"><span class="badge badge-primary" id="counter">0</span>
+                          </span></a></li>
                         </c:if>
                         
                         <c:if test="${empty login}">
@@ -99,7 +126,7 @@
 					<div class="rd-navbar-shop">
 						<!-- <a class="rd-navbar-shop-icon mdi mdi-cart"
 							href="shopping-cart.html"><span>2</span></a> -->
-              <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe> --%>
+             <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe> --%>
 					</div>
 				</div>
 			</div>

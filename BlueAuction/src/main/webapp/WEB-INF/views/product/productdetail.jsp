@@ -212,14 +212,18 @@
 					<dt class="redprice">판매자</dt> <dd class="redprice">${product.seller}</dd>
 				</dl> 
 				
-				<c:if test='${(product.auctionstate).equals("DOING")}'>
+				<c:if test='${(product.auctionstate).equals("DOING") && not empty login}'>
+				  <div id="clock">
 				  <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a>
+                  </div>
 				</c:if>
                 <!-- TEST 하시려면 푸세요. 대신 제가 서버를 켜야합니다. -->
 				<!-- <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a> -->
                 <c:if test="${not empty login }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
+                <c:if test="${login.memberId!=product.seller }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
+                </c:if>
                 </c:if>
               </div>
             </div>
@@ -255,8 +259,8 @@
               </div>
             </div>
           </div>
-        </div>
-        <!-- 테스트 하시려면 자신의 아이피를 입력하세요. -->
+        </div> 
+        <!-- 테스트 하시려면 주석을 푸세요. -->
         <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe>
        <iframe id='child' src='http://192.168.0.78:7777/bid/?productId=${productId}&memberId=${login.memberId}' width=100%; frameborder='0' style="height:1000px;"></iframe> --%>
         <!-- Hover Row Table (입찰 리스트) END --> 
@@ -309,6 +313,7 @@
     <%-- Javascript--%>
     <script src="/resources/js/core.min.js"></script>
     <script src="/resources/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
     <div id="bidModal" class="modal modal-primary fade" role="dialog">
       <div class="modal-dialog">
     <!-- Modal content-->
@@ -318,7 +323,7 @@
             <h4 class="modal-title">입찰하기</h4>
           </div>
         <div class="modal-body" data-rno>
-          <p>최고가<span id='maxPrice'>${bidList.get(0).bidprice}</span></p>
+          <p>최고가<span id='maxPrice'><c:out value="${bidList.get(0).bidprice eq undefined ? product.basicprice : bidList.get(0).bidprice}"/></span></p>
           <p><input type="hidden" id="memberId" class="form-control" value="${login.memberId}"></p>
           <p><input type="hidden" id="productId" class="form-control" value="${product.productId}"></p>
           <p><input type="text" id="bidprice" class="form-control"></p>
@@ -416,6 +421,21 @@ window.onload=function(){
   function sendMsgToChild( msg ) {
       document.getElementById('child').contentWindow.postMessage(msg, '*');
   }
+  
+  $('#goBuy').on('click',function(e){
+		 self.location="/member/mypage/note/list"; 
+	  });
+	  
+	 
+	  
+	//경매 종료시 입찰 버튼 없애기 
+	$('#bidendDate').countdown('option',{onExpiry: liftOff});
+	  
+	  
+	 
+}
+function liftOff(){
+	  $('#bidModalOpen').remove();
 }
 </script>
   </body>
