@@ -7,7 +7,7 @@ import kr.co.blueauction.favorite.domain.Favorite;
 /**
  * 관심경매 등록 위한 Service
  *
- * @author 정지현
+ * @author 정지현, 김수진
  * @since 2017. 11. 20.
  *
  */
@@ -16,8 +16,11 @@ public interface FavoriteService {
 	/** 관심물품 등록 */
 	public void insert(Favorite favorite);
 	
-	/** 맴버별 관심물품 반환 */
+	/** 멤버별 관심물품 반환 */
 	public List<Favorite> readByMemberId (String memberId);
+	
+	/** 멤버, 물품아이디로  관심물품 반환 */
+	public Favorite readByMemberProduct (String memberId, int productId);
 	
 	/** 물품아이디로 물품 반환 */
 	public List<Favorite> readByProductId(int productId);

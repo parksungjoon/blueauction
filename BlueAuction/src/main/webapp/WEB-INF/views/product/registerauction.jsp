@@ -39,6 +39,9 @@
     <script type="text/javascript">
     
 		$(document).ready(function() {
+			 $("#can").click(function(){
+	    		  window.history.back();
+	    	  });
 			
 			var now = new Date();
 			var year = now.getFullYear();
@@ -57,7 +60,6 @@
 			});
     
 			sendAttachment();
-			
 			autoUpload();
 			
 		});
@@ -159,7 +161,7 @@
                         </div>
                         <div class="cell-sm-5">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-company">basicPrice</label>
+                            <label class="form-label-outside ksj-numberInput  " for="forms-3-company">basicPrice</label>
                             <input class="form-input" type="number" step="1000" min="1000" 
                            	       name="basicprice" data-constraints="@Required" required="required">
                           </div>
@@ -192,7 +194,7 @@
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Photos</label>
-                            <button class="button button-secondary reg" type="button">Select File</button>
+                            <button class="ksj-btn btn button-secondary reg" type="button">Select File</button>
                             <input class="form-input file" id="photo" type="file" multiple="multiple" name="photo">
                           </div>
                         </div>
@@ -201,7 +203,8 @@
                         </div>
                         <div class="cell-md-12 offset-custom-1">
                           <div class="form-button text-sm-right">
-                            <button class="button button-secondary" type="submit">Register</button>
+                          	<button class="ksj-btn btn btn-warning button-secondary	btn-lg" type="submit">Register</button>
+                          	<button class="ksj-btn btn btn-warning button-secondary btn-lg" id="can">Cancle</button>
                           </div>
                         </div>
                     </form>

@@ -61,7 +61,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		        	}
 		        }
 		      }else {// 로그인이 안되있고  자동로그인이 안되어있음  로그인화면으로가야됨
-		    	logger.info("response.sendRedirect(\"/login\")실행 ");
+		    	//logger.info("response.sendRedirect(\"/login\")실행 ");
 			  /*response.sendRedirect("/member/login");*/
 			  return true;
 		      }
