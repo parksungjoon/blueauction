@@ -28,6 +28,7 @@ import kr.co.blueauction.product.controller.ProductDetailController;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 
+@RequestMapping("/order")
 @Controller
 public class OrderController {
 
@@ -59,15 +60,14 @@ public class OrderController {
 		String memberId = member1.getMemberId();
 		String auctionFlag = "N";
 
-		Map<String, Object> map=orderService.orderList(memberId, auctionFlag);
-		
-		model.addAttribute("map",map);
-	
+		Map<String, Object> map = orderService.orderList(memberId, auctionFlag);
+
+		model.addAttribute("map", map);
 
 		return "member/productorder";
 	}
 
-@RequestMapping(value = "/member/mypage/auctionorder", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/mypage/auctionorder", method = RequestMethod.GET)
 	public String auctionorder(@ModelAttribute("order") Orders order, HttpSession session, Model model)
 			throws Exception {
 		// login 세션을 가저옴
@@ -82,6 +82,38 @@ public class OrderController {
 		Map<String, Object> map = orderService.orderList(memberId, auctionFlag);
 		model.addAttribute("map", map);
 		return "member/auctionorder";
+	}
+
+	@RequestMapping(value = "/payment/{productId}", method = RequestMethod.GET)
+	public String paymentGET(@ModelAttribute("productId") int productId, HttpSession session, HttpServletRequest req,
+			Model model) throws Exception {
+		logger.info("paymentGET 컨트롤러 실행");
+		// 로그인된 정보를 불러온다
+		Member member = (Member) session.getAttribute("login");
+		model.addAttribute("member", member);
+		logger.info(member.toString());
+
+		Product product = productService.read(productId);
+		model.addAttribute("product", product);
+
+		return "payment/payment";
+	}
+
+	@RequestMapping(value = "/payment/{productId}", method = RequestMethod.POST)
+	public String paymentPOST(@ModelAttribute("orders") Orders orders, HttpSession session) throws Exception {
+		logger.info("paymentPOST 실행");
+		orderService.insert(orders);
+		logger.info(orders.toString());
+		return "redirect:/order/payment/payresult";
+	}
+
+	@RequestMapping(value = "/payment/payresult", method = RequestMethod.GET)
+	public String payresultget(@ModelAttribute("orders") Orders orders, HttpSession session) throws Exception {
+		logger.info("paymentget 실행");
+		logger.info(orders.toString());
+		logger.info("리절트페이지에서" + orders.toString());
+		orderService.update(orders.getOrderId());
+		return "payment/payresult";
 	}
 
 }
