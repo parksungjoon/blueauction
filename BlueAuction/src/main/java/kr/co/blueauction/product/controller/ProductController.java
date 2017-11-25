@@ -137,7 +137,6 @@ public class ProductController {
 		String checkEndPage = null;
 		ResponseEntity<Map<String, Object>> entity = null;
 		Map<String, Object> map = new HashMap<String, Object>();
-		logger.info("arrayType : " + arrayType);
 		
 		try {
 			memberId = productService.memberIdGet(session); // 로그인 회원 아이디 get
@@ -183,7 +182,6 @@ public class ProductController {
 		if(memberId.equals("")) {
 			favorite = favoriteService.readByMemberProduct(memberId, productId);
 		}
-		logger.info(favorite.toString());
 		model.addAttribute("favorite", favorite);
 		
 		Product	product = productService.read(productId); 	
@@ -430,5 +428,31 @@ public class ProductController {
 		}
 		logger.info("중고상품 삭제 후 리스트로 이동");
 		return "redirect:/product/used";
+	}
+	
+	/**
+	 * @return 중고 상품, 경매 상품 리스트
+	 */
+	@RequestMapping(value="/index", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> recentList(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		ResponseEntity<Map<String, Object>> entity = null;
+		List<Product> used = null;
+		List<Product> auction = null;
+		
+		try {
+			 used = productService.recentList(1); // 중고 상품 최근 등록된 4개 조회
+			 auction = productService.recentList(2); // 경매 상품 최근 등록된 4개 조회
+			 
+			 map.put("used", used);
+			 map.put("auction", auction);
+			 
+			 entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 }
