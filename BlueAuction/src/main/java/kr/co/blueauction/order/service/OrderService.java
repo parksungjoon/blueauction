@@ -1,7 +1,7 @@
 package kr.co.blueauction.order.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import kr.co.blueauction.order.domain.Orders;
 
@@ -22,7 +22,7 @@ public interface OrderService {
 	public void delete(int orderNo);
 	
 	/** 로그인된 회원의 중고or 옥션 구매 리스트를 조회 **/
-	public List<Orders> orderList(String memberId, String auctionFlag) throws Exception;
+	public Map<String, Object> orderList(String memberId, String auctionFlag) throws Exception;
 	/** 주문번호로 주문가저오기**/
 	public Orders select(int orderId) throws Exception;
 	/** 결제완료업데이트**/

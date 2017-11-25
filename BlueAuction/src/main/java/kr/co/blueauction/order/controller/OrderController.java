@@ -1,8 +1,13 @@
 package kr.co.blueauction.order.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiPredicate;
 
 import javax.inject.Inject;
+import javax.print.DocFlavor.STRING;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +24,9 @@ import kr.co.blueauction.member.controller.MemberController;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.order.domain.Orders;
 import kr.co.blueauction.order.service.OrderService;
+import kr.co.blueauction.product.controller.ProductDetailController;
 import kr.co.blueauction.product.domain.Product;
+import kr.co.blueauction.product.service.ProductService;
 
 @Controller
 public class OrderController {
@@ -27,18 +34,20 @@ public class OrderController {
 	@Inject
 	private OrderService orderService;
 
+	@Inject
+	private ProductService productService;
+
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-	/*@RequestMapping("/payment")
-	public String payment(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		System.out.println(request.getHeader("test"));
-
-		System.out.println(session.getAttribute("login"));
-
-		return "/mypage";
-	}
-*/
+	/*
+	 * @RequestMapping("/payment") public String payment(HttpServletRequest request)
+	 * { HttpSession session = request.getSession();
+	 * System.out.println(request.getHeader("test"));
+	 * 
+	 * System.out.println(session.getAttribute("login"));
+	 * 
+	 * return "/mypage"; }
+	 */
 	@RequestMapping(value = "/member/mypage/productorder", method = RequestMethod.GET)
 	public String productorder(@ModelAttribute("order") Orders order, HttpSession session, Model model)
 			throws Exception {
@@ -50,15 +59,15 @@ public class OrderController {
 		String memberId = member1.getMemberId();
 		String auctionFlag = "N";
 
-		// 상품을 받아옴
-		List<Orders> orders = orderService.orderList(memberId, auctionFlag);
-		model.addAttribute("orders", orders);
-		logger.info(orders.toString());
-		return "member/productorder";
-	}
+		Map<String, Object> map=orderService.orderList(memberId, auctionFlag);
+		
+		model.addAttribute("map",map);
 	
 
-	@RequestMapping(value = "/member/mypage/auctionorder", method = RequestMethod.GET)
+		return "member/productorder";
+	}
+
+@RequestMapping(value = "/member/mypage/auctionorder", method = RequestMethod.GET)
 	public String auctionorder(@ModelAttribute("order") Orders order, HttpSession session, Model model)
 			throws Exception {
 		// login 세션을 가저옴
@@ -70,9 +79,8 @@ public class OrderController {
 		String auctionFlag = "Y";
 
 		// 상품을 받아옴
-		List<Orders> orders = orderService.orderList(memberId, auctionFlag);
-		model.addAttribute("orders", orders);
-		logger.info(orders.toString());
+		Map<String, Object> map = orderService.orderList(memberId, auctionFlag);
+		model.addAttribute("map", map);
 		return "member/auctionorder";
 	}
 

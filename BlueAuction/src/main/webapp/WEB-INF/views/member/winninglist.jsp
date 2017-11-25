@@ -68,9 +68,9 @@
               <div class="table-novi table-custom-responsive">
                 <table  class="table table-striped table-hover">
                   <thead>
-                    <tr class="info">
+                    <tr class="danger">
                       <th>#</th>
-                      <th>상품번호</th>
+                      <th>상품이름</th>
                       <th>낙찰가격</th>
                       <th>낙찰일자</th>
                       
@@ -78,10 +78,10 @@
                     </tr>
                   </thead>
                   <tbody id="bidListTr">
-                  <c:forEach var="bid" items="${bids}" varStatus="status">
+                  <c:forEach var="bid" items="${map.bidList}" varStatus="status">
                     <tr>
                       <td>${status.count}</td>
-                      <td>${bid.productId}</td>
+                      <td>${map.productList[status.index].name}</td>
                       <td>${bid.bidprice}</td>
                       <td>${bid.biddate}원</td>
                     <%--   <td>${product.}원</td> --%>

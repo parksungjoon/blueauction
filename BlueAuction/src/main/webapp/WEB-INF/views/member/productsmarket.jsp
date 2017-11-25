@@ -70,11 +70,12 @@
               <div class="table-novi table-custom-responsive">
                 <table  class="table table-striped table-hover">
                   <thead>
-                    <tr class="info">
+                    <tr class="danger">
                       <th>#</th>
                       <th>상품명</th>
                       <th>상품 정보</th>
                       <th>판매 가격</th>
+                      <th>등록일</th>
                       
                       <!-- <th>판매 상태</th> -->
                     </tr>
@@ -86,6 +87,8 @@
                       <td>${product.name}</td>
                       <td>${product.productinfo}</td>
                       <td>${product.price}원</td>
+                      <td>${product.regdate}</td>
+                      
                     <%--   <td>${product.}원</td> --%>
                       
                     </tr>
