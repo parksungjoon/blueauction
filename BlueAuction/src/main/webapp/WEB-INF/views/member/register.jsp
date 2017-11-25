@@ -162,13 +162,13 @@
 			 alert("이메일 인증을 진행하세요");
 			 return;
 		 }
-		 if($("#zipcode").val()==""){
+		 if($("#sample6_postcode").val()==""){
 				alert("zipcode를 입력하세요");return;
 		}
-		 if($("#baseaddress").val()==""){
+		 if($("#sample6_address").val()==""){
 				alert("baseadderess를 입력하세요");return;
 		}
-		 if($("#detailaddress").val()==""){
+		 if($("#sample6_address2").val()==""){
 				alert("detailaddress를 입력하세요");return;
 		}
 		 
@@ -176,7 +176,7 @@
 		 if($("#phone").val()==""){
 				alert("Phone 을 입력하세요");return;
 		}
-		 if($("#account").val()==""){
+		 if($("#bank").val()==""){
 				alert("은행을 선택하세요");return;
 		}
 		 if($("#accountNumber").val()==""){
@@ -273,12 +273,12 @@
                 <label class="form-label-outside">Address</label>
                 <div class="form-wrap form-wrap-inline">
                   <input class="form-input" id="sample6_postcode"
-                    type="text" name="zipcode" id="zipcode" placeholder="우편번호">
+                    type="text" name="zipcode"  placeholder="우편번호">
                 </div>
               </div>
               <div class="cell-sm-5">
                 <div class="form-wrap-validation">
-                <button class="ksj-btn btn btn-warning button-secondary" name="memberIdCheck" onclick="sample6_execDaumPostcode()">POSTAL CODE</button>
+                <intput type="button" class="ksj-btn btn btn-warning button-secondary" name="memberIdCheck" onclick="sample6_execDaumPostcode()">POSTAL CODE</button>
 	                  <!-- <button type="button"
 	                    class="button button-secondary jjh-postCodeSearchBtn"
 	                    onclick="sample6_execDaumPostcode()">POSTAL CODE</button> -->
@@ -286,11 +286,11 @@
               </div>
               <div class="cell-xs-12">
                 <div class="form-wrap form-wrap-inline">
-                  <input class="form-input" id="baseaddress" name="baseaddress"
-                    type="text" name="baseaddress" placeholder="기본주소">
+                  <input class="form-input" id="sample6_address" name="baseaddress"
+                    type="text"  placeholder="기본주소">
                 </div>
                 <div class="form-wrap form-wrap-inline">
-                  <input class="form-input" id="detailaddress"
+                  <input class="form-input" id="sample6_address2"
                     type="text" name="detailaddress" placeholder="상세주소">
                 </div>
               </div>
@@ -320,8 +320,8 @@
               <div class="cell-sm-10">
                 <div class="form-wrap form-wrap-validation">
                   <label class="form-label-outside" for="forms-3-name">Phone</label>
-                  <input class="form-input" id="phone" name="phone"
-                    		type="text" name="phoneNumber" placeholder="-없이 숫자만 입력해주세요">
+                  <input class="form-input" id="phone" name="phoneNumber"
+                    		type="text" placeholder="-없이 숫자만 입력해주세요">
                 </div>
               </div>
 
@@ -331,8 +331,8 @@
                   <div class="col-sm-3">
                     <!-- Dropdown list-->
                     <!-- Select 2-->
-                    <select class="col-sm-2 form-control select-filter" data-placeholder="All" name="account" id="account"
-                    		data-minimum-results-for-search="Infinity" data-constraints="@Selected" name="bank">
+                    <select class="col-sm-2 form-control select-filter" data-placeholder="All" name="bank" id="bank"
+                    		data-minimum-results-for-search="Infinity">
                       <option label="계좌종류"> </option>
                       <option value="1">국민</option>
                       <option value="2">농협</option>
