@@ -56,4 +56,7 @@ public interface ProductService {
 	
 	/** 중고 상품 상세 조회 */
 	public Model getDetail(int productId, Model model) throws Exception;
+	
+	/** 중고 or  경매의 최근 등록된 4개의 리스트 조회 */
+	public List<Product> recentList(int category) throws Exception;
 }
