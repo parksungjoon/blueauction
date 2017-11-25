@@ -98,7 +98,8 @@
                   </div>
                   <div class="cell-xs-12 offset-custom-1">
                     <div class="form-button">
-                      <button class="button button-secondary" id="sendNote">답장하기</button>
+                      <!-- <button class="button button-secondary" id="sendNote">답장하기</button> -->
+                      <a class="button button-secondary" href="#" onclick="javascript:noteSend()">답장하기</a>
                       <button class="button button-secondary" id="removeNote">삭제하기</button>
                     </div>
                   </div>
@@ -151,6 +152,11 @@
   		});
   		
   	});
+  </script>
+  <script type="text/javascript">
+  function noteSend(){
+	  window.open("/note/${note.sender}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=650,height=800,left=0,top=0' );  
+	}
   </script>
 </body>
 </html>

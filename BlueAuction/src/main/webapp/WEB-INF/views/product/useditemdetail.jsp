@@ -66,6 +66,10 @@
 	    		modifyReply(replyId);	
 				break;
 				
+			case "판매 철회":
+				deleteItem();	
+				break;
+				
 			default:
 				var replyId = $(this).attr("value");
 				deleteReply(replyId);
@@ -93,9 +97,16 @@
     	
     	$(document).on("click", ".btn-reply-delete", function() {
     		$(".modal-title-reply").text("댓글 삭제");
+    		$(".modal-title-delete").text("댓글 삭제");
     		$(".btn-register").text("Delete");
     		var replyId = $(this).attr("value");
     		$(".btn-register").attr("value", replyId);
+    	});
+    	
+    	$(document).on("click", ".delete", function() {
+    		$(".modal-title-reply").text("판매 철회");
+    		$(".modal-title-delete").text("판매 철회");
+    		$(".btn-register").text("Delete");
     	});
 	});
     
@@ -262,6 +273,22 @@
 			form.submit();
 		});
 		
+		/* 상품 삭제 */
+		function deleteItem() {
+			var deleteForm = document.createElement("form");
+			deleteForm.setAttribute("method", "post");
+			deleteForm.setAttribute("action", "/product/used/" + ${product.productId});
+			
+			var input = document.createElement('input');
+			input.setAttribute("type", "hidden");
+			input.setAttribute("name", "_method");
+			input.setAttribute("value", "delete");
+			
+			deleteForm.appendChild(input);
+			document.body.appendChild(deleteForm);
+			deleteForm.submit();
+		}
+		
     </script>
     
   </head>
@@ -401,7 +428,7 @@
                               <c:when test="${login.memberId == product.seller }">
                                 <button class="button button-secondary modify" type="submit">Modify</button>
                                 <button class="button button-secondary back" type="button">Go List</button>
-                                <button class="button button-secondary delete" type="button">Delete</button>
+                                <button class="button button-secondary delete" type="button" data-toggle="modal" data-target="#deleteModal">Delete</button>
                               </c:when>
                               <c:otherwise>
                                 <button class="button button-secondary back" type="button">Go Back</button>
@@ -465,7 +492,7 @@
             <h5 class="modal-title-delete">댓글 삭제</h5>
           </div>
           <div class="modal-body"> 
-            <span>댓글을 삭제하시겠습니까?</span>
+            <span>정말 삭제하시겠습니까?</span>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default btn-register" data-dismiss="modal">Delete</button>

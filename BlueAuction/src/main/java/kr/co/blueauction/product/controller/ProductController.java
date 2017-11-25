@@ -387,6 +387,13 @@ public class ProductController {
 		return "/product/usedmodify";
 	}
 	
+	
+	/**
+	 * 중고상품 수정
+	 * 
+	 * @param product 상품 정보가 든 객체
+	 * @return 뷰 주소
+	 */
 	@RequestMapping(value="/used/modify/{productId}", method=RequestMethod.POST)
 	public String modifyPost(Product product) {
 		try {
@@ -396,5 +403,22 @@ public class ProductController {
 		}
 		logger.info("중고상품 정보 수정 후 상세 페이지로 이동");
 		return "redirect:/product/used/" + product.getProductId();
+	}
+	
+	/**
+	 * 중고상품 삭제
+	 * 
+	 * @param productId 상품 아이디
+	 * @return 뷰 주소
+	 */
+	@RequestMapping(value="/used/{productId}", method=RequestMethod.DELETE)
+	public String delete(@PathVariable("productId") int productId) {
+		try {
+			productService.delete(productId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("중고상품 삭제 후 리스트로 이동");
+		return "redirect:/product/used";
 	}
 }

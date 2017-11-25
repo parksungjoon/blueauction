@@ -47,7 +47,7 @@
         <div class="shell shell-bigger">
           <div class="range range-ten range-50 range-sm-center range-lg-justify">
             <div class="cell-sm-9 cell-md-6">
-              <h3>쪽지읽기</h3>
+              <h3>쪽지쓰기</h3>
               <hr class="divider divider-left divider-default">
               <!-- RD Mailform-->
               <!-- <form class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post"> -->
@@ -55,13 +55,13 @@
                   <div class="cell-sm-6">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="form-1-name">보내는 사람</label>
-                      <input class="form-input" id="sender" type="text" name="sender" value="${login.memberId}" data-constraints="@Required"/>
+                      <input class="form-input" id="sender" type="text" name="sender" readonly value="${login.memberId}" data-constraints="@Required"/>
                     </div>
                   </div>
                   <div class="cell-sm-6">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="form-1-last-name">받는 사람</label>
-                      <input class="form-input" id="receiver" type="text" name="receiver" value="${receiver}" data-constraints="@Required"/>
+                      <input class="form-input" id="receiver" type="text" name="receiver" readonly value="${receiver}" data-constraints="@Required"/>
                     </div>
                   </div>
                   <div class="cell-sm-12">
