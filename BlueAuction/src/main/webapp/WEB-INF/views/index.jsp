@@ -23,6 +23,7 @@
 		<![endif]--> 
   <script src="/resources/js/jquery-1.12.4.min.js"></script>
   <script src="/resources/js/countdown.js"></script>
+  <script src="/resources/js/index_list.js"></script>
   <script type="text/javascript">
   	$(document).ready(function(){
   		
@@ -37,85 +38,6 @@
   		});
   	});
   		
-  		/* 리스트 출력 */
-  		function printList(data){
-  			var used = data.used;
-  			var auction = data.auction;
-  			
-  			addHtml(used);
-  			addHtml(auction);
-  		}
-  		
-  		function addHtml(data){
-  			var html = "";
-  			
-  			if(data.length != 0){
-    			var category = data[0].categoryId;
-    			
-    			if(category == 2){
-  	 			getAuctionTime(data);
-  				setTime(seconds, minutes, hour); // 동적 생성 경매의 카운트 다운
-  	 		}
-    			
-    			for ( var i in data) {
-    				html += "<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
-                  html += "<div class='product product-counter product-auction'>";
-                  html += "<div class='product-counter-inner'>"
-                  if(category == '1'){
-                  	html += "<div class='jjh-counter'>" + data[i].regdate + "</div>";
-                  }else{
-                  	html +=" <div class='countdown jjh-counter is-countdown jjh-timer' data-time='' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
-                  }
-                  html += "</div>";
-                  html += "<div class='product-image jjh-mainImg'><img src='/resources/images/img" + data[i].mainphoto + "' alt='image'></div>"
-                  html += "<div class='product-title'>";
-                  html += "  <h5><a>" + data[i].name + "</a></h5>";
-                  html += "</div>";
-                  if(category == 1){
-                  	 html += "<div class='product-price-wrap'>";
-                       html += "  <div class='product-price'>";
-                       html +="   <p>Price</p>";
-                       html += "    <h6>" + data[i].price + "원</h6>";
-                       html += "  </div>";
-                       html += "</div>";
-                  }else{
-                  	html +="        <div class='jjh-price'>";
-      	  	  		html +="          <div class='product-price'>";
-      	  	  		html +="            <p>Start Price</p>";
-      	  	  		html +="            <h6>" + data[i].basicprice + "원</h6>";
-      	  	  		html +="          </div>";
-      	  	  		html +="          <br>";
-      	  	  		html +="           <div class='jjh-currentPrice'>";
-      	  	  		html +="             <p class=''><strong>Current Price</strong></p>";
-      	  	  		
-      	      	  	if(data[i].bidprice != 0){
-      	            	html +="<h6>" + data[i].bidprice + "원</h6>";
-      	            }else{
-      	            	html +="<h6 class='jjh-notSuccess'>" + data[i].basicprice + "원</h6>";
-      	            }
-      	      	  	
-      	  	  		html +="           </div>";
-      	  	  		html +="        </div>";
-                  }
-  
-                  html += "<div class='product-button'><a class='jjh-listButton button-secondary' href='/product/auction/readpage/" + data[i].productId + "'>Detail</a></div>";
-                	html += "</div>";
-              	html += "</div>";
-  			}
-    			if(category == 1){
-    				$("#jjh-usedList").html(html);
-    			}else{
-    				$("#jjh-auctionList").html(html);
-    			}
-  			}else{
-  				if(category == 1){
-  					html += "<h3 class='jjh-emptyList'>상품이 존재하지 않습니다</h3>";
-  				}else{
-  					html += "<h3 class='jjh-emptyList'>경매가 존재하지 않습니다</h3>";
-  				}
-  				$("#jjh-auctionList").html(html);
-  			}
-  		}
   </script>
   </head>
   <body>
@@ -271,11 +193,11 @@
             <div class="box-auction-large-left bg-primary">
               <div class="box-auction-large-inner">
                 <div class="heading-group">
-                  <p class="heading-3 text-elight">online</p>
+                  <p class="heading-3 text-elight">blue</p>
                   <h1>auction</h1>
                   <p class="heading-3 text-elight">for the whole family</p>
                 </div>
-                <p class="heading-5">Online Auction  is where everyone goes to shop, sell, <br class="veil reveal-sm-inline"> and give, while discovering variety and affordability.</p><a class="button button-secondary" href="registration-page.html">register now</a>
+                <p class="heading-5">Blue Auction helps you sell your used products</p><a class="button button-secondary" href="/member/register">Join Us</a>
               </div>
             </div>
           </div>
@@ -284,25 +206,25 @@
               <div class="box-auction-minimal-left bg-gray-darker">
                 <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-1" href="product-page.html"> <img src="/resources/images/landing-auction-11-230x469.png" alt="" width="230" height="469"/></a></div>
                 <div class="box-auction-inner box-auction-inner-content">
-                  <div class="box-auction-title"> <a href="product-page.html">Apple iPhone 7</a></div>
+                  <div class="box-auction-title"> <a href="product-page.html">Used Products</a></div>
                   <div class="divider divider-secondary divider-sm"></div>
                   <div class="product-price">
-                    <p>Current Price</p>
-                    <h6>$387.00</h6>
+                    <p>중고 상품을 판매 합니다</p>
+                    <h6></h6>
                   </div>
-                  <div class="box-auction-button"><a class="button button-secondary button-sm" href="#">submit a bid</a></div>
+                  <div class="box-auction-button"><a class="button button-secondary button-sm" href="/product/used">Show Products</a></div>
                 </div>
               </div>
               <div class="box-auction-minimal-right bg-secondary-2">
                 <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-2" href="product-page.html"><img src="/resources/images/landing-auction-12-377x267.png" alt="" width="377" height="267"/></a></div>
                 <div class="box-auction-inner box-auction-inner-content">
-                  <div class="box-auction-title"><a href="product-page.html">Parrot Cockpit FPV Glasses</a></div>
+                  <div class="box-auction-title"><a href="product-page.html">Auction Products</a></div>
                   <div class="divider divider-secondary divider-sm"></div>
                   <div class="product-price">
-                    <p>Current Price</p>
-                    <h6>$387.00</h6>
+                    <p>경매 상품을 판매 합니다</p>
+                    <h6></h6>
                   </div>
-                  <div class="box-auction-button"><a class="button button-secondary button-sm" href="#">submit a bid</a></div>
+                  <div class="box-auction-button"><a class="button button-secondary button-sm" href="/product/auction/1/0">Show Auctions</a></div>
                 </div>
               </div>
             </div>
