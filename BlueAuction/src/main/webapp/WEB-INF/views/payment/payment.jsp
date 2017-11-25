@@ -26,9 +26,9 @@
     	
     	$('#memberId').val('${member.memberId}');
     	$('#name').val('${member.name}');
-    	$('#zipcode').val('${member.zipcode}');
-    	$('#baseaddress').val('${member.baseaddress}');
-    	$('#detailaddress').val('${member.detailaddress}');
+    	$('#sample6_postcode').val('${member.zipcode}');
+    	$('#sample6_address').val('${member.baseaddress}');
+    	$('#sample6_address2').val('${member.detailaddress}');
     	$('#email').val('${member.email}');
     	$('#phoneNumber').val('${member.phoneNumber}');
     	
@@ -87,18 +87,18 @@
                   <div class="tab-pane fade in active" id="tabs-1-1">
                   
                   <%--정보 입력 form 시작 --%>
-              <form  data-form-output="form-output-global" data-form-type="contact" method="POST" action="/member/payresult/${order.orderId}">
+              <form  data-form-output="form-output-global" data-form-type="contact" method="POST" action="/member/payment/${product.productId}">
                          <div class="table-checkout text-left jji-select">
                       <div class="table-novi table-custom-responsive">
                         <table class="table-custom">
                           <tbody>
                             <tr>
-                              <td><strong class="jjh-proInfo">상품id</strong></td>
-                              <td>${order.productId}<%--주문하고자 하는 상품 이름 --%></td>
+                              <td><strong class="jjh-proInfo">상품명</strong></td>
+                              <td>${product.name}<%--주문하고자 하는 상품 이름 --%></td>
                             </tr>
                             <tr>
                               <td><strong class="jjh-proInfo">Price</strong></td>
-                              <td>${order.price}</td>
+                              <td>${product.price}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -128,7 +128,7 @@
                           <div class="cell-sm-6">
                            <label class="form-label-outside">Address</label>
                             <div class="form-wrap form-wrap-inline">
-                                <input class="form-input" type="text" id="zipcode" name="street-address" placeholder="우편번호">
+                                <input class="form-input" type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호">
                             </div>
                           </div>
                           <div class="cell-sm-6">
@@ -138,10 +138,10 @@
                           </div>
                           <div class="cell-xs-12">
                           <div class="form-wrap form-wrap-inline">
-                            <input class="form-input"  type="text" id="baseaddress" name="basic_address" placeholder="기본주소">
+                            <input class="form-input"  type="text" id="sample6_address" name="baseaddress" placeholder="기본주소">
                           </div>
                           <div class="form-wrap form-wrap-inline">
-                            <input class="form-input"  type="text" id="detailaddress" name="detail_address" placeholder="상세주소">
+                            <input class="form-input"  type="text" id="sample6_address2" name="detailaddress" placeholder="상세주소">
                           </div>
                         </div>
                         <div class="cell-sm-6">
