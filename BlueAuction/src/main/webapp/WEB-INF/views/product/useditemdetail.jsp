@@ -373,7 +373,7 @@
                       <div class="" id="Price"><span class="">${product.seller }</span></div>
                     </dd> 
 				</dl> 
-                <a class="button button-xs button-secondary" href="/member/payment/${product.productId}">구매하기</a>
+                <a class="button button-xs button-secondary" href="/order/payment/${product.productId}">구매하기</a>
               </div>
             </div>
           </div>
