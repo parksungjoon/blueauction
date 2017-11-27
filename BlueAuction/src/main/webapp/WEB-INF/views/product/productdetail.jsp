@@ -305,8 +305,8 @@
             </div>
           </div>
         </div> 
-        <!-- 테스트 하시려면 주석을 푸세요. -->
-        <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe>
+        <!-- 테스트 하시려면 주석을 푸세요요용. -->
+       <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe>
        <iframe id='child' src='http://192.168.0.78:7777/bid/?productId=${productId}&memberId=${login.memberId}' width=100%; frameborder='0' style="height:1000px;"></iframe> --%>
         <!-- Hover Row Table (입찰 리스트) END --> 
         
@@ -392,7 +392,7 @@
         <span>낙찰 되셨습니다. 확인을 누르면 결재페이지로 이동합니다.</span>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger">확인</button>
+        <button type="button" class="btn btn-danger" id="goBuy">확인</button>
       </div>
     </div>
   </div>
@@ -468,7 +468,7 @@ window.onload=function(){
   }
   
   $('#goBuy').on('click',function(e){
-		 self.location="/member/mypage/note/list"; 
+		 self.location="/order/payment/${productId}"; 
 	  });
 	  
 	 
