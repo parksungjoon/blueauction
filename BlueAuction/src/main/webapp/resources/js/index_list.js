@@ -86,7 +86,7 @@
   					html += "<h3 class='jjh-emptyList'>상품이 존재하지 않습니다</h3>";
   					$("#jjh-usedList").html(html);
   				}else{
-  					html += "<h3 class='jjh-emptyList'>상품이 존재하지 않습니다</h3>";
+  					html += "<h3 class='jjh-emptyList'>경매가 존재하지 않습니다</h3>";
   					$("#jjh-auctionList").html(html);
   				}
   			}
