@@ -272,34 +272,35 @@ public class ProductServiceImpl implements ProductService {
 	/** 중고상품 리스트 더 보기 */
 	@Override
 	@Transactional
-	public Map<String, Object> getMoreList(int page, String keyword) throws Exception {
-
+	public Map<String, Object> getMoreList(int page, String keyword, int smallid) throws Exception {
+		
 		SearchCriteria cri = new SearchCriteria();
 		cri.setCategory(1);
 		cri.setPerPageNum(page);
 		cri.setPage(1);
-
-		if (keyword != null) {
+		cri.setSmallid(smallid);
+		
+		if(keyword != null) {
 			cri.setKeyword(keyword);
 		}
-
+		
 		List<Product> list = productDao.listByCri(cri, 0, "recent");
 		for (Product product : list) {
 		}
 		int count = productDao.listBySearchCount(cri, 0);
-
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(count);
-
+		
 		for (Product product : list) {
 			product.setMainphoto(product.getMainphoto().replaceAll("s_", ""));
 		}
-
+		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("list", list);
 		resultMap.put("count", count);
-
+		
 		return resultMap;
 	};
 

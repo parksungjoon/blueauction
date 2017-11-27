@@ -5,7 +5,7 @@
       }
       .qna {
         padding-top: 0px;
-        padding-bottom: 60px;
+        padding-bottom: 30px;
         margin-top: -20px;
       }
       .qna-write, .reply-section {
@@ -34,8 +34,6 @@
       }
       .btn-function button {
         min-width: 100px;
-        background: rgb(125, 190, 255);
-        border-color: rgb(125, 190, 255);
       }
       .comment-time {
       	margin-left: 10px;
@@ -58,5 +56,14 @@
       .tarea-reply {
       	width: -webkit-fill-available;
       	resize: none;
+      }
+      .send-comment {
+      	margin-top: -20px;
+      }
+       #set-range {
+      	margin-top: 15px;
+      }
+      #reply-list {
+      	margin-top: 30px;
       }
       
