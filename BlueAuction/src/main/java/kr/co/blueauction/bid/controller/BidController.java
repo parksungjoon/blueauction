@@ -64,7 +64,7 @@ public class BidController {
 	
 	//낙찰목록을가져온다
 	@RequestMapping(value ="/mypage/winninglist", method = RequestMethod.GET)
-	public String mywinninglist(@ModelAttribute("bid") Bid bid, HttpSession session, Model model) throws Exception {
+	public String mywinninglist(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
 		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
 		logger.info("/member/mypage/mybidlist에서 " + member.toString());
@@ -73,9 +73,12 @@ public class BidController {
 		String memberId = member1.getMemberId();
 		String winning = "Y";
 		// 상품을 받아옴
-		Map<String, Object> map= service.bidList(memberId, winning);
+		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
 		model.addAttribute("map", map);
-		
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(service.bidCountCriteria(memberId, winning));
+		model.addAttribute("pageMaker", pageMaker2);
 		return "member/winninglist";
 	}
 
