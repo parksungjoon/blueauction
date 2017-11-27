@@ -67,7 +67,7 @@
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-10">
               <h3>쪽지함 </h3>
-              <div class="form-wrap box-width-1" style="position:absolute; margin-left: 42%;">
+              <div class="form-wrap box-width-1" style="position:absolute; width: 10%; height: 10px;">
                 <!-- Select 2-->
                 <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" id="searchType" name="searchType">
                   <option value="R" <c:out value="${cri.keyword eq 'R'?'selected':''}"/>>받은편지함</option>
