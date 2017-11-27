@@ -83,7 +83,7 @@
                   <tbody id="bidListTr">
                   <c:forEach var="product" items="${products}" varStatus="status">
                     <tr style = "cursor:pointer;" onClick = " location.href='/product/used/${product.productId}' ">
-                      <td>${status.count}</td>
+                      <td>${product.productId}</td>
                       <td>${product.name}</td>
                       <td>${product.productinfo}</td>
                       <td>${product.price}원</td>
@@ -97,17 +97,44 @@
                 </table>
               </div>
             </div>
+            
             <%-- Shop Sidebar START --%>
         <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
         <%-- Shop Sidebar END --%>
             
+        <div class="box-footer">
+
+          <div class="text-center">
+            <ul class="pagination">
+
+              <c:if test="${pageMaker.prev}">
+                <li><a href="/member/mypage/goodsmarket${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+              </c:if>
+
+              <c:forEach begin="${pageMaker.startPage }"
+                end="${pageMaker.endPage }" var="idx">
+                <li
+                  <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+                  <a href="/member/mypage/goodsmarket${pageMaker.makeSearch(idx)}">${idx}</a>
+                </li>
+              </c:forEach>
+
+              <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+                <li><a href="/member/mypage/goodsmarket${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+              </c:if>
+
+            </ul>
+          </div>
+
+        </div>
+        <!-- /.box-footer-->
           </div>
         </div>
         <!-- Hover Row Table (입찰 리스트) END --> 
        
         
       </section>
-
+  
     <!-- Product Page END-->
 
     <!-- Product Page END-->

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.ui.Model;
 
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
 
@@ -36,7 +37,10 @@ public interface ProductDao {
 	/** 로그인된 회원의 중고판매 물품 리스트를 조회 */
 	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception;
 	
+	/**페이징처리 로그인된 회원의 중고판매 물품 리스트를 조회 */
+	public List<Product> productSellListCriteria(Criteria criteria, String memberId, String auctionFlag) throws Exception;
 	
+	public int countPaging(Criteria cri) throws Exception;
 	
 	/** 중고상품 리스트 출력 */
 	public List<Product> listUsedItems() throws Exception;
