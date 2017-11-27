@@ -243,32 +243,14 @@ public class MemberController {
 		String auctionFlag = "N";
 		// 상품을 받아옴
 		model.addAttribute("products", productService.productSellListCriteria(cri, memberId, auctionFlag));
+		logger.info("String.valueOf(productService.listCountCriteria(cri))"+String.valueOf(productService.listCountCriteria(memberId)));
 		PageMaker2 pageMaker2 = new PageMaker2();
 		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(productService.listCountCriteria(cri));
+		pageMaker2.setTotalCount(productService.listCountCriteria(memberId));
 		model.addAttribute("pageMaker", pageMaker2);
 		return "member/productsmarket";
 	}
 
-	@RequestMapping(value = "/mypage/productSellListCriteria", method = RequestMethod.GET)
-	public String productSellListCriteria(@ModelAttribute("cri")Criteria cri, HttpSession session, Model model)
-			throws Exception {
-		// login 세션을 가저옴
-		Object member = session.getAttribute("login");
-		logger.info("/member/mypage/goodsmarket에서 " + member.toString());
-		Member member1 = (Member) member;
-		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
-		String memberId = member1.getMemberId();
-		String auctionFlag = "N";
-		// 상품을 받아옴
-		
-		model.addAttribute("products", productService.productSellListCriteria(cri, memberId, auctionFlag));
-		PageMaker2 pageMaker2 = new PageMaker2();
-		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(productService.listCountCriteria(cri));
-		model.addAttribute("pageMaker", pageMaker2);
-		return "member/productSellListCriteria";
-	}
 
 	@RequestMapping(value = "/mypage/auctionmarket", method = RequestMethod.GET)
 	public String auctionmarket(@ModelAttribute("product") Product product, HttpSession session, Model model)

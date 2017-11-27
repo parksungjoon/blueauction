@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
 
@@ -38,7 +39,14 @@ public interface ProductService {
 	
 	/** 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 */
 	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception;
+
+	/** 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 */
+	public List<Product> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception;
+
 	
+	
+	public int listCountCriteria(String memberId) throws Exception;
+
 	/** 로그인 회원 아이디 조회 */
 	public String memberIdGet(HttpSession session) throws Exception;
 	
@@ -52,7 +60,7 @@ public interface ProductService {
 	public Model listUsedItems(Model model) throws Exception;
 	
 	/** 중고 상품 리스트 더 보기 */
-	public Map<String, Object> getMoreList(int page, String keyword, int smallid) throws Exception;
+	public Map<String, Object> getMoreList(int page, String keyword) throws Exception;
 	
 	/** 중고 상품 상세 조회 */
 	public Model getDetail(int productId, Model model) throws Exception;
