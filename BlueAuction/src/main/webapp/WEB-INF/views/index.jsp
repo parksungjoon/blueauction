@@ -111,7 +111,10 @@
                   <h1>auction</h1>
                   <p class="heading-3 text-elight">for the whole family</p>
                 </div>
-                <p class="heading-5">Blue Auction helps you sell your used products</p><a class="button button-secondary" href="/member/register">Join Us</a>
+                  <p class="heading-5">Blue Auction helps you sell your used products</p>
+                   <c:if test="${empty login }">
+                     <a class="button button-secondary" href="/member/register">Join Us</a>
+                   </c:if>
               </div>
             </div>
           </div>
