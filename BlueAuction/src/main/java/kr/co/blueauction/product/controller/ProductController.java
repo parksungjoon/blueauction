@@ -184,7 +184,8 @@ public class ProductController {
 		}
 		model.addAttribute("favorite", favorite);
 		
-		Product	product = productService.read(productId); 	
+		Product	product = productService.read(productId);
+		product.setProductinfo(product.getProductinfo());
 		model.addAttribute(product);
 		
 		List<Bid> bidList = bidSevice.readByProductId(productId);
@@ -202,13 +203,14 @@ public class ProductController {
 	 */
 	@RequestMapping(value="/auction/modifypage/{productId}", method= RequestMethod.POST)
 	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
-		Product product = productService.read(productId);
-		Gson json = new Gson();
+		model = productService.getDetail(productId, model);
+		
+		/*Gson json = new Gson();
 		String jsonlist = json.toJson(product);
 		
 		
 		model.addAttribute("product", product);
-		model.addAttribute("jsonP", jsonlist);
+		model.addAttribute("jsonP", jsonlist);*/
 		
 		return "/product/productModify";
 	}
@@ -283,7 +285,6 @@ public class ProductController {
 		productService.create(product);
 		
 		Map<String, Object> map = listGet(1, product.getSmallid(), session);
-		
 		redirectAttributes.addFlashAttribute(map);
 		
 		return "redirect:/product/auction/1/"+product.getSmallid()+"";
@@ -316,9 +317,7 @@ public class ProductController {
 	public ResponseEntity<Map<String, Object>> getMoreList(@RequestParam("page") int page, @RequestParam("keyword") String keyword, @RequestParam("smallid") int smallid) {
 
 		ResponseEntity<Map<String, Object>> entity = null;
-
 		try {
-			
 			Map<String, Object> list = productService.getMoreList(page, keyword, smallid);
 			
 			entity = new ResponseEntity<Map<String,Object>>(list, HttpStatus.OK);

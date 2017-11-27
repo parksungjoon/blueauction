@@ -27,6 +27,7 @@
      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
      <script src="/resources/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/resources/js/upload.js"></script>
+    <script type="text/javascript" src="/resources/js/fileUpload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
    
     <style type="text/css">
@@ -61,11 +62,13 @@
     var template = Handlebars.compile($("#template").html());
     
       $(document).ready(function() {
-    	  var list = ${jsonP};
+    	  
+    	  var list = ${jsonproduct};
+    	  
     	  var smallid = list.smallid;
     	  $("#smallid").val(smallid).prop("selected", true);
     	  
-    	  $("#info").html(list.productInfo);
+    	  /* $("#info").html(list.productInfo); */
     	  
     	  var now = new Date();
     	  var year = now.getFullYear();
@@ -78,11 +81,6 @@
     	  time.attr("min", nowDate);
     	  time.attr("value", nowDate);
     	  
-    	  $("#can").click(function(){
-    		  window.history.back();
-    	  });
-			
-
     	  /* 저장된 사진 있을경우 가져옴 */
     	  var photoList = list.photo;
     	  for (var i = 0; i < photoList.length; i++) {
@@ -102,23 +100,25 @@
     	  $("#auctionstart").attr("value", date);
     	  
     	  /* 첨부파일 선택지 자동 업로드 */
-          $("input[type=file]").change(function() {
+        /*   $("input[type=file]").change(function() {
              handleUpload();
-          });
+          }); */
     	  
           sendAttachment();
-         
+          autoUpload();
       });
       
       /* 첨부파일 삭제 */
       $(document).on("click", ".uploadedList .delbtn", function(event){
-         
          event.preventDefault();
-         
          var that = $(this);
          that.closest("li").remove();
-          
       });
+      
+	  /**  수정 취소 버튼 클릭 이벤트 */
+	  $("#can").click(function(){
+		  window.history.back();
+	  });
       
     </script>
     
@@ -149,7 +149,8 @@
           <div class="range range-50 range-md-center">
             <div class="cell-md-11 cell-lg-10 cell-xl-6">
                 <!-- Tab panes-->
-                    <form class="rd-mailform text-left" id="modifyForm" method="post" action="/product/auction/modify/${product.productId}">
+                    <form class="rd-mailform text-left" id="registerForm" method="post" action="/product/auction/modify/${product.productId}">
+                    	<input type="hidden" name="auctionFlag" value="Y">
                     	<input type="hidden" name="categoryId" value="2">
                       <div class="range range-20">
                       <div class="cell-sm-4">
@@ -231,7 +232,7 @@
                         <div class="cell-sm-12">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-street-address">Product Information</label>
-                            <textarea class="form-input" rows="6" cols="100%" id="info" name="productinfo" data-constraints="@Required" style="resize: none;" required></textarea>
+                            <textarea class="form-input" rows="6" cols="100%" id="info" name="productinfo" data-constraints="@Required" style="resize: none;" required>${product.productinfo}</textarea>
                           </div>
                         </div>
                         
@@ -254,8 +255,10 @@
                         
                         <div class="cell-sm-12 offset-custom-1">
                           <div class="form-button text-sm-right">
-                          	<button class="ksj-btn btn btn-warning button-secondary	btn-lg" type="submit">Modify</button>
-                          	<button class="ksj-btn btn btn-warning button-secondary btn-lg" id="can">Cancle</button>
+                          	<button type="submit" class="btn btn-warning">Modify</button>
+							<button id="can" class="btn btn-danger">Cancle</button>
+                          	<!-- <button class="ksj-btn btn btn-warning button-secondary	btn-lg" type="submit">Modify</button>
+                          	<button class="ksj-btn btn btn-warning button-secondary btn-lg" id="can">Cancle</button> -->
                           </div>
                         </div>
                       </div>
