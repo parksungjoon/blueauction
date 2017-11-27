@@ -2,6 +2,13 @@
   		function printList(data){
   			var used = data.used;
   			var auction = data.auction;
+  			
+  			console.log("used -----");
+  			for ( var index in used) {
+				console.log(used[index].toString());
+			}
+  			
+  			console.log("used size: " + used.length);
   			addHtml(used);
   			addHtml(auction);
   		}
@@ -11,6 +18,8 @@
   			
   			if(data.length != 0){
     			var category = data[0].categoryId;
+    			
+    			console.log("category : " + category);
     			
     			if(category == 2){
   	 			getAuctionTime(data);
@@ -27,7 +36,7 @@
                   	html +=" <div class='countdown jjh-counter is-countdown jjh-timer' data-time='' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
                   }
                   html += "</div>";
-                  html += "<div class='product-image jjh-mainImg'><img src='/resources/images/img" + data[i].mainphoto + "' alt='image'></div>"
+                  html += "<div class='product-image'><img class=' jjh-mainImg' src='/resources/images/img" + data[i].mainphoto + "' alt='image'></div>"
                   html += "<div class='product-title'>";
                   html += "  <h5><a>" + data[i].name + "</a></h5>";
                   html += "</div>";
@@ -73,7 +82,12 @@
     				$("#jjh-auctionList").html(html);
     			}
   			}else{
-  				html += "<h3 class='jjh-emptyList'>상품이 존재하지 않습니다</h3>";
-  				$(".jjh-productList").html(html);
+  				if(category == 1){
+  					html += "<h3 class='jjh-emptyList'>상품이 존재하지 않습니다</h3>";
+  					$("#jjh-usedList").html(html);
+  				}else{
+  					html += "<h3 class='jjh-emptyList'>상품이 존재하지 않습니다</h3>";
+  					$("#jjh-auctionList").html(html);
+  				}
   			}
   		}

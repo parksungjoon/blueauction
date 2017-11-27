@@ -44,7 +44,8 @@
     
     <script type="text/javascript">
     
-    var page = 9;
+    var page = 1;
+    var perPageNum = 9;
     var keyword = null;
     var smallid = 0;
     
@@ -67,7 +68,7 @@
     
     /* 상품 더 보기 */
     $(document).on("click", ".load-more-products", function(){
-    	page += 9;
+    	perPageNum += 9;
   		getMoreList();
 	});
     
@@ -75,7 +76,6 @@
     $(document).on("click", ".type", function(e) {
     	e.preventDefault();
 		smallid = $(this).attr("data-isotope-filter");
-		page = 9;
 		getMoreList();
 		$(this).parents(".isotope-filters").find('.active').removeClass("active");
 		$(this).addClass("active");
@@ -85,7 +85,7 @@
     function getMoreList() {
     	$.ajax({
   			type: "post",
-  			data : {page:page, keyword:keyword, smallid:smallid},
+  			data : {page:page, perPageNum:perPageNum, keyword:keyword, smallid:smallid},
   			dataType : "json ",
   			url: "/product/used/",
   			success : function(data){
@@ -105,7 +105,7 @@
     /* 검색 */
 	$(document).on("click", ".button-secondary", function() {
 		keyword = $("#rd-navbar-search-form-input").val();
-		page = 9;
+		perPageNum = 9;
 		getMoreList();
 	});
     
@@ -143,7 +143,7 @@
 
       <!-- titled Grid gallery-->
       <section class="section section-lg text-center bg-white">
-      <a id="register" class="button-blog button button-default-outline" href="/product/used/register">Register Product</a>
+      <a id="register" class="button-blog btn btn-primary" href="/product/used/register">Register Product</a>
         <div class="shell-wide">
           <h3>our products</h3>
           <div class="isotope-wrap range range-0">

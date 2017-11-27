@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
-    <link rel="stylesheet" href="/resources/css/jjh-style.css">
+    <link rel="stylesheet" href="/resources/css/hideSearch.css">
 		<!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
@@ -153,7 +153,7 @@
       <%-- 경매 방식 설명 시작 --%>
       <section class="section section-lg text-center">
         <div class="shell-wide">
-          <h3>how it works</h3>
+          <h3>USED PRODUCT how it buy</h3>
           <div class="divider divider-default"></div>
           <div class="range range-xs-center range-50">
             <div class="cell-sm-9 cell-md-6 cell-lg-3">
@@ -162,7 +162,7 @@
                 <div class="thumbnail-classic-caption unit-body">
                   <h6 class="thumbnail-classic-title">register</h6>
                   <hr class="divider divider-default divider-sm"/>
-                  <p class="thumbnail-classic-text">To start using our auction, youâll need to register. Itâs completely free!</p>
+                  <p class="thumbnail-classic-text">중고 상품 등록</p>
                 </div>
               </div>
             </div>
@@ -170,9 +170,10 @@
               <div class="thumbnail-classic unit unit-sm-horizontal unit-md-vertical unit-md-horizontal unit-lg-vertical">
                 <div class="thumbnail-classic-icon unit-left"><span class="icon">02</span></div>
                 <div class="thumbnail-classic-caption unit-body">
-                  <h6 class="thumbnail-classic-title">Buy or Bid</h6>
+                  <h6 class="thumbnail-classic-title">chat or reply</h6>
                   <hr class="divider divider-default divider-sm"/>
-                  <p class="thumbnail-classic-text">You can instantly buy or place a bid  on a desired product right after registration.</p>
+                  <p class="thumbnail-classic-text">상품 확인을 위해  <br>
+                  									판매자와 채팅/쪽지/댓글</p>
                 </div>
               </div>
             </div>
@@ -180,9 +181,9 @@
               <div class="thumbnail-classic unit unit-sm-horizontal unit-md-vertical unit-md-horizontal unit-lg-vertical">
                 <div class="thumbnail-classic-icon unit-left"><span class="icon">03</span></div>
                 <div class="thumbnail-classic-caption unit-body">
-                  <h6 class="thumbnail-classic-title">Submit a Bid</h6>
+                  <h6 class="thumbnail-classic-title">Order</h6>
                   <hr class="divider divider-default divider-sm"/>
-                  <p class="thumbnail-classic-text">Submitting a bid is fast and easy. The process takes approximately 5 minutes.</p>
+                  <p class="thumbnail-classic-text">원하는 상품 주문</p>
                 </div>
               </div>
             </div>
@@ -190,9 +191,9 @@
               <div class="thumbnail-classic unit unit-sm-horizontal unit-md-vertical unit-md-horizontal unit-lg-vertical">
                 <div class="thumbnail-classic-icon unit-left"><span class="icon">04</span></div>
                 <div class="thumbnail-classic-caption unit-body">
-                  <h6 class="thumbnail-classic-title">Win</h6>
+                  <h6 class="thumbnail-classic-title">Delivery</h6>
                   <hr class="divider divider-default divider-sm"/>
-                  <p class="thumbnail-classic-text">Easily win at our auction and enjoy owning the product you dream of.</p>
+                  <p class="thumbnail-classic-text">중고 상품 수령</p>
                 </div>
               </div>
             </div>
@@ -206,7 +207,7 @@
         <div class="shell shell-wide">
           <h3>Recent Used</h3>
           <div class="divider divider-default"></div>
-          <div id="jjh-usedList" class="range range-30 jjh-productList" style="z-index:1;">
+          <div id="jjh-usedList" class="range range-30" style="z-index:1;">
           <%-- 중고 리스트 들어 가는 곳 --%>
           </div>
         </div>
@@ -214,12 +215,63 @@
       </section>
       <%-- 최근 중고 보기 종료 --%>
       
+        <%-- 경매 방식 설명 시작 --%>
+      <section class="section section-lg text-center">
+        <div class="shell-wide">
+          <h3>Auction how it works</h3>
+          <div class="divider divider-default"></div>
+          <div class="range range-xs-center range-50">
+            <div class="cell-sm-9 cell-md-6 cell-lg-3">
+              <div class="thumbnail-classic unit unit-sm-horizontal unit-md-vertical unit-md-horizontal unit-lg-vertical">
+                <div class="thumbnail-classic-icon unit-left"><span class="icon">01</span></div>
+                <div class="thumbnail-classic-caption unit-body">
+                  <h6 class="thumbnail-classic-title">register</h6>
+                  <hr class="divider divider-default divider-sm"/>
+                  <p class="thumbnail-classic-text">경매 상품 등록</p>
+                </div>
+              </div>
+            </div>
+            <div class="cell-sm-9 cell-md-6 cell-lg-3">
+              <div class="thumbnail-classic unit unit-sm-horizontal unit-md-vertical unit-md-horizontal unit-lg-vertical">
+                <div class="thumbnail-classic-icon unit-left"><span class="icon">02</span></div>
+                <div class="thumbnail-classic-caption unit-body">
+                  <h6 class="thumbnail-classic-title">Buy or Bid</h6>
+                  <hr class="divider divider-default divider-sm"/>
+                  <p class="thumbnail-classic-text">매정각마다 30분간 진행</p>
+                </div>
+              </div>
+            </div>
+            <div class="cell-sm-9 cell-md-6 cell-lg-3">
+              <div class="thumbnail-classic unit unit-sm-horizontal unit-md-vertical unit-md-horizontal unit-lg-vertical">
+                <div class="thumbnail-classic-icon unit-left"><span class="icon">03</span></div>
+                <div class="thumbnail-classic-caption unit-body">
+                  <h6 class="thumbnail-classic-title">Submit a Bid</h6>
+                  <hr class="divider divider-default divider-sm"/>
+                  <p class="thumbnail-classic-text">원하는 상품에 입찰</p>
+                </div>
+              </div>
+            </div>
+            <div class="cell-sm-9 cell-md-6 cell-lg-3">
+              <div class="thumbnail-classic unit unit-sm-horizontal unit-md-vertical unit-md-horizontal unit-lg-vertical">
+                <div class="thumbnail-classic-icon unit-left"><span class="icon">04</span></div>
+                <div class="thumbnail-classic-caption unit-body">
+                  <h6 class="thumbnail-classic-title">Win</h6>
+                  <hr class="divider divider-default divider-sm"/>
+                  <p class="thumbnail-classic-text">가장 높은 가격을 제시한 사람 낙찰</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <%-- 경매 방식 설명 종료 --%>
+      
       <%-- 최근 경매 보기 시작 --%>
       <section class="section section-lg bg-gray-lighter text-center">
         <div class="shell shell-wide">
           <h3>Current Auctions</h3>
           <div class="divider divider-default"></div>
-          <div id="jjh-auctionList" class="range range-30 jjh-productList" style="z-index:1;">
+          <div id="jjh-auctionList" class="range range-30" style="z-index:1;">
           <%-- 경매 리스트 들어가는 곳 --%>
            </div>
          </div>

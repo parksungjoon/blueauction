@@ -5,7 +5,7 @@
             <div class="cell-lg-6 text-lg-left">
               <ul class="page-footer-inline-list">
                 <li><a href="#">blueauction.co.kr</a></li><br>
-                <li><a href="#">서울특별시 금천구 가산디지털1로 168</a></li>
+                <li><a href="#">서울특별시 금천구 가산디지털1로 168 2층 3강의실</a></li>
                 <li><a href="#"></a></li>
                 <li><a href="#"></a></li>
                 <li><a href="#"></a></li>

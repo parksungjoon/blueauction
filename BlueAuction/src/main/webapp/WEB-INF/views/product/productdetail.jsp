@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="/resources/css/hideSearch.css">
     
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
@@ -50,9 +51,12 @@
 	    	});
 		 
 		 /* 글 삭제 버튼 이벤트 */
+		 $("#remove").click(function(){
+			 event.preventDefault();
+			 $("#deleteModal").modal();
+		 });
 		 var formObj = $("#modifyPage");
 		 $("#removeBtn").click(function(event) {
-				event.preventDefault();
 				var productId = formObj.attr("action");
 				
 				formObj.attr("action", "/product/auction/remove/"+productId);    
@@ -335,7 +339,7 @@
 						<c:if test="${(login.memberId).equals(product.seller)}">
 							<c:if test='${(product.auctionstate).equals("BEFORE")}'>
 								<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-								<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+								<button type="submit" class="btn btn-danger" id="remove">REMOVE</button>
 							</c:if>
 						</c:if>
 					</div>
@@ -354,6 +358,24 @@
     <%-- END PANEL--%>
     <%-- Global Mailform Output--%>
     <div class="snackbars" id="form-output-global"></div>
+    
+     <div id="deleteModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-sm">
+  		<!-- 모달 내용-->
+		<div class="modal-content">
+	    	<div class="modal-header">
+	        	<h5 class="modal-title-delete">게시글 삭제</h5>
+	        </div>
+	        <div class="modal-body"> 
+	        	<span>정말 삭제하시겠습니까?</span>
+	        </div>
+	        <div class="modal-footer">
+	            <button type="button" id="removeBtn" class="btn btn-default btn-register" data-dismiss="modal">Delete</button>
+	            <button type="button" class="btn btn-default btn-close" data-dismiss="modal">Cancel</button>
+	        </div>
+	    </div>
+      </div>
+    </div>
     
     <%-- Javascript--%>
     <script src="/resources/js/core.min.js"></script>

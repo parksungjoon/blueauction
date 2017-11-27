@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/resources/css/cms-register.css">
     <link rel="stylesheet" href="/resources/css/cms-attachment.css">
     <link rel="stylesheet" href="/resources/css/ksj-css.css">
+    <link rel="stylesheet" href="/resources/css/hideSearch.css">
     
     <script src="/resources/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/resources/js/upload.js"></script>

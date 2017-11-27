@@ -17,8 +17,10 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="/resources/css/ksj-css.css">
     <link rel="stylesheet" href="/resources/css/cms-register.css">
     <link rel="stylesheet" href="/resources/css/cms-attachment.css">
+    <link rel="stylesheet" href="/resources/css/hideSearch.css">
     
     <script src="/resources/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/resources/js/upload.js"></script>
@@ -149,9 +151,9 @@
                             <input class="form-input" id="forms-3-company" type="text" name="usingtime" data-constraints="@Required" required="required">
                           </div>
                         </div>
-                        <div class="cell-sm-4">
+                        <div class="cell-sm-3">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-city">Price</label>
+                            <label class="ksj-numberInput form-label-outside" for="forms-3-city">Price</label>
                             <input class="form-input" id="forms-3-city" type="number" min="1000" name="price" data-constraints="@Required" required="required">
                           </div>
                         </div>
