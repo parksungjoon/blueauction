@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import kr.co.blueauction.bid.domain.Bid;
+import kr.co.blueauction.common.domain.Criteria;
 
 @Service
 public interface BidService {
@@ -31,6 +32,15 @@ public interface BidService {
 	
 	//해당아이디에 입찰, 낙찰 목록조회
 	public Map<String, Object> bidList(String memberId, String winning) throws Exception;
+	
+	
+	//해당아이디에 입찰, 낙찰 목록조회 패이징
+	public Map<String, Object> bidListCriteria(Criteria cri, String memberId, String winning) throws Exception;
+		
+		
+	/* 해당아이디에 입찰 리스트 수 */
+	public int bidCountCriteria(String memberId, String winning) throws Exception;
+	
 	
 	/* 해당아이디의 가장 적은 시간 남은 경매 시간 조회 */
 	public String leastTime(String memberId) throws Exception;

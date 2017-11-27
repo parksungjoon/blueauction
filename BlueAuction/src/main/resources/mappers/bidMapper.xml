@@ -45,7 +45,16 @@
 		where member_id=#{memberId} and winning=#{winning}
 	</select>
 	
-	<!--  해당 아이디의 가장 적은 시간 남은 경매 시간 조회 -->
+	
+	<select id="bidListCriteria" parameterType="map" resultType="bid">
+		select *
+		from bid
+		where member_id=#{memberId} and winning=#{winning}
+		order by biddate desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+
+	<!-- 해당 아이디의 가장 적은 시간 남은 경매 시간 조회 -->
 	<select id="leastTime" parameterType="string" resultType="string">
 	<![CDATA[ 
 		SELECT p.auctionend auctionend 
@@ -55,9 +64,9 @@
 		WHERE  Now() < p.auctionend 
 		       AND b.member_id = #{value} 
 		GROUP  BY b.member_id 
-		]]> 
+		]]>
 	</select>
-	
+
 	<select id="winningList" resultType="bid">
 	<![CDATA[ 
 		SELECT b1.product_id productId, 
@@ -74,19 +83,26 @@ WHERE  b1.bidprice = b2.max_sort
        AND b1.product_id = b2.product_id
        AND b1.product_id = p1.product_id
        AND TIMESTAMPDIFF(hour, p1.auctionend, now())<=0
-       ]]> 
+       ]]>
 	</select>
-	
+
 	<update id="updateWinning" parameterType="map">
 		update bid set winning='Y' where bid_id in
-		<foreach collection="winningList" item="winner" separator="," open="(" close=")">
+		<foreach collection="winningList" item="winner" separator=","
+			open="(" close=")">
 			#{winner.bidId}
 		</foreach>
 	</update>
-	
+
 	<select id="maxBidPrice" parameterType="int" resultType="int">
-		select max(bidprice) bidprice from bid where product_id=#{value}
+		select
+		max(bidprice) bidprice from bid where product_id=#{value}
 	</select>
 
-
+	<!--해당아이디에 입찰 수 -->
+	<select id="countPaging"  resultType="int">
+	select count(bid_id)
+	from bid
+	where member_id=#{memberId} and winning =#{winning};
+	</select>
 </mapper>

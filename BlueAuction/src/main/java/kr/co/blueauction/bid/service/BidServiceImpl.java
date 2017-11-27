@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.blueauction.bid.dao.BidDao;
 import kr.co.blueauction.bid.domain.Bid;
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.product.dao.ProductDao;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
@@ -75,6 +76,34 @@ public class BidServiceImpl implements BidService {
 		return map;
 		
 	}
+	
+	@Override
+	public int bidCountCriteria(String memberId, String winning) throws Exception
+	{
+		return bidDao.bidcount(memberId, winning);
+	}
+	
+	//해당아이디에 입찰, 낙찰 목록조회 패이징
+	@Override
+	public Map<String, Object> bidListCriteria(Criteria cri, String memberId, String winning) throws Exception{
+
+		List<Bid> bidList= bidDao.bidListCriteria(cri, memberId, winning);
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("bidList", bidList);
+		List<Product> productList=new ArrayList<Product>();
+		for (Bid bid : bidList) {
+			Product product = productdao.read(bid.getProductId());
+			productList.add(product);
+		}
+		
+		map.put("productList", productList);
+		
+		
+		return map;
+	}
+			
+			
 	
 	@Override
 	public String leastTime(String memberId) throws Exception {
