@@ -2,11 +2,6 @@
   		function printList(data){
   			var used = data.used;
   			var auction = data.auction;
-  			
-  			for ( var index in used) {
-				console.log(used.toStrin());
-			}
-  			console.log("중고 물품 수 : " + used.length);
   			addHtml(used);
   			addHtml(auction);
   		}
