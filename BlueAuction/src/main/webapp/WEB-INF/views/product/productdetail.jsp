@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="/resources/css/hideSearch.css">
     
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
