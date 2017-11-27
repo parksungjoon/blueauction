@@ -280,7 +280,7 @@
         </div>
         
          <!-- Hover Row Table (입찰 리스트) START -->
-        <div class="shell">
+        <%-- <div class="shell">
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-8">
               <h3> 입찰 리스트 </h3>
@@ -308,25 +308,49 @@
               </div>
             </div>
           </div>
-        </div> 
+        </div>  --%>
         <!-- 테스트 하시려면 주석을 푸세요요용. -->
-       <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe>
-       <iframe id='child' src='http://192.168.0.78:7777/bid/?productId=${productId}&memberId=${login.memberId}' width=100%; frameborder='0' style="height:1000px;"></iframe> --%>
+        <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe> --%>
+       <iframe id='child' src='http://192.168.0.78:7777/bid/?productId=${productId}&memberId=${login.memberId}' width=100%; frameborder='0' style="margin-bottom: 100px;" scrolling="no"></iframe>
         <!-- Hover Row Table (입찰 리스트) END --> 
         
         <div class="shell">
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-8">
             <p class="h3-alternate">상세 정보</p>
-		            <p class="text-spacing-sm" id="productInfo">
+		            <%-- <p class="text-spacing-sm" id="productInfo">
 		            	${product.productinfo}
-		            </p>
+		            </p> --%>
+                <table class="table-custom table-hover" style="width:100%;">
+                  <tr>
+                  <td>상품명</td>
+                  <td>${product.name}</td>
+                  </tr>
+                  <tr>
+                  <td>판매이유</td>
+                  <td>${product.salemotive}</td>
+                  </tr>
+                  <tr>
+                    <td>사용기간</td>
+                    <td>${product.usingtime}</td>
+                  </tr>
+                  <tr>
+                    <td>판매형태</td>
+                    <td>${product.deliverytype }</td>
+                  </tr>
+                  <tr>
+                    <td>상세정보</td>
+                    <td>
+                      ${product.productinfo}
+                    </td>
+                  </tr>
+                </table>
             </div>
           </div>
         </div>
 
 
-		<form role="form" action="${productId}" method="post" id="modifyPage">
+		<form role="form" action="${productId}" method="post" id="modifyPage" style="margin-top: 30px;">
 			<%-- <input type='hidden' name='page' value="${page}"> 
 			<input type='hidden' name='type' value="${type}">
 			<input type='hidden' name='keyword' value="${keyword}">
@@ -462,6 +486,9 @@ function receiveMsgFromChild( e ) {
     	$('#favoriteModal').modal('show');
     }else if(e.data.title=='noteCount'){
     	 $('#counter').html(e.data.noteCount);
+    }else if(e.data.title=='iframeHeight'){
+    	console.log('iframe의 높이'+e.data.height);
+    	$('#child').height(e.data.height);
     }
 }
 
