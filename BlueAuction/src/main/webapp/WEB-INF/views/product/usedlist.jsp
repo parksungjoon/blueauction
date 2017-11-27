@@ -58,6 +58,11 @@
     	var template = Handlebars.compile($("#template").html());
         var html = template(list);
         $("#products").html(html);
+	    var productCount = $(".template-list").size();
+	    $("#btn-load").show();
+		if (productCount >= ${count}) {
+		$("#btn-load").hide();
+		}
     };
     
     /* 상품 더 보기 */
@@ -85,7 +90,6 @@
   			url: "/product/used/",
   			success : function(data){
   				$("#rd-navbar-search-form-input").val("");
-  				
   				printList(data.list)
   				var productCount = $(".template-list").size();
   				var height = (productCount/3) * 442;
