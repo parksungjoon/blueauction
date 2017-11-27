@@ -272,17 +272,7 @@ public class ProductServiceImpl implements ProductService {
 	/** 중고상품 리스트 더 보기 */
 	@Override
 	@Transactional
-	public Map<String, Object> getMoreList(int page, String keyword, int smallid) throws Exception {
-		
-		SearchCriteria cri = new SearchCriteria();
-		cri.setCategory(1);
-		cri.setPerPageNum(page);
-		cri.setPage(1);
-		cri.setSmallid(smallid);
-		
-		if(keyword != null) {
-			cri.setKeyword(keyword);
-		}
+	public Map<String, Object> getMoreList(SearchCriteria cri) throws Exception {
 		
 		List<Product> list = productDao.listByCri(cri, 0, "recent");
 		for (Product product : list) {
