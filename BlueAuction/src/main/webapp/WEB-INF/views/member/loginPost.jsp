@@ -8,7 +8,7 @@
 <body>
 loginPost임
 <script type="text/javascript">
-self.location="/payment";
+self.location="/member/login";
 </script>
 </body>
 </html>
