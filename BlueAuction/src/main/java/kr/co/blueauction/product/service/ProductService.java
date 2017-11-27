@@ -52,7 +52,7 @@ public interface ProductService {
 	public Model listUsedItems(Model model) throws Exception;
 	
 	/** 중고 상품 리스트 더 보기 */
-	public Map<String, Object> getMoreList(int page, String keyword) throws Exception;
+	public Map<String, Object> getMoreList(int page, String keyword, int smallid) throws Exception;
 	
 	/** 중고 상품 상세 조회 */
 	public Model getDetail(int productId, Model model) throws Exception;

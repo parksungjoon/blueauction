@@ -152,7 +152,7 @@
                         <div class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Price</label>
-                            <input class="form-input" id="forms-3-city" type="text" name="price" data-constraints="@Required" required="required">
+                            <input class="form-input" id="forms-3-city" type="number" min="1000" name="price" data-constraints="@Required" required="required">
                           </div>
                         </div>
                         <div class="cell-sm-4">

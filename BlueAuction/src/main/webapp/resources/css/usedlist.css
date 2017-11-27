@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.productimage {
+	max-width: 570px;
+	max-height: 380px;
+	min-width: 570px;
+	min-height: 380px;
+}
+#register {
+  margin-top: -35px;
+  margin-bottom: 30px;
+}
+.load-more span {
+  text-align: center !important;
+}
+.caption {
+  background-color: rgba(209, 229, 255, 0.6) !important;
+}

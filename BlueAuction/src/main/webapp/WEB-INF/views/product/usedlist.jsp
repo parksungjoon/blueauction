@@ -18,9 +18,11 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="/resources/css/usedlist.css">
     
     <script src="/resources/js/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    
 		<!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
@@ -29,7 +31,7 @@
     <script id="template" type="text/x-handlebars-template">
 	{{#each .}}
     	 <div class="col-xs-12 col-sm-6 col-md-4 isotope-item template-list" data-filter="{{smallid}}">
-			<a class="gallery-item titled-gallery-item" href="/resources/images/img{{mainphoto}}" data-lightgallery="group-item">
+			<a id="/product/used/{{productId}}" class="gallery-item titled-gallery-item item-image" href="#">
          		<div class="gallery-item-image">
          			<figure><img class="productimage" src="/resources/images/img{{mainphoto}}" alt="" width="570" height="380"/></figure>
          			<div class="caption"></div>
@@ -40,59 +42,54 @@
 	{{/each}}         
     </script>
     
-    <style type="text/css">
-      .productimage {
-        max-width: 570px;
-        max-height: 380px;
-      }
-      #register {
-        margin-top: -35px;
-        margin-bottom: 30px;
-      }
-    </style>
-    
     <script type="text/javascript">
     
     var page = 9;
     var keyword = null;
+    var smallid = 0;
     
     $(document).ready(function() {
     	var list = ${list};
 	    printList(list);
-	    
 	});
     
     /* 중고물품 리스트 출력 */
     function printList(list) {
-
     	var template = Handlebars.compile($("#template").html());
-				
         var html = template(list);
-        
         $("#products").html(html);
-    	
     };
     
     /* 상품 더 보기 */
     $(document).on("click", ".load-more-products", function(){
-			
     	page += 9;
-    	
   		getMoreList();
-	  		
 	});
+    
+    /* 분류별 상품 보기 */
+    $(document).on("click", ".type", function(e) {
+    	e.preventDefault();
+		smallid = $(this).attr("data-isotope-filter");
+		page = 9;
+		getMoreList();
+		$(this).parents(".isotope-filters").find('.active').removeClass("active");
+		$(this).addClass("active");
+	})
     
     /* 리스트 불러오기 */
     function getMoreList() {
     	$.ajax({
   			type: "post",
-  			data : {page:page, keyword:keyword},
+  			data : {page:page, keyword:keyword, smallid:smallid},
   			dataType : "json ",
   			url: "/product/used/",
   			success : function(data){
   				$("#rd-navbar-search-form-input").val("");
+  				
   				printList(data.list)
   				var productCount = $(".template-list").size();
+  				var height = (productCount/3) * 442;
+  				$('#products').css('height', height + "px"); 
   				$("#btn-load").show();
   				if (productCount >= data.count) {
 					$("#btn-load").hide();
@@ -100,17 +97,20 @@
   			} 			
   		});
 	}
-	
     
     /* 검색 */
 	$(document).on("click", ".button-secondary", function() {
-		
 		keyword = $("#rd-navbar-search-form-input").val();
 		page = 9;
 		getMoreList();
-		
+	});
+    
+    
+    $(document).on("click", ".item-image", function(e) {
+		e.preventDefault();
+		location.href = $(this).attr("id");
 	})
-	
+    
     </script>
     
   </head>
@@ -151,26 +151,24 @@
                   <!-- Isotope Filters-->
                   <button class="isotope-filters-toggle button button-xs button-primary" data-custom-toggle=".isotope-filters-list" data-custom-toggle-hide-on-blur="true">Filter<span class="caret"></span></button>
                   <ul class="isotope-filters-list">
-                    <li><a class="active type" data-isotope-filter="*" data-isotope-group="gallery-01" href="#">All Categories</a></li>
+                    <li><a class="active type" data-isotope-filter="0" data-isotope-group="gallery-01" href="#">All Categories</a></li>
                     <li><a class="type" data-isotope-filter="1" data-isotope-group="gallery-01" href="#">Clothes</a></li>
+                    <li><a class="type" data-isotope-filter="2" data-isotope-group="gallery-01" href="#">Sundries</a></li>
                     <li><a class="type" data-isotope-filter="3" data-isotope-group="gallery-01" href="#">Ticket</a></li>
                     <li><a class="type" data-isotope-filter="4" data-isotope-group="gallery-01" href="#">Electronics</a></li>
-                    <li><a class="type" data-isotope-filter="2" data-isotope-group="gallery-01" href="#">Others</a></li>
                   </ul>
                 </li>
               </ul>
             </div>
             <!-- Isotope Content-->
             <div class="cell-lg-12">
-              <div class="isotope isotope-titled-gallery" data-isotope-layout="fitRows" data-isotope-group="gallery-01" data-lightgallery="group">
-              <div id="products" class="row">
-              
-              </div>
-              </div>
-            </div>
+              <div id="products" class="isotope isotope-titled-gallery" data-isotope-layout="fitRows" data-isotope-group="gallery-01" data-lightgallery="group">
+              <div class="row"></div>
           </div>
-        </div>
         <button id="btn-load" class="button-blog button button-default-outline load-more-products" >load more products</button>
+        </div>
+        </div>
+        </div>
       </section>
 
      <%-- Page Footer--%>

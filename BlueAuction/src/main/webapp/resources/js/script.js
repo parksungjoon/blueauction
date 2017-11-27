@@ -2366,6 +2366,7 @@ $document.ready(function () {
    * Isotope
    * @description Enables Isotope plugin
    */
+  
   if (plugins.isotope.length) {
     var i, isogroup = [];
     for (i = 0; i < plugins.isotope.length; i++) {
@@ -2393,42 +2394,27 @@ $document.ready(function () {
     });
 
     var resizeTimout;
-
-    /*$("[data-isotope-filter]").on("click", function (e) {
+/*    $("[data-isotope-filter]").on("click", function (e) {
       e.preventDefault();
       var filter = $(this);
       clearTimeout(resizeTimout);
       filter.parents(".isotope-filters").find('.active').removeClass("active");
       filter.addClass("active");
       var iso = $('.isotope[data-isotope-group="' + this.getAttribute("data-isotope-group") + '"]');
+      console.log($item);
       iso.isotope({
+    	insert: $item,
         itemSelector: '.isotope-item',
         layoutMode: iso.attr('data-isotope-layout') ? iso.attr('data-isotope-layout') : 'masonry',
         filter: this.getAttribute("data-isotope-filter") == '*' ? '*' : '[data-filter*="' + this.getAttribute("data-isotope-filter") + '"]',
         masonry: {
           columnWidth: isotopeItem.getAttribute('data-column-width') ? parseFloat(isotopeItem.getAttribute('data-column-width')) : 0.312
         }
-      });
-    }).eq(0).trigger("click")*/
+      }).eq(0).trigger("click");
+      
+    })*/
     
-    $(document).on("click", "[data-isotope-filter]", function (e) {
-        e.preventDefault();
-        var filter = $(this);
-        clearTimeout(resizeTimout);
-        filter.parents(".isotope-filters").find('.active').removeClass("active");
-        filter.addClass("active");
-        var iso = $('.isotope[data-isotope-group="' + this.getAttribute("data-isotope-group") + '"]');
-        iso.isotope({
-          itemSelector: '.isotope-item',
-          layoutMode: iso.attr('data-isotope-layout') ? iso.attr('data-isotope-layout') : 'masonry',
-          filter: this.getAttribute("data-isotope-filter") == '*' ? '*' : '[data-filter*="' + this.getAttribute("data-isotope-filter") + '"]',
-          masonry: {
-            columnWidth: isotopeItem.getAttribute('data-column-width') ? parseFloat(isotopeItem.getAttribute('data-column-width')) : 0.312
-          }
-        });
-      }).eq(0).trigger("click")
   }
-
 
   /**
    * WOW
