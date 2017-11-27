@@ -296,8 +296,12 @@ public class ProductServiceImpl implements ProductService {
 	/** 중고상품 상세 보기 */
 	@Override
 	public Model getDetail(int productId, Model model) throws Exception {
+		
 		Product product = productDao.read(productId);
 
+		// 개행처리
+		String info = product.getProductinfo().replaceAll("<br>", "\r\n");
+		product.setProductinfo(info);
 		
 		List<Photo> photoList = photoDao.readByProductId(productId);
 		
