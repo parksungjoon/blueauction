@@ -153,7 +153,7 @@
       <%-- 경매 방식 설명 시작 --%>
       <section class="section section-lg text-center">
         <div class="shell-wide">
-          <h3>how it works</h3>
+          <h3>Auction how it works</h3>
           <div class="divider divider-default"></div>
           <div class="range range-xs-center range-50">
             <div class="cell-sm-9 cell-md-6 cell-lg-3">
@@ -162,7 +162,7 @@
                 <div class="thumbnail-classic-caption unit-body">
                   <h6 class="thumbnail-classic-title">register</h6>
                   <hr class="divider divider-default divider-sm"/>
-                  <p class="thumbnail-classic-text">To start using our auction, youâll need to register. Itâs completely free!</p>
+                  <p class="thumbnail-classic-text">경매 시간은 매 시 정각으로 지정 가능합니다. 판매가는 1000원 이상부터 가능합니다.</p>
                 </div>
               </div>
             </div>
@@ -172,7 +172,7 @@
                 <div class="thumbnail-classic-caption unit-body">
                   <h6 class="thumbnail-classic-title">Buy or Bid</h6>
                   <hr class="divider divider-default divider-sm"/>
-                  <p class="thumbnail-classic-text">You can instantly buy or place a bid  on a desired product right after registration.</p>
+                  <p class="thumbnail-classic-text">경매는 30분간 진행됩니다.</p>
                 </div>
               </div>
             </div>
@@ -182,7 +182,7 @@
                 <div class="thumbnail-classic-caption unit-body">
                   <h6 class="thumbnail-classic-title">Submit a Bid</h6>
                   <hr class="divider divider-default divider-sm"/>
-                  <p class="thumbnail-classic-text">Submitting a bid is fast and easy. The process takes approximately 5 minutes.</p>
+                  <p class="thumbnail-classic-text"></p>
                 </div>
               </div>
             </div>
@@ -192,7 +192,7 @@
                 <div class="thumbnail-classic-caption unit-body">
                   <h6 class="thumbnail-classic-title">Win</h6>
                   <hr class="divider divider-default divider-sm"/>
-                  <p class="thumbnail-classic-text">Easily win at our auction and enjoy owning the product you dream of.</p>
+                  <p class="thumbnail-classic-text">가장 높은 입찰가격을 제시한 고객이 낙찰됩니다.</p>
                 </div>
               </div>
             </div>
