@@ -289,7 +289,7 @@
         <div class="shell shell-wide">
           <h3>Recent Used</h3>
           <div class="divider divider-default"></div>
-          <div id="jjh-usedList" class="range range-30" style="z-index:1;">
+          <div id="jjh-usedList" class="range range-30 jjh-productList" style="z-index:1;">
           <%-- 중고 리스트 들어 가는 곳 --%>
           </div>
         </div>
@@ -302,7 +302,7 @@
         <div class="shell shell-wide">
           <h3>Current Auctions</h3>
           <div class="divider divider-default"></div>
-          <div id="jjh-auctionList" class="range range-30" style="z-index:1;">
+          <div id="jjh-auctionList" class="range range-30 jjh-productList" style="z-index:1;">
           <%-- 경매 리스트 들어가는 곳 --%>
            </div>
          </div>
