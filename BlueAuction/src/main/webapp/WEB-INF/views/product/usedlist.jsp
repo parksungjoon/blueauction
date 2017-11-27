@@ -76,7 +76,6 @@
     $(document).on("click", ".type", function(e) {
     	e.preventDefault();
 		smallid = $(this).attr("data-isotope-filter");
-		perPageNum = 9;
 		getMoreList();
 		$(this).parents(".isotope-filters").find('.active').removeClass("active");
 		$(this).addClass("active");
