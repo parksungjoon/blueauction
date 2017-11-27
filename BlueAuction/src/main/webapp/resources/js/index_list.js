@@ -2,7 +2,6 @@
   		function printList(data){
   			var used = data.used;
   			var auction = data.auction;
-  			
   			addHtml(used);
   			addHtml(auction);
   		}
@@ -16,7 +15,7 @@
     			if(category == 2){
   	 			getAuctionTime(data);
   				setTime(seconds, minutes, hour); // 동적 생성 경매의 카운트 다운
-  	 		}
+    			}
     			
     			for ( var i in data) {
     				html += "<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
@@ -74,11 +73,7 @@
     				$("#jjh-auctionList").html(html);
     			}
   			}else{
-  				if(category == 1){
-  					html += "<h3 class='jjh-emptyList'>상품이 존재하지 않습니다</h3>";
-  				}else{
-  					html += "<h3 class='jjh-emptyList'>경매가 존재하지 않습니다</h3>";
-  				}
-  				$("#jjh-auctionList").html(html);
+  				html += "<h3 class='jjh-emptyList'>상품이 존재하지 않습니다</h3>";
+  				$(".jjh-productList").html(html);
   			}
   		}

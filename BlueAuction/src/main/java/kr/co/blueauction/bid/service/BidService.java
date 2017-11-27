@@ -40,4 +40,7 @@ public interface BidService {
 	
 	/*낙찰 결과 업데이트*/
 	public void updateWinning(List<Bid> winningList);
+	
+	/*해당 물건의 최고 입찰가를 가져온다.*/
+	public int getMaxPrice(int productId);
 }

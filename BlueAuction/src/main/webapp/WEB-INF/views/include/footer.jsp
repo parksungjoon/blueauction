@@ -1,14 +1,15 @@
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  <footer class="section page-footer page-footer-alternative bg-gray-darker">
         <div class="shell-wide">
           <div class="range range-xs-middle range-30 text-left"> 
             <div class="cell-lg-6 text-lg-left">
               <ul class="page-footer-inline-list">
-                <li><a href="about-us.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="shop-3-columns-layout.html">Shop</a></li>
-                <li><a href="classic-blog.html">Blog</a></li>
-                <li><a href="grid-gallery-outside-title.html">Portfolio</a></li>
-                <li><a href="contacts.html">Contacts</a></li>
+                <li><a href="#">blueauction.co.kr</a></li><br>
+                <li><a href="#">서울특별시 금천구 가산디지털1로 168</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
               </ul>
             </div>
             <div class="cell-lg-6 text-lg-right">

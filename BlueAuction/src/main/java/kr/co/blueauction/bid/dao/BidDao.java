@@ -41,5 +41,8 @@ public interface BidDao {
 	
 	/*winningstate 변경*/
 	public void updateWinning(List<Bid> winningList);
+
+	/*경매 결재시 최고가를 가져온다.*/
+	public int getMaxPrice(int productId);
 	
 }

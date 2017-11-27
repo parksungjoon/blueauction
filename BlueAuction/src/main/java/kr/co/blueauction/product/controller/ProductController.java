@@ -313,13 +313,13 @@ public class ProductController {
 	 * @return 상품 리스트
 	 */
 	@RequestMapping(value="/used", method=RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> getMoreList(@RequestParam("page") int page, @RequestParam("keyword") String keyword) {
+	public ResponseEntity<Map<String, Object>> getMoreList(@RequestParam("page") int page, @RequestParam("keyword") String keyword, @RequestParam("smallid") int smallid) {
 
 		ResponseEntity<Map<String, Object>> entity = null;
 
 		try {
 			
-			Map<String, Object> list = productService.getMoreList(page, keyword);
+			Map<String, Object> list = productService.getMoreList(page, keyword, smallid);
 			
 			entity = new ResponseEntity<Map<String,Object>>(list, HttpStatus.OK);
 		} catch (Exception e) {
