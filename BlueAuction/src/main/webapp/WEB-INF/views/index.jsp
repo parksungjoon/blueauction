@@ -121,7 +121,7 @@
           <div class="cell-lg-5 cell-xl-4">
             <div class="box-auction-wrap">
               <div class="box-auction-minimal-left bg-gray-darker">
-                <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-1" href="product-page.html"> <img src="/resources/images/landing-auction-11-230x469.png" alt="" width="230" height="469"/></a></div>
+                <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-1" > <img src="/resources/images/landing-auction-11-230x469.png" alt="" width="230" height="469"/></a></div>
                 <div class="box-auction-inner box-auction-inner-content">
                   <div class="box-auction-title"> <a href="product-page.html">Used Products</a></div>
                   <div class="divider divider-secondary divider-sm"></div>
@@ -133,7 +133,7 @@
                 </div>
               </div>
               <div class="box-auction-minimal-right bg-secondary-2">
-                <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-2" href="product-page.html"><img src="/resources/images/landing-auction-12-377x267.png" alt="" width="377" height="267"/></a></div>
+                <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-2"><img src="/resources/images/landing-auction-12-377x267.png" alt="" width="377" height="267"/></a></div>
                 <div class="box-auction-inner box-auction-inner-content">
                   <div class="box-auction-title"><a href="product-page.html">Auction Products</a></div>
                   <div class="divider divider-secondary divider-sm"></div>

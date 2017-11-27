@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Page Header-->
 <link rel="stylesheet" href="/resources/css/jjh-style.css">
+<link rel="stylesheet" href="/resources/css/ksj-css.css">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
 <script type="text/javascript">
 
