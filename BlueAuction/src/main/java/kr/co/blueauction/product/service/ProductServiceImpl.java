@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 
 import com.google.gson.Gson;
 
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.member.domain.Member;
@@ -37,8 +38,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void create(Product product) throws Exception {
-		
-		if(product.getCategoryId() == 2) {
+
+		if (product.getCategoryId() == 2) {
 			// 날짜 형식 변경
 			StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
 			String auctionstart = st.nextToken() + " " + st.nextToken();
@@ -72,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 		Product product = productDao.read(productId);
 
 		List<Photo> photoList = photoDao.readByProductId(productId);
-		
+
 		String[] photoArr = null;
 		if (photoList.size() > 0) {
 			photoArr = new String[photoList.size()];
@@ -93,13 +94,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void modify(Product product) throws Exception {
-		
-		if (!product.getAuctionFlag().equals("N")) {
-			// 날짜 형식 변경
-			StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
-			String auctionstart = st.nextToken() + " " + st.nextToken();
-			product.setAuctionstart(auctionstart);
-		}
+
+		// 날짜 형식 변경
+		StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
+		String auctionstart = st.nextToken() + " " + st.nextToken();
+		product.setAuctionstart(auctionstart);
 
 		// <br>처리
 		String info = product.getProductinfo().replaceAll("\r\n", "<br>");
@@ -131,10 +130,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> listByCri(SearchCriteria cri, int type, String arrayType) throws Exception {
-		if(type != 1) {
+		if (type != 1) {
 			arrayType = "recent";
 		}
-		
+
 		return productDao.listByCri(cri, type, arrayType);
 	}
 
@@ -151,7 +150,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception {
 		List<Product> productList = productDao.productSellList(memberId, auctionFlag);
-
 		if (productList.size() > 0) {
 			for (int i = 0; i < productList.size(); i++) {
 				if (productList.get(i) != null) {
@@ -165,30 +163,43 @@ public class ProductServiceImpl implements ProductService {
 						for (int j = 0; j < photoArr.length; j++) {
 							photoArr[j] = photoList.get(j).getPhotoname();
 						}
-
 					}
-
 					productList.get(i).setPhoto(photoArr);
 				}
 			}
 		}
-
 		return productList;
 	}
+	
+	/** 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 */
+	@Override
+	public List<Product> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception{
+		return productDao.productSellListCriteria(cri, memberId, auctionFlag);
+	}
+	
+	
+	@Override
+	public int listCountCriteria(String memberId, String auctionFlag) throws Exception{
+		return productDao.countPaging(memberId, auctionFlag);
+	}
+	
+	
+	
+
 	/** 로그인 회원 아이디 조회 */
 	@Override
 	public String memberIdGet(HttpSession session) throws Exception {
 		String memberId = null;
 		Member member = (Member) session.getAttribute("login");
-		if(member == null) {
+		if (member == null) {
 			member = new Member();
 			member.setMemberId("");
 		}
-		
+
 		memberId = member.getMemberId();
 		return memberId;
 	}
-	
+
 	/** 경매 SearchCriteria 설정 */
 	@Override
 	public SearchCriteria setCri(int smallid, int page, String keyword) throws Exception {
@@ -196,38 +207,38 @@ public class ProductServiceImpl implements ProductService {
 		cri.setCategory(2); // 카테고리 경매로 set
 		cri.setPerPageNum(8); // 페이지당 출력 리스트 개수 설정
 		cri.setPage(page);
-		
-		if(keyword != null) {
+
+		if (keyword != null) {
 			cri.setKeyword(keyword);
 		}
-		
-		if(smallid != 0) {
+
+		if (smallid != 0) {
 			cri.setSmallid(smallid);
 		}
-		
+
 		return cri;
 	}
-	
+
 	/** 경매 마지막 페이지인지 여부 조회 */
 	@Override
 	public String checkEndPage(SearchCriteria cri, int totalCount) throws Exception {
 		String check = null;
 		int endPage;
-		
-		endPage = (int)Math.ceil((double)totalCount / cri.getPerPageNum()); // 마지막 페이지 계산
-		if(totalCount == 0) {
+
+		endPage = (int) Math.ceil((double) totalCount / cri.getPerPageNum()); // 마지막 페이지 계산
+		if (totalCount == 0) {
 			check = "yes";
-		}else {
-			if(cri.getPage() == endPage) { // 요청페이지가 마지막 페이지면
+		} else {
+			if (cri.getPage() == endPage) { // 요청페이지가 마지막 페이지면
 				check = "yes";
-			}else {
+			} else {
 				check = "no";
 			}
 		}
-		
+
 		return check;
 	}
-	
+
 	/** 중고 상품 리스트 출력 */
 	@Override
 	@Transactional
@@ -236,28 +247,28 @@ public class ProductServiceImpl implements ProductService {
 		SearchCriteria cri = new SearchCriteria();
 		cri.setCategory(1);
 		cri.setPerPageNum(9);
-		
+
 		List<Product> list = productDao.listByCri(cri, 0, "recent");
-		
+
 		int count = productDao.listBySearchCount(cri, 0);
-		
+
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(count);
-		
+
 		for (Product product : list) {
 			product.setMainphoto(product.getMainphoto().replaceAll("s_", ""));
 		}
-		
+
 		Gson gson = new Gson();
 		String jsonlist = gson.toJson(list);
-		
+
 		model.addAttribute("list", jsonlist);
 		model.addAttribute("count", count);
-			
+
 		return model;
 	}
-	
+
 	/** 중고상품 리스트 더 보기 */
 	@Override
 	@Transactional
@@ -292,15 +303,14 @@ public class ProductServiceImpl implements ProductService {
 		
 		return resultMap;
 	};
-	
+
 	/** 중고상품 상세 보기 */
 	@Override
 	public Model getDetail(int productId, Model model) throws Exception {
 		Product product = productDao.read(productId);
 
-		
 		List<Photo> photoList = photoDao.readByProductId(productId);
-		
+
 		String[] photoArr = null;
 		if (photoList.size() > 0) {
 			photoArr = new String[photoList.size()];
@@ -314,16 +324,16 @@ public class ProductServiceImpl implements ProductService {
 		if (photoArr != null) {
 			product.setPhoto(photoArr);
 		}
-		
+
 		Gson gson = new Gson();
 		String jsonlist = gson.toJson(product);
-		
+
 		model.addAttribute("jsonproduct", jsonlist);
 		model.addAttribute("product", product);
-		
+
 		return model;
 	}
-	
+
 	/** 중고 or 경매의 최근 등록된 4개의 리스트 조회 */
 	@Override
 	public List<Product> recentList(int category) throws Exception {

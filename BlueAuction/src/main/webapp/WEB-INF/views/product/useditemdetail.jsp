@@ -369,7 +369,7 @@
                     </dd>
                     <dt class="redprice">판매자</dt>
                     <dd class="redprice">
-                      <div class="present_price" id="Price"><span class="present_num">${product.seller }</span></div>
+                      <div class="" id="Price"><span class="">${product.seller }</span></div>
                     </dd> 
 				</dl> 
                 <a class="button button-xs button-secondary" href="/member/payment/${product.productId}">구매하기</a>
@@ -408,17 +408,17 @@
                 <c:when test="${not empty login }">
                   <div class="section-lg qna-write">
                     <p class="h3-alternate">문의 작성</p>
-                      <div class="range range-20">
+                      <div id="set-range" class="range">
                         <div class="cell-xs-12">
                           <div class="form-wrap form-wrap-validation">
                             <input id="memberId" type="hidden" name="memberId" value="${login.memberId}">
                             <input id="productId" type="hidden" name="productId">
-                            <textarea class="form-input" id="form-comment-message" name="content"></textarea>
+                            <textarea class="form-input" id="form-comment-message" name="content" style="resize: none"></textarea>
                           </div>
                         </div>
                         <div class="cell-xs-12 offset-custom-1">
                           <div class="form-button">
-                            <button id="btn-send" class="button button-secondary" type="button">send comment</button>
+                            <button id="btn-send" class="btn btn-primary send-comment" type="button">send comment</button>
                           </div>
                         </div>
                       </div>
@@ -426,12 +426,12 @@
                           <div class="form-button btn-function">
                             <c:choose>
                               <c:when test="${login.memberId == product.seller }">
-                                <button class="button button-secondary modify" type="submit">Modify</button>
-                                <button class="button button-secondary back" type="button">Go List</button>
-                                <button class="button button-secondary delete" type="button" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                <button class="btn back" type="button">Go List</button>
+                                <button class="btn btn-warning modify" type="submit">Modify</button>
+                                <button class="btn btn-danger delete" type="button" data-toggle="modal" data-target="#deleteModal">Delete</button>
                               </c:when>
                               <c:otherwise>
-                                <button class="button button-secondary back" type="button">Go Back</button>
+                                <button class="btn btn-warning back" type="button">Go Back</button>
                               </c:otherwise>                              
                             </c:choose>
                           </div>

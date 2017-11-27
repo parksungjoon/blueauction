@@ -16,3 +16,12 @@
       .cancel {
       	margin-top: 0px !important;
       }
+      
+      #filebutton {
+      	margin-top: 27px !important;
+      }
+      
+      #photodiv {
+      	margin-top: 20px;
+      	margin-left: -15px;
+      }

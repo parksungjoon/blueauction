@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
+    <link rel="stylesheet" href="/resources/css/ksj-css.css">
     <link rel="stylesheet" href="/resources/css/cms-register.css">
     <link rel="stylesheet" href="/resources/css/cms-attachment.css">
     
@@ -46,11 +47,9 @@
 
     
 		$(document).ready(function() {
-			
 			sendAttachment();
 			autoUpload();
 			setForm();	
-			
 		});
 		
 		/* 첨부파일 임시 삭제 */
@@ -162,10 +161,10 @@
                             <input class="form-input" id="forms-3-company" type="text" name="usingtime" value="${product.usingtime }" data-constraints="@Required" required="required">
                           </div>
                         </div>
-                        <div class="cell-sm-4">
+                        <div id="pricediv" class="cell-sm-3">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-city">Price</label>
-                            <input class="form-input" id="forms-3-city" type="text" name="price" value="${product.price }" data-constraints="@Required" required="required">
+                            <label class="ksj-numberInput form-label-outside" for="forms-3-city">Price</label>
+                            <input class="form-input" id="forms-3-city" type="number" min="1000" name="price" value="${product.price }" data-constraints="@Required" required="required">
                           </div>
                         </div>
                         <div class="cell-sm-4">
@@ -186,10 +185,10 @@
                           </div>
                         </div>
                       </div>
-                        <div class="cell-sm-4">
+                        <div id="photodiv" class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-city">Photos</label>
-                            <button id="filebutton" class="button button-secondary reg btn-select" type="button">Select File</button>
+                            <label id="photholabel" class="form-label-outside" for="forms-3-city">Photos</label>
+                            <button id="filebutton" class="btn btn-primary reg btn-select" type="button">Select File</button>
                             <input class="form-input file" id="photo" type="file" name="photo">
                           </div>
                         </div>
@@ -198,8 +197,8 @@
                         </div>
                         <div class="cell-md-12 offset-custom-1">
                           <div class="form-button text-sm-right">
-                            <button class="button button-secondary" type="submit">Modify</button>
-                            <button class="button button-secondary cancel" type="button">Cancel</button>
+                            <button class="btn btn-warning modify" type="submit">Modify</button>
+                            <button class="btn btn-danger cancel" type="button">Cancel</button>
                           </div>
                         </div>
                     </form>

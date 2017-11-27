@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
 
@@ -88,6 +89,29 @@ public class MybatisProductDao implements ProductDao {
 	
 		return sqlSession.selectList(namespace+".productSellList", map);
 	}
+	/** 로그인된 회원의 중고판매 물품 리스트를 조회  페이징처리*/
+	@Override
+	public List<Product> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception{
+	
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("auctionFlag", auctionFlag);
+		map.put("cri", cri);
+		
+		
+		
+		return sqlSession.selectList(namespace+".productSellListCriteria", map);
+		
+	}
+	@Override
+	public int countPaging(String memberId, String auctionFlag) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberId", memberId);
+		map.put("auctionFlag", auctionFlag);
+		return sqlSession.selectOne(namespace+".countPaging", map);
+	}
+	
 	
 	/** 중고 상품 리스트 출력 */
 	@Override

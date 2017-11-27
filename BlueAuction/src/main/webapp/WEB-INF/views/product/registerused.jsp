@@ -173,10 +173,10 @@
                           </div>
                         </div>
                       </div>
-                        <div class="cell-sm-4">
+                        <div id="photodiv" class="cell-sm-4">
                           <div class="form-wrap form-wrap-validation">
-                            <label class="form-label-outside" for="forms-3-city">Photos</label>
-                            <button id="filebutton" class="button button-secondary reg btn-select" type="button">Select File</button>
+                            <label id="photholabel" class="form-label-outside" for="forms-3-city">Photos</label>
+                            <button id="filebutton" class="btn btn-primary reg btn-select" type="button">Select File</button>
                             <input class="form-input file" id="photo" type="file" name="photo">
                           </div>
                         </div>
@@ -185,7 +185,8 @@
                         </div>
                         <div class="cell-md-12 offset-custom-1">
                           <div class="form-button text-sm-right">
-                            <button class="button button-secondary" type="submit">Register</button>
+                            <button class="btn" type="submit">Register</button>
+                            <button class="btn btn-warning cancel" type="button">Cancel</button>
                           </div>
                         </div>
                     </form>
