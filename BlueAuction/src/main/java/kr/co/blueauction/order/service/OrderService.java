@@ -27,6 +27,7 @@ public interface OrderService {
 	
 	/** 로그인된 회원의 중고or 옥션 구매 리스트를 조회 패이징**/
 	public Map<String, Object> orderListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception;
+	
 	public int listCountCriteria(String memberId, String auctionFlag) throws Exception;
 	
 	/** 주문번호로 주문가저오기**/

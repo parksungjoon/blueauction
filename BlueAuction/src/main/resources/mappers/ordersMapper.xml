@@ -78,7 +78,7 @@
 	  select count(orders.product_id)
 	from orders, product
 	where orders.product_id = product.product_id
-    and product.product_id>0 and member_id="bonghwan" and product.auction_flag = "N";
+    and product.product_id>0 and member_id=#{memberId} and product.auction_flag = #{auctionFlag}
     
 	
 	
