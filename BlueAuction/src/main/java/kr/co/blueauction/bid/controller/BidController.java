@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.bid.service.BidService;
+import kr.co.blueauction.common.domain.Criteria;
+import kr.co.blueauction.common.domain.PageMaker2;
 import kr.co.blueauction.login.LoginDTO;
 import kr.co.blueauction.member.controller.MemberController;
 import kr.co.blueauction.member.domain.Member;
@@ -31,6 +33,7 @@ import kr.co.blueauction.product.domain.Product;
  * @author 김수진
  * @since 2017. 11. 15.
  */
+@RequestMapping("/bid")
 @Controller
 public class BidController {
 	private static final Logger logger = LoggerFactory.getLogger(BidController.class);
@@ -39,8 +42,8 @@ public class BidController {
 	private BidService service;
 
 	//입찰목록을 가저온다
-	@RequestMapping(value ="/member/mypage/bidlist", method = RequestMethod.GET)
-	public String mybidlist(@ModelAttribute("bid") Bid bid, HttpSession session, Model model) throws Exception {
+	@RequestMapping(value ="/mypage/bidlist", method = RequestMethod.GET)
+	public String mybidlist(@ModelAttribute("crie") Criteria cri, HttpSession session, Model model) throws Exception {
 		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
 		logger.info("/member/mypage/mybidlist에서 " + member.toString());
@@ -49,15 +52,19 @@ public class BidController {
 		String memberId = member1.getMemberId();
 		String winning = "N";
 		// 상품을 받아옴
-		Map<String, Object> map= service.bidList(memberId, winning);
+		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
 		model.addAttribute("map", map);
 		//logger.info(bids.toString());
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(service.bidCountCriteria(memberId, winning));
+		model.addAttribute("pageMaker", pageMaker2);
 		return "member/bidlist";
 	}
 	
 	//낙찰목록을가져온다
-	@RequestMapping(value ="/member/mypage/winninglist", method = RequestMethod.GET)
-	public String mywinninglist(@ModelAttribute("bid") Bid bid, HttpSession session, Model model) throws Exception {
+	@RequestMapping(value ="/mypage/winninglist", method = RequestMethod.GET)
+	public String mywinninglist(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
 		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
 		logger.info("/member/mypage/mybidlist에서 " + member.toString());
@@ -66,9 +73,12 @@ public class BidController {
 		String memberId = member1.getMemberId();
 		String winning = "Y";
 		// 상품을 받아옴
-		Map<String, Object> map= service.bidList(memberId, winning);
+		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
 		model.addAttribute("map", map);
-		
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(service.bidCountCriteria(memberId, winning));
+		model.addAttribute("pageMaker", pageMaker2);
 		return "member/winninglist";
 	}
 

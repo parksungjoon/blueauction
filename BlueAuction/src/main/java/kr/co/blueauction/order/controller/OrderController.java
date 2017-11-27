@@ -96,8 +96,8 @@ public class OrderController {
 	}
 	
 
-	@RequestMapping(value = "/member/mypage/auctionorder", method = RequestMethod.GET)
-	public String auctionorder(@ModelAttribute("order") Orders order, HttpSession session, Model model)
+	@RequestMapping(value = "/auctionorder", method = RequestMethod.GET)
+	public String auctionorder(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
 			throws Exception {
 		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
@@ -108,13 +108,13 @@ public class OrderController {
 		String auctionFlag = "Y";
 
 		// 상품을 받아옴
-		Map<String, Object> map = orderService.orderList(memberId, auctionFlag);
+		Map<String, Object> map = orderService.orderListCriteria(cri, memberId, auctionFlag);
 		model.addAttribute("map", map);
 		
-		/*PageMaker2 pageMaker2 = new PageMaker2();
+		PageMaker2 pageMaker2 = new PageMaker2();
 		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(productService.listCountCriteria(memberId));
-		model.addAttribute("pageMaker", pageMaker2);*/
+		pageMaker2.setTotalCount(orderService.listCountCriteria(memberId, auctionFlag));
+		model.addAttribute("pageMaker", pageMaker2);
 		
 		return "member/auctionorder";
 	}

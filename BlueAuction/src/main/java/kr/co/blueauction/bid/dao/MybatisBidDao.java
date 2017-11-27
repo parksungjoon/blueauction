@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.sun.mail.imap.protocol.Namespaces.Namespace;
 
 import kr.co.blueauction.bid.domain.Bid;
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.member.domain.Member;
 
 @Repository
@@ -55,13 +56,25 @@ public class MybatisBidDao implements BidDao {
 	@Override
 	// 해당 아이디 bid 조회
 	public List<Bid> bidList(String memberId, String winning) throws Exception {
-		Map<String, Object> map= new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberId", memberId);
 		map.put("winning", winning);
-		return sqlSession.selectList(NAMESPACE+".bidList", map);
-		
+		return sqlSession.selectList(NAMESPACE + ".bidList", map);
+
 	}
-	
+	//해당아이디에 입찰, 낙찰 목록조회
+	@Override
+	public List<Bid> bidListCriteria(Criteria cri, String memberId, String winning) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("winning", winning);
+		map.put("cri", cri);
+		return sqlSession.selectList(NAMESPACE + ".bidListCriteria", map);
+
+	}
+			
+		
+
 	@Override
 	public String leastTime(String memberId) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".leastTime", memberId);
@@ -69,21 +82,32 @@ public class MybatisBidDao implements BidDao {
 
 	@Override
 	public List<Bid> selectWinningList() {
-		
-		return sqlSession.selectList(NAMESPACE+".winningList");
+
+		return sqlSession.selectList(NAMESPACE + ".winningList");
 	}
 
 	@Override
 	public void updateWinning(List<Bid> winningList) {
-		Map<String, Object> map= new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("winningList", winningList);
-		sqlSession.update(NAMESPACE+".updateWinning",map);
+		sqlSession.update(NAMESPACE + ".updateWinning", map);
+
+	}
+
+	// 해당 아이디 bid count
+	@Override
+	public int bidcount(String memberId, String winning) throws Exception{
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("winning", winning);
+		return sqlSession.selectOne(NAMESPACE + ".countPaging", map);
+		
 		
 	}
 
 	@Override
 	public int getMaxPrice(int productId) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(NAMESPACE+".maxBidPrice",productId);
+		return sqlSession.selectOne(NAMESPACE + ".maxBidPrice", productId);
 	}
 }
