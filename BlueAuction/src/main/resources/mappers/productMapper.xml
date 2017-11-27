@@ -98,9 +98,10 @@
 	 <!-- 상품 수정 -->
    <update id="update" parameterType="Product">
       UPDATE product 
-      SET    name = #{name},
-            usingtime = #{usingtime},
-            salemotive = #{salemotive}, 
+      SET    smallid = #{smallid},
+      		 name = #{name},
+             usingtime = #{usingtime},
+             salemotive = #{salemotive}, 
              productinfo = #{productinfo}, 
              <if test="categoryId = 1">
              price = #{price}, 
@@ -110,7 +111,7 @@
              auctionend = date_add(#{auctionstart}, interval '30' minute), 
              basicprice = #{basicprice}, 
              </if>
-            deliverytype = #{deliverytype}
+             deliverytype = #{deliverytype}
       WHERE  product_id = #{productId} 
    </update>
 
