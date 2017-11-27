@@ -321,11 +321,11 @@
       <%-- Breadcrumbs--%>
       <section class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
         <div class="shell">
-          <p class="breadcrumbs-custom-subtitle">Product Catalog</p>
-          <p class="heading-1 breadcrumbs-custom-title">Shop</p>
+          <p class="breadcrumbs-custom-subtitle">Auction Stuff</p>
+          <p class="heading-1 breadcrumbs-custom-title">Product List</p>
           <ul class="breadcrumbs-custom-path">
             <li><a href="index.html">Home</a></li>
-            <li><a href="#">Shop</a></li>
+            <li><a href="#">Auction</a></li>
             <c:choose>
               <c:when test="${type == 1 }"><li class="active">Preparing Auction</li></c:when>
               <c:when test="${type == 2 }"><li class="active">Doing Auction</li></c:when>
