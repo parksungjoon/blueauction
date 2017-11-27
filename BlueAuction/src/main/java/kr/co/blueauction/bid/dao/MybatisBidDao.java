@@ -80,4 +80,10 @@ public class MybatisBidDao implements BidDao {
 		sqlSession.update(NAMESPACE+".updateWinning",map);
 		
 	}
+
+	@Override
+	public int getMaxPrice(int productId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE+".maxBidPrice",productId);
+	}
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.blueauction.bid.service.BidService;
 import kr.co.blueauction.member.controller.MemberController;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.order.domain.Orders;
@@ -37,6 +38,9 @@ public class OrderController {
 
 	@Inject
 	private ProductService productService;
+	
+	@Inject
+	private BidService bidService;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -94,6 +98,11 @@ public class OrderController {
 		logger.info(member.toString());
 
 		Product product = productService.read(productId);
+		if(product.getCategoryId()==2) {
+			int maxPrice=bidService.getMaxPrice(productId);
+			product.setPrice(maxPrice);
+		}
+		
 		model.addAttribute("product", product);
 
 		return "payment/payment";

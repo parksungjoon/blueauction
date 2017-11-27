@@ -92,4 +92,10 @@ public class BidServiceImpl implements BidService {
 		bidDao.updateWinning(winningList);
 		
 	}
+
+	@Override
+	public int getMaxPrice(int productId) {
+		// TODO Auto-generated method stub
+		return bidDao.getMaxPrice(productId);
+	}
 }

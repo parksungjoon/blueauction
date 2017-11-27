@@ -83,6 +83,10 @@ WHERE  b1.bidprice = b2.max_sort
 			#{winner.bidId}
 		</foreach>
 	</update>
+	
+	<select id="maxBidPrice" parameterType="int" resultType="int">
+		select max(bidprice) bidprice from bid where product_id=#{value}
+	</select>
 
 
 </mapper>
