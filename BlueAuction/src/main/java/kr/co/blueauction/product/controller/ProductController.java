@@ -178,8 +178,9 @@ public class ProductController {
 	public String readPage(@PathVariable("productId") int productId, Model model, HttpSession session) throws Exception {
 		
 		String memberId = productService.memberIdGet(session);
+		
 		Favorite favorite = new Favorite(0, "", 0, "");
-		if(memberId.equals("")) {
+		if(!memberId.equals("")) {
 			favorite = favoriteService.readByMemberProduct(memberId, productId);
 		}
 		model.addAttribute("favorite", favorite);
