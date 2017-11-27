@@ -36,7 +36,7 @@
                   	html +=" <div class='countdown jjh-counter is-countdown jjh-timer' data-time='' data-format='DDHMS' data-type='until' data-layout='{hnn}{sep}{mnn}{sep}{snn}'></div>";
                   }
                   html += "</div>";
-                  html += "<div class='product-image jjh-mainImg'><img src='/resources/images/img" + data[i].mainphoto + "' alt='image'></div>"
+                  html += "<div class='product-image'><img class=' jjh-mainImg' src='/resources/images/img" + data[i].mainphoto + "' alt='image'></div>"
                   html += "<div class='product-title'>";
                   html += "  <h5><a>" + data[i].name + "</a></h5>";
                   html += "</div>";
