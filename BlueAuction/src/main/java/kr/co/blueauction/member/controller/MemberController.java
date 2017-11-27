@@ -142,35 +142,7 @@ public class MemberController {
 	public String mainGET(@ModelAttribute("member") Member member) {
 		return "/examplePage/main";
 	}
-	@RequestMapping(value ="/payment/{productId}", method = RequestMethod.GET)
-	public String paymentGET(@ModelAttribute("productId") int productId, HttpSession session, HttpServletRequest req, Model model) throws Exception {
-		logger.info("paymentGET 컨트롤러 실행");
-		//로그인된 정보를 불러온다
-		Member member=(Member)session.getAttribute("login");
-		model.addAttribute("member", member);
-		logger.info(member.toString());
-		
-		Product product=productService.read(productId);
-		model.addAttribute("product", product);
-		
-		
-		return "payment/payment";
-	}
-	@RequestMapping(value ="/payment/{productId}", method = RequestMethod.POST)
-	public String paymentPOST(@ModelAttribute("orders") Orders orders, HttpSession session) throws Exception {
-		logger.info("paymentPOST 실행");
-		orderService.insert(orders);
-		logger.info(orders.toString());
-		return "redirect:/member/payment/payresult";
-	}
-	@RequestMapping(value ="/payment/payresult", method = RequestMethod.GET)
-	public String payresultget(@ModelAttribute("orders") Orders orders, HttpSession session) throws Exception {
-		logger.info("paymentget 실행");
-		logger.info(orders.toString());
-		logger.info("리절트페이지에서"+orders.toString());
-		orderService.update(orders.getOrderId());
-		return "payment/payresult";
-	}
+
 	
 
 	@RequestMapping(value ="/register", method = RequestMethod.GET)

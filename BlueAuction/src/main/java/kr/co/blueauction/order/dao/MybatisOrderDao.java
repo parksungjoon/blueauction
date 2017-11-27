@@ -59,6 +59,7 @@ public class MybatisOrderDao implements OrdersDao{
 		return sqlSession.selectOne(NAMESPACE+".orderselect", orderId);
 	}
 	
+	/**결제하기**/
 	@Override
 	public void update(int orderId) throws Exception{
 		 sqlSession.update(NAMESPACE+".payupdate", orderId);
