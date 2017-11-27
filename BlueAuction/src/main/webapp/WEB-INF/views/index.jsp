@@ -95,96 +95,10 @@
     <!-- Page-->
     <div class="page">
       <!-- Page Header-->
-      <header class="section page-header">
-        <!-- RD Navbar-->
-        <div class="rd-navbar-wrap rd-navbar-shop-header">
-          <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="100px" data-lg-stick-up-offset="150px" data-stick-up="true" data-sm-stick-up="true" data-md-stick-up="true" data-lg-stick-up="true">
-           
-            <div class="rd-navbar-top-panel">
-				<div class="rd-navbar-nav-wrap">
-					<!-- RD Navbar Nav-->
-                  <ul class="jjh-headerNav">
-                    <li class="jjh-headerLi">
-    					<ul class="rd-navbar-nav">
-    						<li class="active"><a href="/">Home</a></li>
-    						<li><a href="/product/used">중고상품</a></li>
-    						<li><a href="/product/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
-    							<ul class="rd-navbar-dropdown">
-    								<li><a href="/product/auction/1/0">시작전 경매</a></li>
-    								<li><a href="/product/auction/2/0">진행중 경매</a></li>
-    								<li><a href="/product/auction/3/0">마감된 경매</a></li>
-    							</ul></li>
-    					</ul>
-                    </li>
-                    <li class="jjh-userHeader">
-                      <ul class="jjh-userUl">
-                        <c:if test="${not empty login}">
-                         <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
-                          <li class="jjh-userLi"><a href="/member/mypage"> ${login.memberId}</a>님</li>
-                          <li class="jjh-userLi"><a href="/member/logout">Logout</a></li>
-                          <li class="jjh-userLi"><span class="icon icon-md-smaller ksj-icon-primary mdi mdi-email"><span class="badge badge-primary" id="counter">4</span>
-                          </span></li>
-                        </c:if>
-                        
-                        <c:if test="${empty login}">
-                        <li class="jjh-userLi"><a href="/member/login">Login</a></li>
-                        <li class="jjh-userLi"><a href="/member/register">Join Us</a></li>
-                        </c:if>
-                      </ul>
-                    <li>
-                  </ul>
-				</div>
-			</div>
       
-            <div class="rd-navbar-inner">
-              <!-- RD Navbar Panel-->
-              <div class="rd-navbar-panel">
-                <!-- RD Navbar Toggle-->
-                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand"><a class="brand-name" href="index.html"><img class="logo-default" src="/resources/images/logo-default-173x55.png" alt="" width="173" height="55"/><img class="logo-inverse" src="/resources/images/logo-inverse-173x55.png" alt="" width="173" height="55"/></a></div>
-              </div>
-              <div class="rd-navbar-aside-center">
-                <!-- RD Navbar Search-->
-                <div class="rd-navbar-search"><a class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search" href="#"><span></span></a>
-              <!--     <form class="rd-search" action="search-results.html" data-search-live="rd-search-results-live" method="GET"> -->
-                    <div class="rd-mailform-inline rd-mailform-sm rd-mailform-inline-modern search-box" >
-                      <div class="rd-mailform-inline-inner">
-                        <div class="form-wrap form-wrap-icon mdi-magnify">
-                          <label class="form-label form-label" for="rd-navbar-search-form-input">Search...</label>
-                          <input class="rd-navbar-search-form-input form-input" id="rd-navbar-search-form-input" type="text" name="s" autocomplete="off">
-                          <div class="rd-search-results-live"></div>
-                        </div>
-                        <button class="rd-search-form-submit rd-search-form-submit-icon mdi mdi-magnify"></button>
-                        <button class="rd-search-form-submit button form-button button-sm button-secondary">search</button>
-                      </div>
-                    </div>
-           <!--        </form> -->
-                </div>
-              </div>
-              <div class="rd-navbar-aside-right">
-              </div>
-            </div>
-          </nav>
-        </div>
-      </header>
-      <div id="favoriteModal" class="modal modal-primary fade" role="dialog">
-        <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title ">10분전 알림</h4>
-          </div>
-          <div class="modal-body" data-rno>
-            즐겨찾기하신 <span id='favorite'></span>번 상품에 대한 경매가 10분후 시작됩니다.
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger">확인</button>
-          </div>
-        </div>
-      </div>
-    </div>
+      <%-- page Header START --%>
+      <jsp:include page="/WEB-INF/views/include/header.jsp" />
+      <%-- page Header END --%>
       
       <%-- 배너 부분 시작 --%>
       <section class="section">
@@ -289,7 +203,7 @@
         <div class="shell shell-wide">
           <h3>Recent Used</h3>
           <div class="divider divider-default"></div>
-          <div id="jjh-usedList" class="range range-30" style="z-index:1;">
+          <div id="jjh-usedList" class="range range-30 jjh-productList" style="z-index:1;">
           <%-- 중고 리스트 들어 가는 곳 --%>
           </div>
         </div>
@@ -302,7 +216,7 @@
         <div class="shell shell-wide">
           <h3>Current Auctions</h3>
           <div class="divider divider-default"></div>
-          <div id="jjh-auctionList" class="range range-30" style="z-index:1;">
+          <div id="jjh-auctionList" class="range range-30 jjh-productList" style="z-index:1;">
           <%-- 경매 리스트 들어가는 곳 --%>
            </div>
          </div>

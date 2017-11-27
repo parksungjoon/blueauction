@@ -6,8 +6,6 @@
 <script type="text/javascript">
 
 </script>
-
-
 <header class="section page-header">
 	<!-- RD Navbar-->
 	<div class="rd-navbar-wrap rd-navbar-shop-header">

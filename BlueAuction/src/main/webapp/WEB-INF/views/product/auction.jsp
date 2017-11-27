@@ -181,7 +181,6 @@
 			}
 		});
    	}
-
    	
     /* 상품 리스트 출력 함수 */
     function printList(data){
