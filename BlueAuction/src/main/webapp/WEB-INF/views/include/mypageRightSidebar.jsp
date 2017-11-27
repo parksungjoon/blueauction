@@ -12,7 +12,7 @@
 		<h6>중고장터</h6>
 		<ul class="list-marked list-marked-secondary">
 			<li><a href="/member/mypage/goodsmarket">판매리스트</a></li>
-			<li><a href="/member/mypage/productorder">구매리스트</a></li>
+			<li><a href="/order/productorder">구매리스트</a></li>
 		</ul>
 	</div>
 
@@ -22,7 +22,7 @@
 			<li><a href="/member/mypage/auctionmarket">판매리스트</a></li>
 			<li><a href="/member/mypage/bidlist">입찰리스트</a></li>
 			<li><a href="/member/mypage/winninglist">낙찰리스트</a></li>
-			<li><a href="/member/mypage/auctionorder">구매리스트</a></li>
+			<li><a href="/order/auctionorder">구매리스트</a></li>
 		</ul>
 	</div>
 

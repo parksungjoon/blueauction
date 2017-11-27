@@ -104,8 +104,8 @@ public class MybatisProductDao implements ProductDao {
 		
 	}
 	@Override
-	public int countPaging(Criteria cri) throws Exception{
-		return sqlSession.selectOne(namespace+".countPaging", cri);
+	public int countPaging(String memberId) throws Exception{
+		return sqlSession.selectOne(namespace+".countPaging", memberId);
 	}
 	
 	
