@@ -92,13 +92,30 @@
 	
 	</select>
 	
-
+	<!--해당 물건에대한 주문 갯수  -->
+	<select id="ordercount" parameterType="int" resultType="int">
+	select count(orders.order_id)
+	from orders
+	where product_Id=#{productId}
 	
+	</select>
+	
+
+	<!--결제  -->
 	<update id="payupdate" parameterType="int">
 		  
 			  update orders set
 			  paystate ="Y"
 			  where order_id=#{orderId}
 	</update>
+	
+	<!-- 상품번호로 주문항목 가저오기 -->
+	<select id="searchorder" resultType="Orders">
+	select *
+	from orders
+	where product_id=#{productId}
+	
+	
+	</select>
 
 </mapper>

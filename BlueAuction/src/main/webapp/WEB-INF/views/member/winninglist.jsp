@@ -82,10 +82,10 @@
                   <tbody id="bidListTr">
                   <c:forEach var="bid" items="${map.bidList}" varStatus="status">
                     <tr>
-                      <td>${status.count}</td>
+                      <td>${bid.bidId}</td>
                       <td>${map.productList[status.index].name}</td>
                       <td>${bid.bidprice}</td>
-                      <td>${bid.biddate}원</td>
+                      <td>${bid.biddate}</td>
                     <%--   <td>${product.}원</td> --%>
                       
                     </tr>

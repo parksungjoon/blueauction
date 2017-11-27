@@ -22,7 +22,7 @@
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%> 
   </head>
-  
+
   <body>
     <%-- Page preloader 시작--%>
     <jsp:include page="/WEB-INF/views/include/pageloader.jsp"/>
@@ -40,8 +40,8 @@
           <div class="section-md text-center">
             <div class="shell-wide">
               <!-- <p class="breadcrumbs-custom-subtitle">Payment has been completed.</p> -->
-              <p class="heading-1 breadcrumbs-custom-title">Payment has been completed.</p>
-              <p>결제해주셔서 감사합니다.<!-- <br class="veil reveal-sm-inline">to give you the best experience on our new website. Stay ready, we`re launching soon. --></p>
+              <p class="heading-1 breadcrumbs-custom-title">${result}</p>
+              <p>감사합니다..<!-- <br class="veil reveal-sm-inline">to give you the best experience on our new website. Stay ready, we`re launching soon. --></p>
               <div class="range range-xs-center">
                 <div class="cell-sm-8 cell-lg-6 cell-xl-4">
                   <!-- RD Mailform: Subscribe-->
@@ -51,7 +51,7 @@
                   </form> -->
                   <a href="/"><button class="button form-button button-sm button-secondary" >Go Home</button></a>
                   &nbsp;
-                  <span><a href="#"><button class="button form-button button-sm button-secondary" >Go Mypage</button></a></span>
+                  <span><a href="/member/mypage"><button class="button form-button button-sm button-secondary" >Go Mypage</button></a></span>
                 </div>
               </div>
             </div>
