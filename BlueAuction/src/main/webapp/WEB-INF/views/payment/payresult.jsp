@@ -49,7 +49,7 @@
                     <div class="rd-mailform-inline-inner">
                     </div>
                   </form> -->
-                  <a href="#"><button class="button form-button button-sm button-secondary" >Go Home</button></a>
+                  <a href="/"><button class="button form-button button-sm button-secondary" >Go Home</button></a>
                   &nbsp;
                   <span><a href="#"><button class="button form-button button-sm button-secondary" >Go Mypage</button></a></span>
                 </div>
