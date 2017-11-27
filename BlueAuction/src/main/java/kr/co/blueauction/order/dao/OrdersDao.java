@@ -1,33 +1,39 @@
 package kr.co.blueauction.order.dao;
 
-
 import java.util.List;
 
-
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.order.domain.Orders;
+import kr.co.blueauction.product.domain.Product;
 
 public interface OrdersDao {
 	/** 주문 등록 */
 	public void insert(Orders orders);
-	
+
 	/** 주문 전체 반환 */
 	public List<Orders> listAll();
-	
-	/** 주문 번호로 주문 반환*/
+
+	/** 주문 번호로 주문 반환 */
 	public Orders readByNo(int orderNo);
-	
+
 	/** 주문 수정 */
 	public void update(Orders orders);
-	
+
 	/** 주문 삭제 */
 	public void delete(int orderNo);
-	
+
 	/** 로그인된 회원의 구매 리스트를 조회 */
 	public List<Orders> orderList(String memberId, String auctionFlag) throws Exception;
-	
-	/** 주문번호로 주문가저오기**/
+
+	/** 로그인된 회원의 구매 리스트를 조회 패이징 */
+	public List<Orders>orderListCriteria(Criteria cri, String memberId, String auctionFlag)
+			throws Exception;
+
+	public int countPaging(String memberId, String auctionFlag) throws Exception;
+
+	/** 주문번호로 주문가저오기 **/
 	public Orders select(int orderId) throws Exception;
-	
+
 	/** 결제완료 업뎃 **/
 	public void update(int orderId) throws Exception;
 }

@@ -64,6 +64,26 @@
 	
 	</select>
 	
+		<!-- 로그인된 회원의 중고 or옥션 판매 물품 리스트를 조회 페이징처리 -->
+	<select id="orderListCriteria" resultType="Orders">
+		select orders.*
+		from  orders, product
+		WHERE orders.product_id = product.product_id 
+		and product.auction_flag = #{auctionFlag} and member_id=#{memberId}
+		order by orderdate desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="countPaging"  resultType="int">
+	  select count(orders.product_id)
+	from orders, product
+	where orders.product_id = product.product_id
+    and product.product_id>0 and member_id="bonghwan" and product.auction_flag = "N";
+    
+	
+	
+	</select>
+	
 	<!--주문번호로 주문항목가저기  -->
 	<select id="orderselect" parameterType="int" resultType="Orders">
 		SELECT *
@@ -71,6 +91,8 @@
 		where order_id=#{orderId}
 	
 	</select>
+	
+
 	
 	<update id="payupdate" parameterType="int">
 		  

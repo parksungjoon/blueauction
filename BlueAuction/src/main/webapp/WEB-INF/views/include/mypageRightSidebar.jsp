@@ -12,7 +12,7 @@
 		<h6>중고장터</h6>
 		<ul class="list-marked list-marked-secondary">
 			<li><a href="/member/mypage/goodsmarket">판매리스트</a></li>
-			<li><a href="/order/productorder">구매리스트</a></li>
+			<li><a href="/order/mypage/productorder">구매리스트</a></li>
 		</ul>
 	</div>
 
