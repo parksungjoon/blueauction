@@ -9,8 +9,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.order.domain.Orders;
+import kr.co.blueauction.product.domain.Product;
 
 @Repository
 public class MybatisOrderDao implements OrdersDao{
@@ -51,6 +52,22 @@ public class MybatisOrderDao implements OrdersDao{
 		map.put("memberId", memberId);
 		map.put("auctionFlag", auctionFlag);
 		return sqlSession.selectList(NAMESPACE+".orderList", map);
+	}
+	/** 로그인된 회원의 구매 리스트를 조회 패이징 */
+	public List<Orders> orderListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception{
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("auctionFlag", auctionFlag);
+		map.put("cri", cri);
+		
+		return sqlSession.selectList(NAMESPACE+".orderListCriteria", map);
+	}
+
+	public int countPaging(String memberId, String auctionFlag) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("auctionFlag", auctionFlag);
+		return sqlSession.selectOne(NAMESPACE+".countPaging", map);
 	}
 	
 	/** 주문번호로 주문가저오기**/

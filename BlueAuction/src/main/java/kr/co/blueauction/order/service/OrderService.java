@@ -3,6 +3,7 @@ package kr.co.blueauction.order.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.order.domain.Orders;
 
 public interface OrderService {
@@ -23,6 +24,11 @@ public interface OrderService {
 	
 	/** 로그인된 회원의 중고or 옥션 구매 리스트를 조회 **/
 	public Map<String, Object> orderList(String memberId, String auctionFlag) throws Exception;
+	
+	/** 로그인된 회원의 중고or 옥션 구매 리스트를 조회 패이징**/
+	public Map<String, Object> orderListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception;
+	public int listCountCriteria(String memberId, String auctionFlag) throws Exception;
+	
 	/** 주문번호로 주문가저오기**/
 	public Orders select(int orderId) throws Exception;
 	/** 결제완료업데이트**/

@@ -232,10 +232,10 @@
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
-	<select id="countPaging" parameterType="String" resultType="int">
+	<select id="countPaging"  resultType="int">
 	select count(product_id)
 	from product
-	where product_id>0 and seller=#{mamberId};
+	where product_id>0 and seller=#{memberId} and auction_flag=#{auctionFlag}
 	
 	
 	</select>

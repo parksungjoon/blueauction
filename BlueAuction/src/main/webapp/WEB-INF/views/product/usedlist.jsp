@@ -143,7 +143,7 @@
 
       <!-- titled Grid gallery-->
       <section class="section section-lg text-center bg-white">
-      <a id="register" class="button-blog button button-default-outline" href="/product/used/register">Register Product</a>
+      <a id="register" class="button-blog btn btn-primary" href="/product/used/register">Register Product</a>
         <div class="shell-wide">
           <h3>our products</h3>
           <div class="isotope-wrap range range-0">

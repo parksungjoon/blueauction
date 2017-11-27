@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.order.dao.OrdersDao;
 import kr.co.blueauction.order.domain.Orders;
 import kr.co.blueauction.product.dao.ProductDao;
@@ -71,6 +71,34 @@ public class OrderServiceImpl implements OrderService {
 	      
 	      return map;
 	   }
+	
+	@Override
+	   /** 로그인된 회원의 중고or 옥션 구매 리스트를 조회  패이징**/
+	   public Map<String, Object> orderListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception{
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      List<Product> productList=new ArrayList<Product>();
+	      List<Orders> orderList= ordersDao.orderListCriteria(cri, memberId, auctionFlag);
+	      map.put("orderList", orderList);
+	      
+	      if(orderList != null) {
+	         //Map<String, Object> productList = new HashMap<String, Object>();
+	    	  
+	         Product product = null;
+	         for (Orders order : orderList) {
+	            product = productDao.read(order.getProductId());
+	            System.out.println(product.toString());
+	            productList.add(product);
+	         }
+	         map.put("productList", productList);
+	      }
+	      
+	      return map;
+	   }
+
+	@Override
+	public int listCountCriteria(String memberId, String auctionFlag) throws Exception{
+		return ordersDao.countPaging(memberId, auctionFlag);
+	}
 	
 	@Override
 	public Orders select(int orderId) throws Exception{

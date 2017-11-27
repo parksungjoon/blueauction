@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.blueauction.bid.service.BidService;
+import kr.co.blueauction.common.domain.Criteria;
+import kr.co.blueauction.common.domain.PageMaker2;
 import kr.co.blueauction.member.controller.MemberController;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.order.domain.Orders;
@@ -53,7 +55,7 @@ public class OrderController {
 	 * 
 	 * return "/mypage"; }
 	 */
-	@RequestMapping(value = "/member/mypage/productorder", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/member/mypage/productorder", method = RequestMethod.GET)
 	public String productorder(@ModelAttribute("order") Orders order, HttpSession session, Model model)
 			throws Exception {
 		// login 세션을 가저옴
@@ -69,7 +71,30 @@ public class OrderController {
 		model.addAttribute("map", map);
 
 		return "member/productorder";
+	}*/
+	
+	@RequestMapping(value = "/mypage/productorder", method = RequestMethod.GET)
+	public String productorder2(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
+			throws Exception {
+		// login 세션을 가저옴
+		Object member = session.getAttribute("login");
+		logger.info("/member/mypage/productorder에서 " + member.toString());
+		Member member1 = (Member) member;
+		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
+		String memberId = member1.getMemberId();
+		String auctionFlag = "N";
+
+		//Map<String, Object> map = orderService.orderList(memberId, auctionFlag);
+		Map<String, Object> map = orderService.orderListCriteria(cri, memberId, auctionFlag);
+
+		model.addAttribute("map", map);
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(orderService.listCountCriteria(memberId, auctionFlag));
+		model.addAttribute("pageMaker", pageMaker2);
+		return "member/productorder";
 	}
+	
 
 	@RequestMapping(value = "/member/mypage/auctionorder", method = RequestMethod.GET)
 	public String auctionorder(@ModelAttribute("order") Orders order, HttpSession session, Model model)
@@ -85,6 +110,12 @@ public class OrderController {
 		// 상품을 받아옴
 		Map<String, Object> map = orderService.orderList(memberId, auctionFlag);
 		model.addAttribute("map", map);
+		
+		/*PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(productService.listCountCriteria(memberId));
+		model.addAttribute("pageMaker", pageMaker2);*/
+		
 		return "member/auctionorder";
 	}
 
