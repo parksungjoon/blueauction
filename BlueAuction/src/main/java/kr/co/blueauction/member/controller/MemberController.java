@@ -243,17 +243,17 @@ public class MemberController {
 		String auctionFlag = "N";
 		// 상품을 받아옴
 		model.addAttribute("products", productService.productSellListCriteria(cri, memberId, auctionFlag));
-		logger.info("String.valueOf(productService.listCountCriteria(cri))"+String.valueOf(productService.listCountCriteria(memberId)));
+		logger.info("String.valueOf(productService.listCountCriteria(cri))"+String.valueOf(productService.listCountCriteria(memberId, auctionFlag)));
 		PageMaker2 pageMaker2 = new PageMaker2();
 		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(productService.listCountCriteria(memberId));
+		pageMaker2.setTotalCount(productService.listCountCriteria(memberId,auctionFlag));
 		model.addAttribute("pageMaker", pageMaker2);
 		return "member/productsmarket";
 	}
 
 
 	@RequestMapping(value = "/mypage/auctionmarket", method = RequestMethod.GET)
-	public String auctionmarket(@ModelAttribute("product") Product product, HttpSession session, Model model)
+	public String auctionmarket(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
 			throws Exception {
 		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
@@ -263,12 +263,13 @@ public class MemberController {
 		String memberId = member1.getMemberId();
 		String auctionFlag = "Y";
 		// 상품을 받아옴
-		List<Product> products = productService.productSellList(memberId, auctionFlag);
-		for (Product product2 : products) {
-			System.out.println("product2.getPhoto().toString() : " + product2.getPhoto().toString());
-		}
-		model.addAttribute("products", products);
-		logger.info(products.toString());
+		model.addAttribute("products", productService.productSellListCriteria(cri, memberId, auctionFlag));
+		logger.info("String.valueOf(productService.listCountCriteria(cri))"+String.valueOf(productService.listCountCriteria(memberId, auctionFlag)));
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(productService.listCountCriteria(memberId, auctionFlag));
+		model.addAttribute("pageMaker", pageMaker2);
+	
 		return "member/auctionmarket";
 	}
 

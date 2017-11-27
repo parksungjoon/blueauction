@@ -40,7 +40,7 @@ public interface ProductDao {
 	/**페이징처리 로그인된 회원의 중고판매 물품 리스트를 조회 */
 	public List<Product> productSellListCriteria(Criteria criteria, String memberId, String auctionFlag) throws Exception;
 	
-	public int countPaging(String memberId) throws Exception;
+	public int countPaging(String memberId, String auctionFlag) throws Exception;
 	
 	
 	/** 중고상품 리스트 출력 */

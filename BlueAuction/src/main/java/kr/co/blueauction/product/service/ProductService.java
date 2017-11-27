@@ -45,7 +45,7 @@ public interface ProductService {
 
 	
 	
-	public int listCountCriteria(String memberId) throws Exception;
+	public int listCountCriteria(String memberId, String auctionFlag) throws Exception;
 
 	/** 로그인 회원 아이디 조회 */
 	public String memberIdGet(HttpSession session) throws Exception;

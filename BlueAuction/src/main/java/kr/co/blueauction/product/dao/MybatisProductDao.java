@@ -104,8 +104,12 @@ public class MybatisProductDao implements ProductDao {
 		
 	}
 	@Override
-	public int countPaging(String memberId) throws Exception{
-		return sqlSession.selectOne(namespace+".countPaging", memberId);
+	public int countPaging(String memberId, String auctionFlag) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberId", memberId);
+		map.put("auctionFlag", auctionFlag);
+		return sqlSession.selectOne(namespace+".countPaging", map);
 	}
 	
 	

@@ -179,8 +179,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	@Override
-	public int listCountCriteria(String memberId) throws Exception{
-		return productDao.countPaging(memberId);
+	public int listCountCriteria(String memberId, String auctionFlag) throws Exception{
+		return productDao.countPaging(memberId, auctionFlag);
 	}
 	
 	
