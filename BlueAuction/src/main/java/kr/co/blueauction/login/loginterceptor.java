@@ -26,11 +26,11 @@ public class loginterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		logger.info("loginterceptor preHandle 실행");
-		logger.info("request.getHeader(\"REFERER\").substring(16)"+request.getHeader("REFERER").substring(16));
+		logger.info("request.getHeader(\"REFERER\").substring(16)" + request.getHeader("REFERER").substring(16));
 		HttpSession session = request.getSession();
 		logger.info("Location Before : " + session.getAttribute("login"));
 		saveDest(request);
-		 String dest = (String)session.getAttribute("dest");
+		String dest = (String) session.getAttribute("dest");
 		logger.info("(String)session.getAttribute(\"dest\")" + (String) session.getAttribute("dest"));
 		if (session.getAttribute("login") == null) {
 			logger.info("current user is not logined");
@@ -45,7 +45,7 @@ public class loginterceptor extends HandlerInterceptorAdapter {
 				if (member != null) {
 					logger.info("member가 null 이 아님!");
 					session.setAttribute("login", member);
-					 response.sendRedirect(dest != null ? (String)dest : "/");
+					response.sendRedirect(dest != null ? (String) dest : "/");
 					return false;
 				}
 			}
@@ -59,22 +59,32 @@ public class loginterceptor extends HandlerInterceptorAdapter {
 
 	private void saveDest(HttpServletRequest req) {
 		logger.info("loginterceptor  saveDest실행");
-		  
-	    String uri = req.getRequestURI();
-	    String query = req.getQueryString();
-
-	    if (query == null || query.equals("null")) {
-	      query = "";
-	    } else {
-	      query = "?" + query;
-	    }
-		if (req.getMethod().equals("GET")) {
-		if(req.getHeader("REFERER")!=null) {
-			req.getSession().setAttribute("dest", req.getHeader("REFERER").substring(16));
-		}else
-		{
-			  req.getSession().setAttribute("dest", uri + query);
+		logger.info(req.getHeader("REFERER"));
+		String[] array =req.getHeader("REFERER").split("/");
+		logger.info("array 배열");
+		String a="/";
+		for(int i=0; i<array.length; i++) {
+			if(i>2) {
+				logger.info(array[i]);
+				a+=array[i]+"/";
+				logger.info("a : "+a);
+			}
 		}
+		
+		String uri = req.getRequestURI();
+		String query = req.getQueryString();
+
+		if (query == null || query.equals("null")) {
+			query = "";
+		} else {
+			query = "?" + query;
+		}
+		if (req.getMethod().equals("GET")) {
+			if (req.getHeader("REFERER") != null) {
+				req.getSession().setAttribute("dest", a);
+			} else {
+				req.getSession().setAttribute("dest", uri + query);
+			}
 		}
 
 	}

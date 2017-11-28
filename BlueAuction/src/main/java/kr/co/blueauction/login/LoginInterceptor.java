@@ -36,15 +36,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				loginCookie.setMaxAge(60 * 60 * 24 * 7); //쿠키 일주일저장
 				response.addCookie(loginCookie);	//쿠키 response에 담음
 			}
-			/*String dest = (String)session.getAttribute("dest");*/
+			String dest = (String)session.getAttribute("dest");
 			Object referer=session.getAttribute("referer");
 			logger.info("원래 가려던 경로"+referer);
-			/*logger.info("dest"+dest);
-			response.sendRedirect(dest != null ? (String)dest : "/");*/
-			response.sendRedirect(referer!=null ? (String)referer:"/");
-		}/*else {
+			logger.info("dest :"+(String)dest);
+			//response.sendRedirect("/");
+			//response.sendRedirect(dest != null ? (String)dest : "/");
+			response.sendRedirect(dest != null ? (String)dest : "/");
+		//	response.sendRedirect(referer!=null ? (String)referer:"/");
+		}else {
 			response.sendRedirect("/member/login");
-		}*/
+		}
 	}
 
 	@Override

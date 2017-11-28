@@ -27,7 +27,6 @@
     $(document).ready(function(){
     	var a="직거래";
     	var deliverytype = $('#deliverytype').val();
-    	alert($('#deliverytype').val());
     	if($('#deliverytype').val() == a){
     		$('#post').hide(); 
         	$('#post1').hide(); 
