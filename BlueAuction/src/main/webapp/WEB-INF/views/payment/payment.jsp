@@ -16,12 +16,31 @@
     <link rel="stylesheet" href="/resources/css/mdi.css">
     <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
     <link rel="stylesheet" href="/resources/css/jjh-style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%> 
     <script type="text/javascript">
+    
+    $(document).ready(function(){
+    	var a="직거래";
+    	var deliverytype = $('#deliverytype').val();
+    	alert($('#deliverytype').val());
+    	if($('#deliverytype').val() == a){
+    		$('#post').hide(); 
+        	$('#post1').hide(); 
+        	$('#post2').hide(); 
+        	$('#post3').hide(); 
+    	}
+    }); 
+   
+
+
+
+    
+    
     function same(){
     	
     	$('#memberId').val('${member.memberId}');
@@ -34,7 +53,7 @@
     	
     	
     }
-    
+
     
     </script>
     
@@ -87,7 +106,7 @@
                   <div class="tab-pane fade in active" id="tabs-1-1">
                   
                   <%--정보 입력 form 시작 --%>
-              <form  data-form-output="form-output-global" data-form-type="contact" method="POST" action="/order/payment/${product.productId}">
+              <form  data-form-output="form-output-global" data-form-type="contact" method="POST" action="/order/payment/${product.productId}" class="text-left">
                          <div class="table-checkout text-left jji-select">
                       <div class="table-novi table-custom-responsive">
                         <table class="table-custom">
@@ -125,32 +144,34 @@
                             <input class="form-input" type="text" id="name" name="name" data-constraints="@Required">
                           </div>
                         </div>
-                        
-                          <div class="cell-sm-6">
+                       
+                          <div id="post" class="cell-sm-6">
                            <label class="form-label-outside">Address</label>
                             <div class="form-wrap form-wrap-inline">
                                 <input class="form-input" type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호">
                             </div>
                           </div>
-                          <div class="cell-sm-6">
-                            <div class="form-wrap-validation">
-                              <button type="button" class="button button-secondary jjh-postCodeSearchBtn"  onclick="sample6_execDaumPostcode()">Postal code search</button>
+                          <div id="post1" class="cell-sm-6">
+                            <div  class="form-wrap-validation">
+                              <button type="button" id="sample6_button" class="button button-secondary jjh-postCodeSearchBtn"  onclick="sample6_execDaumPostcode()">Postal code search</button>
                             </div>
                           </div>
-                          <div class="cell-xs-12">
+                          <div id="post2" class="cell-xs-12">
                           <div class="form-wrap form-wrap-inline">
                             <input class="form-input"  type="text" id="sample6_address" name="baseaddress" placeholder="기본주소">
                           </div>
-                          <div class="form-wrap form-wrap-inline">
+                          <div id="post3" class="form-wrap form-wrap-inline">
                             <input class="form-input"  type="text" id="sample6_address2" name="detailaddress" placeholder="상세주소">
                           </div>
                         </div>
+                        
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="form-1-email">E-mail</label>
                             <input class="form-input"  type="email" id="email" name="email" data-constraints="@Email @Required">
                           </div>
                            <input type="hidden" name="price" value=${product.price}>
+                           <input type="hidden" id="deliverytype" name="deliverytype" value=${product.deliverytype}>
                         </div>
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
