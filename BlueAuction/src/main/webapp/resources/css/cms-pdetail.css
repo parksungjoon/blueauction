@@ -79,3 +79,15 @@
       	padding-top: 0px;
       	padding-bottom: 0px;
       }
+      .pagination > li > a {
+      	color: black;
+      }
+      .pagination > li.active > a {
+      	background-color: #dddddd;
+      	border-color: #dddddd;
+      	color: black;
+      }
+      .pagination > li.active > a:hover {
+      	background-color: #c0c0c0;
+      	border-color: #c0c0c0;
+      }
