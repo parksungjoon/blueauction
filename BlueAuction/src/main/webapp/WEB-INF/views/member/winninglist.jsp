@@ -47,11 +47,11 @@
       class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
     <div class="shell">
       <p class="breadcrumbs-custom-subtitle">Product</p>
-      <p class="heading-1 breadcrumbs-custom-title">Autcion Product</p>
+      <p class="heading-1 breadcrumbs-custom-title">auction winning list</p>
       <ul class="breadcrumbs-custom-path">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">product</a></li>
-        <li class="active">Auction</li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/member/mypage">mypage</a></li>
+        <li class="active">auction winning list</li>
       </ul>
     </div>
     </section>
@@ -75,6 +75,7 @@
                       <th>상품이름</th>
                       <th>낙찰가격</th>
                       <th>낙찰일자</th>
+                      <th>결재하러가기</th>
                       
                       <!-- <th>판매 상태</th> -->
                     </tr>
@@ -86,24 +87,21 @@
                       <td>${map.productList[status.index].name}</td>
                       <td>${bid.bidprice}</td>
                       <td>${bid.biddate}</td>
+                      <td><a href="/order/payment/${bid.productId}">결제하기</a></td>
                     <%--   <td>${product.}원</td> --%>
                       
                     </tr>
                   </c:forEach>
                   </tbody>
                 </table>
-              </div>
-            </div>
-            <%-- Shop Sidebar START --%>
-        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
-        <%-- Shop Sidebar END --%>
-           <div class="box-footer">
+          </div>
+        
 
-          <div class="text-center">
-            <ul class="pagination">
+           <div style="text-align: center;">
+            <ul class="pagination-custom">
 
               <c:if test="${pageMaker.prev}">
-                <li><a href="/bid/mypage/winninglist${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+                <li class="prev"><a href="/bid/mypage/winninglist${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
               </c:if>
 
               <c:forEach begin="${pageMaker.startPage }"
@@ -117,19 +115,18 @@
               <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
                 <li><a href="/bid/mypage/winninglist${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
               </c:if>
-
             </ul>
-          </div>
-
         </div>
-        <!-- /.box-footer-->
-            
-          </div>
+        <!-- /.box-footer-->  
         </div>
-        <!-- Hover Row Table (입찰 리스트) END --> 
-       
+        <%-- Shop Sidebar START --%>
+        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
+          <%-- Shop Sidebar END --%>
         
-      </section>
+      </div>
+    </div>
+    <!-- Hover Row Table (입찰 리스트) END --> 
+    </section>
 
     <!-- Product Page END-->
 

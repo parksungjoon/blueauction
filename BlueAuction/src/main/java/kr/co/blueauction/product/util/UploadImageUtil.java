@@ -21,8 +21,6 @@ public class UploadImageUtil {
 		
 		String year = File.separator + Calendar.YEAR;
 		
-		logger.info("yearPath  :  " + year);
-		
 		return null;
 	}
 	
