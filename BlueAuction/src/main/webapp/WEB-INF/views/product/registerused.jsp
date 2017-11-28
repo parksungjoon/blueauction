@@ -221,7 +221,7 @@
             <h5 class="modal-title-file">알림</h5>
           </div>
           <div class="modal-body"> 
-            <span>3MB 이하의 파일을 첨부해 주세요.</span>
+            <span>5MB 이하의 파일을 첨부해 주세요.</span>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default btn-close" data-dismiss="modal">Close</button>
