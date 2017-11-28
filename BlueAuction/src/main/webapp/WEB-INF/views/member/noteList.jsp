@@ -88,15 +88,18 @@
         <div class="shell">
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-10">
-              <h3>쪽지함 </h3>
-              <div class="form-wrap box-width-2" style="position:absolute;">
+             <!--  <h3>쪽지함 </h3> -->
+              <div class="form-wrap box-width-2" style="display: -webkit-inline-box;">
+               <h3>쪽지함 </h3>
                 <!-- Select 2-->
+                <div style="margin-top: -4px; height: 5px;">
                 <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" id="searchType" name="searchType">
                   <option value="R" <c:out value="${cri.keyword eq 'R'?'selected':''}"/>>받은편지함</option>
                   <option value="S" <c:out value="${cri.keyword eq 'S'?'selected':''}"/>>보낸편지함</option>
                 </select>
+                </div>
               </div>
-              <div class="table-novi table-custom-responsive">
+              <div class="table-novi table-custom-responsive" style="margin-top: 19px;">
                 <table  class="table table-striped table-hover">
                   <thead>
                     <tr class="danger">
