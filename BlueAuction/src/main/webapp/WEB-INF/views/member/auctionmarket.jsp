@@ -81,7 +81,7 @@
                   <tbody id="bidListTr">
                   <c:forEach var="product" items="${products}" varStatus="status">
                    <tr style = "cursor:pointer;" onClick = " location.href='/product/auction/readpage/${product.productId}' ">
-                      <td>${status.count}</td>
+                      <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${product.name}</a></td>  
                       <td>${product.productinfo}</td>
                       <td>${product.price}원</td>

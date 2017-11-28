@@ -81,7 +81,7 @@
                 <c:forEach var="order" items="${map.orderList}"
                   varStatus="status">
                   <tr>
-                    <td>${order.orderId}</td>
+                    <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                     <td>${map.productList[status.index].name}</td>
                     <td>${map.productList[status.index].price}</td>
                     <td>${order.dstate}</td>

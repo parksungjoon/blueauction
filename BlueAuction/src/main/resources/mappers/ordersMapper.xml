@@ -104,9 +104,10 @@
 	<!--결제  -->
 	<update id="payupdate" parameterType="int">
 		  
-			  update orders set
-			  paystate ="Y"
-			  where order_id=#{orderId}
+	
+	update orders, product set
+	orders.paystate ="Y", product.auctionstate="AFTER"
+	where order_id=#{orderId} and product.product_id =orders.product_id;
 	</update>
 	
 	<!-- 상품번호로 주문항목 가저오기 -->

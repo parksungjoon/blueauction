@@ -83,7 +83,7 @@
                   <tbody id="bidListTr">
                   <c:forEach var="order" items="${map.orderList}" varStatus="status">
                     <tr>
-                      <td>${status.count}</td>
+                      <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${map.productList[status.index].name}</td>
                       <td>${order.price}원</td>
                       <td>${order.dstate}</td>
