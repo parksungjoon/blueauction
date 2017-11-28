@@ -96,17 +96,9 @@
                   </tbody>
                 </table>
               </div>
-            </div>
-            
-            <%-- Shop Sidebar START --%>
-        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
-        <%-- Shop Sidebar END --%>
-            
-        <div class="box-footer">
-
-          <div class="text-center">
-            <ul class="pagination">
-
+           
+          <div style="text-align: center;">
+             <ul class="pagination-custom">
               <c:if test="${pageMaker.prev}">
                 <li><a href="/member/mypage/goodsmarket${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
               </c:if>
@@ -126,8 +118,14 @@
             </ul>
           </div>
 
-        </div>
+       
         <!-- /.box-footer-->
+            </div>
+            <%-- Shop Sidebar START --%>
+        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
+        <%-- Shop Sidebar END --%>
+            
+       
           </div>
         </div>
         <!-- Hover Row Table (입찰 리스트) END --> 

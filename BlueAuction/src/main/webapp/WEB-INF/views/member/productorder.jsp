@@ -88,30 +88,18 @@
                     <td>${order.paystate}</td>
                     
 
-                    <%-- 
-                    <td>${products[status.index].name}</td>
-                      <td>${order.price}원</td>
-                      <td>${order.dstate}</td>
-                      <td>${order.paystate}</td>  --%>
-                    <%--   <td>${product.}원</td> --%>
-
                   </tr>
                 </c:forEach>
               </tbody>
             </table>
           </div>
-        </div>
-        <%-- Shop Sidebar START --%>
-        <jsp:include
-          page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
-        <%-- Shop Sidebar END --%>
-<div class="box-footer">
+        
 
-          <div class="text-center">
-            <ul class="pagination">
+           <div style="text-align: center;">
+            <ul class="pagination-custom">
 
               <c:if test="${pageMaker.prev}">
-                <li><a href="/order/mypage/productorder${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+                <li class="prev"><a href="/order/mypage/productorder${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
               </c:if>
 
               <c:forEach begin="${pageMaker.startPage }"
@@ -125,15 +113,18 @@
               <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
                 <li><a href="/order/mypage/productorder${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
               </c:if>
-
             </ul>
-          </div>
-
         </div>
         <!-- /.box-footer-->  
+        </div>
+        <%-- Shop Sidebar START --%>
+        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
+          <%-- Shop Sidebar END --%>
+        
       </div>
     </div>
-    <!-- Hover Row Table (입찰 리스트) END --> </section>
+    <!-- Hover Row Table (입찰 리스트) END --> 
+    </section>
 
     <!-- Product Page END-->
 
