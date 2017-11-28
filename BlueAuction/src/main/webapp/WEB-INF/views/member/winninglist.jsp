@@ -66,7 +66,7 @@
         <div class="shell">
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-10">
-              <h3>낙찰 리스트 </h3>
+              <h3>경매 낙찰 리스트 </h3>
               <div class="table-novi table-custom-responsive">
                 <table  class="table table-striped table-hover">
                   <thead>
@@ -82,10 +82,10 @@
                   <tbody id="bidListTr">
                   <c:forEach var="bid" items="${map.bidList}" varStatus="status">
                     <tr>
-                      <td>${status.count}</td>
+                      <td>${bid.bidId}</td>
                       <td>${map.productList[status.index].name}</td>
                       <td>${bid.bidprice}</td>
-                      <td>${bid.biddate}원</td>
+                      <td>${bid.biddate}</td>
                     <%--   <td>${product.}원</td> --%>
                       
                     </tr>

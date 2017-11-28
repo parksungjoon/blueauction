@@ -32,6 +32,11 @@ public interface OrderService {
 	
 	/** 주문번호로 주문가저오기**/
 	public Orders select(int orderId) throws Exception;
+	
+	/** 상품번호로 주문가저오기**/
+	public Orders select2(int productId) throws Exception;
 	/** 결제완료업데이트**/
 	public void update(int orderId) throws Exception;
+	/** 해당상품의 주문 개수 **/
+	public int ordercount(int productId) throws Exception;
 }

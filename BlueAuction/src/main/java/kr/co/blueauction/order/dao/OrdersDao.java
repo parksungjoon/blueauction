@@ -33,7 +33,13 @@ public interface OrdersDao {
 
 	/** 주문번호로 주문가저오기 **/
 	public Orders select(int orderId) throws Exception;
+	
+	/** 상품명으로 주문항목 가저오기 **/
+	public Orders select2(int productId) throws Exception;
 
 	/** 결제완료 업뎃 **/
 	public void update(int orderId) throws Exception;
+	
+	/** 해당상품의 주문 개수 **/
+	public int ordercount(int productId) throws Exception;
 }

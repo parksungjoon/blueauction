@@ -99,6 +99,7 @@
                             <tr>
                               <td><strong class="jjh-proInfo">Price</strong></td>
                               <td>${product.price}</td>
+                             
                             </tr>
                           </tbody>
                         </table>
@@ -149,6 +150,7 @@
                             <label class="form-label-outside" for="form-1-email">E-mail</label>
                             <input class="form-input"  type="email" id="email" name="email" data-constraints="@Email @Required">
                           </div>
+                           <input type="hidden" name="price" value=${product.price}>
                         </div>
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">

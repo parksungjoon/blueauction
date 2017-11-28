@@ -104,8 +104,19 @@ public class OrderServiceImpl implements OrderService {
 	public Orders select(int orderId) throws Exception{
 		return ordersDao.select(orderId);
 	}
+	
+	/** 상품번호로 주문가저오기**/
+	@Override
+	public Orders select2(int productId) throws Exception{
+		return ordersDao.select2(productId);
+	}
 	@Override
 	public void update(int orderId) throws Exception{
 		 ordersDao.update(orderId);
+	}
+	/** 해당상품의 주문 개수 **/
+	@Override
+	public int ordercount(int productId) throws Exception{
+		return ordersDao.ordercount(productId);
 	}
 }

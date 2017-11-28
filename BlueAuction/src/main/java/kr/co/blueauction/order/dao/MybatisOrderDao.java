@@ -75,10 +75,20 @@ public class MybatisOrderDao implements OrdersDao{
 	public Orders select(int orderId) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+".orderselect", orderId);
 	}
+	/** 물건번호로 주문가저오기**/
+	@Override
+	public Orders select2(int productId) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+".searchorder", productId);
+	}
 	
 	/**결제하기**/
 	@Override
 	public void update(int orderId) throws Exception{
 		 sqlSession.update(NAMESPACE+".payupdate", orderId);
+	}
+	
+	/** 해당상품의 주문 개수 **/
+	public int ordercount(int productId) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+".ordercount", productId);
 	}
 }
