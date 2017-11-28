@@ -94,11 +94,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void modify(Product product) throws Exception {
-
-		// 날짜 형식 변경
-		StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
-		String auctionstart = st.nextToken() + " " + st.nextToken();
-		product.setAuctionstart(auctionstart);
+		
+		if (!product.getAuctionFlag().equals("N")) {
+			// 날짜 형식 변경
+			StringTokenizer st = new StringTokenizer(product.getAuctionstart(), "T");
+			String auctionstart = st.nextToken() + " " + st.nextToken();
+			product.setAuctionstart(auctionstart);
+		}
 
 		// <br>처리
 		String info = product.getProductinfo().replaceAll("\r\n", "<br>");
