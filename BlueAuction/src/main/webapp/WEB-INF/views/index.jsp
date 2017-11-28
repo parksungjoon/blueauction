@@ -120,24 +120,24 @@
           </div>
           <div class="cell-lg-5 cell-xl-4">
             <div class="box-auction-wrap">
-              <div class="box-auction-minimal-left bg-gray-darker">
-                <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-1" > <img src="/resources/images/landing-auction-11-230x469.png" alt="" width="230" height="469"/></a></div>
+              <div class="box-auction-minimal-left bg-secondary-2">
+                <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-1" > <img src="/resources/images/used.png" alt="" width="230" height="469" style="margin-bottom: 110px;"/></a></div>
                 <div class="box-auction-inner box-auction-inner-content">
                   <div class="box-auction-title"> <a href="product-page.html">Used Products</a></div>
                   <div class="divider divider-secondary divider-sm"></div>
-                  <div class="product-price">
+                  <div class="product-price jjh-fontsize" >
                     <p>중고 상품을 판매 합니다</p>
                     <h6></h6>
                   </div>
                   <div class="box-auction-button"><a class="button button-secondary button-sm" href="/product/used">Show Products</a></div>
                 </div>
               </div>
-              <div class="box-auction-minimal-right bg-secondary-2">
-                <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-2"><img src="/resources/images/landing-auction-12-377x267.png" alt="" width="377" height="267"/></a></div>
+              <div class="box-auction-minimal-right bg-gray-darker">
+                <div class="box-auction-inner"><a class="box-auction-image box-auction-image-mod-2"><img  class="jjh-mainAuction" src="/resources/images/auction2.png" alt="" /></a></div>
                 <div class="box-auction-inner box-auction-inner-content">
                   <div class="box-auction-title"><a href="product-page.html">Auction Products</a></div>
                   <div class="divider divider-secondary divider-sm"></div>
-                  <div class="product-price">
+                  <div class="product-price jjh-fontsize">
                     <p>경매 상품을 판매 합니다</p>
                     <h6></h6>
                   </div>

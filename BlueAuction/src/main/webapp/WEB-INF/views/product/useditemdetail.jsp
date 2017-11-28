@@ -310,7 +310,7 @@
           <p class="heading-1 breadcrumbs-custom-title">Used Product</p>
           <ul class="breadcrumbs-custom-path">
             <li><a href="/">Home</a></li>
-            <li><a href="#">Product</a></li>
+            <li><a href="/product/used">Product</a></li>
             <li class="active">Used Product</li>
           </ul>
         </div>
@@ -374,6 +374,12 @@
                     </dd> 
 				</dl> 
                 <a class="button button-xs button-secondary" href="/order/payment/${product.productId}">구매하기</a>
+                <c:if test="${not empty login }">
+                <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
+                <c:if test="${login.memberId!=product.seller }">
+                <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
+                </c:if>
+                </c:if>
               </div>
             </div>
           </div>
@@ -383,9 +389,33 @@
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-8">
             <p class="h3-alternate">상세 정보</p>
-		            <p class="text-spacing-sm">
+		            <%-- <p class="text-spacing-sm">
 		            ${product.productinfo }
-		            </p>
+		            </p> --%>
+                <table class="table-custom table-hover" style="width:100%;">
+                  <tr>
+                  <td>상품명</td>
+                  <td>${product.name}</td>
+                  </tr>
+                  <tr>
+                  <td>판매이유</td>
+                  <td>${product.salemotive}</td>
+                  </tr>
+                  <tr>
+                    <td>사용기간</td>
+                    <td>${product.usingtime}</td>
+                  </tr>
+                  <tr>
+                    <td>판매형태</td>
+                    <td>${product.deliverytype }</td>
+                  </tr>
+                  <tr>
+                    <td>상세정보</td>
+                    <td>
+                      ${product.productinfo}
+                    </td>
+                  </tr>
+                </table>
             </div>
           </div>
         </div>
@@ -594,5 +624,13 @@
     <%-- Javascript--%>
     <script src="/resources/js/core.min.js"></script>
     <script src="/resources/js/script.js"></script>
+    <script>
+function chatting() {
+  window.open("http://192.168.78:7777/chat?productId=${product.productId}&memberId=${login.memberId}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=400,height=500,left=0,top=0' );
+}
+function noteSend(){
+  window.open("/note/${product.seller}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=650,height=800,left=0,top=0' );  
+}
+</script>
   </body>
 </html>

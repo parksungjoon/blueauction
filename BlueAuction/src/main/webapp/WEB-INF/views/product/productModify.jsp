@@ -69,8 +69,6 @@
     	  var smallid = list.smallid;
     	  $("#smallid").val(smallid).prop("selected", true);
     	  
-    	  /* $("#info").html(list.productInfo); */
-    	  
     	  var now = new Date();
     	  var year = now.getFullYear();
     	  var month = now.getMonth() + 1;
@@ -99,11 +97,6 @@
     	  var date = list.auctionstart;
     	  date = date.substring(0, 10)+"T"+date.substring(11);
     	  $("#auctionstart").attr("value", date);
-    	  
-    	  /* 첨부파일 선택지 자동 업로드 */
-        /*   $("input[type=file]").change(function() {
-             handleUpload();
-          }); */
     	  
           sendAttachment();
           autoUpload();

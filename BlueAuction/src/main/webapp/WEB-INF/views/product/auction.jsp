@@ -324,7 +324,7 @@
           <p class="breadcrumbs-custom-subtitle">Auction Stuff</p>
           <p class="heading-1 breadcrumbs-custom-title">Product List</p>
           <ul class="breadcrumbs-custom-path">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">Auction</a></li>
             <c:choose>
               <c:when test="${type == 1 }"><li class="active">Preparing Auction</li></c:when>
