@@ -47,11 +47,11 @@
       class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
     <div class="shell">
       <p class="breadcrumbs-custom-subtitle">Product</p>
-      <p class="heading-1 breadcrumbs-custom-title">Autcion Product</p>
+      <p class="heading-1 breadcrumbs-custom-title">Used purchase List</p>
       <ul class="breadcrumbs-custom-path">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">product</a></li>
-        <li class="active">Auction</li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/member/mypage">mypage</a></li>
+        <li class="active">used purchase list</li>
       </ul>
     </div>
     </section>
