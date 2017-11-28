@@ -3,12 +3,6 @@
   			var used = data.used;
   			var auction = data.auction;
   			
-  			console.log("used -----");
-  			for ( var index in used) {
-				console.log(used[index].toString());
-			}
-  			
-  			console.log("used size: " + used.length);
   			addHtml(used);
   			addHtml(auction);
   		}
@@ -19,15 +13,13 @@
   			if(data.length != 0){
     			var category = data[0].categoryId;
     			
-    			console.log("category : " + category);
-    			
     			if(category == 2){
   	 			getAuctionTime(data);
   				setTime(seconds, minutes, hour); // 동적 생성 경매의 카운트 다운
     			}
     			
     			for ( var i in data) {
-    				html += "<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
+    			  html += "<div class='cell-sm-6 cell-md-4 cell-lg-3 cell-xl-3'>";
                   html += "<div class='product product-counter product-auction'>";
                   html += "<div class='product-counter-inner'>"
                   if(category == '1'){
