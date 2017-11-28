@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
@@ -18,6 +19,7 @@ import kr.co.blueauction.product.domain.Product;
 public class MybatisProductDao implements ProductDao {
 	
 	private static final String namespace="kr.co.blueauction.product.dao.ProductDao";
+	Logger logger = Logger.getLogger(MybatisProductDao.class);
 	
 	@Inject
 	private SqlSession sqlSession;
@@ -60,7 +62,8 @@ public class MybatisProductDao implements ProductDao {
 		paramMap.put("type", type);
 		paramMap.put("arraytype", arrayType);
 		
-		return sqlSession.selectList(namespace + ".listByCri", paramMap);
+		return  sqlSession.selectList(namespace + ".listByCri", paramMap);
+		
 	}
 	
 	/** 검색 조건에 따른 전체 상품 리스트 수 */
@@ -98,9 +101,14 @@ public class MybatisProductDao implements ProductDao {
 		map.put("auctionFlag", auctionFlag);
 		map.put("cri", cri);
 		
+		List<Product> products =  sqlSession.selectList(namespace+".productSellListCriteria", map);
 		
+		logger.info("------------------------ product dao ----------------------------");
+		for (Product product : products) {
+			logger.info(products.toString());
+		}
 		
-		return sqlSession.selectList(namespace+".productSellListCriteria", map);
+		return products;
 		
 	}
 	@Override
