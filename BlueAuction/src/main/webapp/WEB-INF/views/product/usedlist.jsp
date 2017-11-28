@@ -148,8 +148,8 @@
           <p class="breadcrumbs-custom-subtitle">Used Stuff</p>
           <p class="heading-1 breadcrumbs-custom-title">Product List</p>
           <ul class="breadcrumbs-custom-path">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">Used</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/product/used">Used</a></li>
             <li class="active">List</li>
           </ul>
         </div>

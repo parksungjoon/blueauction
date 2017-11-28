@@ -310,7 +310,7 @@
           <p class="heading-1 breadcrumbs-custom-title">Used Product</p>
           <ul class="breadcrumbs-custom-path">
             <li><a href="/">Home</a></li>
-            <li><a href="#">Product</a></li>
+            <li><a href="/product/used">Product</a></li>
             <li class="active">Used Product</li>
           </ul>
         </div>
