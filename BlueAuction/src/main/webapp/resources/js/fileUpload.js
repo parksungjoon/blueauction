@@ -16,10 +16,11 @@ function handleUpload() {
 	var file = $("input[type=file]")[0].files[0];
 	
 	fileSize += file.size;
-	
+	alert("파일 총 사이즈 : " + fileSize);
 	if (file.size > 5242880 || fileSize > 5242880 ) {
 		$("#btn-fileModal").trigger("click");
 		fileSize -= file.size;
+		alert("파일 총 사이즈 : " + fileSize);
 		return;
 	}
 	

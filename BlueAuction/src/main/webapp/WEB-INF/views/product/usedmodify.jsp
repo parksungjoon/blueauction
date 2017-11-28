@@ -50,7 +50,8 @@
 		$(document).ready(function() {
 			sendAttachment();
 			autoUpload();
-			setForm();	
+			setForm();
+			fileSize = ${filesSize};
 		});
 		
 		/* 첨부파일 임시 삭제 */
