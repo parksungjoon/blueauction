@@ -245,6 +245,7 @@
 	   when auctionstart <= now() and auctionend > now()  then 'DOING'
 	   when auctionend <= now() then 'AFTER'
 	   else 'BEFORE' end
+	   WHERE auction_flag = 'Y'
 	   ]]>
 	</update>
 

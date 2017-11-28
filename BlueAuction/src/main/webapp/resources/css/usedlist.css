@@ -19,3 +19,7 @@
 .template-list {
 	margin-top: 10px;	
 }
+.paid {
+	-webkit-filter: grayscale(100%);
+	filter: gray;	
+}

@@ -33,7 +33,7 @@
     	 <div class="col-xs-12 col-sm-6 col-md-4 isotope-item template-list" data-filter="{{smallid}}">
 			<a id="/product/used/{{productId}}" class="gallery-item titled-gallery-item item-image" href="#">
          		<div class="gallery-item-image">
-         			<figure><img class="productimage" src="/resources/images/img{{mainphoto}}" alt="" width="570" height="380"/></figure>
+         			<figure><img class="productimage" src="/resources/images/img{{mainphoto}}" alt="{{auctionstate}}" width="570" height="380"/></figure>
          			<div class="caption"></div>
          		</div>
 			</a>
@@ -54,6 +54,16 @@
 	    printList(list);
 	});
     
+    /* 상품 결제 여부 확인 */
+    function isPaid() {
+		var imgTags = $('.productimage');
+		for (var i = 0; i < imgTags.length; i++) {
+			if (imgTags.get(i).getAttribute('alt') == 'AFTER') {
+				imgTags.get(i).setAttribute("class", "productimage paid");
+			}	
+		}
+	}
+    
     /* 중고물품 리스트 출력 */
     function printList(list) {
     	var template = Handlebars.compile($("#template").html());
@@ -64,6 +74,8 @@
 		if (productCount >= ${count}) {
 		$("#btn-load").hide();
 		}
+		isPaid();
+		
     };
     
     /* 상품 더 보기 */
@@ -98,6 +110,8 @@
   				if (productCount >= data.count) {
 					$("#btn-load").hide();
 				}
+  				
+  				isPaid();
   			} 			
   		});
 	}
@@ -134,8 +148,8 @@
           <p class="breadcrumbs-custom-subtitle">Used Stuff</p>
           <p class="heading-1 breadcrumbs-custom-title">Product List</p>
           <ul class="breadcrumbs-custom-path">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">Used</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/product/used">Used</a></li>
             <li class="active">List</li>
           </ul>
         </div>
