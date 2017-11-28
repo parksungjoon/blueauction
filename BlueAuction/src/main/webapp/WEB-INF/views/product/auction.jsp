@@ -96,15 +96,6 @@
   			ajaxPost("append"); // post로 ajax
     	});
    		
-   		/** 상세보기 - hidden으로 넘기기 */
-   	/* 	$(document).on("click", ".readPage", function(event){
-   			event.preventDefault();
-   			
-   			var href = $(this).attr("href");
-   			
-   			fromData(href);
-   		}); */
-   		
    		/** 새로운 경매 등록 */
     	 $("#registerAction").click(function () {
     		var form = document.createElement("form");
