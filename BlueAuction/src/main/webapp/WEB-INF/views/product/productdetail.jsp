@@ -462,7 +462,7 @@
 </div> 
 <script>
 function chatting() {
-  window.open("http://192.168.78:7777/chat?productId=${product.productId}&memberId=${login.memberId}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=650,height=700,left=0,top=0' );
+  window.open("http://192.168.78:7777/chat?productId=${product.productId}&memberId=${login.memberId}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=400,height=500,left=0,top=0' );
 }
 function noteSend(){
   window.open("/note/${product.seller}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=650,height=800,left=0,top=0' );  
@@ -487,7 +487,7 @@ function receiveMsgFromChild( e ) {
     }else if(e.data.title=='noteCount'){
     	 $('#counter').html(e.data.noteCount);
     }else if(e.data.title=='iframeHeight'){
-    	console.log('iframe의 높이'+e.data.height);
+    	/* console.log('iframe의 높이'+e.data.height); */
     	$('#child').height(e.data.height);
     }
 }
