@@ -103,11 +103,6 @@ public class MybatisProductDao implements ProductDao {
 		
 		List<Product> products =  sqlSession.selectList(namespace+".productSellListCriteria", map);
 		
-		logger.info("------------------------ product dao ----------------------------");
-		for (Product product : products) {
-			logger.info(products.toString());
-		}
-		
 		return products;
 		
 	}

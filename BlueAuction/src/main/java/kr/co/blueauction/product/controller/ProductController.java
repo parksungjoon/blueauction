@@ -352,7 +352,6 @@ public class ProductController {
 	@RequestMapping(value="/used/register", method=RequestMethod.POST)
 	public String createPost(Product product) {
 		try {
-			logger.info("중고상품 컨트롤러 실행");
 			productService.create(product);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -372,7 +371,6 @@ public class ProductController {
 		try {
 			Product product = productService.read(productId);
 			model.addAttribute("product", product);
-			logger.info("중고 상품 상세 보기 페이지 이동");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -391,7 +389,6 @@ public class ProductController {
 		Product product;
 		try {
 			model = productService.getDetail(productId, model);
-			logger.info("중고 상품 수정 페이지 이동");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -412,7 +409,6 @@ public class ProductController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.info("중고상품 정보 수정 후 상세 페이지로 이동");
 		return "redirect:/product/used/" + product.getProductId();
 	}
 	
@@ -429,7 +425,6 @@ public class ProductController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.info("중고상품 삭제 후 리스트로 이동");
 		return "redirect:/product/used";
 	}
 	

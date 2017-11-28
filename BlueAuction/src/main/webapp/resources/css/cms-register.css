@@ -1,28 +1,27 @@
 @charset "UTF-8";
 
  input.file {
-        opacity: 0;
-        position: relative;
-        width: 165px;
-      }
+  opacity: 0;
+  position: relative;
+  width: 165px;
+}
+button.reg {
+  position: absolute;
+  left: 0;
+  min-width: 50px;
+  min-height: 10px;
+}
+.cancel {
+	margin-top: 0px !important;
+}
+#filebutton {
+	margin-top: 27px !important;
+}
+#photodiv {
+	margin-top: 20px;
+	margin-left: -15px;
+}
+#fileModal {
+	margin-top: 100px;
+}		      
       
-      button.reg {
-        position: absolute;
-        left: 0;
-        min-width: 50px;
-        min-height: 10px;
-      }
-      
-      .cancel {
-      	margin-top: 0px !important;
-      }
-      
-      #filebutton {
-      	margin-top: 27px !important;
-      }
-      
-      
-      #photodiv {
-      	margin-top: 20px;
-      	margin-left: -15px;
-      }

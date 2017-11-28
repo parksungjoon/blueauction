@@ -52,8 +52,6 @@ public class UploadController {
 	@RequestMapping(value="/", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
 	public ResponseEntity<String> uploadImages(MultipartFile file) throws Exception {
 		
-		logger.info("originalName : " + file.getOriginalFilename());
-		
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 	
@@ -64,8 +62,6 @@ public class UploadController {
 		InputStream in = null;
 		
 		ResponseEntity<byte[]> entity = null;
-		
-		logger.info("File Name : " + fileName);
 		
 		try {
 		
@@ -101,8 +97,6 @@ public class UploadController {
 	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
 		
-		logger.info("delete file : " +  fileName);
-		
 		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 		
 		MediaType mType = MediaUtils.getMediaType(formatName);
@@ -122,8 +116,6 @@ public class UploadController {
 	@ResponseBody
 	@RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files) {
-		
-		logger.info("delete all file : " +  files);
 		
 		if (files == null || files.length == 0) {
 			return new ResponseEntity<String>("deleted", HttpStatus.OK);

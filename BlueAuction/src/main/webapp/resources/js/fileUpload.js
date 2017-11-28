@@ -13,6 +13,12 @@ function handleUpload() {
 	
 	var file = $("input[type=file]")[0].files[0];
 	
+	if (file.size > 5,242,880) {
+		$("#btn-fileModal").trigger("click");
+		$("#photo").val(""); 
+		return;
+	}
+	
 	var formData = new FormData();
 	
 	formData.append("file", file);
