@@ -75,6 +75,7 @@
                       <th>상품이름</th>
                       <th>낙찰가격</th>
                       <th>낙찰일자</th>
+                      <th>결재하러가기</th>
                       
                       <!-- <th>판매 상태</th> -->
                     </tr>
@@ -86,6 +87,7 @@
                       <td>${map.productList[status.index].name}</td>
                       <td>${bid.bidprice}</td>
                       <td>${bid.biddate}</td>
+                      <td><a href="/order/payment/${bid.productId}">결제하기</a></td>
                     <%--   <td>${product.}원</td> --%>
                       
                     </tr>
