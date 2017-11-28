@@ -101,8 +101,6 @@ public class MemberController {
 
 		model.addAttribute("member", member);
 
-		logger.info("session.getAttribute(\"login\")" + obj.toString());
-		logger.info("member" + member.toString());
 
 		return "/member/mypage";
 	}

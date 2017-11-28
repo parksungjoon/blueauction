@@ -203,7 +203,19 @@
    <%-- page Header START --%>
     <jsp:include page="/WEB-INF/views/include/header.jsp" />
     <%-- page Header END --%>
-    
+     <!-- Breadcrumbs START -->
+    <section
+      class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
+    <div class="shell">
+      <p class="breadcrumbs-custom-subtitle">join us</p>
+      <p class="heading-1 breadcrumbs-custom-title">REGISTER</p>
+      <ul class="breadcrumbs-custom-path">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">register</a></li>
+      </ul>
+    </div>
+    </section>
+    <!-- Breadcrumbs END -->
     
     <%-- Formatting forms START --%>
     <section class="section section-lg bg-white text-center">
