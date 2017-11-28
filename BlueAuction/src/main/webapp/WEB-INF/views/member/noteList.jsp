@@ -28,6 +28,28 @@
 		<![endif]--%>
 
 <script src="/resources/js/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="/resources/css/hideSearch.css">
+<style type="text/css">
+.pagination-custom > li {
+    font-family: "Oswald", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.12em;
+    min-width: 50px;
+    color: #fff;
+    background: #f2dede;
+    vertical-align: middle;
+}
+.pagination-custom > li.active {
+    color: #fff;
+    background: #ff3366;
+}
+
+.pagination-custom > li > a:hover {
+    color: #fff;
+    background: #ff3366;
+}
+
+</style>
 
 </head>
 
@@ -49,9 +71,9 @@
       <p class="breadcrumbs-custom-subtitle">Product</p>
       <p class="heading-1 breadcrumbs-custom-title">Autcion Product</p>
       <ul class="breadcrumbs-custom-path">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">product</a></li>
-        <li class="active">Auction</li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/member/mypage">MyPage</a></li>
+        <li class="active"><a href="/member/mypage/note/list">Note</a></li>
       </ul>
     </div>
     </section>
@@ -67,7 +89,7 @@
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-10">
               <h3>쪽지함 </h3>
-              <div class="form-wrap box-width-1" style="position:absolute; width: 10%; height: 10px;">
+              <div class="form-wrap box-width-2" style="position:absolute;">
                 <!-- Select 2-->
                 <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" id="searchType" name="searchType">
                   <option value="R" <c:out value="${cri.keyword eq 'R'?'selected':''}"/>>받은편지함</option>
@@ -77,7 +99,7 @@
               <div class="table-novi table-custom-responsive">
                 <table  class="table table-striped table-hover">
                   <thead>
-                    <tr class="info">
+                    <tr class="danger">
                       <th>#</th>
                       <th>제목</th>
                       <c:if test="${cri.keyword=='R' || null}">
@@ -95,7 +117,7 @@
                   <tbody id="bidListTr">
                   <c:forEach var="note" items="${list}" varStatus="status">
                     <tr>
-                      <td>${status.count}</td>
+                      <td>${pageMaker.getTotalCount()-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td><a href="/member/mypage/note/read?noteId=${note.noteId}">${note.subject}</a></td>
                       <c:if test="${cri.keyword=='R' || null}">
                       <td>${note.sender}</td>
@@ -111,7 +133,8 @@
                   </tbody>
                 </table>
               </div>
-          <ul class="pagination-custom" style="margin-left: 7em;">
+              <div style="text-align: center;">
+          <ul class="pagination-custom">
 
           <c:if test="${pageMaker.prev}">
             <li class="prev"><a
@@ -119,7 +142,7 @@
           </c:if>
 
           <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-            <li <c:out value="${pageMaker.cri.page==idx?' class=acrive':''}"/>>
+            <li <c:out value="${pageMaker.cri.page==idx?' class=active':''}"/>>
             <a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
             </li>
           </c:forEach>
@@ -128,6 +151,7 @@
             <li><a href="/member/mypage/note/list${pageMaker.makeSearch(pageMaker.endPage+1)}">다음목록</a></li>
           </c:if>
         </ul>
+        </div>
             </div>
             <%-- Shop Sidebar START --%>
         <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>

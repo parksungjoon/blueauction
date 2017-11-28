@@ -73,7 +73,7 @@
                   <div class="cell-xs-12">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="form-1-message">내용</label>
-                      <textarea class="form-input" id="content" name="content" data-constraints="@Required"></textarea>
+                      <textarea class="form-input" id="content" name="content" style="resize: none;" data-constraints="@Required"></textarea>
                     </div>
                   </div>
                   <div class="cell-xs-12 offset-custom-1">

@@ -75,32 +75,32 @@
                   <div class="cell-sm-6">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="form-1-name">제목</label>
-                      <input class="form-input" id="sender" type="text" name="sender" value="${note.subject}" data-constraints="@Required"/>
+                      <input class="form-input" id="sender" type="text" name="sender" readonly="readonly" value="${note.subject}" data-constraints="@Required"/>
                     </div>
                   </div>
                   <div class="cell-sm-6">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="form-1-last-name">보낸사람</label>
-                      <input class="form-input" id="receiver" type="text" name="receiver" value="${note.sender}" data-constraints="@Required"/>
+                      <input class="form-input" id="receiver" type="text" name="receiver" readonly="readonly" value="${note.sender}" data-constraints="@Required"/>
                     </div>
                   </div>
                   <div class="cell-sm-12">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="form-1-phone">보낸날짜</label>
-                      <input class="form-input" id="subject" type="text" name="subject" value="${note.regdate}" data-constraints="@Required"/>
+                      <input class="form-input" id="subject" type="text" name="subject" readonly="readonly" value="${note.regdate}" data-constraints="@Required"/>
                     </div>
                   </div>
                   <div class="cell-xs-12">
                     <div class="form-wrap form-wrap-validation">
                       <label class="form-label-outside" for="form-1-message">내용</label>
-                      <textarea class="form-input" id="content" name="content"  data-constraints="@Required">${note.content}</textarea>
+                      <textarea class="form-input" id="content" name="content"  readonly="readonly" style="resize: none;">${note.content}</textarea>
                     </div>
                   </div>
                   <div class="cell-xs-12 offset-custom-1">
                     <div class="form-button">
-                      <!-- <button class="button button-secondary" id="sendNote">답장하기</button> -->
-                      <a class="button button-secondary" href="#" onclick="javascript:noteSend()">답장하기</a>
-                      <button class="button button-secondary" id="removeNote">삭제하기</button>
+                      <button class="btn btn-primary" onclick="javascript:noteSend()">답장하기</button>
+                      
+                      <button class="btn btn-primary" style="margin-top: 0px;" id="removeNote">삭제하기</button>
                     </div>
                   </div>
                 </div>
