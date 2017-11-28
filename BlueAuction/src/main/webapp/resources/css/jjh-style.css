@@ -211,3 +211,13 @@
 .jjh-mainImg {
 	height:160px;
 }
+
+.jjh-mainAuction {
+	max-width: 300px; 
+	margin-left: 70px;"
+}
+
+@media (min-width: 768px) {
+	[class*='box-auction-minimal-'] .jjh-fontsize {
+		font-size: 17px;
+	}
