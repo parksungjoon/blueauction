@@ -100,29 +100,12 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
 		System.out.println("membercontroller logout 실행");
 
-		Object obj = session.getAttribute("login");
-
-		if (obj != null) {
-			Member vo = (Member) obj;
-
-			session.removeAttribute("login");
-			session.invalidate();
-
-			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
-
-			if (loginCookie != null) {
-				loginCookie.setPath("/");
-				loginCookie.setMaxAge(0);
-				response.addCookie(loginCookie);
-				service.keepLogin(vo.getMemberId(), session.getId(), new Date());
-			}
-		}
-		logger.info("로그아웃되었습니다");
-		return "redirect:/";
+	
+	
 
 	}
 
