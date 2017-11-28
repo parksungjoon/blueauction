@@ -1,25 +1,18 @@
 package kr.co.blueauction.member.controller;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -30,25 +23,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.WebUtils;
-
-import com.mysql.cj.api.Session;
 
 import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.PageMaker2;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.login.LoginDTO;
-import kr.co.blueauction.login.LoginInterceptor;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
 import kr.co.blueauction.note.domain.Note;
 import kr.co.blueauction.note.service.NoteService;
-import kr.co.blueauction.order.domain.Orders;
 import kr.co.blueauction.order.service.OrderService;
-import kr.co.blueauction.photo.domain.Photo;
-import kr.co.blueauction.product.controller.ProductDetailController;
-import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 
 @Controller
