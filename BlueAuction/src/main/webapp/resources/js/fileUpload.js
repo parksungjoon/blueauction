@@ -19,7 +19,6 @@ function handleUpload() {
 	
 	if (file.size > 5242880 || fileSize > 5242880 ) {
 		$("#btn-fileModal").trigger("click");
-		$("#photo").val(""); 
 		fileSize -= file.size;
 		return;
 	}
