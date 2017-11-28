@@ -49,9 +49,9 @@
       <p class="breadcrumbs-custom-subtitle">Product</p>
       <p class="heading-1 breadcrumbs-custom-title">Autcion sell list</p>
       <ul class="breadcrumbs-custom-path">
-        <li><a href="/">Ho    me</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/member/mypage">mypage</a></li>
-        <li class="active">Auction</li>
+        <li class="active">auction sell list</li>
       </ul>
     </div>
     </section>
@@ -94,44 +94,39 @@
                   </c:forEach>
                   </tbody>
                 </table>
-              </div>
-            </div>
-            <%-- Shop Sidebar START --%>
-        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
-        <%-- Shop Sidebar END --%>
-               <div class="box-footer">
+          </div>
+        
 
-          <div class="text-center">
-            <ul class="pagination">
+           <div style="text-align: center;">
+            <ul class="pagination-custom">
 
               <c:if test="${pageMaker.prev}">
-                <li><a href="/bid/mypage/winninglist${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+                <li class="prev"><a href="/order/auctionorder${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
               </c:if>
 
               <c:forEach begin="${pageMaker.startPage }"
                 end="${pageMaker.endPage }" var="idx">
                 <li
                   <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-                  <a href="/bid/mypage/winninglist${pageMaker.makeSearch(idx)}">${idx}</a>
+                  <a href="/order/auctionorder${pageMaker.makeSearch(idx)}">${idx}</a>
                 </li>
               </c:forEach>
 
               <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-                <li><a href="/bid/mypage/winninglist${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+                <li><a href="/order/auctionorder${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
               </c:if>
-
             </ul>
-          </div>
-
         </div>
-        <!-- /.box-footer-->
-            
-          </div>
+        <!-- /.box-footer-->  
         </div>
-        <!-- Hover Row Table (입찰 리스트) END --> 
-       
+        <%-- Shop Sidebar START --%>
+        <jsp:include page="/WEB-INF/views/include/mypageRightSidebar.jsp"></jsp:include>
+          <%-- Shop Sidebar END --%>
         
-      </section>
+      </div>
+    </div>
+    <!-- Hover Row Table (입찰 리스트) END --> 
+    </section>
 
     <!-- Product Page END-->
 
