@@ -6,6 +6,8 @@ function autoUpload() {
 	});
 };
 
+var fileSize = 0;
+
 /* ajax로 이미지 파일 전송 및 썸네일 출력 */
 function handleUpload() {
 
@@ -13,9 +15,11 @@ function handleUpload() {
 	
 	var file = $("input[type=file]")[0].files[0];
 	
-	if (file.size > 5,242,880) {
+	fileSize += file.size;
+	
+	if (file.size > 5242880 || fileSize > 5242880 ) {
 		$("#btn-fileModal").trigger("click");
-		$("#photo").val(""); 
+		fileSize -= file.size;
 		return;
 	}
 	
