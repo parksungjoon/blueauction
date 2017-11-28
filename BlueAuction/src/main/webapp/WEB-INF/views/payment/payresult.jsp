@@ -41,7 +41,7 @@
             <div class="shell-wide">
               <!-- <p class="breadcrumbs-custom-subtitle">Payment has been completed.</p> -->
               <p class="heading-1 breadcrumbs-custom-title">${result}</p>
-              <p>감사합니다..<!-- <br class="veil reveal-sm-inline">to give you the best experience on our new website. Stay ready, we`re launching soon. --></p>
+              <p>${why} 감사합니다..<!-- <br class="veil reveal-sm-inline">to give you the best experience on our new website. Stay ready, we`re launching soon. --></p>
               <div class="range range-xs-center">
                 <div class="cell-sm-8 cell-lg-6 cell-xl-4">
                   <!-- RD Mailform: Subscribe-->
