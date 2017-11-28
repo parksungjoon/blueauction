@@ -81,6 +81,15 @@
 		 	
 		});
 		
+		/* 상품 리스트로 돌아가기 */
+		var form = document.createElement("form");
+		$(document).on("click", ".cancel", function() {
+			form.setAttribute("method", "get");
+			form.setAttribute("action", "/product/used");
+			document.body.appendChild(form);
+			form.submit();
+		});
+		
     </script>
     
   </head>
@@ -187,8 +196,8 @@
                         </div>
                         <div class="cell-md-12 offset-custom-1">
                           <div class="form-button text-sm-right">
-                            <button class="btn" type="submit">Register</button>
-                            <button class="btn btn-warning cancel" type="button">Cancel</button>
+                            <button class="btn btn-primary" type="submit">Register</button>
+                            <button class="btn cancel" type="button">Cancel</button>
                           </div>
                         </div>
                     </form>

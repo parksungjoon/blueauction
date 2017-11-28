@@ -427,7 +427,7 @@
           <div class="range range-xs-center">
             <div class="cell-md-10 cell-lg-8 cell-xl-6 sections-collapsable">
               <div class="section-md qna">
-                <p class="h3-alternate">상품 관련 문의</p>
+                <p class="h3-alternate">상품 문의</p>
                 <div id="reply-list" class="comment-group">
                   
                 </div>
