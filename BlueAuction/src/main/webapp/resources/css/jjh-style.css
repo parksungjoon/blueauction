@@ -221,3 +221,7 @@
 	[class*='box-auction-minimal-'] .jjh-fontsize {
 		font-size: 17px;
 	}
+	
+.jjh-paymentCheck {
+	margin-left: 18px;
+}
