@@ -374,6 +374,12 @@
                     </dd> 
 				</dl> 
                 <a class="button button-xs button-secondary" href="/order/payment/${product.productId}">구매하기</a>
+                <c:if test="${not empty login }">
+                <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
+                <c:if test="${login.memberId!=product.seller }">
+                <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
+                </c:if>
+                </c:if>
               </div>
             </div>
           </div>
@@ -594,5 +600,13 @@
     <%-- Javascript--%>
     <script src="/resources/js/core.min.js"></script>
     <script src="/resources/js/script.js"></script>
+    <script>
+function chatting() {
+  window.open("http://192.168.78:7777/chat?productId=${product.productId}&memberId=${login.memberId}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=400,height=500,left=0,top=0' );
+}
+function noteSend(){
+  window.open("/note/${product.seller}" ,'pbml_win','toolbar=no,location=no,directories=no, status=no,menubar=no,resizable=yes, scrollbars=yes,width=650,height=800,left=0,top=0' );  
+}
+</script>
   </body>
 </html>
