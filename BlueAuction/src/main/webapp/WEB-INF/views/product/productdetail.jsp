@@ -418,6 +418,7 @@
           <p><input type="hidden" id="memberId" class="form-control" value="${login.memberId}"></p>
           <p><input type="hidden" id="productId" class="form-control" value="${product.productId}"></p>
           <p><input type="text" id="bidprice" class="form-control"></p>
+          <span></span>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-danger" id="bid">입찰</button>
@@ -474,12 +475,13 @@ window.addEventListener( 'message', receiveMsgFromChild );
  
 // 자식으로부터 메시지 수신
 function receiveMsgFromChild( e ) {
-    console.log( '자식으로부터 받은 메시지 ', e.data );
+    /* console.log( '자식으로부터 받은 메시지 ', e.data ); */
     if(e.data=='openModal'){
       openModal();
     }else if(e.data.maxprice!=null || e.data.maxprice!=undefined){
-      console.log('자식으로부터 받은 최대값'+e.data.maxprice)
+      /* console.log('자식으로부터 받은 최대값'+e.data.maxprice); */
       $('#maxPrice').html(e.data.maxprice);
+      $('#presentNum').html(e.data.maxprice);
     }else if(e.data.title=='favorite'){
     	console.log('자식으로부터 받은 즐겨찾기 리스트'+e.data.list);
     	$('#favorite').html(e.data.list);
@@ -500,7 +502,7 @@ function openModal(){
 window.onload=function(){
   
   $('#bid').on( 'click', function( e ) {
-    console.log('입찰가'+parseInt($('#bidprice').val())+'최고가'+parseInt($('#maxPrice').html()));
+    /* console.log('입찰가'+parseInt($('#bidprice').val())+'최고가'+parseInt($('#maxPrice').html())); */
     if(parseInt($('#bidprice').val())<=parseInt($('#maxPrice').html())){
       alert('더 큰 값을 부르세요!');
       $('#bidprice').val('');
