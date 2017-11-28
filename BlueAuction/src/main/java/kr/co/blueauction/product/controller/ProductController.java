@@ -47,7 +47,7 @@ import kr.co.blueauction.product.service.ProductService;
 @RequestMapping("/product")
 public class ProductController {
 	
-	private static final Logger logger = Logger.getLogger(AuctionProductController.class);
+	private static final Logger logger = Logger.getLogger(ProductController.class);
 	
 	@Inject
 	private ProductService productService;
@@ -181,9 +181,12 @@ public class ProductController {
 		
 		Favorite favorite = new Favorite(0, "", 0, "");
 		if(!memberId.equals("")) {
-			favorite = favoriteService.readByMemberProduct(memberId, productId);
+			Favorite tmp = favoriteService.readByMemberProduct(memberId, productId);
+			if(tmp != null) {
+				favorite = tmp;
+			};
 		}
-		model.addAttribute("favorite", favorite);
+		model.addAttribute(favorite);
 		
 		Product	product = productService.read(productId);
 		product.setProductinfo(product.getProductinfo());
