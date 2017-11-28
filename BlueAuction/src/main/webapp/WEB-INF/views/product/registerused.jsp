@@ -210,6 +210,29 @@
       <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
       
     </div>
+    
+    <!-- 첨부파일 경고 모달 시작 -->
+    <div id="fileModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-sm">
+    
+        <!-- 모달 내용-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title-file">알림</h5>
+          </div>
+          <div class="modal-body"> 
+            <span>3MB 이하의 파일을 첨부해 주세요.</span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-close" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    <button id="btn-fileModal" class="btn btn-danger" type="button" data-toggle="modal" data-target="#fileModal"></button>
+    <!-- 첨부파일 경고 모달 끝 -->
+    
     <!-- PANEL-->
     <!-- END PANEL-->
     <!-- Global Mailform Output-->
