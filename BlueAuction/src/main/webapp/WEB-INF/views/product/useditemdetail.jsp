@@ -391,23 +391,14 @@
         </div>
         
         <!-- 댓글 시작 -->
-        <section class="section section-lg bg-white reply-section">
-        <div class="shell-wide">
-          <div class="range range-xs-center">
-            <div class="cell-md-10 cell-lg-8 cell-xl-6 sections-collapsable">
-              <div class="section-md qna">
-                <p class="h3-alternate">상품 관련 문의</p>
-                <div id="reply-list" class="comment-group">
-                  
-                </div>
-        <div class='text-center'>
-          <ul id="pagination" class="pagination pagination-sm no-margin "></ul>
-        </div>
-              </div>
-              <!-- 댓글 작성란 -->
+        <section class="section section-lg bg-white reply-section" >
+        <div class="shell-wide" id="writeReply">
+        <div class="range range-xs-center">
+               <div class="cell-md-10 cell-lg-8 cell-xl-6 sections-collapsable">
+          <!-- 댓글 작성란 -->
               <c:choose>
                 <c:when test="${not empty login }">
-                  <div class="section-lg qna-write">
+                  <div class="section-lg section-write" >
                     <p class="h3-alternate">문의 작성</p>
                       <div id="set-range" class="range">
                         <div class="cell-xs-12">
@@ -423,6 +414,31 @@
                           </div>
                         </div>
                       </div>
+                  </div>
+                </c:when>
+                <c:otherwise></c:otherwise>
+              </c:choose>
+              <!-- 댓글 작성란 끝 -->
+          </div>
+        </div>
+        </div>
+   
+        <div class="shell-wide">
+          <div class="range range-xs-center">
+            <div class="cell-md-10 cell-lg-8 cell-xl-6 sections-collapsable">
+              <div class="section-md qna">
+                <p class="h3-alternate">상품 문의</p>
+                <div id="reply-list" class="comment-group">
+                  
+                </div>
+        <div class='text-center'>
+          <ul id="pagination" class="pagination pagination-sm no-margin "></ul>
+        </div>
+              </div>
+               <!-- 기능 버튼 시작 -->
+              <c:choose>
+                <c:when test="${not empty login }">
+                  <div class="section-lg qna-write">
                     <form action="/product/used/modify/${product.productId}">
                           <div class="form-button btn-function">
                             <c:choose>
@@ -441,7 +457,7 @@
                 </c:when>
                 <c:otherwise></c:otherwise>
               </c:choose>
-              <!-- 댓글 작성란 끝 -->
+              <!-- 기능 버튼 끝 -->
             </div>
           </div>
         </div>
