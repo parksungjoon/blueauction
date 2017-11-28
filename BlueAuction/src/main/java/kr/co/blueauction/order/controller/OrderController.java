@@ -109,6 +109,7 @@ public class OrderController {
 		if (orderService.ordercount(productId) >= 1) {
 			logger.info("주문할수 없습니다");
 			rttr.addFlashAttribute("result", "결제를 실패하였습니다.");
+			rttr.addFlashAttribute("why", "이미 판매가 완료되었습니다.");
 		} else {
 			orderService.insert(orders);
 			if (orderService.select2(productId) != null) {
