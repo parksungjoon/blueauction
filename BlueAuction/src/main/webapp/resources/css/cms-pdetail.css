@@ -6,10 +6,15 @@
       .qna {
         padding-top: 0px;
         padding-bottom: 30px;
-        margin-top: -20px;
+        margin-top: -10px;
       }
-      .qna-write, .reply-section {
+      .qna-write {
         padding-bottom: 0px;
+        margin-top: -60px;
+      }
+      .reply-section {
+      	padding-bottom: 0px;
+      	padding-top: 40px;
       }
       .comment-title {
         color: black; 
@@ -66,4 +71,11 @@
       #reply-list {
       	margin-top: 30px;
       }
-      
+      #writeReply {
+      	margin-top: 0px;
+      	margin-bottom: 50px;
+      }
+      .section-write {
+      	padding-top: 0px;
+      	padding-bottom: 0px;
+      }
