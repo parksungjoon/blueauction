@@ -389,9 +389,33 @@
           <div class="range range-xs-center">
             <div class="cell-sm-10 cell-lg-8">
             <p class="h3-alternate">상세 정보</p>
-		            <p class="text-spacing-sm">
+		            <%-- <p class="text-spacing-sm">
 		            ${product.productinfo }
-		            </p>
+		            </p> --%>
+                <table class="table-custom table-hover" style="width:100%;">
+                  <tr>
+                  <td>상품명</td>
+                  <td>${product.name}</td>
+                  </tr>
+                  <tr>
+                  <td>판매이유</td>
+                  <td>${product.salemotive}</td>
+                  </tr>
+                  <tr>
+                    <td>사용기간</td>
+                    <td>${product.usingtime}</td>
+                  </tr>
+                  <tr>
+                    <td>판매형태</td>
+                    <td>${product.deliverytype }</td>
+                  </tr>
+                  <tr>
+                    <td>상세정보</td>
+                    <td>
+                      ${product.productinfo}
+                    </td>
+                  </tr>
+                </table>
             </div>
           </div>
         </div>
