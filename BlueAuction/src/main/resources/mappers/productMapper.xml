@@ -118,7 +118,7 @@
 	</update>
 
 	<!--{요청 페이지, 페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회 -->
-	<select id="listByCri" parameterType="map" resultType="Product">
+	<!-- <select id="listByCri" parameterType="map" resultType="Product">
 		SELECT p.product_id product_id,
 		p.category_id category_id,
 		p.smallid smallid,
@@ -177,7 +177,39 @@
 		<if test="arraytype == 'fast'">
 			ORDER BY p.auctionstart ASC , p.product_id DESC
 		</if>
-		LIMIT #{cri.pageStart}, #{cri.perPageNum};
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select> -->
+	 <select id="listByCri" parameterType="map" resultType="Product">
+	select p.product_id product_id, p.category_id category_id, p.smallid smallid, p.seller seller, p.salemotive salemotive, p.usingtime usingtime, p.productinfo productinfo, p.price price, p.deliverytype deliverytype, p.name name, p.regdate regdate, p.auctionstart auctionstart, p.auctionend auctionend, p.basicprice basicprice, p.auctionstate auctionstate, b.bidprice bidprice, ph.photoname mainphoto
+	from product p left join (select bid_id, product_id, max(bidprice) bidprice from bid group by product_id) b
+	on p.product_id = b.product_id
+	left join (select photo_id, product_id, photoname from photo group by product_id having min(photo_id)) ph
+	on p.product_id = ph.product_id
+	where p.category_id = #{cri.category} 
+	<if test="cri.smallid != 0">
+			and p.smallid = #{cri.smallid}
+		</if>
+	<if test="cri.keyword != null">
+			AND p.name LIKE CONCAT('%', #{cri.keyword}, '%')
+		</if>
+	<if test="type != 0">
+			<if test="type == 1">
+				AND p.auctionstate = 'BEFORE'
+			</if>
+			<if test="type == 2">
+				AND p.auctionstate = 'DOING'
+			</if>
+			<if test="type == 3">
+				AND p.auctionstate = 'AFTER'
+			</if>
+		</if>
+		<if test="arraytype == 'recent'">
+			ORDER BY p.product_id DESC, p.regdate DESC
+		</if>
+		<if test="arraytype == 'fast'">
+			ORDER BY p.auctionstart ASC , p.product_id DESC
+		</if>
+	LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 
 	<!-- 검색 조건에 따른 전체 상품 리스트 수 -->
