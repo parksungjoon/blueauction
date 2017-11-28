@@ -205,8 +205,8 @@
                         </div>
                         <div class="cell-md-12 offset-custom-1">
                           <div class="form-button text-sm-right">
-                          	<button class="ksj-btn btn btn-warning button-secondary	btn-lg" type="submit">Register</button>
-                          	<button class="ksj-btn btn btn-warning button-secondary btn-lg" id="can">Cancle</button>
+                          	<button class="btn btn-primary" type="submit">Register</button>
+                            <button class="btn cancel"  id="can">Cancel</button>
                           </div>
                         </div>
                     </form>
