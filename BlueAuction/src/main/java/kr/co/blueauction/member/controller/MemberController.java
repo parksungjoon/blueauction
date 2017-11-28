@@ -66,10 +66,11 @@ public class MemberController {
 	@Inject
 	private NoteService noteService;
 
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("dto") LoginDTO dto, HttpServletRequest req) {
 		logger.info("/member/login 실행");
-	/*	HttpSession session = req.getSession();
+		HttpSession session = req.getSession();
 		Object obj = session.getAttribute("login");
 
 		if (obj != null) {
@@ -77,10 +78,9 @@ public class MemberController {
 			return "redirect:/";
 		} else {
 			logger.info("자동로그인할 login세션이없음");
-		}*/
+		}
 		return "/login";
 	}
-
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
 		logger.info("member/loginPost 실행");
