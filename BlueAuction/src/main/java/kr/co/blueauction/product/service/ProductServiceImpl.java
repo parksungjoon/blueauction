@@ -1,10 +1,12 @@
 package kr.co.blueauction.product.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -34,6 +36,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 	@Inject
 	PhotoDao photoDao;
+	@Resource(name = "uploadPath")
+	private String uploadPath;
 
 	@Override
 	@Transactional
@@ -304,12 +308,19 @@ public class ProductServiceImpl implements ProductService {
 		List<Photo> photoList = photoDao.readByProductId(productId);
 
 		String[] photoArr = null;
+		
+		int totalFileSize = 0;
+		
 		if (photoList.size() > 0) {
 			photoArr = new String[photoList.size()];
 
 			for (int i = 0; i < photoArr.length; i++) {
 				String tmp = photoList.get(i).getPhotoname();
 				photoArr[i] = tmp.replaceAll("s_", "");
+				
+				String filePath = uploadPath + photoArr[i];
+				File fileInfo = new File(filePath);
+				totalFileSize += fileInfo.length();
 			}
 		}
 
@@ -319,9 +330,11 @@ public class ProductServiceImpl implements ProductService {
 
 		Gson gson = new Gson();
 		String jsonlist = gson.toJson(product);
-
+		String filesSize = gson.toJson(totalFileSize);
+		
 		model.addAttribute("jsonproduct", jsonlist);
 		model.addAttribute("product", product);
+		model.addAttribute("filesSize", filesSize);
 
 		return model;
 	}
