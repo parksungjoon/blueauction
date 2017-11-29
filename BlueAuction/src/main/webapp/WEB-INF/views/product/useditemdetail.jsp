@@ -168,7 +168,6 @@
 	    			printPageNum(data.pageMaker)
 	    		};
         		
-	    		console.log(list.length);
 	    		if (list.length == 0) {
 					$("#reply-list").before($("#template5").html());
 				}
@@ -225,6 +224,7 @@
 				data: JSON.stringify({memberId:memberId, productId:productId, content:content, replyId:parentId}),
 				success: function(data) {
 					page = 0;
+					$("#emptyList").remove();
 					listPage(productId, page);
 					$("#form-comment-message").val("");
 				}
