@@ -326,36 +326,7 @@ public class MemberController {
 		return "member/auctionmarket";
 	}
 
-	/**
-	 * 해당아이디에 note리스트로 이동
-	 * @param Criteria
-	 * @param session
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/mypage/note/list", method = RequestMethod.GET)
-	public String noteList(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
-			throws Exception {
-		Object member = session.getAttribute("login");
-		Member member1 = (Member) member;
-
-		if (cri.getKeyword() == null) {
-			cri.setKeyword("R");
-		}
-
-		String memberId = member1.getMemberId();
-		List<Note> notelist = noteService.listByCri(cri, memberId);
-		model.addAttribute("list", notelist);
-
-		PageMaker2 pageMaker = new PageMaker2();
-		pageMaker.setCri(cri);
-
-		pageMaker.setTotalCount(noteService.listCountCriteria(cri, memberId));
-		model.addAttribute("pageMaker", pageMaker);
-
-		return "member/noteList";
-	}
+	
 	
 	/**
 	 * 쪽지 리스트 페이지처리
@@ -375,6 +346,10 @@ public class MemberController {
 		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
 		Member member1 = (Member) member;
+		logger.info("page:"+page+"perPageNum:"+perPageNum+"keyword:"+keyword);
+		
+		
+		
 		Criteria cri=new Criteria();
 		cri.setPage(page);
 		cri.setPerPageNum(perPageNum);

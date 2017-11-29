@@ -77,7 +77,7 @@
                          <!-- <li><form action="/logout" class="rd-mailform" method="get">  -->
                           <li class="jjh-userLi"><a href="/member/mypage"> ${login.memberId}</a>님</li>
                           <li class="jjh-userLi"><a href="/member/logout">Logout</a></li>
-                          <li class="jjh-userLi"><a href="/member/mypage/note/list"><span class="icon icon-md-smaller ksj-icon-primary mdi mdi-email"><span class="badge badge-primary" id="counter">0</span>
+                          <li class="jjh-userLi"><a href="/member/mypage/note/list/1/10/R"><span class="icon icon-md-smaller ksj-icon-primary mdi mdi-email"><span class="badge badge-primary" id="counter">0</span>
                           </span></a></li>
                         </c:if>
                         
@@ -134,7 +134,7 @@
 					<div class="rd-navbar-shop">
 						<!-- <a class="rd-navbar-shop-icon mdi mdi-cart"
 							href="shopping-cart.html"><span>2</span></a> -->
-             <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe> --%>
+             <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden; width: 0px; height: 0px;"></iframe> --%>
 					</div>
 				</div>
 			</div>
