@@ -11,11 +11,23 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+/**
+ * 로그인을 실행한후 url 이동을 위한 LoginInterceptor
+ * 
+ * @author 김봉환
+ *
+ */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	private static final String LOGIN = "login";
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
+	/* 
+	 * 로그인후 자동로그인을 실행할 것인지 확인한후
+	 * 쿠키를 일주일 저장한후 
+	 * 가려던 dest로 이동한다 dest가 없다면 / 로 이동한다
+	 * 
+	 */
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
@@ -39,6 +51,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
+	/* 
+	 * 로그인 실행전 전에있던 login 세션을 제거
+	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
