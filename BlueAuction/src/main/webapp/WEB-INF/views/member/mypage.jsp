@@ -41,8 +41,8 @@
 		<%-- Breadcrumbs--%>
 		<section class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
 		<div class="shell">
-			<p class="breadcrumbs-custom-subtitle">Product Catalog</p>
-			<p class="heading-1 breadcrumbs-custom-title">Shop</p>
+			<p class="breadcrumbs-custom-subtitle"></p>
+			<p class="heading-1 breadcrumbs-custom-title">mypage</p>
 			<ul class="breadcrumbs-custom-path">
 				<li><a href="/">Home</a></li>
 				<li><a href="#">mypage</a></li>
