@@ -19,18 +19,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		logger.info("LoginInterceptor postHandler 실행");
 		HttpSession session = request.getSession();
-
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object member = modelMap.get("member");
 
-		if (member != null) { //로그인할 맴버가있으면
-			
-			logger.info("new login success");
+		if (member != null) { 
 			session.setAttribute(LOGIN, member); 
 			if (request.getParameter("useCookie") != null) { 		//자동로그인표시 유무
-				logger.info("remember me................");
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(60 * 60 * 24 * 7); //쿠키 일주일저장
@@ -38,12 +33,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			}
 			String dest = (String)session.getAttribute("dest");
 			Object referer=session.getAttribute("referer");
-			logger.info("원래 가려던 경로"+referer);
-			logger.info("dest :"+(String)dest);
-			//response.sendRedirect("/");
-			//response.sendRedirect(dest != null ? (String)dest : "/");
 			response.sendRedirect(dest != null ? (String)dest : "/");
-		//	response.sendRedirect(referer!=null ? (String)referer:"/");
 		}else {
 			response.sendRedirect("/member/login");
 		}
@@ -52,14 +42,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("LoginInterceptor preHandle 실행");
 		HttpSession session = request.getSession();
-
 		if (session.getAttribute(LOGIN) != null) {
-		      logger.info("clear login data before");
 		      session.removeAttribute(LOGIN);
 	   }
-		
 		return true;
 	}
 }

@@ -25,25 +25,16 @@ public class loginterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("loginterceptor preHandle 실행");
-		logger.info("request.getHeader(\"REFERER\").substring(16)" + request.getHeader("REFERER").substring(16));
 		HttpSession session = request.getSession();
-		logger.info("Location Before : " + session.getAttribute("login"));
 		saveDest(request);
 		String dest = (String) session.getAttribute("dest");
-		logger.info("(String)session.getAttribute(\"dest\")" + (String) session.getAttribute("dest"));
 		if (session.getAttribute("login") == null) {
-			logger.info("current user is not logined");
 
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 
 			if (loginCookie != null) {
 				Member member = service.checkLoginBefore(loginCookie.getValue());
-				logger.info("loginCookie.getValue()" + loginCookie.getValue());
-
-				logger.info("MEMBER: " + member);
 				if (member != null) {
-					logger.info("member가 null 이 아님!");
 					session.setAttribute("login", member);
 					response.sendRedirect(dest != null ? (String) dest : "/");
 					return false;
@@ -51,23 +42,15 @@ public class loginterceptor extends HandlerInterceptorAdapter {
 			}
 			return true;
 		}
-		if (session.getAttribute("login") != null) {
-			logger.info("SESSION : " + session.getAttribute("login").toString());
-		}
 		return true;
 	}
 
 	private void saveDest(HttpServletRequest req) {
-		logger.info("loginterceptor  saveDest실행");
-		logger.info(req.getHeader("REFERER"));
 		String[] array =req.getHeader("REFERER").split("/");
-		logger.info("array 배열");
 		String a="/";
 		for(int i=0; i<array.length; i++) {
 			if(i>2) {
-				logger.info(array[i]);
 				a+=array[i]+"/";
-				logger.info("a : "+a);
 			}
 		}
 		

@@ -30,9 +30,7 @@ public class logoutinterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		saveDest(request);
 		String dest = (String) session.getAttribute("dest");
-		logger.info("current user is not logined");
 		Object obj = session.getAttribute("login");
-
 
 		if (obj != null) {
 			Member vo = (Member) obj;
@@ -49,18 +47,12 @@ public class logoutinterceptor extends HandlerInterceptorAdapter {
 				service.keepLogin(vo.getMemberId(), session.getId(), new Date());
 			}
 		}
-		logger.info("로그아웃되었습니다");
-
-		logger.info("member가 null 이 아님!");
 		response.sendRedirect(dest != null ? (String) dest : "/");
 		return false;
 	}
 
 	private void saveDest(HttpServletRequest req) {
-		logger.info("loginterceptor  saveDest실행");
-		logger.info(req.getHeader("REFERER"));
 		String[] array = req.getHeader("REFERER").split("/");
-		logger.info("array 배열");
 		String a = "/";
 		for (int i = 0; i < array.length; i++) {
 			if (i > 2) {
@@ -68,7 +60,6 @@ public class logoutinterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 
-		logger.info("a : " + a);
 		String uri = req.getRequestURI();
 		String query = req.getQueryString();
 
@@ -81,11 +72,8 @@ public class logoutinterceptor extends HandlerInterceptorAdapter {
 			if (req.getHeader("REFERER") != null) {
 
 				req.getSession().setAttribute("dest", a);
-				logger.info("첫번째 a :" + a);
-				logger.info("첫번째 a :" + req.getSession().getAttribute("dest"));
 			} else {
 				req.getSession().setAttribute("dest", uri + query);
-				logger.info("두번째");
 			}
 		}
 

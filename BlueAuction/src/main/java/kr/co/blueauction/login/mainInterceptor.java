@@ -25,29 +25,17 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("mainInterceptor preHandle실행");
 		HttpSession session = request.getSession();
 		saveDest(request);
 		String dest = (String) session.getAttribute("dest");
-		logger.info("dest" + dest);
-		if( WebUtils.getCookie(request, "loginCookie")!=null) {
-			logger.info("쿠키가 있음(자동로그인)");
-		}
 		if (session.getAttribute("login") == null) {
-			logger.info("login 세션이 null임");
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie"	);
-			logger.info("자동로그인쿠키"+String.valueOf(loginCookie))	;
 			if (loginCookie != null) {
-				logger.info("loginCookie가  null이 아님");
 				Member member = service.checkLoginBefore(loginCookie.getValue());
 				if (member != null) {
 					session.setAttribute("login", member);
-					/*logger.info("request.getHeader(\"REFERER\").substring(16)"+request.getHeader("REFERER").substring(16));*/
-					//response.sendRedirect(request.getHeader("REFERER").substring(16));
 					response.sendRedirect(dest != null ? (String) dest : "/");
 					return false;
-				}else {
-					logger.info("멤버가 null임");
 				}
 			}
 			return true;
