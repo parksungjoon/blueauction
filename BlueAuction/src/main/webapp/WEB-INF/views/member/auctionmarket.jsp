@@ -82,7 +82,7 @@
                   </thead>
                   <tbody id="bidListTr">
                   <c:forEach var="product" items="${products}" varStatus="status">
-                   <tr style = "cursor:pointer;" onClick = " location.href='/product/auction/readpage/${product.productId}' ">
+                   <tr style = "cursor:pointer;" onClick = " location.href='/product/auction/${product.productId}' ">
                       <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${product.name}</a></td>  
                       <td>${product.productinfo}</td>
