@@ -168,6 +168,10 @@
 	    			printPageNum(data.pageMaker)
 	    		};
         		
+	    		console.log(list.length);
+	    		if (list.length == 0) {
+					$("#reply-list").before($("#template5").html());
+				}
     		});  
         		
     	};
@@ -462,9 +466,8 @@
           <div class="range range-xs-center">
             <div class="cell-md-10 cell-lg-8 cell-xl-6 sections-collapsable">
               <div class="section-md qna">
-                <p class="h3-alternate">상품 문의</p>
+                <p id="questions" class="h3-alternate">상품 문의</p>
                 <div id="reply-list" class="comment-group">
-                  
                 </div>
         <div class='text-center'>
           <ul id="pagination" class="pagination pagination-sm no-margin "></ul>
@@ -624,6 +627,10 @@
         </div>
      </article>
     </div>
+    </script>
+    
+    <script id="template5" type="text/x-handlebars-template">
+    	<div id="emptyList">등록된 문의가 없습니다.</div>
     </script>
     
     <%-- Javascript--%>
