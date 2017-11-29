@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="/resources/css/mdi.css">
 <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
 <link rel="stylesheet" href="/resources/css/hideSearch.css">
+<link rel="stylesheet" href="/resources/css/kbh-css.css">
 <%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
@@ -86,8 +87,16 @@
                       <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${map.productList[status.index].name}</td>
                       <td>${order.price}원</td>
-                      <td>${order.dstate}</td>
-                      <td>${order.paystate}</td>
+                         
+                       <c:choose>
+                   <c:when test="${order.dstate==NULL}"><td>배송전</td></c:when>
+                   <c:when test="${order.dstate=='N'}"><td>배송전</td></c:when>
+                   <c:when test="${order.dstate=='Y'}"><td>배송완료</td></c:when>
+                   </c:choose>
+                       <c:choose>
+                   <c:when test="${order.paystate=='Y'}"><td>결제완료</td></c:when>
+                   <c:when test="${order.paystate=='N'}"><td>결제전</td></c:when>
+                   </c:choose> 
                     <%--   <td>${product.}원</td> --%>
                       
                     </tr>

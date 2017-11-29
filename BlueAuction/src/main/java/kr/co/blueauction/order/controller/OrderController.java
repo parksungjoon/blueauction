@@ -23,7 +23,14 @@ import kr.co.blueauction.order.domain.Orders;
 import kr.co.blueauction.order.service.OrderService;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
-
+/**
+ * 중고, 옥션 물품 구매를위한 OrderController
+ *
+ * @author 정지현
+ * @author 김봉환
+ * @since 2015.11.20
+ *
+ */
 @RequestMapping("/order")
 @Controller
 public class OrderController {
@@ -39,18 +46,21 @@ public class OrderController {
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
+	/**
+	 * 해당아이디에 중고구매 리스트로 이동
+	 * @param cri
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/mypage/productorder", method = RequestMethod.GET)
 	public String productorder2(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
 			throws Exception {
-		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
-		logger.info("/member/mypage/productorder에서 " + member.toString());
 		Member member1 = (Member) member;
-		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
 		String memberId = member1.getMemberId();
 		String auctionFlag = "N";
-
-		// Map<String, Object> map = orderService.orderList(memberId, auctionFlag);
 		Map<String, Object> map = orderService.orderListCriteria(cri, memberId, auctionFlag);
 
 		model.addAttribute("map", map);
@@ -61,17 +71,21 @@ public class OrderController {
 		return "member/productorder";
 	}
 
-	@RequestMapping(value = "/auctionorder", method = RequestMethod.GET)
+	/**
+	 * 해당아이디에 옥션구매 리스트로 이동
+	 * @param cri
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mypage/auctionorder", method = RequestMethod.GET)
 	public String auctionorder(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
-		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
-		logger.info("/member/mypage/productorder에서 " + member.toString());
 		Member member1 = (Member) member;
-		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
 		String memberId = member1.getMemberId();
 		String auctionFlag = "Y";
 
-		// 상품을 받아옴
 		Map<String, Object> map = orderService.orderListCriteria(cri, memberId, auctionFlag);
 		model.addAttribute("map", map);
 
@@ -83,11 +97,15 @@ public class OrderController {
 		return "member/auctionorder";
 	}
 
+	/**
+	 * @param productId
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/payment/{productId}", method = RequestMethod.GET)
-	public String paymentGET(@ModelAttribute("productId") int productId, HttpSession session, HttpServletRequest req,
-			Model model) throws Exception {
-		logger.info("paymentGET 컨트롤러 실행");
-		// 로그인된 정보를 불러온다
+	public String paymentGET(@ModelAttribute("productId") int productId, HttpSession session, Model model) throws Exception {
 		Member member = (Member) session.getAttribute("login");
 		model.addAttribute("member", member);
 
@@ -96,18 +114,24 @@ public class OrderController {
 			int maxPrice = bidService.getMaxPrice(productId);
 			product.setPrice(maxPrice);
 		}
-
 		model.addAttribute("product", product);
 
 		return "payment/payment";
 	}
 
+	/**
+	 * @param orders
+	 * @param productId
+	 * @param session
+	 * @param model
+	 * @param rttr
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/payment/{productId}", method = RequestMethod.POST)
 	public String paymentPOST(@ModelAttribute("orders") Orders orders, @ModelAttribute("productId") int productId,
 			HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-		logger.info("paymentPOST 실행");
 		if (orderService.ordercount(productId) >= 1) {
-			logger.info("주문할수 없습니다");
 			rttr.addFlashAttribute("result", "결제를 실패하였습니다.");
 			rttr.addFlashAttribute("why", "이미 판매가 완료되었습니다.");
 		} else {
@@ -120,10 +144,12 @@ public class OrderController {
 		return "redirect:/order/payment/payresult";
 	}
 
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/payment/payresult", method = RequestMethod.GET)
-	public String payresultget(@ModelAttribute("orders") Orders orders, HttpSession session) throws Exception {
-		logger.info("paymentget 실행");
-
+	public String payresultget() throws Exception {
 		return "payment/payresult";
 	}
 

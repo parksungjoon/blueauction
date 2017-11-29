@@ -31,6 +31,7 @@ import kr.co.blueauction.product.domain.Product;
 
 /**
  * @author 김수진
+ * @author 김봉환
  * @since 2017. 11. 15.
  */
 @RequestMapping("/bid")
@@ -41,20 +42,23 @@ public class BidController {
 	@Inject
 	private BidService service;
 
-	//입찰목록을 가저온다
+	
+	/**
+	 * 해당아이디에 입찰리스트 리스트로 이동
+	 * @param cri
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value ="/mypage/bidlist", method = RequestMethod.GET)
 	public String mybidlist(@ModelAttribute("crie") Criteria cri, HttpSession session, Model model) throws Exception {
-		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
-		logger.info("/member/mypage/mybidlist에서 " + member.toString());
 		Member member1 = (Member) member;
-		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
 		String memberId = member1.getMemberId();
 		String winning = "N";
-		// 상품을 받아옴
 		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
 		model.addAttribute("map", map);
-		//logger.info(bids.toString());
 		PageMaker2 pageMaker2 = new PageMaker2();
 		pageMaker2.setCri(cri);
 		pageMaker2.setTotalCount(service.bidCountCriteria(memberId, winning));
@@ -62,17 +66,20 @@ public class BidController {
 		return "member/bidlist";
 	}
 	
-	//낙찰목록을가져온다
+	/**
+	 *  해당아이디에 낙찰리스트 리스트로 이동
+	 * @param cri
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value ="/mypage/winninglist", method = RequestMethod.GET)
 	public String mywinninglist(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
-		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
-		logger.info("/member/mypage/mybidlist에서 " + member.toString());
 		Member member1 = (Member) member;
-		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
 		String memberId = member1.getMemberId();
 		String winning = "Y";
-		// 상품을 받아옴
 		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
 		model.addAttribute("map", map);
 		PageMaker2 pageMaker2 = new PageMaker2();
