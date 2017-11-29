@@ -101,7 +101,7 @@ div.detail dl.nv3 dd.redprice div.count {
 }
 
 .ksj-marginLeft {
-	margin-left: 230px;
+	margin-left: 15%;
 }
 
 .ksj-imgSize {
@@ -123,4 +123,8 @@ div.detail dl.nv3 dd.redprice div.count {
 
 .ksj-submitMargin{
 	margin-top: 35px;
+}
+
+.ksj-paddingR{
+	padding-right: 10%;
 }

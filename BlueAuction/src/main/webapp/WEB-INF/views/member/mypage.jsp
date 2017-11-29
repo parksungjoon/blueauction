@@ -24,7 +24,7 @@
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%>
-
+<link rel="stylesheet" href="/resources/css/hideSearch.css">
 </head>
 
 <body>
@@ -41,12 +41,11 @@
 		<%-- Breadcrumbs--%>
 		<section class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
 		<div class="shell">
-			<p class="breadcrumbs-custom-subtitle">Product Catalog</p>
-			<p class="heading-1 breadcrumbs-custom-title">Shop</p>
+			<p class="breadcrumbs-custom-subtitle"></p>
+			<p class="heading-1 breadcrumbs-custom-title">mypage</p>
 			<ul class="breadcrumbs-custom-path">
-				<li><a href="index.html">Home</a></li>
-				<li><a href="#">Shop</a></li>
-				<li class="active">Shop 3 Columns Layout</li>
+				<li><a href="/">Home</a></li>
+				<li><a href="#">mypage</a></li>
 			</ul>
 		</div>
 		</section>

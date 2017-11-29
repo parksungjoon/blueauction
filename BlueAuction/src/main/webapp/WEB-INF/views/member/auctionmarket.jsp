@@ -20,7 +20,8 @@
 <link rel="stylesheet" href="/resources/css/style.css">
 <link rel="stylesheet" href="/resources/css/mdi.css">
 <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
-
+<link rel="stylesheet" href="/resources/css/hideSearch.css">
+<link rel="stylesheet" href="/resources/css/kbh-css.css">
 <%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
@@ -74,7 +75,7 @@
                       <th>#</th>
                       <th>상품명</th>
                       <th>상품 정보</th>
-                      <th>판매 가격</th>
+                      <th>경매 상태</th>
                       <!-- <th>판매 상태</th> -->
                     </tr>
                   </thead>
@@ -84,14 +85,20 @@
                       <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${product.name}</a></td>  
                       <td>${product.productinfo}</td>
-                      <td>${product.price}원</td>
+                      <td>${product.auctionstate}</td>
+                      
+                       <%--  <c:choose>
+                  <c:when test="${product.auctionstate=='AFTER'}">경매종료</c:when>
+                  <c:when test="${product.auctionstate=='BEBORE'}">경매시작전</c:when>
+                </c:choose> --%>
+                     
                     </tr>
                   </c:forEach>
                   </tbody>
                 </table>
                    </div>
-          <div style="text-align: center;">
-             <ul class="pagination">
+          <div style="text-align: center;" >
+             <ul class="kbh">
               <c:if test="${pageMaker.prev}">
                 <li><a href="/member/mypage/auctionmarket${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
               </c:if>
