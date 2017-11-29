@@ -46,6 +46,14 @@ public class OrderController {
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
+	/**
+	 * 해당아이디에 중고구매 리스트로 이동
+	 * @param cri
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/mypage/productorder", method = RequestMethod.GET)
 	public String productorder2(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
 			throws Exception {
@@ -63,7 +71,15 @@ public class OrderController {
 		return "member/productorder";
 	}
 
-	@RequestMapping(value = "/auctionorder", method = RequestMethod.GET)
+	/**
+	 * 해당아이디에 옥션구매 리스트로 이동
+	 * @param cri
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mypage/auctionorder", method = RequestMethod.GET)
 	public String auctionorder(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
 		Object member = session.getAttribute("login");
 		Member member1 = (Member) member;
@@ -81,6 +97,13 @@ public class OrderController {
 		return "member/auctionorder";
 	}
 
+	/**
+	 * @param productId
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/payment/{productId}", method = RequestMethod.GET)
 	public String paymentGET(@ModelAttribute("productId") int productId, HttpSession session, Model model) throws Exception {
 		Member member = (Member) session.getAttribute("login");
@@ -96,6 +119,15 @@ public class OrderController {
 		return "payment/payment";
 	}
 
+	/**
+	 * @param orders
+	 * @param productId
+	 * @param session
+	 * @param model
+	 * @param rttr
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/payment/{productId}", method = RequestMethod.POST)
 	public String paymentPOST(@ModelAttribute("orders") Orders orders, @ModelAttribute("productId") int productId,
 			HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
@@ -112,6 +144,10 @@ public class OrderController {
 		return "redirect:/order/payment/payresult";
 	}
 
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/payment/payresult", method = RequestMethod.GET)
 	public String payresultget() throws Exception {
 		return "payment/payresult";

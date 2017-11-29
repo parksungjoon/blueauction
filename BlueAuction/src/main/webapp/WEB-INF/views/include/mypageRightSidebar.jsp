@@ -22,7 +22,7 @@
 			<li><a href="/member/mypage/auctionmarket">판매리스트</a></li>
 			<li><a href="/bid/mypage/bidlist">입찰리스트</a></li>
 			<li><a href="/bid/mypage/winninglist">낙찰리스트</a></li>
-			<li><a href="/order/auctionorder">구매리스트</a></li>
+			<li><a href="/order/mypage/auctionorder">구매리스트</a></li>
 		</ul>
 	</div>
 
