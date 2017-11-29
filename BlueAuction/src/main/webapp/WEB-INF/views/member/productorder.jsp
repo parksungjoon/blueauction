@@ -96,7 +96,7 @@
         
 
            <div style="text-align: center;">
-             <ul class="pagination">
+            <ul class="kbh">
 
               <c:if test="${pageMaker.prev}">
                 <li class="prev"><a href="/order/mypage/productorder${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>

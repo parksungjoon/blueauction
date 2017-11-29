@@ -137,7 +137,7 @@
                 </table>
               </div>
               <div style="text-align: center;">
-           <ul class="pagination">
+           <ul class="kbh">
 
           <c:if test="${pageMaker.prev}">
             <li class="prev"><a
