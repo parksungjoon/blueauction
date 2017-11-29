@@ -15,6 +15,12 @@ import org.springframework.web.util.WebUtils;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
 
+/**
+ * 모든 url 이동시 로그인상태 유무를 확인한다
+ * 
+ * @author 김봉환
+ *
+ */
 public class mainInterceptor extends HandlerInterceptorAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(mainInterceptor.class);
@@ -22,6 +28,11 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 	@Inject
 	private MemberService service;
 
+	/* 
+	 * 모든 url 이동시 자동 로그인이 저장되어있는 쿠키를 확인한후
+	 * 자동로그인을 실행하여 이동한다
+	 * 
+	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -43,6 +54,12 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 		return true;
 	}
 
+	/**
+	 *
+	 * 이전에 가려던 url이 로그인이필요없는페이지일때
+	 *  이동하려는 url을 dest에 저장 
+	 * @param req
+	 */
 	private void saveDest(HttpServletRequest req) {
 		String uri = req.getRequestURI();
 		String query = req.getQueryString();

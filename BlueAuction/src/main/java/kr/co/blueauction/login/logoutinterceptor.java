@@ -17,6 +17,12 @@ import org.springframework.web.util.WebUtils;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
 
+/**
+ * 로그아웃을 할때 작동하는 logoutinterceptor
+ * 
+ * @author 김봉환
+ *
+ */
 public class logoutinterceptor extends HandlerInterceptorAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(logoutinterceptor.class);
@@ -24,6 +30,10 @@ public class logoutinterceptor extends HandlerInterceptorAdapter {
 	@Inject
 	private MemberService service;
 
+	/* 
+	 * 로그아웃을 위해 저장된 세션과 저장된 쿠키를 지운다
+	 * 
+	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -51,6 +61,13 @@ public class logoutinterceptor extends HandlerInterceptorAdapter {
 		return false;
 	}
 
+	/**
+	 * 
+	 * 로그아웃시 현제 위치해 있는 url을 dest에 저장하여
+	 * 
+	 * 
+	 * @param req
+	 */
 	private void saveDest(HttpServletRequest req) {
 		String[] array = req.getHeader("REFERER").split("/");
 		String a = "/";
