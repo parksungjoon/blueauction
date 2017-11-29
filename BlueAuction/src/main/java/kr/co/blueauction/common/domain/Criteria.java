@@ -4,7 +4,18 @@ public class Criteria {
 
 	private int page;	
 	private int perPageNum;
+	private String keyword;
 	
+	
+	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	public Criteria(){
 		this.page = 1;
 		this.perPageNum = 10;

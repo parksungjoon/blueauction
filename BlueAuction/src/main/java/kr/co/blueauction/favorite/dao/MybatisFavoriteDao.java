@@ -45,6 +45,12 @@ public class MybatisFavoriteDao implements FavoriteDao{
 	}
 	
 	@Override
+	public void deleteByProductId(int productId) {
+		sqlSession.delete(NAMESPACE+".deleteByProductId", productId);
+	}
+	
+	
+	@Override
 	public Favorite favoriteCheck(Favorite favorite) {
 		return sqlSession.selectOne(NAMESPACE + ".favoriteCheck", favorite);
 	}

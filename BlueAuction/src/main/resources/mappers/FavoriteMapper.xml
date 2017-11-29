@@ -39,6 +39,11 @@
        		AND member_id = #{memberId}
 	</delete>
 	
+	<delete id="deleteByProductId" parameterType="int">
+		DELETE FROM favorite 
+		WHERE  product_id = #{productId} 
+	</delete>
+	
 	<!-- 관심경매 등록 여부 조회 -->
 	<select id="favoriteCheck" parameterType="Favorite" resultType="Favorite">
 		select *

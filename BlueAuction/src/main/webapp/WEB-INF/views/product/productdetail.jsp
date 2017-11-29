@@ -23,6 +23,7 @@
     
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
+	var productId = ${product.productId};
 	
 	 $(document).ready(function(){
 		 /* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
@@ -57,39 +58,41 @@
 		 });
 		 var formObj = $("#modifyPage");
 		 $("#removeBtn").click(function(event) {
-				var productId = formObj.attr("action");
 				
-				formObj.attr("action", "/product/auction/remove/"+productId);    
-				formObj.attr("method", "post");
-				formObj.submit();
+				var deleteForm = document.createElement("form");
+				deleteForm.setAttribute("method", "post");
+				deleteForm.setAttribute("action", "/product/auction/"+productId);
+				
+				var input = document.createElement('input');
+				input.setAttribute("type", "hidden");
+				input.setAttribute("name", "_method");
+				input.setAttribute("value", "delete");
+				
+				deleteForm.appendChild(input);
+				document.body.appendChild(deleteForm);
+				deleteForm.submit();
 				
 			});
 		 
 		 /* 글 수정 버튼 이벤트 */
 		 $("#modifyBtn").click(function(event) {
-		 	event.preventDefault();
-		 	var productId = formObj.attr("action");
 		 	
-		 	formObj.attr("action", "/product/auction/modifypage/"+productId);
-	    	formObj.attr("method", "post");
-	    	formObj.submit();
+		 	var modifyForm = document.createElement("form");
+		 	modifyForm.setAttribute("method", "get");
+		 	modifyForm.setAttribute("action", "/product/auction/modify/"+productId);
+		 	document.body.appendChild(modifyForm);
+		 	modifyForm.submit();
 		 });
 		
 		 /* 이전 목록으로 돌아가는 이벤트 */
 		$("#goListBtn").click(function(event){
 			event.preventDefault();
 			
-			 /* window.history.back(); */
-			
 			var type = $("#type").attr('value');
 			var smallid = ${product.smallid};
 			
 			formObj.attr("action", "/product/auction/"+type+"/"+smallid);    
 			formObj.attr("method", "GET");
-			
-			/* alert("type : " + type);
-			alert("smallid : " + smallid);
-			alert("formObj : " + formObj.attr("action")); */
 			
 			formObj.submit();
 		});
@@ -280,7 +283,6 @@
             </div>
           </div>
         </div>
-        
          <!-- Hover Row Table (입찰 리스트) START -->
         <%-- <div class="shell">
           <div class="range range-xs-center">
@@ -354,27 +356,19 @@
           </div>
         </div>
 
-
-		<form role="form" action="${productId}" method="post" id="modifyPage" style="margin-top: 30px;">
-			<%-- <input type='hidden' name='page' value="${page}"> 
-			<input type='hidden' name='type' value="${type}">
-			<input type='hidden' name='keyword' value="${keyword}">
-			<input type='hidden' name='smallid' value="${smallid}"> --%>
-
 			<div class="shell">
 				<div class="range range-xs-right">
 					<div class="cell-sm-10 cell-lg-4">
 						<button class="btn" id="goListBtn"><a href="${productId}">GO BACK</a></button>
 						<c:if test="${(login.memberId).equals(product.seller)}">
 							<c:if test='${(product.auctionstate).equals("BEFORE")}'>
-								<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-								<button type="submit" class="btn btn-danger" id="remove">REMOVE</button>
+								<button class="btn btn-warning" id="modifyBtn">Modify</button>
+								<button class="btn btn-danger" id="remove">REMOVE</button>
 							</c:if>
 						</c:if>
 					</div>
 				</div>
 			</div>
-		</form>
 
 		</section>
       <!-- Product Page END-->

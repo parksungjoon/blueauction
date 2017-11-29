@@ -95,8 +95,8 @@
                 <!-- Select 2-->
                 <div style="margin-top: -4px; height: 5px;">
                 <select class="form-control select-filter" data-placeholder="All" data-minimum-results-for-search="Infinity" data-constraints="@Selected" id="searchType" name="searchType">
-                  <option value="R" <c:out value="${cri.keyword eq 'R'?'selected':''}"/>>받은편지함</option>
-                  <option value="S" <c:out value="${cri.keyword eq 'S'?'selected':''}"/>>보낸편지함</option>
+                  <option value="R" <c:out value="${pageMaker.cri.keyword eq 'R'?'selected':''}"/>>받은편지함</option>
+                  <option value="S" <c:out value="${pageMaker.cri.keyword eq 'S'?'selected':''}"/>>보낸편지함</option>
                 </select>
                 </div>
               </div>
@@ -106,10 +106,10 @@
                     <tr class="danger">
                       <th>#</th>
                       <th>제목</th>
-                      <c:if test="${cri.keyword=='R' || null}">
+                      <c:if test="${pageMaker.cri.keyword=='R' || null}">
                       <th>보낸이</th>
                       </c:if>
-                      <c:if test="${cri.keyword=='S'}">
+                      <c:if test="${pageMaker.cri.keyword=='S'}">
                       <th>받는이</th>
                       </c:if>
                       <th>등록일</th>
@@ -122,11 +122,11 @@
                   <c:forEach var="note" items="${list}" varStatus="status">
                     <tr>
                       <td>${pageMaker.getTotalCount()-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
-                      <td><a href="/member/mypage/note/read?noteId=${note.noteId}">${note.subject}</a></td>
-                      <c:if test="${cri.keyword=='R' || null}">
+                      <td><a href="/member/mypage/note/read/${note.noteId}">${note.subject}</a></td>
+                      <c:if test="${pageMaker.cri.keyword=='R' || null}">
                       <td>${note.sender}</td>
                       </c:if>
-                      <c:if test="${cri.keyword=='S'}">
+                      <c:if test="${pageMaker.cri.keyword=='S'}">
                       <td>${note.receiver}</td>
                       </c:if>
                       <td>${note.regdate}</td>
@@ -142,17 +142,18 @@
 
           <c:if test="${pageMaker.prev}">
             <li class="prev"><a
-              href="${pageMaker.makerSearch(pageMaker.startPage-1)}">이전목록</a></li>
+              href="/member/mypage/note/list/${pageMaker.startPage-1}/${pageMaker.cri.getPerPageNum()}/${pageMaker.cri.getKeyword()}">이전목록</a></li>
           </c:if>
 
           <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
             <li <c:out value="${pageMaker.cri.page==idx?' class=active':''}"/>>
-            <a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
+            <a href="/member/mypage/note/list/${idx}/${pageMaker.cri.getPerPageNum()}/${pageMaker.cri.getKeyword()}">${idx}</a>
             </li>
           </c:forEach>
 
           <c:if test="${pageMaker.next && pageMaker.endPage>0}">
-            <li><a href="/member/mypage/note/list${pageMaker.makeSearch(pageMaker.endPage+1)}">다음목록</a></li>
+            <%-- <li><a href="/member/mypage/note/list${pageMaker.makeSearch(pageMaker.endPage+1)}">다음목록</a></li> --%>
+            <li><a href="/member/mypage/note/list/${pageMaker.endPage+1}/${pageMaker.cri.getPerPageNum()}/${pageMaker.cri.getKeyword()}">다음목록</a></li>
           </c:if>
         </ul>
         </div>
@@ -189,8 +190,8 @@
   	$(function(){
   		$('#searchType').on("change", function(event){
   			self.location="/member/mypage/note/list"
-  						+'${pageMaker.makeQuery(1)}'
-  						+"&keyword="
+  						+'/1'
+  						+"/${pageMaker.cri.getPerPageNum()}/"
   						+$("select option:selected").val();
   		});
 

@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.SearchCriteria;
+import kr.co.blueauction.favorite.dao.FavoriteDao;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.photo.dao.PhotoDao;
 import kr.co.blueauction.photo.domain.Photo;
@@ -36,6 +37,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 	@Inject
 	PhotoDao photoDao;
+	@Inject
+	FavoriteDao favoriteDao;
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
@@ -130,6 +133,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void delete(int productId) throws Exception {
+		favoriteDao.deleteByProductId(productId);
 		photoDao.deleteByproductId(productId);
 		productDao.delete(productId);
 	}
