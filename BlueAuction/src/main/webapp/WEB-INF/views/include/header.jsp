@@ -5,7 +5,16 @@
 <link rel="stylesheet" href="/resources/css/ksj-css.css">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
 <script type="text/javascript">
-
+	$(document).ready(function(){
+		$(".select-menu").click(function(event){
+			 var remove = "#" + $(".active").attr("id");
+			 var add = "#" + $(this).attr("id");
+			 /* alert(remove + ", " + $(this).attr("id")); */
+			 $(add).addClass("active");
+			 $(remove).removeClass("active");
+			
+		});
+	});
 </script>
 <header class="section page-header">
 	<!-- RD Navbar-->
@@ -25,9 +34,9 @@
                   <ul class="jjh-headerNav">
                     <li class="jjh-headerLi">
     					<ul class="rd-navbar-nav">
-    						<li class="active"><a href="/">Home</a></li>
-    						<li><a href="/product/used">중고상품</a></li>
-    						<li><a href="/product/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
+    						<li id="select-home" class="select-menu"><a href="/">Home</a></li>
+    						<li id="select-used" class="select-menu"><a href="/product/used">중고상품</a></li>
+    						<li id="select-auction" class="select-menu"><a href="/product/auction/1/0">경매상품</a> <!-- RD Navbar Dropdown-->
     							<ul class="rd-navbar-dropdown">
     								<!-- <li><a href="/product/auction/1/0">시작전 경매</a></li>
     								<li><a href="/product/auction/2/0">진행중 경매</a></li>
