@@ -93,7 +93,6 @@
 			
 			formObj.submit();
 		});
-	      
 	  });
 	
 	</script>
@@ -188,7 +187,7 @@
 			  </div>
               <h3 id="productName">${product.name}   
               <button class="ksj-favoriteButton" id="${product.productId}">
-              <c:if test="${not empty login || login.memberId eq product.seller}">
+              <c:if test='${not empty login && product.auctionstate eq "BEFORE"}'>
               <c:choose>
               	<c:when test="${favorite.favoriteId == 0}">
               		<img alt="favorite-register" src="/resources/images/empty-heart.png">
@@ -365,7 +364,7 @@
 			<div class="shell">
 				<div class="range range-xs-right">
 					<div class="cell-sm-10 cell-lg-4">
-						<button class="btn" id="goListBtn"><a href="${productId}">GO LIST</a></button>
+						<button class="btn" id="goListBtn"><a href="${productId}">GO BACK</a></button>
 						<c:if test="${(login.memberId).equals(product.seller)}">
 							<c:if test='${(product.auctionstate).equals("BEFORE")}'>
 								<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
@@ -489,7 +488,7 @@ function receiveMsgFromChild( e ) {
       $('#maxPrice').html(e.data.maxprice);
       $('#presentNum').html(e.data.maxprice);
     }else if(e.data.title=='favorite'){
-    	console.log('자식으로부터 받은 즐겨찾기 리스트'+e.data.list);
+    	/* console.log('자식으로부터 받은 즐겨찾기 리스트'+e.data.list); */
     	$('#favorite').html(e.data.list);
     	$('#favoriteModal').modal('show');
     }else if(e.data.title=='noteCount'){
@@ -528,13 +527,9 @@ window.onload=function(){
 		 self.location="/order/payment/${productId}"; 
 	  });
 	  
-	 
-	  
 	//경매 종료시 입찰 버튼 없애기 
 	$('#bidendDate').countdown('option',{onExpiry: liftOff});
 	  
-	  
-	 
 }
 function liftOff(){
 	  $('#bidModalOpen').remove();
