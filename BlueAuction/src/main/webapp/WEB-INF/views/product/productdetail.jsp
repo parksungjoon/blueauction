@@ -76,19 +76,17 @@
 		 
 		 /* 글 수정 버튼 이벤트 */
 		 $("#modifyBtn").click(function(event) {
-		 	event.preventDefault();
-		 	var productId = formObj.attr("action");
 		 	
-		 	formObj.attr("action", "/product/auction/modify/"+productId);
-	    	formObj.attr("method", "get");
-	    	formObj.submit();
+		 	var modifyForm = document.createElement("form");
+		 	modifyForm.setAttribute("method", "get");
+		 	modifyForm.setAttribute("action", "/product/auction/modify/"+productId);
+		 	document.body.appendChild(modifyForm);
+		 	modifyForm.submit();
 		 });
 		
 		 /* 이전 목록으로 돌아가는 이벤트 */
 		$("#goListBtn").click(function(event){
 			event.preventDefault();
-			
-			 /* window.history.back(); */
 			
 			var type = $("#type").attr('value');
 			var smallid = ${product.smallid};
@@ -285,7 +283,6 @@
             </div>
           </div>
         </div>
-        
          <!-- Hover Row Table (입찰 리스트) START -->
         <%-- <div class="shell">
           <div class="range range-xs-center">
@@ -359,27 +356,19 @@
           </div>
         </div>
 
-
-		<form role="form" action="${productId}" method="get" id="modifyPage" style="margin-top: 30px;">
-			<%-- <input type='hidden' name='page' value="${page}"> 
-			<input type='hidden' name='type' value="${type}">
-			<input type='hidden' name='keyword' value="${keyword}">
-			<input type='hidden' name='smallid' value="${smallid}"> --%>
-
 			<div class="shell">
 				<div class="range range-xs-right">
 					<div class="cell-sm-10 cell-lg-4">
 						<button class="btn" id="goListBtn"><a href="${productId}">GO BACK</a></button>
 						<c:if test="${(login.memberId).equals(product.seller)}">
 							<c:if test='${(product.auctionstate).equals("BEFORE")}'>
-								<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-								<button type="submit" class="btn btn-danger" id="remove">REMOVE</button>
+								<button class="btn btn-warning" id="modifyBtn">Modify</button>
+								<button class="btn btn-danger" id="remove">REMOVE</button>
 							</c:if>
 						</c:if>
 					</div>
 				</div>
 			</div>
-		</form>
 
 		</section>
       <!-- Product Page END-->

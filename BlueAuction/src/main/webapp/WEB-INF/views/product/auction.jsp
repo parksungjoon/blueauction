@@ -257,10 +257,10 @@
     	  	  		html +="        </div>";
     	  		}
     	  		
-    	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage' href='/product/auction/readpage/" + list[i].productId + "'>Detail</a></div>";
+    	  		html +="        <div class='product-button'><a class='jjh-listButton button-secondary readPage' href='/product/auction/" + list[i].productId + "'>Detail</a></div>";
     	  		
     	  		if(type == 1){
-      	  		if(${login != null}){
+      	  		if(${login ne null}){
           	  		// 관심경매 하트 표시
           	  		 for ( var j in favorite) {
           	  			var state = false; // 상품에 대한 관심경매 여부 초기화(false)
@@ -420,7 +420,7 @@
                               </c:when>
                             </c:choose>
                             
-                            <div class="product-button"><a class="jjh-listButton button-secondary readPage" href="/product/auction/readpage/${product.productId }">Detail</a></div>
+                            <div class="product-button"><a class="jjh-listButton button-secondary readPage" href="/product/auction/${product.productId }">Detail</a></div>
                             <c:if test="${type == 1 }">
                             
                             <c:if test="${not empty login}">

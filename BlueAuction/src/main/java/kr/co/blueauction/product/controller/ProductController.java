@@ -226,7 +226,7 @@ public class ProductController {
 		// 사진 및 수정 데이터 저장
 		productService.modify(product);
 		
-		String url = "redirect:/product/auction/readpage/"+productId+"";
+		String url = "redirect:/product/auction/"+productId+"";
 		
 		return url;
 	}

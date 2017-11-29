@@ -250,7 +250,7 @@
                         
                         <div class="cell-sm-12 offset-custom-1">
                           <div class="form-button text-sm-right">
-                          	<button type="submit" class="btn btn-warning">Modify</button>
+                          	<button type="submit" class="btn btn-warning" id="modify">Modify</button>
 							<button id="can" class="btn btn-danger">Cancle</button>
                           </div>
                         </div>
