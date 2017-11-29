@@ -75,7 +75,8 @@
                       <th>#</th>
                       <th>상품명</th>
                       <th>상품 정보</th>
-                      <th>경매 상태</th>
+                      <th>경매상태</th>
+                      <th>경매 시작시간</th>
                       <!-- <th>판매 상태</th> -->
                     </tr>
                   </thead>
@@ -85,13 +86,12 @@
                       <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${product.name}</a></td>  
                       <td>${product.productinfo}</td>
-                      <td>${product.auctionstate}</td>
-                      
-                       <%--  <c:choose>
-                  <c:when test="${product.auctionstate=='AFTER'}">경매종료</c:when>
-                  <c:when test="${product.auctionstate=='BEBORE'}">경매시작전</c:when>
-                </c:choose> --%>
-                     
+                         <c:choose>
+                   <c:when test="${product.auctionstate=='AFTER'}"><td>경매마감</td></c:when>
+                   <c:when test="${product.auctionstate=='DOING'}"><td style="color:red">경매중</td></c:when>
+                   <c:when test="${product.auctionstate=='BEFORE'}"><td >경매시작전</td></c:when>
+                   </c:choose>
+                    <td>${product.auctionstart }</td> 
                     </tr>
                   </c:forEach>
                   </tbody>
@@ -105,7 +105,7 @@
 
               <c:forEach begin="${pageMaker.startPage }"
                 end="${pageMaker.endPage }" var="idx">
-                <li
+                <li 
                   <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
                   <a href="/member/mypage/auctionmarket${pageMaker.makeSearch(idx)}">${idx}</a>
                 </li>

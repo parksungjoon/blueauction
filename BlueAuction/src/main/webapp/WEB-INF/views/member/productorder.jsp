@@ -85,7 +85,7 @@
                     <td>${map.productList[status.index].name}</td>
                     <td>${map.productList[status.index].price}</td>
                     
-                     <c:choose>
+                       <c:choose>
                    <c:when test="${order.dstate==NULL}"><td>배송전</td></c:when>
                    <c:when test="${order.dstate=='N'}"><td>배송전</td></c:when>
                    <c:when test="${order.dstate=='Y'}"><td>배송완료</td></c:when>
