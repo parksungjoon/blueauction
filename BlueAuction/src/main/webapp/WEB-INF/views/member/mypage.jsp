@@ -19,15 +19,46 @@
 <link rel="stylesheet" href="/resources/css/style.css">
 <link rel="stylesheet" href="/resources/css/mdi.css">
 <link rel="stylesheet" href="/resources/css/fl-bigmug-line.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <%--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/">
     <img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 		<![endif]--%>
 <link rel="stylesheet" href="/resources/css/hideSearch.css">
+
 </head>
 
 <body>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	var a=${member.bank};
+	if(a="1"){
+		$('#input-bank').val('국민');
+			}
+	if(a="2"){
+		$('#input-bank').val('농협');
+			}
+	if(a="3"){
+		$('#input-bank').val('신한');
+			}
+	if(a="4"){
+		$('#input-bank').val('신협');
+			}
+	if(a="5"){
+		$('#input-bank').val('우리');
+			}
+	if(a="6"){
+		$('#input-bank').val('하나');
+			}
+	if(a="7"){
+		$('#input-bank').val('기업');
+			}
+	
+}); 
+</script>
+
 	<%-- Page preloader--%>
 	<jsp:include page="/WEB-INF/views/include/pageloader.jsp" />
 
@@ -114,9 +145,8 @@
 										<div class="cell-sm-6">
 											<div class="form-wrap form-wrap-validation">
 												<label class="form-label-outside"
-													for="forms-3-street-address">bank</label> <input
-													class="form-input" id="forms-3-street-address" type="text" value=${member.bank}
-													name="street-address" disabled>
+													for="input-bank">bank</label>
+                                           <input class="form-input" id="input-bank" type="text" value="기업" name="street-address" disabled>
 											</div>
 										</div>
 										<div class="cell-sm-6">

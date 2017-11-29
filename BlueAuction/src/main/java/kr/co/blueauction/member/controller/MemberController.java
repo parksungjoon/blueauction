@@ -161,8 +161,9 @@ public class MemberController {
 	 * @param res HttpServletResponse
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/memberCheck")
+	@RequestMapping(value = "/membercheck", method = RequestMethod.POST)
 	public void checkId(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		logger.info("멤버채크");
 		PrintWriter out = res.getWriter();
 		try {
 			String paramId = (req.getParameter("memberId") == null) ? "" : String.valueOf(req.getParameter("memberId"));
@@ -183,7 +184,7 @@ public class MemberController {
 	 * @param res
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/memberemailcheck")
+	@RequestMapping(value = "/memberemailcheck", method = RequestMethod.POST)
 	public void checkEmail(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		PrintWriter out = res.getWriter();
 		try {
