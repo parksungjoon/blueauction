@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.note.dao.NoteDao;
 import kr.co.blueauction.note.domain.Note;
@@ -45,13 +46,13 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public List<Note> listByCri(SearchCriteria cri, String memberId) {
+	public List<Note> listByCri(Criteria cri, String memberId) {
 		// TODO Auto-generated method stub
 		return noteDao.listByCri(cri, memberId);
 	}
 
 	@Override
-	public int listCountCriteria(SearchCriteria cri, String memberId) {
+	public int listCountCriteria(Criteria cri, String memberId) {
 		// TODO Auto-generated method stub
 		return noteDao.countCri(cri,memberId);
 	}

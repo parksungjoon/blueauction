@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.note.domain.Note;
 
@@ -50,7 +51,7 @@ public class MybatisNoteDao implements NoteDao {
 	}
 
 	@Override
-	public List<Note> listByCri(SearchCriteria cri, String memberId) {
+	public List<Note> listByCri(Criteria cri, String memberId) {
 		Map<String, Object> paramMap=new HashMap<String, Object>();
 		paramMap.put("cri", cri);
 		paramMap.put("memberId", memberId);
@@ -58,7 +59,7 @@ public class MybatisNoteDao implements NoteDao {
 	}
 
 	@Override
-	public int countCri(SearchCriteria cri, String memberId) {
+	public int countCri(Criteria cri, String memberId) {
 		Map<String, Object> paramMap=new HashMap<String, Object>();
 		paramMap.put("cri", cri);
 		paramMap.put("memberId", memberId);

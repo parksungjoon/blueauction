@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -239,8 +240,17 @@ public class MemberController {
 		return "member/auctionmarket";
 	}
 
+	
+	/**
+	 * @param cri
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 * 최초 쪽지함 클릭시 출력
+	 */
 	@RequestMapping(value = "/mypage/note/list", method = RequestMethod.GET)
-	public String noteList(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model)
+	public String noteList(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
 			throws Exception {
 		logger.info("크리투스트링:" + cri.toString());
 		// login 세션을 가저옴
@@ -257,7 +267,43 @@ public class MemberController {
 		List<Note> notelist = noteService.listByCri(cri, memberId);
 		model.addAttribute("list", notelist);
 
-		PageMaker pageMaker = new PageMaker();
+		PageMaker2 pageMaker = new PageMaker2();
+		pageMaker.setCri(cri);
+
+		pageMaker.setTotalCount(noteService.listCountCriteria(cri, memberId));
+		model.addAttribute("pageMaker", pageMaker);
+
+		return "member/noteList";
+	}
+	
+	/**
+	 * @param page
+	 * @param perPageNum
+	 * @param keyword
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 * 받은편지함, 보낸편지함 조회시
+	 */
+	@RequestMapping(value = "/mypage/note/list/{page}/{perPageNum}/{keyword}", method = RequestMethod.GET)
+	public String noteListByCri(@PathVariable("page") int page, @PathVariable("perPageNum") int perPageNum, @PathVariable("keyword") String keyword, HttpSession session, Model model)
+			throws Exception {
+		logger.info("크리투스트링: page" +page+"perPageNum:"+perPageNum+"keyword"+keyword );
+		// login 세션을 가저옴
+		Object member = session.getAttribute("login");
+		Member member1 = (Member) member;
+		Criteria cri=new Criteria();
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
+		cri.setKeyword(keyword);
+		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
+		String memberId = member1.getMemberId();
+		List<Note> notelist = noteService.listByCri(cri, memberId);
+		logger.info("보낸편지함"+notelist.toString());
+		model.addAttribute("list", notelist);
+
+		PageMaker2 pageMaker = new PageMaker2();
 		pageMaker.setCri(cri);
 
 		pageMaker.setTotalCount(noteService.listCountCriteria(cri, memberId));
@@ -266,8 +312,15 @@ public class MemberController {
 		return "member/noteList";
 	}
 
-	@RequestMapping(value = "/mypage/note/read", method = RequestMethod.GET)
-	public String noteRead(@RequestParam("noteId") int noteId, Model model, HttpSession session) {
+	/**
+	 * @param noteId
+	 * @param model
+	 * @param session
+	 * @return
+	 * 쪽지 읽기
+	 */
+	@RequestMapping(value = "/mypage/note/read/{noteId}", method = RequestMethod.GET)
+	public String noteRead(@PathVariable("noteId") int noteId, Model model, HttpSession session) {
 		Note note = noteService.readNote(noteId);
 		Object member = session.getAttribute("login");
 		Member member1 = (Member) member;
@@ -282,6 +335,12 @@ public class MemberController {
 		return "member/noteRead";
 	}
 
+	/**
+	 * @param noteId
+	 * @param rttr
+	 * @return
+	 * 쪽지 삭제
+	 */
 	@RequestMapping(value = "/mypage/note/delete", method = RequestMethod.POST)
 	public String noteDelete(@RequestParam("noteId") int noteId, RedirectAttributes rttr) {
 		noteService.deleteNote(noteId);
