@@ -378,12 +378,11 @@
 				</dl> 
                   <c:if test="${login.memberId!=product.seller}">
                 <a class="button button-xs button-secondary" id="purchase" href="/order/payment/${product.productId}">구매하기</a>
-                 
+                </c:if>
                 <c:if test="${not empty login }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
                 <c:if test="${login.memberId!=product.seller }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
-                </c:if>
                 </c:if>
                 </c:if>
               </div>
