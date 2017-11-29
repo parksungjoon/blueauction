@@ -44,7 +44,6 @@ public class mainInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	private void saveDest(HttpServletRequest req) {
-		logger.info("mainInterceptor saveDest 실행");
 		String uri = req.getRequestURI();
 		String query = req.getQueryString();
 

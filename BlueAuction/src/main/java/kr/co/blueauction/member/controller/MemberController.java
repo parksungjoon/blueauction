@@ -306,6 +306,23 @@ public class MemberController {
 		model.addAttribute("pageMaker", pageMaker2);
 		return "member/auctionmarket";
 	}
+	
+	@RequestMapping(value = "/mypage/auctionmarket/{page}/{perPageNum}", method = RequestMethod.GET)
+	public String auctionpage(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
+		Criteria cri=new Criteria();
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);Object member = session.getAttribute("login");
+		Member member1 = (Member) member;
+		String memberId = member1.getMemberId();
+		String auctionFlag = "Y";
+		model.addAttribute("products", productService.productSellListCriteria(cri, memberId, auctionFlag).get("products"));
+		
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(productService.listCountCriteria(memberId, auctionFlag));
+		model.addAttribute("pageMaker", pageMaker2);
+		return "member/auctionmarket";
+	}
 
 	/**
 	 * 해당아이디에 note리스트로 이동
@@ -371,6 +388,25 @@ public class MemberController {
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
 		return "redirect:/member/mypage/note/list";
+	}
+	
+	@RequestMapping(value = "/mypage/goodsmarket/{page}/{perPageNum}", method=RequestMethod.GET)
+	public String productpage(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
+		Criteria cri=new Criteria();
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
+		logger.info("cri.toString()"+cri.toString());
+		Object member = session.getAttribute("login");
+		Member member1 = (Member) member;
+		String memberId = member1.getMemberId();
+		String auctionFlag = "N";
+		model.addAttribute("products", productService.productSellListCriteria(cri, memberId, auctionFlag).get("products"));
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(productService.listCountCriteria(memberId,auctionFlag));
+		model.addAttribute("pageMaker", pageMaker2);
+		return "member/productsmarket";
+		
 	}
 
 

@@ -97,22 +97,22 @@
                   </tbody>
                 </table>
                    </div>
-          <div style="text-align: center;" >
+         <div style="text-align: center;">
              <ul class="kbh">
               <c:if test="${pageMaker.prev}">
-                <li><a href="/member/mypage/auctionmarket${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+                <li><a href="/order/mypage/productorder${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
               </c:if>
 
               <c:forEach begin="${pageMaker.startPage }"
                 end="${pageMaker.endPage }" var="idx">
-                <li 
+                <li
                   <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-                  <a href="/member/mypage/auctionmarket${pageMaker.makeSearch(idx)}">${idx}</a>
+                  <a href="/order/mypage/productorder/${pageMaker.cri.page+1}/${pageMaker.cri.perPageNum}">${idx}</a>
                 </li>
               </c:forEach>
 
               <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-                <li><a href="/member/mypage/auctionmarket${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+                <li><a href="/order/mypage/productorder${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
               </c:if>
 
             </ul>

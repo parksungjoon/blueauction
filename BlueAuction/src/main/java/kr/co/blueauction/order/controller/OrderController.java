@@ -70,6 +70,25 @@ public class OrderController {
 		model.addAttribute("pageMaker", pageMaker2);
 		return "member/productorder";
 	}
+	@RequestMapping(value = "/mypage/productorder/{page}/{perPageNum}", method = RequestMethod.GET)
+	public String page(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
+		Criteria cri=new Criteria();
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
+		Object member = session.getAttribute("login");
+		Member member1 = (Member) member;
+		String memberId = member1.getMemberId();
+		String auctionFlag = "N";
+		Map<String, Object> map = orderService.orderListCriteria(cri, memberId, auctionFlag);
+
+		model.addAttribute("map", map);
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(orderService.listCountCriteria(memberId, auctionFlag));
+		model.addAttribute("pageMaker", pageMaker2);
+		return "member/productorder";
+	}
+
 
 	/**
 	 * 해당아이디에 옥션구매 리스트로 이동
@@ -81,6 +100,27 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/mypage/auctionorder", method = RequestMethod.GET)
 	public String auctionorder(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
+		Object member = session.getAttribute("login");
+		Member member1 = (Member) member;
+		String memberId = member1.getMemberId();
+		String auctionFlag = "Y";
+
+		Map<String, Object> map = orderService.orderListCriteria(cri, memberId, auctionFlag);
+		model.addAttribute("map", map);
+
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(orderService.listCountCriteria(memberId, auctionFlag));
+		model.addAttribute("pageMaker", pageMaker2);
+
+		return "member/auctionorder";
+	}
+	
+	@RequestMapping(value = "/mypage/auctionorder/{page}/{perPageNum}", method = RequestMethod.GET)
+	public String auctionorderpage(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
+		Criteria cri=new Criteria();
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
 		Object member = session.getAttribute("login");
 		Member member1 = (Member) member;
 		String memberId = member1.getMemberId();

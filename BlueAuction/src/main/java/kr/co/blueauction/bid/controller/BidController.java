@@ -66,6 +66,24 @@ public class BidController {
 		return "member/bidlist";
 	}
 	
+	@RequestMapping(value ="/mypage/bidlist/{page}/{perPageNum}", method = RequestMethod.GET)
+	public String mybidlistpage(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
+		Criteria cri=new Criteria();
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
+		Object member = session.getAttribute("login");
+		Member member1 = (Member) member;
+		String memberId = member1.getMemberId();
+		String winning = "N";
+		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
+		model.addAttribute("map", map);
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(service.bidCountCriteria(memberId, winning));
+		model.addAttribute("pageMaker", pageMaker2);
+		return "member/bidlist";
+	}
+	
 	/**
 	 *  해당아이디에 낙찰리스트 리스트로 이동
 	 * @param cri
@@ -76,6 +94,20 @@ public class BidController {
 	 */
 	@RequestMapping(value ="/mypage/winninglist", method = RequestMethod.GET)
 	public String mywinninglist(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
+		Object member = session.getAttribute("login");
+		Member member1 = (Member) member;
+		String memberId = member1.getMemberId();
+		String winning = "Y";
+		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
+		model.addAttribute("map", map);
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri(cri);
+		pageMaker2.setTotalCount(service.bidCountCriteria(memberId, winning));
+		model.addAttribute("pageMaker", pageMaker2);
+		return "member/winninglist";
+	}
+	@RequestMapping(value ="/mypage/winninglist/{page}/{perPageNum}", method = RequestMethod.GET)
+	public String mywinninglistpage(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
 		Object member = session.getAttribute("login");
 		Member member1 = (Member) member;
 		String memberId = member1.getMemberId();

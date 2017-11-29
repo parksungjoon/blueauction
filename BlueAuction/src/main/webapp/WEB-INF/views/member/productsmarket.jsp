@@ -108,7 +108,7 @@
                 end="${pageMaker.endPage }" var="idx">
                 <li
                   <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-                  <a href="/member/mypage/goodsmarket${pageMaker.makeSearch(idx)}">${idx}</a>
+                  <a href="/member/mypage/goodsmarket/${pageMaker.cri.page+1}/${pageMaker.cri.perPageNum}">${idx}</a>
                 </li>
               </c:forEach>
 
