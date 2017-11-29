@@ -100,6 +100,7 @@
     	  
           sendAttachment();
           autoUpload();
+          fileSize = ${filesSize};
       });
       
       /* 첨부파일 삭제 */
