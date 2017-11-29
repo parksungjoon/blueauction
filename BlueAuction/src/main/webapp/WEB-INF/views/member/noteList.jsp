@@ -68,8 +68,8 @@
     <section
       class="breadcrumbs-custom breadcrumbs-custom-svg bg-gradient breadcrumbs-background-01">
     <div class="shell">
-      <p class="breadcrumbs-custom-subtitle">Product</p>
-      <p class="heading-1 breadcrumbs-custom-title">Autcion Product</p>
+      <p class="breadcrumbs-custom-subtitle">Mypage</p>
+      <p class="heading-1 breadcrumbs-custom-title">Note List</p>
       <ul class="breadcrumbs-custom-path">
         <li><a href="/">Home</a></li>
         <li><a href="/member/mypage">MyPage</a></li>
