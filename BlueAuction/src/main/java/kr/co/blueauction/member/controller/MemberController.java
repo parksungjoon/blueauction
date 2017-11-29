@@ -128,15 +128,7 @@ public class MemberController {
 		return "/member/mypage";
 	}
 
-	/**
-	 * 메인페이지 GET
-	 * @param member
-	 * @return
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String mainGET() {
-		return "/examplePage/main";
-	}
+
 
 	/**
 	 * 회원가입페이지 이동

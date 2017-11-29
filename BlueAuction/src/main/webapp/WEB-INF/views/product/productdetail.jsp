@@ -23,6 +23,7 @@
     
 	<script src="/resources/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
+	var productId = ${product.productId};
 	
 	 $(document).ready(function(){
 		 /* 관심경매 버튼(하트 버튼) 클릭 시 관심경매 등록, 삭제 */
@@ -57,11 +58,19 @@
 		 });
 		 var formObj = $("#modifyPage");
 		 $("#removeBtn").click(function(event) {
-				var productId = formObj.attr("action");
 				
-				formObj.attr("action", "/product/auction/remove/"+productId);    
-				formObj.attr("method", "post");
-				formObj.submit();
+				var deleteForm = document.createElement("form");
+				deleteForm.setAttribute("method", "post");
+				deleteForm.setAttribute("action", "/product/auction/"+productId);
+				
+				var input = document.createElement('input');
+				input.setAttribute("type", "hidden");
+				input.setAttribute("name", "_method");
+				input.setAttribute("value", "delete");
+				
+				deleteForm.appendChild(input);
+				document.body.appendChild(deleteForm);
+				deleteForm.submit();
 				
 			});
 		 
@@ -70,8 +79,8 @@
 		 	event.preventDefault();
 		 	var productId = formObj.attr("action");
 		 	
-		 	formObj.attr("action", "/product/auction/modifypage/"+productId);
-	    	formObj.attr("method", "post");
+		 	formObj.attr("action", "/product/auction/modify/"+productId);
+	    	formObj.attr("method", "get");
 	    	formObj.submit();
 		 });
 		
@@ -86,10 +95,6 @@
 			
 			formObj.attr("action", "/product/auction/"+type+"/"+smallid);    
 			formObj.attr("method", "GET");
-			
-			/* alert("type : " + type);
-			alert("smallid : " + smallid);
-			alert("formObj : " + formObj.attr("action")); */
 			
 			formObj.submit();
 		});
@@ -355,7 +360,7 @@
         </div>
 
 
-		<form role="form" action="${productId}" method="post" id="modifyPage" style="margin-top: 30px;">
+		<form role="form" action="${productId}" method="get" id="modifyPage" style="margin-top: 30px;">
 			<%-- <input type='hidden' name='page' value="${page}"> 
 			<input type='hidden' name='type' value="${type}">
 			<input type='hidden' name='keyword' value="${keyword}">
