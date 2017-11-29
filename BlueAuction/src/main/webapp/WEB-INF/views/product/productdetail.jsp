@@ -101,7 +101,7 @@
   
   <body>
     <%-- Page preloader--%>
-    <jsp:include page="/WEB-INF/views/include/pageloader.jsp"/>
+    <%--  <jsp:include page="/WEB-INF/views/include/pageloader.jsp"/> --%>
     
     <%-- Page--%>
     <div class="page">
@@ -143,7 +143,7 @@
 		                    			<li class="active" data-large-image="/resources/images/img${photo}"><img class="jjh-finished" src="/resources/images/img${photo}" alt="" width="54" height="71"></li>
 		                    		</c:when>
 		                    		<c:otherwise>
-		                    			<li  data-large-image="/resources/images/img${photo}"><img class="jjh-finished" src="/resources/images/img${photo}" alt="" width="54" height="71"></li>
+		                    			<li data-large-image="/resources/images/img${photo}"><img class="jjh-finished" src="/resources/images/img${photo}" alt="" width="54" height="71"></li>
 		                    		</c:otherwise>
                     			</c:choose>
                     		</c:when>
@@ -162,14 +162,13 @@
                     	</c:forEach>
                       </ul>
                   </div>
-                  
-                  <div class="unit-right product-single-image" style="">
+                  <div class="unit-right product-single-image">
                   	<c:choose>
 	                  	<c:when test='${(product.auctionstate).equals("AFTER")}'>
-				        	<div class="product-single-image-element ksj-divImg" ><img class="product-image-area animateImageIn ksj-imgSize jjh-finished"  src="/resources/images/img${product.photo[0]}" alt=""></div>
+				        	<div class="product-single-image-element" ><img class="product-image-area animateImageIn ksj-imgSize jjh-finished"  src="/resources/images/img${product.photo[0]}" alt=""></div>
 				    	</c:when>
 				     	<c:otherwise>
-				        	<div class="product-single-image-element ksj-divImg" ><img class="product-image-area animateImageIn ksj-imgSize"  src="/resources/images/img${product.photo[0]}" alt=""></div>
+				        	<div class="product-single-image-element" ><img class="product-image-area animateImageIn ksj-imgSize"  src="/resources/images/img${product.photo[0]}" alt=""></div>
 				      	</c:otherwise>
                		</c:choose>
                   </div>
@@ -178,7 +177,7 @@
             </div>
             <!-- 상품 이미지 END -->
             
-            <div class="cell-md-5 cell-lg-4 cell-xl-4 text-center text-md-left">
+            <div class="cell-md-5 cell-lg-5 cell-xl-5 text-center text-md-left ksj-paddingR">
               <div class="heading-5" id="smallName">
 				<c:choose>
 					<c:when test="${product.smallid == 1 }"> 의류 </c:when>
@@ -261,6 +260,10 @@
 					<dt class="redprice">판매자</dt> <dd class="redprice">${product.seller}</dd>
 				</dl> 
 				
+				<c:if test='${(product.auctionstate).equals("DOING") && empty login}'>
+				<a href="/member/login" style="text-align: center;"> 입찰하시려면 로그인을 해주세요 </a>
+				</c:if>
+				
 				<c:if test='${(product.auctionstate).equals("DOING") && not empty login}'>
 				  <div id="clock">
 				  <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a>
@@ -311,8 +314,11 @@
         </div>  --%>
         <!-- 테스트 하시려면 주석을 푸세요요용. -->
         <%-- <iframe src="http://192.168.78:7778/?memberId=${login.memberId}" frameborder="0" style="visibility:hidden;"></iframe> --%>
-       <iframe id='child' src='http://192.168.0.78:7777/bid/?productId=${productId}&memberId=${login.memberId}' width=100%; frameborder='0' style="margin-bottom: 100px;" scrolling="no"></iframe>
+        <div class="shell">
+        <iframe id='child' src='http://192.168.0.78:7777/bid/?productId=${productId}&memberId=${login.memberId}' width=100%; frameborder='0' style="margin-bottom: 100px;" scrolling="no"></iframe>
+        </div>
         <!-- Hover Row Table (입찰 리스트) END --> 
+        
         
         <div class="shell">
           <div class="range range-xs-center">

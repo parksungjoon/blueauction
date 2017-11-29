@@ -322,7 +322,7 @@
       
       <!-- Product Page START-->
       <section class="section section-lg bg-white">
-        <div class="shell shell-bigger product-single">
+        <div class="shell shell-bigger product-single ksj-marginLeft">
           <div class="range range-ten range-xs-center range-md-justify range-30 range-md-middle">
           
           	<!-- 상품 이미지 START -->
@@ -351,7 +351,7 @@
             </div>
             <!-- 상품 이미지 END -->
             
-            <div class="cell-md-5 cell-lg-4 cell-xl-4 text-center text-md-left">
+            <div class="cell-md-5 cell-lg-5 cell-xl-5 text-center text-md-left ksj-paddingR">
               <div class="heading-5">
                 <c:choose>
                   <c:when test="${product.smallid == 1 }">의류</c:when>
@@ -360,7 +360,7 @@
                   <c:when test="${product.smallid == 4 }">가전제품</c:when>
                 </c:choose>
               </div>
-              <h3>${product.name }</h3>
+              <h3>${product.name}</h3>
               <div class="divider divider-default"></div>
               <div class="detail">
                <dl class="nv3 nfirst present">
