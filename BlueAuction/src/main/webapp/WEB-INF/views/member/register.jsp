@@ -56,7 +56,7 @@
 			type : 'POST',
 			data : "memberId=" + memberId,
 			dataType : "text",
-			url : '/member/memberCheck',
+			url : '/member/membercheck',
 			success : function(rData, textStatus, xhr) {
 				var chkRst = rData;
 				if (chkRst == "null") {
@@ -85,7 +85,7 @@
 			type : 'POST',
 			data : "email=" + email,
 			dataType : "text",
-			url : '/member/memberEmailCheck',
+			url : '/member/memberemailcheck',
 			success : function(rData, textStatus, xhr) {
 				var chkRst = rData;
 				if (chkRst == "null") {
@@ -111,7 +111,7 @@
 			type : 'POST',
 			data : "email=" + email,
 			dataType : "text",
-			url : '/member/emailAuthenCheck',
+			url : '/member/emailauthencheck',
 			success : function() {
 			}
 		}
@@ -127,7 +127,7 @@
 			type: 'POST',
 			data : "uid=" +uid,
 			dataType : "text",
-			url : '/member/uidCheck',
+			url : '/member/uidcheck',
 			success:function(data){
 				if(data =="1"){
 					alert("일치합니다");

@@ -89,7 +89,7 @@ public class MemberController {
 	 * @param model model
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
+	@RequestMapping(value = "/loginpost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
 		Member vo = service.login(dto);
 		if (vo == null) {
@@ -183,7 +183,7 @@ public class MemberController {
 	 * @param res
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/memberEmailCheck")
+	@RequestMapping(value = "/memberemailcheck")
 	public void checkEmail(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		PrintWriter out = res.getWriter();
 		try {
@@ -206,7 +206,7 @@ public class MemberController {
 	 * @param session
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/emailAuthenCheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/emailauthencheck", method = RequestMethod.POST)
 	public void checkEmailAuthenCheck(HttpServletRequest req, HttpServletResponse res, HttpSession session)
 			throws Exception {
 
@@ -237,7 +237,7 @@ public class MemberController {
 	 * @param session
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/uidCheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/uidcheck", method = RequestMethod.POST)
 	public void uidCheck(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
 		PrintWriter out = res.getWriter();
 		String paramuid = (req.getParameter("uid") == null) ? "" : String.valueOf(req.getParameter("uid"));

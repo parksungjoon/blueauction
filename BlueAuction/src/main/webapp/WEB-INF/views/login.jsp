@@ -42,7 +42,7 @@
               <div class="range range-xs-center">
                 <div class="cell-sm-8 cell-md-6 cell-lg-4">
                   <!-- RD Mailform-->
-                  <form action="/member/loginPost" class="rd-mailform" method="post">
+                  <form action="/member/loginpost" class="rd-mailform" method="post">
                     <div class="form-wrap form-wrap-validation">
                       <input class="form-input"  type="text" name="memberId" placeholder="id">
                       <label class="form-label" for="forms-login-name" value="ID"></label>

@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-loginPost임
+loginpost임
 <script type="text/javascript">
 self.location="/member/login";
 </script>
