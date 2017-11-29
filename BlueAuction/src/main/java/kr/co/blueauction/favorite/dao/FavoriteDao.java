@@ -26,6 +26,7 @@ public interface FavoriteDao {
 
 	/** 관심물품 삭제 */
 	public void delete(Favorite favorite);
+	public void deleteByProductId(int productId);
 	
 	/** 관심물품 여부 조회*/
 	public Favorite favoriteCheck(Favorite favorite);

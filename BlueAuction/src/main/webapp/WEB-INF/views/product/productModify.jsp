@@ -252,8 +252,6 @@
                           <div class="form-button text-sm-right">
                           	<button type="submit" class="btn btn-warning">Modify</button>
 							<button id="can" class="btn btn-danger">Cancle</button>
-                          	<!-- <button class="ksj-btn btn btn-warning button-secondary	btn-lg" type="submit">Modify</button>
-                          	<button class="ksj-btn btn btn-warning button-secondary btn-lg" id="can">Cancle</button> -->
                           </div>
                         </div>
                       </div>

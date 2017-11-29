@@ -58,12 +58,12 @@ public class ProductController {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 	
-	@Inject
+	@Inject 
 	FavoriteService favoriteService;
 	
 
 	/**
-	 * 관심경매 리스트 Get
+	 * 경매 리스트 Get
 	 * @param type 경매 타입(경매 시작 전 / 경매 중 / 경매 종료)
 	 * @param smallid 카테고리(의류, 잡화, 티켓, 가전제품)
 	 * @param model model
@@ -174,7 +174,7 @@ public class ProductController {
 	 * @return view String 값
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/auction/readpage/{productId}", method= RequestMethod.GET)
+	@RequestMapping(value="/auction/{productId}", method= RequestMethod.GET)
 	public String readPage(@PathVariable("productId") int productId, Model model, HttpSession session) throws Exception {
 		
 		String memberId = productService.memberIdGet(session);
@@ -205,17 +205,9 @@ public class ProductController {
 	 * @return view String 값
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/auction/modifypage/{productId}", method= RequestMethod.POST)
+	@RequestMapping(value="/auction/modify/{productId}", method= RequestMethod.GET)
 	public String modifyPagePOST(@PathVariable("productId") int productId, Model model) throws Exception {
 		model = productService.getDetail(productId, model);
-		
-		/*Gson json = new Gson();
-		String jsonlist = json.toJson(product);
-		
-		
-		model.addAttribute("product", product);
-		model.addAttribute("jsonP", jsonlist);*/
-		
 		return "/product/productModify";
 	}
 	
@@ -251,7 +243,7 @@ public class ProductController {
 	 * @return view String 값
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/auction/remove/{productId}", method= RequestMethod.POST)
+	@RequestMapping(value="/auction/{productId}", method= RequestMethod.DELETE)
 	public String remove(@PathVariable("productId")int productId, RedirectAttributes redirectAttributes, HttpSession session) throws Exception {
 		productService.delete(productId);
 		
