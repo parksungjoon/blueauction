@@ -1,7 +1,12 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김봉환
+ * @author 박성준
+ * @since 2017. 11. 13.
+ */
 package kr.co.blueauction.member.controller;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -18,7 +23,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,24 +32,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.blueauction.bid.service.BidService;
 import kr.co.blueauction.common.domain.Criteria;
-import kr.co.blueauction.common.domain.PageMaker;
 import kr.co.blueauction.common.domain.PageMaker2;
-import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.login.LoginDTO;
 import kr.co.blueauction.member.domain.Member;
 import kr.co.blueauction.member.service.MemberService;
 import kr.co.blueauction.note.domain.Note;
 import kr.co.blueauction.note.service.NoteService;
 import kr.co.blueauction.order.service.OrderService;
-import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 
 /**
- * 경매 리스트를 위한 ProductController 
- *
+ * 회원관련 서비스를 위한  MemberController 
  * @author 김봉환
  * @author 박성준
- * 
  * @since 2017. 11. 13.
  */
 @Controller
@@ -180,8 +179,8 @@ public class MemberController {
 
 	/**
 	 * 이메일중복확인
-	 * @param req
-	 * @param res
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/memberemailcheck", method = RequestMethod.POST)
@@ -202,8 +201,8 @@ public class MemberController {
 
 	/**
 	 * 이메일 인증을위한 POST
-	 * @param req
-	 * @param res
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
 	 * @param session
 	 * @throws Exception
 	 */
@@ -233,8 +232,8 @@ public class MemberController {
 
 	/**
 	 * UID 확인을위한 POST
-	 * @param req
-	 * @param res
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
 	 * @param session
 	 * @throws Exception
 	 */
@@ -255,10 +254,10 @@ public class MemberController {
 
 	/**
 	 * 해당아이디에 중고판매리스트로 이동
-	 * @param cri
+	 * @param Criteria
 	 * @param session
 	 * @param model
-	 * @return
+	 * @return String
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/mypage/goodsmarket", method = RequestMethod.GET)
@@ -279,10 +278,10 @@ public class MemberController {
 
 	/**
 	 * 해당아이디에 옥션판매리스트로 이동
-	 * @param cri
+	 * @param Criteria
 	 * @param session
 	 * @param model
-	 * @return
+	 * @return String
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/mypage/auctionmarket", method = RequestMethod.GET)
@@ -301,6 +300,15 @@ public class MemberController {
 		return "member/auctionmarket";
 	}
 	
+	/**
+	 * 옥션판매리스트 페이징처리
+	 * @param page
+	 * @param perPageNum
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/mypage/auctionmarket/{page}/{perPageNum}", method = RequestMethod.GET)
 	public String auctionpage(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
 		Criteria cri=new Criteria();
@@ -320,7 +328,7 @@ public class MemberController {
 
 	/**
 	 * 해당아이디에 note리스트로 이동
-	 * @param cri
+	 * @param Criteria
 	 * @param session
 	 * @param model
 	 * @return
@@ -350,6 +358,8 @@ public class MemberController {
 	}
 	
 	/**
+	 * 쪽지 리스트 페이지처리
+	 * 받은편지함, 보낸편지함 조회시
 	 * @param page
 	 * @param perPageNum
 	 * @param keyword
@@ -357,12 +367,11 @@ public class MemberController {
 	 * @param model
 	 * @return
 	 * @throws Exception
-	 * 받은편지함, 보낸편지함 조회시
 	 */
 	@RequestMapping(value = "/mypage/note/list/{page}/{perPageNum}/{keyword}", method = RequestMethod.GET)
 	public String noteListByCri(@PathVariable("page") int page, @PathVariable("perPageNum") int perPageNum, @PathVariable("keyword") String keyword, HttpSession session, Model model)
 			throws Exception {
-		logger.info("크리투스트링: page" +page+"perPageNum:"+perPageNum+"keyword"+keyword );
+		/*logger.info("크리투스트링: page" +page+"perPageNum:"+perPageNum+"keyword"+keyword );*/
 		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
 		Member member1 = (Member) member;
@@ -373,7 +382,7 @@ public class MemberController {
 		// 세션에 저장되어 있는 멤버에서 memberId를 가저옴
 		String memberId = member1.getMemberId();
 		List<Note> notelist = noteService.listByCri(cri, memberId);
-		logger.info("보낸편지함"+notelist.toString());
+		/*logger.info("보낸편지함"+notelist.toString());*/
 		model.addAttribute("list", notelist);
 
 		PageMaker2 pageMaker = new PageMaker2();
@@ -386,11 +395,11 @@ public class MemberController {
 	}
 	
 	/**
+	 * 쪽지 읽기
 	 * @param noteId
 	 * @param model
 	 * @param session
 	 * @return
-	 * 쪽지 읽기
 	 */
 	@RequestMapping(value = "/mypage/note/read/{noteId}", method = RequestMethod.GET)
 	public String noteRead(@PathVariable("noteId") int noteId, Model model, HttpSession session) {
@@ -420,12 +429,21 @@ public class MemberController {
 		return "redirect:/member/mypage/note/list";
 	}
 	
+	/**
+	 * 상품리스트 페이지 처리
+	 * @param page
+	 * @param perPageNum
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/mypage/goodsmarket/{page}/{perPageNum}", method=RequestMethod.GET)
 	public String productpage(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
 		Criteria cri=new Criteria();
 		cri.setPage(page);
 		cri.setPerPageNum(perPageNum);
-		logger.info("cri.toString()"+cri.toString());
+		/*logger.info("cri.toString()"+cri.toString());*/
 		Object member = session.getAttribute("login");
 		Member member1 = (Member) member;
 		String memberId = member1.getMemberId();

@@ -1,5 +1,14 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 정지현
+ * @since 2017. 11. 18.
+ */
 package kr.co.blueauction.common.domain;
 
+/**
+ * @author 정지현
+ * @since 2017. 11. 18.
+ */
 public class SearchCriteria{
 	
 	private int page; // 요청한 페이지
@@ -8,6 +17,7 @@ public class SearchCriteria{
 	private int category; // 카테고리 종류
 	private int smallid; // 소분류
 	
+	/** 생성자 */
 	public SearchCriteria() {
 		this(1, 10, null, 1, 0);
 	}
@@ -20,6 +30,8 @@ public class SearchCriteria{
 		this.smallid = smallid;
 	}
 
+	
+	/** Setter & Getter */
 	public int getPage() {
 		return page;
 	}
@@ -74,6 +86,8 @@ public class SearchCriteria{
 		this.smallid = smallid;
 	}
 
+	
+	/** toString */
 	@Override
 	public String toString() {
 		return "SearchCriteria [page=" + page + ", perPageNum=" + perPageNum + ", keyword=" + keyword + ", category="

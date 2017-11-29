@@ -1,24 +1,34 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김봉환
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.common.domain;
 
+/**
+ * Criteria - 페이징 처리를 위한 객체
+ * @author 김봉환
+ * @since 2017. 11. 20.
+ */
 public class Criteria {
 
 	private int page;	
 	private int perPageNum;
 	private String keyword;
 	
-	
-	
+	/** 생성자 */
+	public Criteria(){
+		this.page = 1;
+		this.perPageNum = 10;
+	}
+
+	/** Setter & Getter */
 	public String getKeyword() {
 		return keyword;
 	}
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
-	}
-
-	public Criteria(){
-		this.page = 1;
-		this.perPageNum = 10;
 	}
 
 	public void setPage(int page){
@@ -45,18 +55,18 @@ public class Criteria {
 		return page;
 	}	
 	
-	//method for MyBatis SQL Mapper - 
 	public int getPageStart() {
 		
 		return (this.page -1)* perPageNum;
 	}
 	
-	//method for MyBatis SQL Mapper 
 	public int getPerPageNum(){
 		
 		return this.perPageNum;
 	}
 
+	
+	/** toString */
 	@Override
 	public String toString() {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";

@@ -1,3 +1,8 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 정지현
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.common.domain;
 
 import java.io.UnsupportedEncodingException;
@@ -8,6 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**
+ * 페이징 처리에서 페이지네이션에 필요한 객체
+ * @author 정지현
+ * @since 2017. 11. 15.
+ */
 public class PageMaker {
 	
 	Logger logger = LoggerFactory.getLogger(PageMaker.class);
@@ -18,10 +28,15 @@ public class PageMaker {
 	private boolean prev;
 	private boolean next;
 	
+	/** 생성자 */
+	public PageMaker() {}
+	
 	private int displayPageNum = 10; // 화면에 보여지는 페이지의 수
 	
 	private SearchCriteria cri;
 	
+	
+	/** Setter & Getter */
 	public void setCri(SearchCriteria cri) {
 		this.cri = cri;
 	}
@@ -128,6 +143,8 @@ public class PageMaker {
 		return cri;
 	}
 	
+	
+	/** toString */
 	@Override
 	public String toString() {
 		return "PageMaker [totalCount=" + totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", prev="

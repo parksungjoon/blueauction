@@ -1,5 +1,15 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김수진
+ * @since 2017. 11. 18.
+ */
 package kr.co.blueauction.favorite.domain;
 
+/**
+ * 관심경매 도메인
+ * @author 김수진
+ * @since 2017. 11. 18.
+ */
 public class Favorite {
 
 	private int favoriteId;
@@ -7,6 +17,7 @@ public class Favorite {
 	private int productId;
 	private String regdate;
 	
+	/** 생성자 */
 	public Favorite() {
 		this(0, "", 0, "");	
 	}
@@ -23,6 +34,8 @@ public class Favorite {
 		this.regdate = regdate;
 	}
 	
+	
+	/** Setter & Getter */
 	public int getFavoriteId() {
 		return favoriteId;
 	}
@@ -48,7 +61,8 @@ public class Favorite {
 		this.regdate = regdate;
 	}
 
-
+	
+	/** toString */
 	@Override
 	public String toString() {
 		return "Favorite [favoriteId=" + favoriteId + ", memberId=" + memberId + ", productId=" + productId
