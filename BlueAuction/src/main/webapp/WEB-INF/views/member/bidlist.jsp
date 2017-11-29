@@ -85,8 +85,8 @@
                       <td>${map.productList[status.index].name}</td>
                       <td>${map.productList[status.index].productinfo}</td>
                      
-                      <td>${bid.bidprice}</td>
-                      <td>${bid.biddate}원</td>
+                      <td>${bid.bidprice}원</td>
+                      <td>${bid.biddate}</td>
                     <%--   <td>${map}</td> --%>
                     <%--   <td>${product.}원</td> --%>
                       
