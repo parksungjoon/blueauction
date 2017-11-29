@@ -179,8 +179,16 @@ public class ProductServiceImpl implements ProductService {
 	
 	/** 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 */
 	@Override
-	public List<Product> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception{
-		return productDao.productSellListCriteria(cri, memberId, auctionFlag);
+	public Map<String, Object> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception{
+		
+		Map<String, Object> map= new HashMap<String, Object>();
+		
+		map.put("products", productDao.productSellListCriteria(cri, memberId, auctionFlag));
+		
+		
+		
+		
+		return map;
 	}
 	
 	

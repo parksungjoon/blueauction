@@ -41,7 +41,7 @@ public interface ProductService {
 	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception;
 
 	/** 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 */
-	public List<Product> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception;
+	public Map<String, Object> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception;
 
 	
 	
