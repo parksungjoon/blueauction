@@ -1,11 +1,18 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김봉환
+ * @since 2017. 11. 25.
+ */
 package kr.co.blueauction.common.domain;
-
-
 
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
+/**
+ * 페이징 처리에서 페이지네이션에 필요한 객체
+ * @author 김봉환
+ * @since 2017. 11. 25.
+ */
 public class PageMaker2 {
 
 	private int totalCount;
@@ -18,7 +25,10 @@ public class PageMaker2 {
 	
 	private Criteria cri;
 
-
+	/** 생성자 */
+	public PageMaker2() {}
+	
+	/** Setter & Getter */
 	public void setCri(Criteria cri) {
 		this.cri = cri;
 	}
@@ -97,6 +107,7 @@ public class PageMaker2 {
 		return uriComponents.toUriString();
 	}	
 	
+	/** toString */
 	@Override
 	public String toString() {
 		return "PageMaker [totalCount=" + totalCount + ", startPage="

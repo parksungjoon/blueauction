@@ -11,13 +11,14 @@ package kr.co.blueauction.bid.domain;
  * @since 2017. 11. 15.
  */
 public class Bid {
-	private int bidId;
+	private int bidId; 
 	private int productId;
 	private String memberId;
 	private int bidprice;
 	private String biddate;
 	private String winning;
 	
+	/** 생성자 */
 	public Bid() {
 		this(0, 0, "", 0, "", "");
 	}
@@ -37,6 +38,7 @@ public class Bid {
 		this.winning = winning;
 	}
 
+	/** Getter & Setter */
 	public int getBidId() {
 		return bidId;
 	}
@@ -85,6 +87,8 @@ public class Bid {
 		this.winning = winning;
 	}
 
+	
+	/** To String */
 	@Override
 	public String toString() {
 		return "Bid [bidId=" + bidId + ", productId=" + productId + ", memberId=" + memberId + ", bidprice=" + bidprice
