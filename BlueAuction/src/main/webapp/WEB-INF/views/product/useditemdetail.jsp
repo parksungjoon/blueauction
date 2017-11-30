@@ -381,8 +381,10 @@
                     </dd> 
 				</dl> 
                   <c:if test="${login.memberId!=product.seller}">
+                  <c:if test="${product.auctionstate=='BEFORE'}">
                 <a class="button button-xs button-secondary" id="purchase" href="/order/payment/${product.productId}">구매하기</a>
                 </c:if>
+               </c:if>
                 <c:if test="${not empty login }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
                 <c:if test="${login.memberId!=product.seller }">
