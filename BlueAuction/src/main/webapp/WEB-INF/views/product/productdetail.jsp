@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
@@ -56,7 +57,6 @@
 			 event.preventDefault();
 			 $("#deleteModal").modal();
 		 });
-		 var formObj = $("#modifyPage");
 		 $("#removeBtn").click(function(event) {
 				
 				var deleteForm = document.createElement("form");
@@ -91,10 +91,7 @@
 			var type = $("#type").attr('value');
 			var smallid = ${product.smallid};
 			
-			formObj.attr("action", "/product/auction/"+type+"/"+smallid);    
-			formObj.attr("method", "GET");
-			
-			formObj.submit();
+			window.location.href = "/product/auction/"+type+"/"+smallid+""; 
 		});
 	  });
 	
@@ -209,14 +206,14 @@
 						<div class="present_price" id="Price"><span class="present_num" id="presentNum">
 						<c:choose>
 							<c:when test="${bidList eq null}">
-							${product.basicprice}
+							<fmt:formatNumber value="${product.basicprice}" pattern='#,###.##'/>
 							</c:when>
 							<c:otherwise>
-							${bidList.get(0).bidprice}
+							<fmt:formatNumber value="${bidList.get(0).bidprice}" pattern='#,###.##'/>
 							</c:otherwise>
 						</c:choose>
 						</span> 원  </div>
-						<div class="point"><span class="sf fc6">  시작가   <span class="num_thm" id="basicPrice">${product.basicprice}</span> 원 </span></div>
+						<div class="point"><span class="sf fc6">  시작가   <span class="num_thm" id="basicPrice"><fmt:formatNumber value="${product.basicprice}" pattern='#,###.##'/></span> 원 </span></div>
 					</dd>
 					<c:if test='${(product.auctionstate) ne ("BEFORE")}'>
 					<dt class="redprice">입찰수</dt ><dd class="redprice" id="bidCount">
@@ -361,7 +358,7 @@
 			<div class="shell">
 				<div class="range range-xs-right">
 					<div class="cell-sm-10 cell-lg-4">
-						<button class="btn" id="goListBtn"><a href="${productId}">GO BACK</a></button>
+						<button class="btn" id="goListBtn">GO BACK</a></button>
 						<c:if test="${(login.memberId).equals(product.seller)}">
 							<c:if test='${(product.auctionstate).equals("BEFORE")}'>
 								<button class="btn btn-warning" id="modifyBtn">Modify</button>

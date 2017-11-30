@@ -26,6 +26,7 @@
 		<![endif]--%> 
    <script src="/resources/js/jquery-1.12.4.min.js"></script>
    <script src="/resources/js/countdown.js"></script>
+   <script src="/resources/js/numberFmt.js"></script>
    <script type="text/javascript">
    	var page = 1;
 	var type = ${type};
@@ -220,23 +221,23 @@
     	  			html +="        <div class='product-price-wrap'>";
     	  	  		html +="          <div class='product-price'>";
     	  	  		html +="            <p>Start Price</p>";
-    	  	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
+    	  	  		html +="            <h6>" + setComma(list[i].basicprice) + "원</h6>";
     	  	  		html +="          </div>";
     	  	  		html +="        </div>";
     	  		}else if(type == 2){
     	  			html +="        <div class='jjh-price'>";
     	  	  		html +="          <div class='product-price'>";
     	  	  		html +="            <p>Start Price</p>";
-    	  	  		html +="            <h6>" + list[i].basicprice + "원</h6>";
+    	  	  		html +="            <h6>" + setComma(list[i].basicprice) + "원</h6>";
     	  	  		html +="          </div>";
     	  	  		html +="          <br>";
     	  	  		html +="           <div class='jjh-currentPrice'>";
     	  	  		html +="             <p class=''><strong>Current Price</strong></p>";
     	  	  		
     	      	  	if(list[i].bidprice != 0){
-    	            	html +="<h6>" + list[i].bidprice + "원</h6>";
+    	            	html +="<h6>" + setComma(list[i].basicprice) + "원</h6>";
     	            }else{
-    	            	html +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
+    	            	html +="<h6 class='jjh-notSuccess'>" + setComma(list[i].basicprice) + "원</h6>";
     	            }
     	      	  	
     	  	  		html +="           </div>";
@@ -250,7 +251,7 @@
     	            if(list[i].bidprice != 0){
     	            	html +="<h6>" + list[i].bidprice + "원</h6>";
     	            }else{
-    	            	html +="<h6 class='jjh-notSuccess'>" + list[i].basicprice + "원</h6>";
+    	            	html +="<h6 class='jjh-notSuccess'>" + setComma(list[i].basicprice) + "원</h6>";
     	            }
     	            
     	            html +="           </div>";
@@ -378,7 +379,7 @@
                                 <div class="product-price-wrap">
                                   <div class="product-price">
                                     <p>Start Price</p>
-                                    <h6>${product.basicprice }원</h6>
+                                    <h6><fmt:formatNumber value="${product.basicprice }" pattern='#,###.##'/>원</h6>
                                   </div>
                                 </div>
                               </c:when>
@@ -386,7 +387,7 @@
                                 <div class="jjh-price">
                                   <div class="product-price">
                                     <p>Start Price</p>
-                                    <h6>${product.basicprice }원</h6>
+                                    <h6><fmt:formatNumber value="${product.basicprice }" pattern='#,###.##'/>원</h6>
                                   </div>
                                   <br>
                                   <div class="jjh-currentPrice">
@@ -396,7 +397,7 @@
                                         <h6>${product.bidprice }원</h6>
                                        </c:when>
                                        <c:otherwise>
-                                        <h6 class="jjh-notSuccess">${product.basicprice }원</h6>
+                                        <h6 class="jjh-notSuccess"><fmt:formatNumber value="${product.basicprice }" pattern='#,###.##'/>원</h6>
                                        </c:otherwise>
                                     </c:choose>
                                   </div>
@@ -409,10 +410,10 @@
                               <p class=""><strong>Successful bid</strong></p>
                               <c:choose>
                                  <c:when test="${product.bidprice != 0 }">
-                                    <h6>${product.bidprice }원</h6>
+                                    <h6><fmt:formatNumber value="${product.basicprice }" pattern='#,###.##'/>원</h6>
                                  </c:when>
                                  <c:otherwise>
-                                   <h6 class="jjh-notSuccess">${product.basicprice }원</h6>
+                                   <h6 class="jjh-notSuccess"><fmt:formatNumber value="${product.basicprice }" pattern='#,###.##'/>원</h6>
                                   </c:otherwise>
                               </c:choose>
                             </div>

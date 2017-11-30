@@ -299,9 +299,7 @@ public class MemberController {
 		// login 세션을 가저옴
 		Object member = session.getAttribute("login");
 		Member member1 = (Member) member;
-		logger.info("page:"+page+"perPageNum:"+perPageNum+"keyword:"+keyword);
-		
-		
+		/*logger.info("page:"+page+"perPageNum:"+perPageNum+"keyword:"+keyword);*/
 		
 		Criteria cri=new Criteria();
 		cri.setPage(page);

@@ -36,7 +36,7 @@ public class NoteController {
 	Logger logger=Logger.getLogger(NoteController.class);
 	
 	/**
-	 * 쪽지리스트 조회
+	 * 쪽지 보내는 화면
 	 * @param receiver
 	 * @param model
 	 * @param session

@@ -152,7 +152,6 @@ public class UploadController {
 				String end = fileName.substring(14);
 				new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
 			}
-			
 			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 		}
 		
