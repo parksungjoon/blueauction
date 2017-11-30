@@ -385,7 +385,7 @@
                 <a class="button button-xs button-secondary" id="purchase" href="/order/payment/${product.productId}">구매하기</a>
                 </c:if>
                 <c:if test="${product.auctionstate=='AFTER'}">
-                <a class="button button-xs button-secondary" id="purchase" href="/product/used">판매완료.. 리스트 페이지로..</a>
+                <a class="button button-xs button-secondary" id="purchase" href="/product/used">판매완료..목록으로이동</a>
                 </c:if>
                </c:if>
                 <c:if test="${not empty login }">
