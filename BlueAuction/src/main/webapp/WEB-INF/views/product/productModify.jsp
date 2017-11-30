@@ -74,6 +74,9 @@
     	  var year = now.getFullYear();
     	  var month = now.getMonth() + 1;
     	  var day = now.getDate()+1;
+    	  if(day >=1 || day <10){
+				day = "0"+day;
+			}
     	  var nowDate = year+"-"+month+"-"+day+"T00:00";
     	  
     	  /* 경매시간 유효성 검사 */
