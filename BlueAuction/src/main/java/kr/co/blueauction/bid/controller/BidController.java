@@ -44,28 +44,14 @@ public class BidController {
 
 	
 	/**
-	 * 해당아이디에 입찰리스트 리스트로 이동
-	 * @param cri
-	 * @param session
+	 * 해당아이디 입찰리스트로 이동
+	 * @param page
+	 * @param perPageNum
 	 * @param model
+	 * @param session
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value ="/mypage/bidlist", method = RequestMethod.GET)
-	public String mybidlist(@ModelAttribute("crie") Criteria cri, HttpSession session, Model model) throws Exception {
-		Object member = session.getAttribute("login");
-		Member member1 = (Member) member;
-		String memberId = member1.getMemberId();
-		String winning = "N";
-		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
-		model.addAttribute("map", map);
-		PageMaker2 pageMaker2 = new PageMaker2();
-		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(service.bidCountCriteria(memberId, winning));
-		model.addAttribute("pageMaker", pageMaker2);
-		return "member/bidlist";
-	}
-	
 	@RequestMapping(value ="/mypage/bidlist/{page}/{perPageNum}", method = RequestMethod.GET)
 	public String mybidlistpage(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
 		Criteria cri=new Criteria();
@@ -85,27 +71,13 @@ public class BidController {
 	}
 	
 	/**
-	 *  해당아이디에 낙찰리스트 리스트로 이동
+	 * 해당아이디 낙찰리스트로 이동
 	 * @param cri
 	 * @param session
 	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value ="/mypage/winninglist", method = RequestMethod.GET)
-	public String mywinninglist(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
-		Object member = session.getAttribute("login");
-		Member member1 = (Member) member;
-		String memberId = member1.getMemberId();
-		String winning = "Y";
-		Map<String, Object> map= service.bidListCriteria(cri, memberId, winning);
-		model.addAttribute("map", map);
-		PageMaker2 pageMaker2 = new PageMaker2();
-		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(service.bidCountCriteria(memberId, winning));
-		model.addAttribute("pageMaker", pageMaker2);
-		return "member/winninglist";
-	}
 	@RequestMapping(value ="/mypage/winninglist/{page}/{perPageNum}", method = RequestMethod.GET)
 	public String mywinninglistpage(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
 		Object member = session.getAttribute("login");

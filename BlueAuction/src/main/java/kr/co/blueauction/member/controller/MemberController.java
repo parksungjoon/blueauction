@@ -252,53 +252,6 @@ public class MemberController {
 		out.close();
 	}
 
-	/**
-	 * 해당아이디에 중고판매리스트로 이동
-	 * @param Criteria
-	 * @param session
-	 * @param model
-	 * @return String
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/mypage/goodsmarket", method = RequestMethod.GET)
-	public String goodsmarket(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
-			throws Exception {
-		Object member = session.getAttribute("login");
-		Member member1 = (Member) member;
-		String memberId = member1.getMemberId();
-		String auctionFlag = "N";
-		model.addAttribute("products", productService.productSellListCriteria(cri, memberId, auctionFlag).get("products"));
-		PageMaker2 pageMaker2 = new PageMaker2();
-		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(productService.listCountCriteria(memberId,auctionFlag));
-		model.addAttribute("pageMaker", pageMaker2);
-		return "member/productsmarket";
-	}
-
-
-	/**
-	 * 해당아이디에 옥션판매리스트로 이동
-	 * @param Criteria
-	 * @param session
-	 * @param model
-	 * @return String
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/mypage/auctionmarket", method = RequestMethod.GET)
-	public String auctionmarket(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
-			throws Exception {
-		Object member = session.getAttribute("login");
-		Member member1 = (Member) member;
-		String memberId = member1.getMemberId();
-		String auctionFlag = "Y";
-		model.addAttribute("products", productService.productSellListCriteria(cri, memberId, auctionFlag).get("products"));
-		
-		PageMaker2 pageMaker2 = new PageMaker2();
-		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(productService.listCountCriteria(memberId, auctionFlag));
-		model.addAttribute("pageMaker", pageMaker2);
-		return "member/auctionmarket";
-	}
 	
 	/**
 	 * 옥션판매리스트 페이징처리

@@ -45,31 +45,6 @@ public class OrderController {
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-	/**
-	 * 해당아이디에 중고구매 리스트로 이동
-	 * @param cri
-	 * @param session
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/mypage/productorder", method = RequestMethod.GET)
-	public String productorder2(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model)
-			throws Exception {
-		Object member = session.getAttribute("login");
-		Member member1 = (Member) member;
-		String memberId = member1.getMemberId();
-		String auctionFlag = "N";
-		Map<String, Object> map = orderService.orderListCriteria(cri, memberId, auctionFlag);
-
-		model.addAttribute("map", map);
-		PageMaker2 pageMaker2 = new PageMaker2();
-		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(orderService.listCountCriteria(memberId, auctionFlag));
-		model.addAttribute("pageMaker", pageMaker2);
-		return "member/productorder";
-	}
-	
 	
 	/**
 	 * 해당아이디에 중고구매 리스트로 이동 - 페이징
@@ -100,31 +75,6 @@ public class OrderController {
 	}
 
 
-	/**
-	 * 해당아이디에 옥션구매 리스트로 이동
-	 * @param cri
-	 * @param session
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/mypage/auctionorder", method = RequestMethod.GET)
-	public String auctionorder(@ModelAttribute("cri") Criteria cri, HttpSession session, Model model) throws Exception {
-		Object member = session.getAttribute("login");
-		Member member1 = (Member) member;
-		String memberId = member1.getMemberId();
-		String auctionFlag = "Y";
-
-		Map<String, Object> map = orderService.orderListCriteria(cri, memberId, auctionFlag);
-		model.addAttribute("map", map);
-
-		PageMaker2 pageMaker2 = new PageMaker2();
-		pageMaker2.setCri(cri);
-		pageMaker2.setTotalCount(orderService.listCountCriteria(memberId, auctionFlag));
-		model.addAttribute("pageMaker", pageMaker2);
-
-		return "member/auctionorder";
-	}
 	
 	/**
 	 * 해당아이디에 옥션구매 리스트로 이동 - 페이징
