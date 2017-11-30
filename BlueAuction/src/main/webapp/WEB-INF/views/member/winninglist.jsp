@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
 <head>
@@ -86,11 +87,9 @@
                     <tr>
                       <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${map.productList[status.index].name}</td>
-                      <td>${bid.bidprice}</td>
+                      <td><fmt:formatNumber value="${bid.bidprice}" pattern='#,###.##'/>원</td>
                       <td>${bid.biddate}</td>
                       <td><a href="/order/payment/${bid.productId}">결제하기</a></td>
-                    <%--   <td>${product.}원</td> --%>
-                      
                     </tr>
                   </c:forEach>
                   </tbody>

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
   <head>
@@ -128,7 +129,7 @@
                             </tr>
                             <tr>
                               <td><strong class="jjh-proInfo">Price</strong></td>
-                              <td>${product.price}</td>
+                               <td><fmt:formatNumber value="${product.price}" pattern='#,###.##'/>원</td> 
                              
                             </tr><tr>
                               <td><strong class="jjh-proInfo">배송방식</strong></td>
