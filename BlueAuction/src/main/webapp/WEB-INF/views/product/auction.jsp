@@ -235,7 +235,7 @@
     	  	  		html +="             <p class=''><strong>Current Price</strong></p>";
     	  	  		
     	      	  	if(list[i].bidprice != 0){
-    	            	html +="<h6>" + setComma(list[i].basicprice) + "원</h6>";
+    	            	html +="<h6>" + setComma(list[i].bidprice) + "원</h6>";
     	            }else{
     	            	html +="<h6 class='jjh-notSuccess'>" + setComma(list[i].basicprice) + "원</h6>";
     	            }
