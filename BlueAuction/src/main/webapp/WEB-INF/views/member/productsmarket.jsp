@@ -100,21 +100,21 @@
            
           <div style="text-align: center;">
              <ul class="kbh">
-              <c:if test="${pageMaker.prev}">
-                <li><a href="/member/mypage/goodsmarket${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
-              </c:if>
+               <c:if test="${pageMaker.prev}">
+            <li class="prev"><a
+              href="/member/mypage/goodsmarket/${pageMaker.startPage-1}/${pageMaker.cri.getPerPageNum()}">이전목록</a></li>
+          </c:if>
 
-              <c:forEach begin="${pageMaker.startPage }"
-                end="${pageMaker.endPage }" var="idx">
-                <li
-                  <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-                  <a href="/member/mypage/goodsmarket/${pageMaker.cri.page+1}/${pageMaker.cri.perPageNum}">${idx}</a>
-                </li>
-              </c:forEach>
+          <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+            <li <c:out value="${pageMaker.cri.page==idx?' class=active':''}"/>>
+            <a href="/member/mypage/goodsmarket/${idx}/${pageMaker.cri.getPerPageNum()}">${idx}</a>
+            </li>
+          </c:forEach>
 
-              <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-                <li><a href="/member/mypage/goodsmarket${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
-              </c:if>
+          <c:if test="${pageMaker.next && pageMaker.endPage>0}">
+            <%-- <li><a href="/member/mypage/note/list${pageMaker.makeSearch(pageMaker.endPage+1)}">다음목록</a></li> --%>
+            <li><a href="/member/mypage/goodsmarket/${pageMaker.endPage+1}/${pageMaker.cri.getPerPageNum()}">다음목록</a></li>
+          </c:if>
 
             </ul>
           </div>
