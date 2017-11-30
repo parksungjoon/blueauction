@@ -267,8 +267,10 @@
 				</c:if>
 				
 				<c:if test='${(product.auctionstate).equals("DOING") && not empty login}'>
+                  <c:if test="${login.memberId!=product.seller }">
 				  <div id="clock">
 				  <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a>
+                 </c:if>
                   </div>
 				</c:if>
                 <!-- TEST 하시려면 푸세요. 대신 제가 서버를 켜야합니다. -->
