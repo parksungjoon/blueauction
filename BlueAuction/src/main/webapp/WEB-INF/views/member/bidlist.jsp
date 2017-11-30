@@ -81,7 +81,7 @@
                   </thead>
                   <tbody id="bidListTr">
                   <c:forEach var="bid" items="${map.bidList}" varStatus="status">
-                    <tr>
+                    <tr style = "cursor:pointer;" onClick = " location.href='/product/auction/${map.productList[status.index].productId}' ">
                      <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${map.productList[status.index].name}</td>
                       <td>${map.productList[status.index].productinfo}</td>
