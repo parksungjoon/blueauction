@@ -1,11 +1,20 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김봉환
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.order.dao;
 
 import java.util.List;
 
 import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.order.domain.Orders;
-import kr.co.blueauction.product.domain.Product;
 
+/**
+ * 중고, 옥션 물품 구매를위한 Order Dao Interface
+ * @author 김봉환
+ * @since 2017. 11. 15
+ */
 public interface OrdersDao {
 	/** 주문 등록 */
 	public void insert(Orders orders);
@@ -28,14 +37,13 @@ public interface OrdersDao {
 	/** 로그인된 회원의 구매 리스트를 조회 패이징 */
 	public List<Orders>orderListCriteria(Criteria cri, String memberId, String auctionFlag)
 			throws Exception;
-
 	public int countPaging(String memberId, String auctionFlag) throws Exception;
 
 	/** 주문번호로 주문가저오기 **/
-	public Orders select(int orderId) throws Exception;
+	public Orders readByOrderId(int orderId) throws Exception;
 	
 	/** 상품명으로 주문항목 가저오기 **/
-	public Orders select2(int productId) throws Exception;
+	public Orders readByProductId(int productId) throws Exception;
 
 	/** 결제완료 업뎃 **/
 	public void update(int orderId) throws Exception;

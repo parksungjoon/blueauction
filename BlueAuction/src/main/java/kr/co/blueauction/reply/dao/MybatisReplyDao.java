@@ -1,3 +1,8 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.reply.dao;
 
 import java.util.HashMap;
@@ -14,6 +19,11 @@ import org.springframework.stereotype.Repository;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.reply.domain.Reply;
 
+/**
+ * 댓글 처리 Dao
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 @Repository
 public class MybatisReplyDao implements ReplyDao{
 	
@@ -24,25 +34,43 @@ public class MybatisReplyDao implements ReplyDao{
 	
 	private static final String NAMESPACE = "kr.co.blueauction.mapper.RelplyMapper";
 	
-//	댓글 등록
+	/**
+	 * 댓글 등록
+	 * @param Reply
+	 * @see kr.co.blueauction.reply.service.ReplyService#create(kr.co.blueauction.reply.domain.Reply)
+	 */
 	@Override
 	public void create(Reply reply) throws Exception {
 		sqlSession.insert(NAMESPACE + ".create", reply);
 	}
 	
-//	댓글 수정
+	/**
+	 * 댓글 수정
+	 * @param Reply
+	 * @see kr.co.blueauction.reply.service.ReplyService#create(kr.co.blueauction.reply.domain.Reply)
+	 */
 	@Override
 	public void update(Reply reply) throws Exception {
 		sqlSession.update(NAMESPACE + ".update", reply);
 	}
 	
-//	댓글 삭제
+	/**
+	 * 댓글 삭제
+	 * @param replyId
+	 * @see kr.co.blueauction.reply.service.ReplyService#create(kr.co.blueauction.reply.domain.Reply)
+	 */
 	@Override
 	public void delete(int replyId) throws Exception {
 		sqlSession.update(NAMESPACE + ".delete", replyId);
 	}
 	
-//	댓글 목록 출력 및 페이징 처리
+	/**
+	 * 댓글 목록 출력및 페이징 처리
+	 * @param productId
+	 * @param page
+	 * @return List<Reply>
+	 * @see kr.co.blueauction.reply.service.ReplyService#create(kr.co.blueauction.reply.domain.Reply)
+	 */
 	@Override
 	public List<Reply> listPage(SearchCriteria cri, int productId) throws Exception {
 		Map<String, Object> map=new HashMap<String, Object>();
@@ -51,19 +79,33 @@ public class MybatisReplyDao implements ReplyDao{
 		return sqlSession.selectList(NAMESPACE + ".listPage", map);
 	}
 	
-//	전체 댓글 수 계산
+	/**
+	 * 물품번호에 따른 전체 댓글 수 조회
+	 * @param productId
+	 * @return
+	 * @see kr.co.blueauction.reply.service.ReplyService#create(kr.co.blueauction.reply.domain.Reply)
+	 */
 	@Override
 	public int count(int productId) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".count", productId);
 	}
 	
-//	댓글 정보 조회
+	/**
+	 * 댓글번호로 댓글 조회
+	 * @param replyId
+	 * @return Reply
+	 * @see kr.co.blueauction.reply.service.ReplyService#create(kr.co.blueauction.reply.domain.Reply)
+	 */
 	@Override
 	public Reply read(int replyId) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".read", replyId);
 	}
 	
-//	orderno 증가
+	/**
+	 * orderNo 증가
+	 * @param Reply
+	 * @see kr.co.blueauction.reply.service.ReplyService#create(kr.co.blueauction.reply.domain.Reply)
+	 */
 	@Override
 	public void liftOrderNo(Reply reply) throws Exception {
 		sqlSession.update(NAMESPACE + ".liftOrderNo", reply);

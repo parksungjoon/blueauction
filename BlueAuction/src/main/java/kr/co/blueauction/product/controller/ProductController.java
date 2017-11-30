@@ -1,3 +1,10 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 13.
+ */
 package kr.co.blueauction.product.controller;
 
 import java.util.HashMap;
@@ -42,7 +49,6 @@ import kr.co.blueauction.product.service.ProductService;
  * 
  * @since 2017. 11. 13.
  */
-
 @Controller
 @RequestMapping("/product")
 public class ProductController {

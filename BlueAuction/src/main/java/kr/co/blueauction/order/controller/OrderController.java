@@ -44,7 +44,6 @@ public class OrderController {
 	private BidService bidService;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
-
 	
 	/**
 	 * 해당아이디에 중고구매 리스트로 이동 - 페이징
@@ -74,8 +73,6 @@ public class OrderController {
 		return "member/productorder";
 	}
 
-
-	
 	/**
 	 * 해당아이디에 옥션구매 리스트로 이동 - 페이징
 	 * @param page
@@ -147,8 +144,8 @@ public class OrderController {
 			rttr.addFlashAttribute("why", "이미 판매가 완료되었습니다.");
 		} else {
 			orderService.insert(orders);
-			if (orderService.select2(productId) != null) {
-				orderService.update((orderService.select2(productId).getOrderId()));
+			if (orderService.readByProductId(productId) != null) {
+				orderService.update((orderService.readByProductId(productId).getOrderId()));
 				rttr.addFlashAttribute("result", "결제를 성공하였습니다.");
 			} 
 		}

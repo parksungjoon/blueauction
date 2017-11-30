@@ -1,3 +1,10 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.product.service;
 
 import java.util.List;
@@ -11,6 +18,13 @@ import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
 
+/**
+ * 상품 관련 서비스 interface
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 public interface ProductService {
 	
 	/** 상품 등록 */
@@ -42,9 +56,8 @@ public interface ProductService {
 
 	/** 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 */
 	public Map<String, Object> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception;
-
 	
-	
+	/** 회원별 물품 페이지 수  */
 	public int listCountCriteria(String memberId, String auctionFlag) throws Exception;
 
 	/** 로그인 회원 아이디 조회 */

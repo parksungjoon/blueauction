@@ -1,5 +1,15 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.reply.domain;
 
+/**
+ * 댓글 Domain
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 public class Reply {
 	private int replyId;
 	private String memberId;
@@ -11,6 +21,7 @@ public class Reply {
 	private int orderNo;
 	private String deleteFlag;
 	
+	/** 생성자 */
 	public Reply() {
 		this(0, "", 0, "", "", 0, 0, 0, "N");
 	}
@@ -21,7 +32,6 @@ public class Reply {
 
 	public Reply(int replyId, String memberId, int productId, String content, String regdate, int groupNo, int levelNo,
 			int orderNo, String deleteFlag) {
-		super();
 		this.replyId = replyId;
 		this.memberId = memberId;
 		this.productId = productId;
@@ -33,6 +43,7 @@ public class Reply {
 		this.deleteFlag = deleteFlag;
 	}
 
+	/** Setter & Getter */
 	public int getReplyId() {
 		return replyId;
 	}
@@ -105,6 +116,7 @@ public class Reply {
 		this.deleteFlag = deleteFlag;
 	}
 	
+	/** toString */
 	@Override
 	public String toString() {
 		return "Reply [replyId=" + replyId + ", memberId=" + memberId + ", productId=" + productId + ", content="

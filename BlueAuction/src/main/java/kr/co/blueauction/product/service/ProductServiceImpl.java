@@ -1,3 +1,10 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.product.service;
 
 import java.io.File;
@@ -28,6 +35,13 @@ import kr.co.blueauction.photo.domain.Photo;
 import kr.co.blueauction.product.dao.ProductDao;
 import kr.co.blueauction.product.domain.Product;
 
+/**
+ * 상품 관련 서비스 
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -42,6 +56,11 @@ public class ProductServiceImpl implements ProductService {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
+	/** 
+	 * 상품 등록
+	 * @param product
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	@Transactional
 	public void create(Product product) throws Exception {
@@ -70,11 +89,23 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	/** 
+	 * 상품 전체 리스트 조회
+	 * @param flag
+	 * @return List<Product>
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	public List<Product> listAll(String flag) throws Exception {
 		return productDao.listAll(flag);
 	}
 
+	/** 
+	 * 아이디에 따른 상품 상세 조회 
+	 * @param productId
+	 * @return Product
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	public Product read(int productId) throws Exception {
 		Product product = productDao.read(productId);
@@ -98,6 +129,11 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
+	/** 
+	 * 상품 수정
+	 * @param product
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	@Transactional
 	public void modify(Product product) throws Exception {
@@ -123,13 +159,17 @@ public class ProductServiceImpl implements ProductService {
 				Photo photo = new Photo(product.getProductId(), files[i]);
 				photoDao.create(photo);
 			}
-
 		}
 
 		// 상품 수정
 		productDao.update(product);
 	}
 
+	/** 
+	 * 상품 삭제
+	 * @param productId
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	@Transactional
 	public void delete(int productId) throws Exception {
@@ -138,6 +178,14 @@ public class ProductServiceImpl implements ProductService {
 		productDao.delete(productId);
 	}
 
+	/** 
+	 * {요청 페이지,  페이지당 출력 게시글 수, 검색 종류, 검색 값, 카테고리}에 대한 결과 조회
+	 * @param cri
+	 * @param type
+	 * @param arrayType
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	public List<Product> listByCri(SearchCriteria cri, int type, String arrayType) throws Exception {
 		if (type != 1) {
@@ -147,16 +195,34 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.listByCri(cri, type, arrayType);
 	}
 
+	/** 
+	 * 검색 조건에 따른 전체 상품 리스트 수 
+	 * @param cri
+	 * @param type
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	public int listBySearchCount(SearchCriteria cri, int type) throws Exception {
 		return productDao.listBySearchCount(cri, type);
 	}
 
+	/** 
+	 * 스케줄러 - 경매상태 변경
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	public void updateAuctionsatate() throws Exception {
 		productDao.updateAuctionsatate();
 	}
-
+	
+	/** 
+	 * 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회
+	 * @param memberId
+	 * @param auctionFlag
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception {
 		List<Product> productList = productDao.productSellList(memberId, auctionFlag);
@@ -181,30 +247,40 @@ public class ProductServiceImpl implements ProductService {
 		return productList;
 	}
 	
-	/** 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 */
+	/** 
+	 * 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 - 페이징
+	 * @param memberId
+	 * @param auctionFlag
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
+	 */
 	@Override
 	public Map<String, Object> productSellListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception{
 		
 		Map<String, Object> map= new HashMap<String, Object>();
-		
 		map.put("products", productDao.productSellListCriteria(cri, memberId, auctionFlag));
-		
-		
-		
 		
 		return map;
 	}
 	
-	
+	/**
+	 * 회원별 물품 페이지 수
+	 * @param memberId
+	 * @param auctionFlag
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#listCountCriteria(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public int listCountCriteria(String memberId, String auctionFlag) throws Exception{
 		return productDao.countPaging(memberId, auctionFlag);
 	}
 	
-	
-	
-
-	/** 로그인 회원 아이디 조회 */
+	/**
+	 * 로그인 회원 아이디 조회
+	 * @param session
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#listCountCriteria(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public String memberIdGet(HttpSession session) throws Exception {
 		String memberId = null;
@@ -218,7 +294,14 @@ public class ProductServiceImpl implements ProductService {
 		return memberId;
 	}
 
-	/** 경매 SearchCriteria 설정 */
+	/** 
+	 * 경매 SearchCriteria 설정
+	 * @param smallid
+	 * @param page
+	 * @param keyword
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#listCountCriteria(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public SearchCriteria setCri(int smallid, int page, String keyword) throws Exception {
 		SearchCriteria cri = new SearchCriteria();
@@ -237,7 +320,13 @@ public class ProductServiceImpl implements ProductService {
 		return cri;
 	}
 
-	/** 경매 마지막 페이지인지 여부 조회 */
+	/** 
+	 * 경매 마지막 페이지인지 여부 조회
+	 * @param cri
+	 * @param totalCount
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#listCountCriteria(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public String checkEndPage(SearchCriteria cri, int totalCount) throws Exception {
 		String check = null;
@@ -257,7 +346,12 @@ public class ProductServiceImpl implements ProductService {
 		return check;
 	}
 
-	/** 중고 상품 리스트 출력 */
+	/** 
+	 * 중고 상품 리스트 출력
+	 * @param model
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#listCountCriteria(java.lang.String, java.lang.String)
+	 */
 	@Override
 	@Transactional
 	public Model listUsedItems(Model model) throws Exception {
@@ -287,20 +381,26 @@ public class ProductServiceImpl implements ProductService {
 		return model;
 	}
 
-	/** 중고상품 리스트 더 보기 */
+	/** 
+	 * 중고 상품 리스트 더 보기
+	 * @param cri
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#listCountCriteria(java.lang.String, java.lang.String)
+	 */
 	@Override
 	@Transactional
 	public Map<String, Object> getMoreList(SearchCriteria cri) throws Exception {
 		
+		// 리스트 조회
 		List<Product> list = productDao.listByCri(cri, 0, "recent");
-		for (Product product : list) {
-		}
 		int count = productDao.listBySearchCount(cri, 0);
 		
+		// 페이지 계산
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(count);
 		
+		// 썸네일 -> 원본 사진 변경
 		for (Product product : list) {
 			product.setMainphoto(product.getMainphoto().replaceAll("s_", ""));
 		}
@@ -312,17 +412,22 @@ public class ProductServiceImpl implements ProductService {
 		return resultMap;
 	};
 
-	/** 중고상품 상세 보기 */
+	/** 
+	 * 중고 상품 상세 조회
+	 * @param cri
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#listCountCriteria(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public Model getDetail(int productId, Model model) throws Exception {
+		// 상품 정보 및 사진리스트 조회
 		Product product = productDao.read(productId);
-
 		List<Photo> photoList = photoDao.readByProductId(productId);
 
 		String[] photoArr = null;
 		
+		// 파일 크기 계산
 		int totalFileSize = 0;
-		
 		if (photoList.size() > 0) {
 			photoArr = new String[photoList.size()];
 
@@ -336,10 +441,12 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 
+		// Product 객체에 사진 저장
 		if (photoArr != null) {
 			product.setPhoto(photoArr);
 		}
 
+		// json으로 변경
 		Gson gson = new Gson();
 		String jsonlist = gson.toJson(product);
 		String filesSize = gson.toJson(totalFileSize);
@@ -351,7 +458,12 @@ public class ProductServiceImpl implements ProductService {
 		return model;
 	}
 
-	/** 중고 or 경매의 최근 등록된 4개의 리스트 조회 */
+	/** 
+	 * 중고 or  경매의 최근 등록된 4개의 리스트 조회
+	 * @param category
+	 * @return
+	 * @see kr.co.blueauction.product.service.ProductService#listCountCriteria(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public List<Product> recentList(int category) throws Exception {
 		return productDao.recentList(category);
