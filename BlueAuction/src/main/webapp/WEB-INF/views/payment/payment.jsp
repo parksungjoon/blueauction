@@ -130,6 +130,10 @@
                               <td><strong class="jjh-proInfo">Price</strong></td>
                               <td>${product.price}</td>
                              
+                            </tr><tr>
+                              <td><strong class="jjh-proInfo">배송방식</strong></td>
+                              <td>${product.deliverytype}</td>
+                             
                             </tr>
                           </tbody>
                         </table>
