@@ -26,6 +26,13 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.blueauction.product.util.MediaUtils;
 import kr.co.blueauction.product.util.UploadFileUtils;
 
+/**
+ * 파일의 업로드를 처리하는 컨트롤러
+ * 
+ * @author 최명승
+ * @since 2017. 11. 21.
+ */
+
 @Controller
 @RequestMapping("/product/attach/*")
 public class UploadController {
@@ -35,19 +42,13 @@ public class UploadController {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 	
-	private String uploadFile(String originalName, byte[] fileData) throws Exception {
-		
-		UUID uid = UUID.randomUUID(); // 중복 방지를 위한 고유 키값 생성
-		
-		String savedName = uid.toString() + "_" + originalName;
-		
-		File target = new File(uploadPath, savedName);
-		
-		FileCopyUtils.copy(fileData, target);
-		
-		return savedName;
-	}
-	
+	/**
+	 * 뷰에서 전송된 첨부파일 저장
+	 * 
+	 * @param file 첨부파일 데이터
+	 * @return 업로드 완료된 파일명
+	 * @throws Exception
+	 */
 	@ResponseBody
 	@RequestMapping(value="/", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
 	public ResponseEntity<String> uploadImages(MultipartFile file) throws Exception {
@@ -55,6 +56,13 @@ public class UploadController {
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 	
+	/**
+	 * 첨부파일 정보 읽어오기
+	 * 
+	 * @param fileName 업로드된 파일명
+	 * @return 파일명 및 바이너리 데이터
+	 * @throws Exception
+	 */
 	@ResponseBody
 	@RequestMapping("/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
@@ -93,6 +101,12 @@ public class UploadController {
 		return entity;
 	}
 	
+	/**
+	 * 첨부파일 삭제
+	 * 
+	 * @param fileName 파일명
+	 * @return 작업 결과 메세지
+	 */
 	@ResponseBody
 	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
@@ -113,6 +127,12 @@ public class UploadController {
 		
 	}
 	
+	/**
+	 * 첨부파일 일괄 삭제
+	 * 
+	 * @param files 파일명 배열
+	 * @return 작업 결과 메세지
+	 */
 	@ResponseBody
 	@RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files) {
