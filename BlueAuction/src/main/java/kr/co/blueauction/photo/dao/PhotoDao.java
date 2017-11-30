@@ -7,7 +7,6 @@ package kr.co.blueauction.photo.dao;
 
 import java.util.List;
 
-import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.photo.domain.Photo;
 
 /**

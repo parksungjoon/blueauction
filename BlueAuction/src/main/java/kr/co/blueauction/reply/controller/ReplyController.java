@@ -1,7 +1,10 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.reply.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -17,11 +20,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.blueauction.common.domain.PageMaker;
-import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.reply.domain.Reply;
 import kr.co.blueauction.reply.service.ReplyService;
 
+
+/**
+ * 댓글 처리 Controller
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 @RestController
 @RequestMapping("/reply")
 public class ReplyController {
@@ -31,7 +38,11 @@ public class ReplyController {
 	@Inject
 	ReplyService replyService;
 	
-//	댓글 등록
+	/**
+	 * 댓글 등록
+	 * @param reply
+	 * @return ResponseEntity<String>
+	 */
 	@Transactional
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public ResponseEntity<String> create(@RequestBody Reply reply){
@@ -51,7 +62,11 @@ public class ReplyController {
 		return entity;
 	};
 	
-//	댓글 수정
+	/**
+	 * 댓글 수정
+	 * @param Reply
+	 * @return ResponseEntity<String>
+	 */
 	@RequestMapping(value="/{replyId}", method= {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> update(@PathVariable("replyId") int replyId, @RequestBody Reply reply){
 		
@@ -69,7 +84,10 @@ public class ReplyController {
 		return entity;
 	}
 	
-//	댓글 삭제
+	/** 댓글 삭제
+	 * @param replyId
+	 * @return ResponseEntity<String>
+	 */
 	@RequestMapping(value="/{replyId}", method=RequestMethod.DELETE)
 	public ResponseEntity<String> delete(@PathVariable("replyId") int replyId){
 		ResponseEntity<String> entity = null;
@@ -84,7 +102,12 @@ public class ReplyController {
 		return entity;
 	}
 	
-//	댓글 출력 및 페이징
+	/**
+	 * 댓글 출력 및 페이징
+	 * @param productId
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping(value="/{productId}/{page}", method=RequestMethod.GET )
 	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("productId") int productId, @PathVariable("page") int page) {
 		

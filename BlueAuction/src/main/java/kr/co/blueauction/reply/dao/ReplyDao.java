@@ -1,3 +1,8 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.reply.dao;
 
 import java.util.List;
@@ -5,6 +10,11 @@ import java.util.List;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.reply.domain.Reply;
 
+/**
+ * 댓글 처리 Dao
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 public interface ReplyDao {
 
 //	댓글 등록

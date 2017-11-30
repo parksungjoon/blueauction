@@ -1,5 +1,15 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김봉환
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.order.domain;
 
+/**
+ * 중고, 옥션 물품 구매를위한 Order 
+ * @author 김봉환
+ * @since 2017. 11. 15
+ */
 public class Orders {
 	private int orderId; 
 	private String memberId;
@@ -13,12 +23,10 @@ public class Orders {
 	private int price;
 	private String paystate;
 	
-	
+	/** 생성자  */
 	public Orders() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
 
 	public Orders(String memberId, int productId, String phone, String zipcode, String baseaddress,
 			String detailaddress, int price) {
@@ -55,6 +63,7 @@ public class Orders {
 	}
 
 
+	/**  Setter % Getter */
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}

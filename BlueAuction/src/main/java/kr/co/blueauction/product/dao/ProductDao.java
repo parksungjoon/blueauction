@@ -1,13 +1,25 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.product.dao;
 
 import java.util.List;
-
-import org.springframework.ui.Model;
 
 import kr.co.blueauction.common.domain.Criteria;
 import kr.co.blueauction.common.domain.SearchCriteria;
 import kr.co.blueauction.product.domain.Product;
 
+/**
+ * 상품 관련 Dao interface
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 15.
+ */
 public interface ProductDao {
 	
 	/** 상품 등록 */

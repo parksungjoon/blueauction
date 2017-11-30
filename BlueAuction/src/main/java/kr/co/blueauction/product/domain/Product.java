@@ -1,7 +1,21 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 13.
+ */
 package kr.co.blueauction.product.domain;
 
 import java.util.Arrays;
 
+/**
+ * 상품 Domain
+ * @author 김수진
+ * @author 정지현
+ * @author 최명승
+ * @since 2017. 11. 13.
+ */
 public class Product {
 
 	private int productId;
@@ -25,6 +39,7 @@ public class Product {
 	
 	private String[] photo;
 	
+	/**  생성자  */
 	public Product() {
 		this(0, 0, 0, "", "",  "", "", "", 0, "", "", null, null, null, 0, "");
 	}
@@ -61,6 +76,7 @@ public class Product {
 		this.auctionstate = auctionstate;
 	}
 
+	/** Setter & Getter */
 	public int getProductId() {
 		return productId;
 	}

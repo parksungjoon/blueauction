@@ -17,6 +17,7 @@ public class Photo {
 	private String photoname;
 	private String regdate;
 	
+	/** 생성자 */
 	public Photo() {
 		this(0, 0, "", "");
 	}
@@ -33,6 +34,7 @@ public class Photo {
 		this.regdate = regdate;
 	}
 
+	/** Setter & Getter */
 	public int getPhotoId() {
 		return photoId;
 	}
