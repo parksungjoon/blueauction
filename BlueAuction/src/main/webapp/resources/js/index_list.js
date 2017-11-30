@@ -1,3 +1,4 @@
+
 /* 리스트 출력 */
   		function printList(data){
   			var used = data.used;
@@ -36,23 +37,23 @@
                   	 html += "<div class='product-price-wrap'>";
                        html += "  <div class='product-price'>";
                        html +="   <p>Price</p>";
-                       html += "    <h6>" + data[i].price + "원</h6>";
+                       html += "    <h6>" + setComma(data[i].price) + "원</h6>";
                        html += "  </div>";
                        html += "</div>";
                   }else{
                   	html +="        <div class='jjh-price'>";
       	  	  		html +="          <div class='product-price'>";
       	  	  		html +="            <p>Start Price</p>";
-      	  	  		html +="            <h6>" + data[i].basicprice + "원</h6>";
+      	  	  		html +="            <h6>" + setComma(data[i].price) + "원</h6>";
       	  	  		html +="          </div>";
       	  	  		html +="          <br>";
       	  	  		html +="           <div class='jjh-currentPrice'>";
       	  	  		html +="             <p class=''><strong>Current Price</strong></p>";
       	  	  		
       	      	  	if(data[i].bidprice != 0){
-      	            	html +="<h6>" + data[i].bidprice + "원</h6>";
+      	            	html +="<h6>" + setComma(data[i].price) + "원</h6>";
       	            }else{
-      	            	html +="<h6 class='jjh-notSuccess'>" + data[i].basicprice + "원</h6>";
+      	            	html +="<h6 class='jjh-notSuccess'>" + setComma(data[i].price) + "원</h6>";
       	            }
       	      	  	
       	  	  		html +="           </div>";
