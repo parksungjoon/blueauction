@@ -88,22 +88,6 @@ public class MybatisBidDao implements BidDao {
 	}
 
 	/* 
-	 * 회원아이디로 입찰 조회
-	 * @parameter memberId 
-	 * @parameter winning 
-	 * @return List<Bid>
-	 * @see kr.co.blueauction.bid.dao.BidDao#create(kr.co.blueauction.bid.domain.Bid)
-	 */
-	@Override
-	public List<Bid> bidList(String memberId, String winning) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberId", memberId);
-		map.put("winning", winning);
-		return sqlSession.selectList(NAMESPACE + ".bidList", map);
-
-	}
-
-	/* 
 	 * 회원아이디로 입찰 조회 - 페이징
 	 * @parameter Criteria 페이지 처리에 관련된 객체
 	 * @parameter memberId 

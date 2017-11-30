@@ -34,9 +34,6 @@ public interface OrderService {
 	/** 주문 삭제 */
 	public void delete(int orderNo);
 	
-	/** 로그인된 회원의 중고or 옥션 구매 리스트를 조회 **/
-	public Map<String, Object> orderList(String memberId, String auctionFlag) throws Exception;
-	
 	/** 로그인된 회원의 중고or 옥션 구매 리스트를 조회 페이징**/
 	public Map<String, Object> orderListCriteria(Criteria cri, String memberId, String auctionFlag) throws Exception;
 	

@@ -134,24 +134,6 @@ public class MybatisProductDao implements ProductDao {
 	}
 	
 	/** 
-	 * 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회
-	 * @param memberId
-	 * @param auctionFlag
-	 * @return
-	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
-	 */
-	@Override
-	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception{
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("memberId", memberId);
-		map.put("auctionFlag", auctionFlag);
-
-	
-		return sqlSession.selectList(namespace+".productSellList", map);
-	}
-
-
-	/** 
 	 * 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 - 페이징
 	 * @param memberId
 	 * @param auctionFlag

@@ -97,22 +97,6 @@ public class MybatisOrderDao implements OrdersDao{
 	public void delete(int orderNo) {
 		sqlSession.delete(NAMESPACE+".delete", orderNo);
 	}
-	
-	/**
-	 * 로그인된 회원의 중고or 옥션 구매 리스트를 조회
-	 * 
-	 * @param orderNo
-	 * @return
-	 * @see kr.co.blueauction.order.service.OrderService#insert(kr.co.blueauction.order.domain.Orders)
-	 */
-	@Override
-	public List<Orders> orderList(String memberId, String auctionFlag) throws Exception{
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("memberId", memberId);
-		map.put("auctionFlag", auctionFlag);
-		return sqlSession.selectList(NAMESPACE+".orderList", map);
-	}
-
 	/**
 	 * 로그인된 회원의 중고or 옥션 구매 리스트를 조회 -페이지
 	 * 

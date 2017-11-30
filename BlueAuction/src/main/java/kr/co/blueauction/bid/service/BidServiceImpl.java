@@ -88,31 +88,6 @@ public class BidServiceImpl implements BidService {
 	}
 	
 	/* 
-	 * 회원아이디 및 낙찰자로 입찰 조회
-	 * @ parameter memberId, winning
-	 * @ return Map<String, Object>
-	 * @see kr.co.blueauction.bid.service.BidService#create(kr.co.blueauction.bid.domain.Bid)
-	 */
-	@Override
-	public Map<String, Object> bidList(String memberId, String winning) throws Exception{
-		
-		List<Bid> bidList= bidDao.bidList(memberId, winning);
-		
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("bidList", bidList);
-		List<Product> productList=new ArrayList<Product>();
-		for (Bid bid : bidList) {
-			Product product = productdao.read(bid.getProductId());
-			productList.add(product);
-		}
-		
-		map.put("productList", productList);
-		
-		return map;
-		
-	}
-	
-	/* 
 	 * 회원아이디에 입찰 리스트 수
 	 * @ parameter memberId, winning
 	 * @ return int

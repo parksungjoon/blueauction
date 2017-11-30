@@ -217,37 +217,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	/** 
-	 * 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회
-	 * @param memberId
-	 * @param auctionFlag
-	 * @return
-	 * @see kr.co.blueauction.product.service.ProductService#create(kr.co.blueauction.product.domain.Product)
-	 */
-	@Override
-	public List<Product> productSellList(String memberId, String auctionFlag) throws Exception {
-		List<Product> productList = productDao.productSellList(memberId, auctionFlag);
-		if (productList.size() > 0) {
-			for (int i = 0; i < productList.size(); i++) {
-				if (productList.get(i) != null) {
-					int productId = productList.get(i).getProductId();
-
-					List<Photo> photoList = photoDao.readByProductId(productId);
-					String[] photoArr = null;
-					if (photoList.size() > 0) {
-						photoArr = new String[photoList.size()];
-
-						for (int j = 0; j < photoArr.length; j++) {
-							photoArr[j] = photoList.get(j).getPhotoname();
-						}
-					}
-					productList.get(i).setPhoto(photoArr);
-				}
-			}
-		}
-		return productList;
-	}
-	
-	/** 
 	 * 로그인된 회원의 중고or옥션 판매 물품 리스트를 조회 - 페이징
 	 * @param memberId
 	 * @param auctionFlag

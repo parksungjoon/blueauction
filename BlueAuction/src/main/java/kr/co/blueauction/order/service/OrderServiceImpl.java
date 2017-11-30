@@ -100,31 +100,6 @@ public class OrderServiceImpl implements OrderService {
 		ordersDao.delete(orderNo);
 	}
 
-	/**
-	 * 로그인된 회원의 중고or 옥션 구매 리스트를 조회
-	 * 
-	 * @param orderNo
-	 * @return
-	 * @see kr.co.blueauction.order.service.OrderService#insert(kr.co.blueauction.order.domain.Orders)
-	 */
-	@Override
-	public Map<String, Object> orderList(String memberId, String auctionFlag) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Product> productList = new ArrayList<Product>();
-		List<Orders> orderList = ordersDao.orderList(memberId, auctionFlag);
-		map.put("orderList", orderList);
-
-		if (orderList != null) {
-			Product product = null;
-			for (Orders order : orderList) {
-				product = productDao.read(order.getProductId());
-				productList.add(product);
-			}
-			map.put("productList", productList);
-		}
-
-		return map;
-	}
 
 	/**
 	 * 로그인된 회원의 중고or 옥션 구매 리스트를 조회 -페이지
