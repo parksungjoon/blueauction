@@ -126,9 +126,6 @@ public class ProductServiceImpl implements ProductService {
 			product.setPhoto(photoArr);
 		}
 		
-		// 개행문자 처리
-		product.setProductinfo(product.getProductinfo().replaceAll("<br>", "\r\n"));
-
 		return product;
 	}
 
