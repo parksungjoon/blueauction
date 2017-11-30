@@ -1,9 +1,13 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 김봉환
+ * @since 2017. 11. 15.
+ */
 package kr.co.blueauction.order.controller;
 
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -25,11 +29,8 @@ import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
 /**
  * 중고, 옥션 물품 구매를위한 OrderController
- *
- * @author 정지현
  * @author 김봉환
- * @since 2015.11.20
- *
+ * @since 2017. 11. 15
  */
 @RequestMapping("/order")
 @Controller
@@ -37,10 +38,8 @@ public class OrderController {
 
 	@Inject
 	private OrderService orderService;
-
 	@Inject
 	private ProductService productService;
-
 	@Inject
 	private BidService bidService;
 
@@ -70,6 +69,17 @@ public class OrderController {
 		model.addAttribute("pageMaker", pageMaker2);
 		return "member/productorder";
 	}
+	
+	
+	/**
+	 * 해당아이디에 중고구매 리스트로 이동 - 페이징
+	 * @param page
+	 * @param perPageNum
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/mypage/productorder/{page}/{perPageNum}", method = RequestMethod.GET)
 	public String page(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
 		Criteria cri=new Criteria();
@@ -116,6 +126,15 @@ public class OrderController {
 		return "member/auctionorder";
 	}
 	
+	/**
+	 * 해당아이디에 옥션구매 리스트로 이동 - 페이징
+	 * @param page
+	 * @param perPageNum
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/mypage/auctionorder/{page}/{perPageNum}", method = RequestMethod.GET)
 	public String auctionorderpage(@ModelAttribute("page") int page, @ModelAttribute("perPageNum") int perPageNum, Model model, HttpSession session) throws Exception {
 		Criteria cri=new Criteria();
@@ -138,6 +157,7 @@ public class OrderController {
 	}
 
 	/**
+	 * 결제화면
 	 * @param productId
 	 * @param session
 	 * @param model
@@ -160,6 +180,7 @@ public class OrderController {
 	}
 
 	/**
+	 * 주문
 	 * @param orders
 	 * @param productId
 	 * @param session
@@ -185,6 +206,7 @@ public class OrderController {
 	}
 
 	/**
+	 * 주문 결제 완료 화면
 	 * @return
 	 * @throws Exception
 	 */

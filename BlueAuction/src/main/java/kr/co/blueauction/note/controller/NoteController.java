@@ -1,3 +1,8 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 박성준
+ * @since 2017. 11. 22.
+ */
 package kr.co.blueauction.note.controller;
 
 import javax.inject.Inject;
@@ -16,6 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.blueauction.note.domain.Note;
 import kr.co.blueauction.note.service.NoteService;
 
+/**
+ * Note관련 기능 Controller
+ * @author 박성준
+ * @since 2017. 11. 22.
+ */
 @RequestMapping("/note")
 @Controller
 public class NoteController {
@@ -25,6 +35,14 @@ public class NoteController {
 	
 	Logger logger=Logger.getLogger(NoteController.class);
 	
+	/**
+	 * 쪽지리스트 조회
+	 * @param receiver
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/{receiver}", method = RequestMethod.GET)
 	public String notePageGet(@PathVariable("receiver") String receiver,Model model, HttpSession session)throws Exception{
 		model.addAttribute("receiver", receiver);
@@ -32,10 +50,15 @@ public class NoteController {
 		return "note/noteregister";
 	}
 	
+	/**
+	 * 쪽지 보내기
+	 * @param note
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody Note note){
 		
-		logger.info("쪽지 데이터 들어옴"+note.toString());
+		/*logger.info("쪽지 데이터 들어옴"+note.toString());*/
 		ResponseEntity<String> entity=null;
 		
 		try {

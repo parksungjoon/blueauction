@@ -1,5 +1,16 @@
+/**
+ * Copyright(c) 2017, BlueAuction. All right reserved
+ * @author 박성준
+ * @since 2017. 11. 22.
+ */
 package kr.co.blueauction.note.domain;
 
+
+/**
+ * Note Domain
+ * @author 박성준
+ * @since 2017. 11. 22.
+ */
 public class Note {
 
 	  private int noteId; 
