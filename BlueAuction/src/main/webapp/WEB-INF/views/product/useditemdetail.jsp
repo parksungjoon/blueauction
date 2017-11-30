@@ -383,22 +383,29 @@
                   <c:if test="${login.memberId!=product.seller}">
                   <c:if test="${product.auctionstate=='BEFORE'}">
                 <a class="button button-xs button-secondary" id="purchase" href="/order/payment/${product.productId}">구매하기</a>
-                </c:if>
-                <c:if test="${product.auctionstate=='AFTER'}">
-                    <c:if test="${product.auction_flag=='N'}">
-                <a class="button button-xs button-secondary" id="purchase" href="/product/used">판매완료..목록으로이동</a>
-                </c:if>
-                <c:if test="${product.auction_flag=='Y'}">
-                <a class="button button-xs button-secondary" id="purchase" href="/order/payment/${product.productId}">구매하기</a>
-                </c:if>
-                </c:if>
-               </c:if>
-                <c:if test="${not empty login }">
+                 <c:if test="${not empty login }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
                 <c:if test="${login.memberId!=product.seller }">
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
                 </c:if>
                 </c:if>
+                </c:if>
+                <c:if test="${product.auctionstate=='AFTER'}">
+                    <c:if test="${product.auctionFlag=='N'}">
+                <a class="button button-xs button-secondary" id="purchase" href="/product/used">판매완료..목록으로이동</a>
+                </c:if>
+                <c:if test="${product.auctionFlag=='Y'}">
+                <a class="button button-xs button-secondary" id="purchase" href="/order/payment/${product.productId}">구매하기</a>
+                 <c:if test="${not empty login }">
+                <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
+                <c:if test="${login.memberId!=product.seller }">
+                <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
+                </c:if>
+                </c:if>
+                </c:if>
+                </c:if>
+               </c:if>
+               
               </div>
             </div>
           </div>
