@@ -127,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		// 개행문자 처리
-		product.setProductinfo(product.getProductinfo().replaceAll("<br>", "/r/n"));
+		product.setProductinfo(product.getProductinfo().replaceAll("<br>", "\r\n"));
 
 		return product;
 	}
@@ -419,7 +419,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		// 개행문자 처리
-		product.setProductinfo(product.getProductinfo().replaceAll("<br>", "/r/n"));
+		product.setProductinfo(product.getProductinfo().replaceAll("<br>", "\r\n"));
 
 		// json으로 변경
 		Gson gson = new Gson();
