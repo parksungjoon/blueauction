@@ -11,18 +11,18 @@
 	<div class="shop-aside-item" ">
 		<h6>중고장터</h6>
 		<ul class="list-marked list-marked-secondary">
-			<li><a href="/member/mypage/goodsmarket">판매리스트</a></li>
-			<li><a href="/order/mypage/productorder">구매리스트</a></li>
+			<li><a href="/member/mypage/goodsmarket/1/10">판매리스트</a></li>
+			<li><a href="/order/mypage/productorder/1/10">구매리스트</a></li>
 		</ul>
 	</div>
 
 	<div class="shop-aside-item">
 		<h6>경매장터</h6>
 		<ul class="list-marked list-marked-secondary">
-			<li><a href="/member/mypage/auctionmarket">판매리스트</a></li>
-			<li><a href="/bid/mypage/bidlist">입찰리스트</a></li>
-			<li><a href="/bid/mypage/winninglist">낙찰리스트</a></li>
-			<li><a href="/order/mypage/auctionorder">구매리스트</a></li>
+			<li><a href="/member/mypage/auctionmarket/1/10">판매리스트</a></li>
+			<li><a href="/bid/mypage/bidlist/1/10">입찰리스트</a></li>
+			<li><a href="/bid/mypage/winninglist/1/10">낙찰리스트</a></li>
+			<li><a href="/order/mypage/auctionorder/1/10">구매리스트</a></li>
 		</ul>
 	</div>
 
