@@ -235,7 +235,7 @@
     	  	  		html +="             <p class=''><strong>Current Price</strong></p>";
     	  	  		
     	      	  	if(list[i].bidprice != 0){
-    	            	html +="<h6>" + setComma(list[i].basicprice) + "원</h6>";
+    	            	html +="<h6>" + setComma(list[i].bidprice) + "원</h6>";
     	            }else{
     	            	html +="<h6 class='jjh-notSuccess'>" + setComma(list[i].basicprice) + "원</h6>";
     	            }
@@ -249,7 +249,7 @@
     	            html +="<p class=''><strong>Successful bid</strong></p>";
     	            
     	            if(list[i].bidprice != 0){
-    	            	html +="<h6>" + list[i].bidprice + "원</h6>";
+    	            	html +="<h6>" + setComma(list[i].bidprice) + "원</h6>";
     	            }else{
     	            	html +="<h6 class='jjh-notSuccess'>" + setComma(list[i].basicprice) + "원</h6>";
     	            }
@@ -394,7 +394,7 @@
                                     <p class=""><strong>Current Price</strong></p>
                                     <c:choose>
                                        <c:when test="${product.bidprice != 0 }">
-                                        <h6>${product.bidprice }원</h6>
+                                        <h6> <fmt:formatNumber value="${product.bidprice }" pattern='#,###.##'/>원</h6>
                                        </c:when>
                                        <c:otherwise>
                                         <h6 class="jjh-notSuccess"><fmt:formatNumber value="${product.basicprice }" pattern='#,###.##'/>원</h6>

@@ -26,6 +26,7 @@
     <script type="text/javascript" src="/resources/js/upload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
     <script type="text/javascript" src="/resources/js/fileUpload.js"></script>
+    <script type="text/javascript" src="/resources/js/makeComma.js"></script>
     <script id="template" type="text/x-handlebars-template">
 		<li class="attachment">
   			<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
@@ -164,7 +165,7 @@
                         <div class="cell-sm-5">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside ksj-numberInput  " for="forms-3-company">basicPrice</label>
-                            <input class="form-input" type="number" step="1000" min="1000" 
+                            <input class="form-input" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" step="1000" min="1000" 
                            	       name="basicprice" data-constraints="@Required" required="required">
                           </div>
                         </div>

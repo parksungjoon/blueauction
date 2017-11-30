@@ -30,6 +30,7 @@
     <script type="text/javascript" src="/resources/js/upload.js"></script>
     <script type="text/javascript" src="/resources/js/fileUpload.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <script type="text/javascript" src="/resources/js/makeComma.js"></script>
    
     <style type="text/css">
       input.file {
@@ -188,7 +189,7 @@
                         <div class="cell-sm-5">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside ksj-numberInput" for="forms-3-company">basicPrice</label>
-                            <input class="form-input" type="number" step="1000" min="1000" value="${product.basicprice}"
+                            <input class="form-input" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" step="1000" min="1000" value="<fmt:formatNumber value="${product.basicprice}" pattern='#,###.##'/>"
                            	       name="basicprice" data-constraints="@Required" required="required">
                           </div>
                         </div>
