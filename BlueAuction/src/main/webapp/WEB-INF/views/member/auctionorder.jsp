@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html class="wide wow-animation" lang="en">
 <head>
@@ -86,8 +87,7 @@
                     <tr>
                       <td>${pageMaker.getTotalCount()+1-((pageMaker.cri.getPage()-1)*pageMaker.cri.getPerPageNum())-status.count}</td>
                       <td>${map.productList[status.index].name}</td>
-                      <td>${order.price}원</td>
-                         
+                      <td><fmt:formatNumber value="${order.price}" pattern='#,###.##'/>원</td> 
                        <c:choose>
                    <c:when test="${order.dstate==NULL}"><td>배송전</td></c:when>
                    <c:when test="${order.dstate=='N'}"><td>배송전</td></c:when>
