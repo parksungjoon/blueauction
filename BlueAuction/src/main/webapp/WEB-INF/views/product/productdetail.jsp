@@ -274,8 +274,8 @@
                 <!-- TEST 하시려면 푸세요. 대신 제가 서버를 켜야합니다. -->
 				<!-- <a class="button button-xs button-secondary" id='bidModalOpen' data-toggle="modal" data-target="#bidModal">입찰하기</a> -->
                 <c:if test="${not empty login }">
-                <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
                 <c:if test="${login.memberId!=product.seller }">
+                 <a class="button button-xs button-secondary" href="#" onclick="javascript:chatting()">채팅하기</a>
                 <a class="button button-xs button-secondary" href="#" onclick="javascript:noteSend()">${product.seller}에게 쪽지</a>
                 </c:if>
                 </c:if>
