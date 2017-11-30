@@ -125,7 +125,7 @@
                     </div>
                     <div class="row">
                       <div class="checkbox jjh-paymentCheck">
-                         <label><input type="checkbox" value="N" onclick="same()">로그인한 회원정보와 동일합니다</label>
+                         <input type="checkbox" value="N" onclick="same()">로그인한 회원정보와 동일합니다
                       </div>
                       </div>
                       <div class="range range-20">
