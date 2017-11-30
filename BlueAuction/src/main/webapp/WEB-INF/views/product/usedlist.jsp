@@ -112,6 +112,8 @@
 				}
   				
   				isPaid();
+  				setLayout();
+
   			} 			
   		});
 	}
@@ -123,11 +125,41 @@
 		getMoreList();
 	});
     
-    
+    /* 상품 이미지 클릭 시 상세 정보 페이지로 이동 */
     $(document).on("click", ".item-image", function(e) {
 		e.preventDefault();
 		location.href = $(this).attr("id");
 	})
+	
+	/* 리스트 레이아웃 세팅 */
+	function setLayout() {
+		  if (plugins.isotope.length) {
+			    var i, isogroup = [];
+			    for (i = 0; i < plugins.isotope.length; i++) {
+			      var isotopeItem = plugins.isotope[i],
+			        iso = new Isotope(isotopeItem, {
+			          itemSelector: '.isotope-item',
+			          layoutMode: isotopeItem.getAttribute('data-isotope-layout') ? isotopeItem.getAttribute('data-isotope-layout') : 'masonry',
+			          filter: '*',
+			          masonry: {
+			            columnWidth: isotopeItem.getAttribute('data-column-width') ? parseFloat(isotopeItem.getAttribute('data-column-width')) : 0.312
+			          }
+			        });
+
+			      isogroup.push(iso);
+			    }
+
+			    $(window).on('load', function () {
+			      setTimeout(function () {
+			        var i;
+			        for (i = 0; i < isogroup.length; i++) {
+			          isogroup[i].element.className += " isotope--loaded";
+			          isogroup[i].layout();
+			        }
+			      }, 600);
+			    });
+			  }
+	}
     
     </script>
     
