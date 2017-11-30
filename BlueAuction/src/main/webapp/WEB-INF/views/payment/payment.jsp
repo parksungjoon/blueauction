@@ -44,7 +44,6 @@
     	var logininfosame=$('#logininfosame').val();
     	if(logininfosame=='N'){
     	
-        	$('#memberId').val('${member.memberId}');
         	$('#name').val('${member.name}');
         	$('#sample6_postcode').val('${member.zipcode}');
         	$('#sample6_address').val('${member.baseaddress}');
@@ -55,7 +54,6 @@
     	}
     	if(logininfosame=='Y'){
         	
-        	$('#memberId').val('');
         	$('#name').val('');
         	$('#sample6_postcode').val('');
         	$('#sample6_address').val('');
