@@ -41,16 +41,30 @@
     
     
     function same(){
+    	var logininfosame=$('#logininfosame').val();
+    	if(logininfosame=='N'){
     	
-    	$('#memberId').val('${member.memberId}');
-    	$('#name').val('${member.name}');
-    	$('#sample6_postcode').val('${member.zipcode}');
-    	$('#sample6_address').val('${member.baseaddress}');
-    	$('#sample6_address2').val('${member.detailaddress}');
-    	$('#email').val('${member.email}');
-    	$('#phoneNumber').val('${member.phoneNumber}');
-    	
-    	
+        	$('#memberId').val('${member.memberId}');
+        	$('#name').val('${member.name}');
+        	$('#sample6_postcode').val('${member.zipcode}');
+        	$('#sample6_address').val('${member.baseaddress}');
+        	$('#sample6_address2').val('${member.detailaddress}');
+        	$('#email').val('${member.email}');
+        	$('#phoneNumber').val('${member.phoneNumber}');
+        	$('#logininfosame').val('Y');
+    	}
+    	if(logininfosame=='Y'){
+        	
+        	$('#memberId').val('');
+        	$('#name').val('');
+        	$('#sample6_postcode').val('');
+        	$('#sample6_address').val('');
+        	$('#sample6_address2').val('');
+        	$('#email').val('');
+        	$('#phoneNumber').val('');
+        	$('#logininfosame').val('N');
+        	}
+        	
     }
 
     
@@ -123,18 +137,21 @@
                         </table>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="checkbox jjh-paymentCheck">
-                         <input type="checkbox" value="N" onclick="same()">로그인한 회원정보와 동일합니다
-                      </div>
-                      </div>
+                    <div class="form-check" >
+                      <label class="checkbox-inline jjh-autoLoginCheck">
+                         <input type="checkbox" id="logininfosame" value=N onclick="same()">로그인 정보와 같습니다.
+                     </label>
+                      <!-- <label>
+                     <input type="checkbox" name="useCookie">Remember me
+                    </label> -->
+                    </div>
                       <div class="range range-20">
                       
                         <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                           <%--아이디는 로그인 세션값 받아와서 자동 입력되도록... readonly적용함 --%>
                             <label class="form-label-outside" for="forms-3-name">Id</label>
-                            <input class="form-input" type="text" id="memberId" name="memberId" value="${member.memberId}"data-constraints="@Required" readonly>
+                            <input class="form-input" type="text" id="memberId" name="memberId" value=${member.memberId} data-constraints="@Required" readonly>
                           </div>
                         </div>
                         <div class="cell-sm-6">
