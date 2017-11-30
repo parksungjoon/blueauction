@@ -63,7 +63,7 @@
                   if(category == 1){
                 	  html += "<div class='product-button'><a class='jjh-listButton button-secondary' href='/product/used/" + data[i].productId + "'>Detail</a></div>";
                   }else{
-                	  html += "<div class='product-button'><a class='jjh-listButton button-secondary' href='/product/auction/readpage/" + data[i].productId + "'>Detail</a></div>";
+                	  html += "<div class='product-button'><a class='jjh-listButton button-secondary' href='/product/auction/" + data[i].productId + "'>Detail</a></div>";
                   }
                  
                   html += "</div>";
