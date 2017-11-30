@@ -370,7 +370,7 @@
                <dl class="nv3 nfirst present">
                		<dt class="redprice">판매가</dt>
 					<dd class="redprice">
-						<div class="present_price" id="Price"><span class="present_num">${product.price }</span> 원  </div>
+    				<div class="present_price" id="Price"><span class="present_num"><fmt:formatNumber value="${product.price }" pattern='#,###.##'/></span> 원  </div>
 					</dd>
                     <dt class="redprice">배송방식</dt ><dd class="redprice">
                      <span class="">${product.deliverytype }</span>                  
