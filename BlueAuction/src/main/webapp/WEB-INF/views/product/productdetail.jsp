@@ -56,7 +56,6 @@
 			 event.preventDefault();
 			 $("#deleteModal").modal();
 		 });
-		 var formObj = $("#modifyPage");
 		 $("#removeBtn").click(function(event) {
 				
 				var deleteForm = document.createElement("form");
@@ -91,10 +90,7 @@
 			var type = $("#type").attr('value');
 			var smallid = ${product.smallid};
 			
-			formObj.attr("action", "/product/auction/"+type+"/"+smallid);    
-			formObj.attr("method", "GET");
-			
-			formObj.submit();
+			window.location.href = "/product/auction/"+type+"/"+smallid+""; 
 		});
 	  });
 	
@@ -361,7 +357,7 @@
 			<div class="shell">
 				<div class="range range-xs-right">
 					<div class="cell-sm-10 cell-lg-4">
-						<button class="btn" id="goListBtn"><a href="${productId}">GO BACK</a></button>
+						<button class="btn" id="goListBtn">GO BACK</a></button>
 						<c:if test="${(login.memberId).equals(product.seller)}">
 							<c:if test='${(product.auctionstate).equals("BEFORE")}'>
 								<button class="btn btn-warning" id="modifyBtn">Modify</button>
