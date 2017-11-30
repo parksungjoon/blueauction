@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
   <head>
@@ -24,6 +25,7 @@
   <script src="/resources/js/jquery-1.12.4.min.js"></script>
   <script src="/resources/js/countdown.js"></script>
   <script src="/resources/js/index_list.js"></script>
+  <script src="/resources/js/numberFmt.js"></script>
   <script type="text/javascript">
   	$(document).ready(function(){
   		
@@ -37,6 +39,8 @@
   			}
   		});
   	});
+  	
+  	
   		
   </script>
   </head>
