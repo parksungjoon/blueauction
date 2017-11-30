@@ -125,6 +125,9 @@ public class ProductServiceImpl implements ProductService {
 		if (photoArr != null) {
 			product.setPhoto(photoArr);
 		}
+		
+		// 개행문자 처리
+		product.getProductinfo().replaceAll("<br>", "/r/n");
 
 		return product;
 	}
@@ -414,6 +417,9 @@ public class ProductServiceImpl implements ProductService {
 		if (photoArr != null) {
 			product.setPhoto(photoArr);
 		}
+		
+		// 개행문자 처리
+		product.getProductinfo().replaceAll("<br>", "/r/n");
 
 		// json으로 변경
 		Gson gson = new Gson();
