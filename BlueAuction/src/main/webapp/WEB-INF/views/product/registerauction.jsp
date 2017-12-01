@@ -169,8 +169,10 @@
                         <div class="cell-sm-5">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside ksj-numberInput  " for="forms-3-company">basicPrice</label>
-                           	<input class="form-input" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" step="1000" min="1000" 
-                           	       name="basicprice" data-constraints="@Required" required="required">
+                            <input class="form-input" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" step="1000" min="1000" 
+                           	       name="basicpriceTmp" data-constraints="@Required" required="required" id="basicPrice">
+                           	<!-- <input class="form-input" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" step="1000" min="1000" 
+                           	       name="basicprice1" data-constraints="@Required" required="required"> -->
                           </div>
                         </div>
                         <div class="cell-sm-5">
