@@ -45,6 +45,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			}
 			String dest = (String)session.getAttribute("dest");
 			Object referer=session.getAttribute("referer");
+			if(dest!="/resources/css/style.css.map") {
+				System.out.println("dfdsdfsfdsfdsfdsfdsfdsfsd");
+				dest="/";
+			}
 			response.sendRedirect(dest != null ? (String)dest : "/");
 		}else {
 			response.sendRedirect("/member/login");
