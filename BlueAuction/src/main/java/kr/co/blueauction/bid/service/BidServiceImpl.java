@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import kr.co.blueauction.bid.dao.BidDao;
 import kr.co.blueauction.bid.domain.Bid;
 import kr.co.blueauction.common.domain.Criteria;
+import kr.co.blueauction.order.dao.OrdersDao;
+import kr.co.blueauction.order.domain.Orders;
 import kr.co.blueauction.product.dao.ProductDao;
 import kr.co.blueauction.product.domain.Product;
 import kr.co.blueauction.product.service.ProductService;
@@ -34,6 +36,8 @@ public class BidServiceImpl implements BidService {
 	BidDao bidDao;
 	@Inject
 	ProductDao productdao;
+	@Inject
+	OrdersDao ordersdao;
 
 	/* 
 	 * 입찰 등록
@@ -113,12 +117,17 @@ public class BidServiceImpl implements BidService {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("bidList", bidList);
 		List<Product> productList=new ArrayList<Product>();
+		List<Orders> orderList=new ArrayList<Orders>();
 		for (Bid bid : bidList) {
 			Product product = productdao.read(bid.getProductId());
+			Orders order=ordersdao.readByProductId(bid.getProductId());
 			productList.add(product);
+			orderList.add(order);
 		}
 		
 		map.put("productList", productList);
+		map.put("orderList", orderList);
+		
 		
 		
 		return map;

@@ -89,7 +89,15 @@
                       <td>${map.productList[status.index].name}</td>
                       <td><fmt:formatNumber value="${bid.bidprice}" pattern='#,###.##'/>원</td>
                       <td>${bid.biddate}</td>
-                      <td><a href="/order/payment/${bid.productId}">결제하기</a></td>
+                       <c:if test="${map.orderList[status.index].paystate==NULL}">
+                          <td><a href="/order/payment/${bid.productId}">결제하기</a></td>
+                        </c:if>
+                        <c:if test="${map.orderList[status.index].paystate=='N'}">
+                          <td><a href="/order/payment/${bid.productId}">결제하기</a></td>
+                        </c:if>
+                        <c:if test="${map.orderList[status.index].paystate=='Y'}">
+                          <td><a href="#">결제완료</a></td>
+                        </c:if>
                     </tr>
                   </c:forEach>
                   </tbody>
