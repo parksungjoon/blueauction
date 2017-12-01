@@ -84,6 +84,16 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 	
 	/**
+	 * 상품별 댓글 완전 삭제
+	 * @param productId
+	 * @see kr.co.blueauction.reply.service.ReplyService#deleteAll(int)
+	 */
+	@Override
+	public void deleteAll(int productId) throws Exception {
+		replyDao.deleteAll(productId);
+	}
+	
+	/**
 	 * 댓글 목록 출력및 페이징 처리
 	 * @param productId
 	 * @param page

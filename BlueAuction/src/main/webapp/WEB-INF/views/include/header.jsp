@@ -4,18 +4,7 @@
 <link rel="stylesheet" href="/resources/css/jjh-style.css">
 <link rel="stylesheet" href="/resources/css/ksj-css.css">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css" rel="stylesheet">
-<script type="text/javascript">
-	$(document).ready(function(){
-		$(".select-menu").click(function(event){
-			 var remove = "#" + $(".active").attr("id");
-			 var add = "#" + $(this).attr("id");
-			 /* alert(remove + ", " + $(this).attr("id")); */
-			 $(add).addClass("active");
-			 $(remove).removeClass("active");
-			
-		});
-	});
-</script>
+
 <header class="section page-header">
 	<!-- RD Navbar-->
 	<div class="rd-navbar-wrap rd-navbar-shop-header">

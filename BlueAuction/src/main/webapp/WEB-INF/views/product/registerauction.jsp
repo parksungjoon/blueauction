@@ -190,7 +190,7 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Auction Date</label>
                            <%--  <input type="date" class="form-input data" id="form-element-date" data-time-picker="date" name="auctionstart" value="${product.auctionstart}" > --%>
-                           <input type="datetime-local" class="form-input" step='3600' name="auctionstart" data-constraints="@Required" required="required">
+                           <input type="datetime-local" class="form-input" step='1800' name="auctionstart" data-constraints="@Required" required="required">
                           </div>
                         </div>
                         <div class="cell-xs-12">

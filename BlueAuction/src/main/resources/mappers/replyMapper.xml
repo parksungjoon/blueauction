@@ -52,6 +52,11 @@
 		WHERE  reply_id = #{replyId}
 	</update>
 	
+	<delete id="deleteAll">
+		DELETE FROM reply 
+		WHERE  product_id = #{productId}
+	</delete>
+	
 	<!-- 댓글 목록 출력 및 페이징 처리 -->
 	<select id="listPage" resultType="Reply">
 		SELECT * 

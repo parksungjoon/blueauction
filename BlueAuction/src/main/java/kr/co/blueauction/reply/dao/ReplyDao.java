@@ -26,6 +26,9 @@ public interface ReplyDao {
 //	댓글 삭제
 	public void delete(int replyId) throws Exception;
 	
+//	상품별 댓글 전체 삭제
+	public void deleteAll(int productId) throws Exception;
+	
 //	댓글 목록 출력 및 페이징 처리
 	public List<Reply> listPage(SearchCriteria cri, int productId) throws Exception;
 	

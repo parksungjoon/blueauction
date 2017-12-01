@@ -48,7 +48,7 @@ public class Scheduler {
 	}
 	
 	// 경매 낙찰자 - 매시간 30분마다 실행
-	@Scheduled(cron = "00 30 * * * *")
+	@Scheduled(cron = "00 00,30 * * * *")
 	public void winningState() {
 		try {
 			logger.info("현재시간: " + (new Date()).toString() + " 에 winningState 실행");

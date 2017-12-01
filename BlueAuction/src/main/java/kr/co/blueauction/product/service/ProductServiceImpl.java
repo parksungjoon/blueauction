@@ -34,6 +34,7 @@ import kr.co.blueauction.photo.dao.PhotoDao;
 import kr.co.blueauction.photo.domain.Photo;
 import kr.co.blueauction.product.dao.ProductDao;
 import kr.co.blueauction.product.domain.Product;
+import kr.co.blueauction.reply.dao.ReplyDao;
 
 /**
  * 상품 관련 서비스 
@@ -53,6 +54,9 @@ public class ProductServiceImpl implements ProductService {
 	PhotoDao photoDao;
 	@Inject
 	FavoriteDao favoriteDao;
+	@Inject
+	ReplyDao replyDao;
+	
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
@@ -173,6 +177,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void delete(int productId) throws Exception {
+		if (replyDao.count(productId) != 0) {
+			replyDao.deleteAll(productId);
+		}
 		favoriteDao.deleteByProductId(productId);
 		photoDao.deleteByproductId(productId);
 		productDao.delete(productId);

@@ -65,6 +65,16 @@ public class MybatisReplyDao implements ReplyDao{
 	}
 	
 	/**
+	 * 상품별 댓글 전체 삭제
+	 * @param productId 
+	 * @see kr.co.blueauction.reply.dao.ReplyDao#deleteAll(int)
+	 */
+	@Override
+	public void deleteAll(int productId) throws Exception {
+		sqlSession.delete(NAMESPACE + ".deleteAll", productId);
+	}
+	
+	/**
 	 * 댓글 목록 출력및 페이징 처리
 	 * @param productId
 	 * @param page
