@@ -74,6 +74,9 @@
     	  var year = now.getFullYear();
     	  var month = now.getMonth() + 1;
     	  var day = now.getDate()+1;
+    	  if(day >=1 || day <10){
+				day = "0"+day;
+			}
     	  var nowDate = year+"-"+month+"-"+day+"T00:00";
     	  
     	  /* 경매시간 유효성 검사 */
@@ -190,7 +193,9 @@
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside ksj-numberInput" for="forms-3-company">basicPrice</label>
                             <input class="form-input" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" step="1000" min="1000" value="<fmt:formatNumber value="${product.basicprice}" pattern='#,###.##'/>"
-                           	       name="basicprice" data-constraints="@Required" required="required">
+                           	       name="basicpriceTmp" data-constraints="@Required" required="required">
+                           	<%-- <input class="form-input" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" step="1000" min="1000" value="<fmt:formatNumber value="${product.basicprice}" pattern='#,###.##'/>"
+                           	       name="basicprice" data-constraints="@Required" required="required"> --%>
                           </div>
                         </div>
                         <div class="cell-sm-4">
@@ -244,10 +249,6 @@
                           <ul class="mailbox-attachments clearfix uploadedList">
                           </ul>
                         </div>
-                        
-                       <%--  <input type='hidden' name='page' value="${page}"> 
-                       <input type='hidden' name='type' value="${type}">
-                       <input type='hidden' name='keyword' value="${keyword}"> --%>
                         
                         <div class="cell-sm-12 offset-custom-1">
                           <div class="form-button text-sm-right">

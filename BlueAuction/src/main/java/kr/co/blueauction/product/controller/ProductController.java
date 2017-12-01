@@ -227,7 +227,8 @@ public class ProductController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/auction/modify/{productId}", method= RequestMethod.POST)
-	public String modifyPagePUT(@PathVariable("productId") int productId, Product product, Model model) throws Exception {
+	public String modifyPagePUT(@PathVariable("productId") int productId, Product product, @RequestParam String basicpriceTmp, Model model) throws Exception {
+		product.setBasicprice(Integer.parseInt(basicpriceTmp.replaceAll(",", "")));
 		
 		// 사진 및 수정 데이터 저장
 		productService.modify(product);
@@ -283,7 +284,10 @@ public class ProductController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "auction/register", method = RequestMethod.POST)
-	public String registerPOST(Model model, HttpSession session, Product product, RedirectAttributes redirectAttributes)throws Exception{
+	public String registerPOST(Model model, HttpSession session, Product product, @RequestParam String basicpriceTmp, RedirectAttributes redirectAttributes)throws Exception{
+		
+		product.setBasicprice(Integer.parseInt(basicpriceTmp.replaceAll(",", "")));
+		
 		productService.create(product);
 		
 		Map<String, Object> map = listGet(1, product.getSmallid(), session);
@@ -348,8 +352,10 @@ public class ProductController {
 	 * @return 뷰 주소
 	 */
 	@RequestMapping(value="/used/register", method=RequestMethod.POST)
-	public String createPost(Product product) {
+	public String createPost(Product product, @RequestParam String priceTmp) {
 		try {
+			product.setPrice(Integer.parseInt(priceTmp.replaceAll(",", "")));
+			
 			productService.create(product);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -401,8 +407,10 @@ public class ProductController {
 	 * @return 뷰 주소
 	 */
 	@RequestMapping(value="/used/modify/{productId}", method=RequestMethod.POST)
-	public String modifyPost(Product product) {
+	public String modifyPost(Product product, @RequestParam String priceTmp) {
 		try {
+			product.setPrice(Integer.parseInt(priceTmp.replaceAll(",", "")));
+			
 			productService.modify(product);
 		} catch (Exception e) {
 			e.printStackTrace();
