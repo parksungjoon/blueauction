@@ -65,6 +65,14 @@ function sendAttachment() {
 	  
 	  var that = $(this);
 	  
+	  var price;
+	  if (that.get(0).elements.price) {
+		  price = that.get(0).elements.price
+	  } else {
+		  price = that.get(0).elements.basicprice;
+	  }
+	  price.value = price.value.replace(",", "");
+	  
 	  var str ="";
 	  $(".uploadedList .delbtn").each(function(index){
 	     str += "<input type='hidden' name='photo["+index+"]' value='"+$(this).attr("href") +"'> ";

@@ -161,8 +161,7 @@
                         <div id="pricediv" class="cell-sm-3">
                           <div class="form-wrap form-wrap-validation">
                             <label class="ksj-numberInput form-label-outside" for="forms-3-city">Price</label>
-                            <input class="form-input" id="forms-3-city" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" min="1000" name="priceTmp" value="<fmt:formatNumber value="${product.price }" pattern='#,###.##'/>" data-constraints="@Required" required="required">
-<%--                             <input class="form-input" id="forms-3-city" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" min="1000" name="price" value="<fmt:formatNumber value="${product.price }" pattern='#,###.##'/>" data-constraints="@Required" required="required"> --%>
+                            <input class="form-input" id="forms-3-city" type="text" onchange="getNumber(this);" onkeyup="getNumber(this);" min="1000" name="price" value="<fmt:formatNumber value="${product.price }" pattern='#,###.##'/>" data-constraints="@Required" required="required">
                           </div>
                         </div>
                         <div class="cell-sm-4">
