@@ -25,6 +25,9 @@ public interface ReplyService {
 
 	/** 댓글 삭제 */
 	public void delete(int replyId) throws Exception;
+	
+	/** 상품별 댓글 전체 삭제 */
+	public void deleteAll(int productId) throws Exception;
 
 	/** 댓글 목록 출력 및 페이징 처리 */
 	public Map<String, Object> listPage(int productId, int page) throws Exception;
