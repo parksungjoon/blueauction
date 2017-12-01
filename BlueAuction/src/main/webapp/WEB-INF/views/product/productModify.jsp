@@ -227,7 +227,7 @@
                          <div class="cell-sm-6">
                           <div class="form-wrap form-wrap-validation">
                             <label class="form-label-outside" for="forms-3-city">Auction Date</label>
-                           <input type="datetime-local" class="form-input" step='3600' id="auctionstart" name="auctionstart" data-constraints="@Required" required>
+                           <input type="datetime-local" class="form-input" step='1800' id="auctionstart" name="auctionstart" data-constraints="@Required" required>
                           </div>
                         </div>
                         <div class="cell-sm-12">
